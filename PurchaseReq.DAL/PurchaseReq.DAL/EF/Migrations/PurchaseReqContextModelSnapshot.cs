@@ -198,7 +198,7 @@ namespace PurchaseReq.DAL.EF.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Employees","User");
                 });
 
             modelBuilder.Entity("PurchaseReq.Models.Entities.Item", b =>

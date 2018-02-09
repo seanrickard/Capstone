@@ -11,7 +11,7 @@ using System;
 namespace PurchaseReq.DAL.EF.Migrations
 {
     [DbContext(typeof(PurchaseReqContext))]
-    [Migration("20180209230814_DroidWarriors")]
+    [Migration("20180209232328_DroidWarriors")]
     partial class DroidWarriors
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -199,7 +199,7 @@ namespace PurchaseReq.DAL.EF.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Employees","User");
                 });
 
             modelBuilder.Entity("PurchaseReq.Models.Entities.Item", b =>

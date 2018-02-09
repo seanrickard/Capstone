@@ -13,25 +13,6 @@ namespace PurchaseReq.DAL.EF.Migrations
                 name: "User");
 
             migrationBuilder.CreateTable(
-                name: "Employees",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Active = table.Column<bool>(nullable: false),
-                    Email = table.Column<string>(maxLength: 50, nullable: true),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    Password = table.Column<string>(maxLength: 50, nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    TimeStamp = table.Column<byte[]>(rowVersion: true, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Employees", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "BudgetCodes",
                 schema: "User",
                 columns: table => new
@@ -86,6 +67,26 @@ namespace PurchaseReq.DAL.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Employees",
+                schema: "User",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Active = table.Column<bool>(nullable: false),
+                    Email = table.Column<string>(maxLength: 50, nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(maxLength: 50, nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    TimeStamp = table.Column<byte[]>(rowVersion: true, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Employees", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Orders",
                 schema: "Order",
                 columns: table => new
@@ -116,6 +117,7 @@ namespace PurchaseReq.DAL.EF.Migrations
                     table.ForeignKey(
                         name: "FK_Orders_Employees_EmployeeId",
                         column: x => x.EmployeeId,
+                        principalSchema: "User",
                         principalTable: "Employees",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -147,6 +149,7 @@ namespace PurchaseReq.DAL.EF.Migrations
                     table.ForeignKey(
                         name: "FK_CFOs_Employees_EmployeeId",
                         column: x => x.EmployeeId,
+                        principalSchema: "User",
                         principalTable: "Employees",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -212,6 +215,7 @@ namespace PurchaseReq.DAL.EF.Migrations
                     table.ForeignKey(
                         name: "FK_SupervisorApprovals_Employees_SupervisorId",
                         column: x => x.SupervisorId,
+                        principalSchema: "User",
                         principalTable: "Employees",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -366,7 +370,8 @@ namespace PurchaseReq.DAL.EF.Migrations
                 schema: "Order");
 
             migrationBuilder.DropTable(
-                name: "Employees");
+                name: "Employees",
+                schema: "User");
         }
     }
 }
