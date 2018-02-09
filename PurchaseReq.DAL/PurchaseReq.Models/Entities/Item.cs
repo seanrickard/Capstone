@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using PurchaseReq.Models.Entities.Base;
+
+namespace PurchaseReq.Models.Entities
+{
+    [Table("Items", Schema = "Order")]
+    public class Item : EntityBase
+    {
+        [DataType(DataType.Text), MaxLength(50)]
+        public string ItemName { get; set; }
+        [DataType(DataType.Text), MaxLength(200)]
+        public string Description { get; set; }
+    }
+}
