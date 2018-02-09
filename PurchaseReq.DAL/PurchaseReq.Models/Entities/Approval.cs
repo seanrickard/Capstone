@@ -12,5 +12,8 @@ namespace PurchaseReq.Models.Entities
     {
         [DataType(DataType.Text), MaxLength(20)]
         public string ApprovalName { get; set; }
+
+        [InverseProperty(nameof(SupervisorApproval.Approval))]
+        public List<SupervisorApproval> SupervisorApprovals { get; set; }
     }
 }
