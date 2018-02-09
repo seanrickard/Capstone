@@ -3,8 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.EntityFrameworkCore.Storage.Internal;
 using PurchaseReq.DAL.EF;
 using System;
 
@@ -37,36 +35,6 @@ namespace PurchaseReq.DAL.EF.Migrations
                     b.ToTable("Approval","Order");
                 });
 
-            modelBuilder.Entity("PurchaseReq.Models.Entities.BudgetCode", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<bool>("Active");
-
-                    b.Property<string>("BudgetCodeName");
-
-                    b.Property<int>("DA");
-
-                    b.Property<int>("Function");
-
-                    b.Property<int>("Parent");
-
-                    b.Property<int>("Project");
-
-                    b.Property<byte[]>("TimeStamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.Property<decimal>("TotalAmount");
-
-                    b.Property<bool>("Type");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BudgetCodes","User");
-                });
-
             modelBuilder.Entity("PurchaseReq.Models.Entities.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -82,123 +50,6 @@ namespace PurchaseReq.DAL.EF.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories","Order");
-                });
-
-            modelBuilder.Entity("PurchaseReq.Models.Entities.CFO", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("EmployeeId");
-
-                    b.Property<DateTime>("DateAdded");
-
-                    b.Property<byte[]>("TimeStamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("Id", "EmployeeId", "DateAdded");
-
-                    b.HasAlternateKey("DateAdded", "EmployeeId", "Id");
-
-                    b.HasIndex("EmployeeId");
-
-                    b.HasIndex("Id");
-
-                    b.ToTable("CFOs","User");
-                });
-
-            modelBuilder.Entity("PurchaseReq.Models.Entities.CFOApproval", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("ApprovalId");
-
-                    b.Property<int>("CFOId");
-
-                    b.Property<string>("DeniedJustification");
-
-                    b.Property<int>("OrderId");
-
-                    b.Property<byte[]>("TimeStamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApprovalId");
-
-                    b.HasIndex("CFOId");
-
-                    b.HasIndex("OrderId")
-                        .IsUnique();
-
-                    b.ToTable("CFOApprovals","Order");
-                });
-
-            modelBuilder.Entity("PurchaseReq.Models.Entities.Department", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<bool>("Active");
-
-                    b.Property<string>("DepartmentName");
-
-                    b.Property<byte[]>("TimeStamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Departments","User");
-                });
-
-            modelBuilder.Entity("PurchaseReq.Models.Entities.Division", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<bool>("Active");
-
-                    b.Property<string>("DivisionName");
-
-                    b.Property<byte[]>("TimeStamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Divisions","User");
-                });
-
-            modelBuilder.Entity("PurchaseReq.Models.Entities.Employee", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<bool>("Active");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("FirstName");
-
-                    b.Property<string>("LastName");
-
-                    b.Property<string>("Password")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("PhoneNumber");
-
-                    b.Property<byte[]>("TimeStamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("PurchaseReq.Models.Entities.Item", b =>
@@ -221,72 +72,6 @@ namespace PurchaseReq.DAL.EF.Migrations
                     b.ToTable("Items","Order");
                 });
 
-            modelBuilder.Entity("PurchaseReq.Models.Entities.Order", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("BusinessJustification");
-
-                    b.Property<int>("CategoryId");
-
-                    b.Property<DateTime>("DateMade");
-
-                    b.Property<DateTime>("DateOrdered");
-
-                    b.Property<bool>("Delivered");
-
-                    b.Property<int>("EmployeeId");
-
-                    b.Property<bool>("Ordered");
-
-                    b.Property<bool>("StateContract");
-
-                    b.Property<int>("StatusId");
-
-                    b.Property<byte[]>("TimeStamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("EmployeeId");
-
-                    b.HasIndex("StatusId");
-
-                    b.ToTable("Orders","Order");
-                });
-
-            modelBuilder.Entity("PurchaseReq.Models.Entities.Request", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<bool>("Chosen");
-
-                    b.Property<decimal>("EstimatedAmount");
-
-                    b.Property<int>("OrderId");
-
-                    b.Property<decimal>("PaidAmount");
-
-                    b.Property<decimal>("PaidTotal");
-
-                    b.Property<int>("QuantityRequested");
-
-                    b.Property<byte[]>("TimeStamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("Requests","Order");
-                });
-
             modelBuilder.Entity("PurchaseReq.Models.Entities.Status", b =>
                 {
                     b.Property<int>("Id")
@@ -302,35 +87,6 @@ namespace PurchaseReq.DAL.EF.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Statuses","Order");
-                });
-
-            modelBuilder.Entity("PurchaseReq.Models.Entities.SupervisorApproval", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("ApprovalId");
-
-                    b.Property<string>("DeniedJustification");
-
-                    b.Property<int>("OrderId");
-
-                    b.Property<int>("SupervisorId");
-
-                    b.Property<byte[]>("TimeStamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApprovalId");
-
-                    b.HasIndex("OrderId")
-                        .IsUnique();
-
-                    b.HasIndex("SupervisorId");
-
-                    b.ToTable("SupervisorApprovals","Order");
                 });
 
             modelBuilder.Entity("PurchaseReq.Models.Entities.Vendor", b =>
@@ -369,77 +125,6 @@ namespace PurchaseReq.DAL.EF.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Vendors","Order");
-                });
-
-            modelBuilder.Entity("PurchaseReq.Models.Entities.CFO", b =>
-                {
-                    b.HasOne("PurchaseReq.Models.Entities.Employee", "Employee")
-                        .WithMany()
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("PurchaseReq.Models.Entities.CFOApproval", b =>
-                {
-                    b.HasOne("PurchaseReq.Models.Entities.Approval", "Approval")
-                        .WithMany()
-                        .HasForeignKey("ApprovalId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("PurchaseReq.Models.Entities.CFO", "CFO")
-                        .WithMany("CFOApprovals")
-                        .HasForeignKey("CFOId")
-                        .HasPrincipalKey("Id")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("PurchaseReq.Models.Entities.Order", "Order")
-                        .WithOne("CFOApproval")
-                        .HasForeignKey("PurchaseReq.Models.Entities.CFOApproval", "OrderId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("PurchaseReq.Models.Entities.Order", b =>
-                {
-                    b.HasOne("PurchaseReq.Models.Entities.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("PurchaseReq.Models.Entities.Employee", "Employee")
-                        .WithMany()
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("PurchaseReq.Models.Entities.Status", "Status")
-                        .WithMany()
-                        .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("PurchaseReq.Models.Entities.Request", b =>
-                {
-                    b.HasOne("PurchaseReq.Models.Entities.Order", "Order")
-                        .WithMany("Requests")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("PurchaseReq.Models.Entities.SupervisorApproval", b =>
-                {
-                    b.HasOne("PurchaseReq.Models.Entities.Approval", "Approval")
-                        .WithMany("SupervisorApprovals")
-                        .HasForeignKey("ApprovalId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("PurchaseReq.Models.Entities.Order", "Order")
-                        .WithOne("SupervisorApproval")
-                        .HasForeignKey("PurchaseReq.Models.Entities.SupervisorApproval", "OrderId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("PurchaseReq.Models.Entities.Employee", "Employee")
-                        .WithMany()
-                        .HasForeignKey("SupervisorId")
-                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }
