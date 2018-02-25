@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using PurchaseReq.Models.Entities;
 
 namespace PurchaseReq.DAL.EF
 {
-    public class PurchaseReqContext : DbContext
+    public class PurchaseReqContext : IdentityDbContext<IdentityUser>
     {
         private string connection = @"Server=(localdb)\mssqllocaldb;Database=PurchaseReq;Trusted_Connection=True;MultipleActiveResultSets=true;";
 
