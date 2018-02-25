@@ -9,6 +9,7 @@ using System.Linq;
 
 namespace PurchaseReq.DAL.Tests.ContextTests
 {
+    [Collection("PurchaseReq.DAL")]
     public class StatusTest : IDisposable
     {
         private readonly PurchaseReqContext _db;
@@ -17,17 +18,34 @@ namespace PurchaseReq.DAL.Tests.ContextTests
         public StatusTest()
         {
             _db = new PurchaseReqContext();
+            CleanDatabase();
         }
 
         public void Dispose()
         {
+            CleanDatabase();
             _db.Dispose();
         }
 
         private void CleanDatabase()
         {
-            _db.Database.ExecuteSqlCommand("Delete from Order.Status");
-            _db.Database.ExecuteSqlCommand($"DBCC CHECKIDENT (\"Order.Status\" , RESEED, -1);");
+            _db.Database.ExecuteSqlCommand("Delete from [Order].[Statuses]");
+            _db.Database.ExecuteSqlCommand($"DBCC CHECKIDENT (\"[Order].[Statuses]\" , RESEED, -1);");
+        }
+
+        [Fact]
+        public void FirstTest()
+        {
+            Assert.True(true);
+        }
+
+        [Fact]
+        public void AddAStatus()
+        {
+            var status = new Status { StatusName = "Waiting for Supervisor Approval" };
+            _db.Statuses.Add(status);
+            _db.SaveChanges();
+            Assert.Equal(1, _db.Statuses.Count());
         }
     }
 }

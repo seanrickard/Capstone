@@ -10,7 +10,7 @@ namespace PurchaseReq.Models.Entities
     [Table("Statuses", Schema = "Order")]
     public class Status : EntityBase
     {
-        [DataType(DataType.Text), MaxLength(25)]
+        [DataType(DataType.Text), MaxLength(50)]
         public string StatusName { get; set; }
 
         [InverseProperty(nameof(Order.Status))]
