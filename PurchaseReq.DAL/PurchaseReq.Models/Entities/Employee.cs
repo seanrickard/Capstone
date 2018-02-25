@@ -20,7 +20,7 @@ namespace PurchaseReq.Models.Entities
 
         public bool Active { get; set; }
 
-        public int DepartmentId { get; set; }
+        public int? DepartmentId { get; set; }
 
         [ForeignKey(nameof(DepartmentId))]
         public Department Department { get; set; }
@@ -34,7 +34,5 @@ namespace PurchaseReq.Models.Entities
 
         [InverseProperty(nameof(Division.Supervisor))]
         public Division SupervisedDivision { get; set; }
-
-
     }
 }

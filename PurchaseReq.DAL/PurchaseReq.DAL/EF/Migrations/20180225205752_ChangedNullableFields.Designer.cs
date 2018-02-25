@@ -12,9 +12,10 @@ using System;
 namespace PurchaseReq.DAL.EF.Migrations
 {
     [DbContext(typeof(PurchaseReqContext))]
-    partial class PurchaseReqContextModelSnapshot : ModelSnapshot
+    [Migration("20180225205752_ChangedNullableFields")]
+    partial class ChangedNullableFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

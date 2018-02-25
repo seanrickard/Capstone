@@ -18,7 +18,7 @@ namespace PurchaseReq.Models.Entities
         [InverseProperty(nameof(Employee.Department))]
         public List<Employee> Employees { get; set; }
 
-        public int DivisionId { get; set; }
+        public int? DivisionId { get; set; }
 
         [ForeignKey(nameof(DivisionId))]
         public Division Division { get; set; }
