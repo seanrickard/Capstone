@@ -10,7 +10,7 @@ namespace PurchaseReq.Models.Entities
     [Table("EmployeesBudgetCodes", Schema = "User")]
     public class EmployeesBudgetCodes : EntityBase
     {
-        public int EmployeeId { get; set; }
+        public string EmployeeId { get; set; }
 
         [ForeignKey(nameof(EmployeeId))]
         public Employee Employee { get; set; }

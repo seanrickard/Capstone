@@ -12,7 +12,7 @@ namespace PurchaseReq.Models.Entities
     {
         [Key]
         [Column(Order = 1)]
-        public int EmployeeId { get; set; }
+        public string EmployeeId { get; set; }
 
         [ForeignKey(nameof(EmployeeId))]
         public Employee Employee { get; set; }

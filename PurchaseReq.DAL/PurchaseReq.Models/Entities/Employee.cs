@@ -31,5 +31,10 @@ namespace PurchaseReq.Models.Entities
         //Just pretend tag is there not really required
         //[InverseProperty(nameof(CFO.Employee))]
         public CFO CFO { get; set; }
+
+        [InverseProperty(nameof(Division.Supervisor))]
+        public Division SupervisedDivision { get; set; }
+
+
     }
 }

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
+using Microsoft.EntityFrameworkCore.ValueGeneration;
 using PurchaseReq.DAL.EF;
 using System;
 
@@ -73,6 +74,9 @@ namespace PurchaseReq.DAL.EF.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
@@ -112,6 +116,8 @@ namespace PurchaseReq.DAL.EF.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -291,7 +297,7 @@ namespace PurchaseReq.DAL.EF.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("EmployeeId");
+                    b.Property<string>("EmployeeId");
 
                     b.Property<DateTime>("DateAdded");
 
@@ -373,6 +379,8 @@ namespace PurchaseReq.DAL.EF.Migrations
 
                     b.Property<int?>("ParentId");
 
+                    b.Property<string>("SupervisorId");
+
                     b.Property<byte[]>("TimeStamp")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate();
@@ -381,39 +389,11 @@ namespace PurchaseReq.DAL.EF.Migrations
 
                     b.HasIndex("ParentId");
 
+                    b.HasIndex("SupervisorId")
+                        .IsUnique()
+                        .HasFilter("[SupervisorId] IS NOT NULL");
+
                     b.ToTable("Divisions","User");
-                });
-
-            modelBuilder.Entity("PurchaseReq.Models.Entities.Employee", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<bool>("Active");
-
-                    b.Property<int>("DepartmentId");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("FirstName");
-
-                    b.Property<string>("LastName");
-
-                    b.Property<string>("Password")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("PhoneNumber");
-
-                    b.Property<byte[]>("TimeStamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DepartmentId");
-
-                    b.ToTable("Employees","User");
                 });
 
             modelBuilder.Entity("PurchaseReq.Models.Entities.EmployeesBudgetCodes", b =>
@@ -423,7 +403,7 @@ namespace PurchaseReq.DAL.EF.Migrations
 
                     b.Property<int>("BudgetCodeId");
 
-                    b.Property<int>("EmployeeId");
+                    b.Property<string>("EmployeeId");
 
                     b.Property<byte[]>("TimeStamp")
                         .IsConcurrencyToken()
@@ -475,7 +455,7 @@ namespace PurchaseReq.DAL.EF.Migrations
 
                     b.Property<bool>("Delivered");
 
-                    b.Property<int>("EmployeeId");
+                    b.Property<string>("EmployeeId");
 
                     b.Property<bool>("Ordered");
 
@@ -568,7 +548,7 @@ namespace PurchaseReq.DAL.EF.Migrations
 
                     b.Property<int>("OrderId");
 
-                    b.Property<int>("SupervisorId");
+                    b.Property<string>("SupervisorId");
 
                     b.Property<byte[]>("TimeStamp")
                         .IsConcurrencyToken()
@@ -622,6 +602,25 @@ namespace PurchaseReq.DAL.EF.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Vendors","Order");
+                });
+
+            modelBuilder.Entity("PurchaseReq.Models.Entities.Employee", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<bool>("Active");
+
+                    b.Property<int>("DepartmentId");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.ToTable("Employees","User");
+
+                    b.HasDiscriminator().HasValue("Employee");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -731,13 +730,10 @@ namespace PurchaseReq.DAL.EF.Migrations
                         .WithMany("Children")
                         .HasForeignKey("ParentId")
                         .OnDelete(DeleteBehavior.Restrict);
-                });
 
-            modelBuilder.Entity("PurchaseReq.Models.Entities.Employee", b =>
-                {
-                    b.HasOne("PurchaseReq.Models.Entities.Department", "Department")
-                        .WithMany("Employees")
-                        .HasForeignKey("DepartmentId")
+                    b.HasOne("PurchaseReq.Models.Entities.Employee", "Supervisor")
+                        .WithOne("SupervisedDivision")
+                        .HasForeignKey("PurchaseReq.Models.Entities.Division", "SupervisorId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
@@ -805,6 +801,14 @@ namespace PurchaseReq.DAL.EF.Migrations
                     b.HasOne("PurchaseReq.Models.Entities.Employee", "Employee")
                         .WithMany()
                         .HasForeignKey("SupervisorId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("PurchaseReq.Models.Entities.Employee", b =>
+                {
+                    b.HasOne("PurchaseReq.Models.Entities.Department", "Department")
+                        .WithMany("Employees")
+                        .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618

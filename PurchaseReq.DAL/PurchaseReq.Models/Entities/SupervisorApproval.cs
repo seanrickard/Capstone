@@ -20,7 +20,7 @@ namespace PurchaseReq.Models.Entities
         [ForeignKey(nameof(OrderId))]
         public Order Order { get; set; }
 
-        public int SupervisorId { get; set; }
+        public string SupervisorId { get; set; }
 
         [ForeignKey(nameof(SupervisorId))]
         public Employee Employee { get; set; }

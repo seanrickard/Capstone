@@ -29,7 +29,7 @@ namespace PurchaseReq.Models.Entities
         [DataType(DataType.MultilineText)]
         public string BusinessJustification { get; set; }
 
-        public int EmployeeId { get; set; }
+        public string EmployeeId { get; set; }
 
         [ForeignKey(nameof(EmployeeId))]
         public Employee Employee { get; set; }
