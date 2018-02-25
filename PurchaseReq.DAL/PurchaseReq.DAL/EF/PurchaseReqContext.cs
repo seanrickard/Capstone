@@ -19,7 +19,14 @@ namespace PurchaseReq.DAL.EF
 
         public PurchaseReqContext(DbContextOptions options) : base(options)
         {
-
+            try
+            {
+                Database.Migrate();
+            }
+            catch(Exception)
+            {
+                //Book says do something intelligent here
+            }
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -49,6 +56,39 @@ namespace PurchaseReq.DAL.EF
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
 
+            //Set up Alternative Request Base Request Foriegn key
+            modelBuilder.Entity<AlternativeRequest>()
+                .HasOne(r => r.Request)
+                .WithMany(alt => alt.AlternativeRequests)
+                .HasForeignKey(i => i.RequestId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            //Set up Alternative Request Alternativve foreign key
+            modelBuilder.Entity<AlternativeRequest>()
+                .HasOne(alt => alt.Alternative)
+                .WithMany(altr => altr.RequestAlternative)
+                .HasForeignKey(i => i.AlternativeId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            //Sets up default value for Orders DateMade as today. 
+            modelBuilder.Entity<Order>(entity =>
+            {
+                entity.Property(e => e.DateMade)
+                .HasDefaultValueSql("getdate()");
+            });
+
+            modelBuilder.Entity<Request>(entity =>
+            {
+                entity.Property(e => e.EstimatedTotal)
+                .HasComputedColumnSql("[QuantityRequested] * [EstimatedCost]");
+
+                entity.Property(e => e.PaidTotal)
+                .HasComputedColumnSql("[QuantityRequested] * [PaidCost]");
+            });
+
+
             base.OnModelCreating(modelBuilder);
         }
 
@@ -66,6 +106,9 @@ namespace PurchaseReq.DAL.EF
         public DbSet<BudgetCode> BudgetCodes { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Division> Divisions { get; set; }
+        public DbSet<EmployeesBudgetCodes> EmployeesBudgetCodes { get; set; }
+        public DbSet<Attachment> Attachments { get; set; }
+        public DbSet<AlternativeRequest> AlternativeRequests { get; set; }
 
     }
 }

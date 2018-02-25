@@ -7,26 +7,17 @@ using System.Text;
 
 namespace PurchaseReq.Models.Entities
 {
-    [Table("CFOs", Schema = "User")]
-    public class CFO : EntityBase
+    [Table("EmployeesBudgetCodes", Schema = "User")]
+    public class EmployeesBudgetCodes : EntityBase
     {
-        [Key]
-        [Column(Order = 1)]
         public int EmployeeId { get; set; }
 
         [ForeignKey(nameof(EmployeeId))]
         public Employee Employee { get; set; }
 
-        [Key]
-        [Column (Order = 2)]
-        [DataType(DataType.Date)]
-        public DateTime DateAdded { get; set; }
+        public int BudgetCodeId { get; set; }
 
-        [InverseProperty(nameof(CFOApproval.CFO))]
-        public List<CFOApproval> CFOApprovals { get; set; }
-
-       
-
-
+        [ForeignKey(nameof(BudgetCodeId))]
+        public BudgetCode BudgetCode { get; set; }
     }
 }

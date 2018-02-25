@@ -12,5 +12,8 @@ namespace PurchaseReq.Models.Entities
     {
         [DataType(DataType.Text), MaxLength(25)]
         public string StatusName { get; set; }
+
+        [InverseProperty(nameof(Order.Status))]
+        public List<Order> Orders { get; set; }
     }
 }

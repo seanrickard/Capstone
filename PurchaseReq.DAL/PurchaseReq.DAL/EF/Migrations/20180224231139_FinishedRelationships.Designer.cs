@@ -11,9 +11,10 @@ using System;
 namespace PurchaseReq.DAL.EF.Migrations
 {
     [DbContext(typeof(PurchaseReqContext))]
-    partial class PurchaseReqContextModelSnapshot : ModelSnapshot
+    [Migration("20180224231139_FinishedRelationships")]
+    partial class FinishedRelationships
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -308,9 +309,7 @@ namespace PurchaseReq.DAL.EF.Migrations
 
                     b.Property<int>("CategoryId");
 
-                    b.Property<DateTime>("DateMade")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("getdate()");
+                    b.Property<DateTime>("DateMade");
 
                     b.Property<DateTime>("DateOrdered");
 
@@ -346,21 +345,15 @@ namespace PurchaseReq.DAL.EF.Migrations
 
                     b.Property<bool>("Chosen");
 
-                    b.Property<decimal>("EstimatedCost");
-
-                    b.Property<decimal>("EstimatedTotal")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasComputedColumnSql("[QuantityRequested] * [EstimatedCost]");
+                    b.Property<decimal>("EstimatedAmount");
 
                     b.Property<int>("ItemId");
 
                     b.Property<int>("OrderId");
 
-                    b.Property<decimal>("PaidCost");
+                    b.Property<decimal>("PaidAmount");
 
-                    b.Property<decimal>("PaidTotal")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasComputedColumnSql("[QuantityRequested] * [PaidCost]");
+                    b.Property<decimal>("PaidTotal");
 
                     b.Property<int>("QuantityRequested");
 

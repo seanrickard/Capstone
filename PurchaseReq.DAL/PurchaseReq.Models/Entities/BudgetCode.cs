@@ -28,5 +28,8 @@ namespace PurchaseReq.Models.Entities
 
         [DataType(DataType.Currency)]
         public decimal TotalAmount { get; set; }
+
+        [InverseProperty(nameof(EmployeesBudgetCodes.BudgetCode))]
+        public List<EmployeesBudgetCodes> EmployeesBudgetCode { get; set; }
     }
 }

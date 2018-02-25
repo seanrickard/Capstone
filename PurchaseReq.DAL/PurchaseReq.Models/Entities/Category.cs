@@ -13,5 +13,8 @@ namespace PurchaseReq.Models.Entities
     {   
         [DataType(DataType.Text), MaxLength(75)]
         public string CategoryName { get; set; }
+
+        [InverseProperty(nameof(Order.Category))]
+        public List<Order> Orders { get; set; }
     }
 }

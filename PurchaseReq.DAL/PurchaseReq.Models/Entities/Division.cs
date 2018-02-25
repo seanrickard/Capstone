@@ -5,6 +5,10 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
+/**
+ * Base recursive relationship off of ->https://stackoverflow.com/questions/27720369/one-to-many-recursive-relationship-with-code-first
+ * 
+ **/
 namespace PurchaseReq.Models.Entities
 {
     [Table("Divisions", Schema = "User")]
@@ -15,5 +19,15 @@ namespace PurchaseReq.Models.Entities
 
         public bool Active { get; set; }
 
+        [InverseProperty(nameof(Department.Division))]
+        public List<Department> Departments { get; set; }
+
+       public int? ParentId { get; set; }
+
+       [ForeignKey(nameof(ParentId))]
+       public Division Parent { get; set; }
+
+       [InverseProperty(nameof(Division.Parent))]
+       public List<Division> Children { get; set; }
     }
 }

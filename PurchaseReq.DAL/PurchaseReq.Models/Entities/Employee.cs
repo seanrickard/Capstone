@@ -29,5 +29,17 @@ namespace PurchaseReq.Models.Entities
 
         [DataType(DataType.Password), MaxLength(50)]
         public string Password { get; set; }
+
+        public int DepartmentId { get; set; }
+
+        [ForeignKey(nameof(DepartmentId))]
+        public Department Department { get; set; }
+
+        [InverseProperty(nameof(EmployeesBudgetCodes.Employee))]
+        public List<EmployeesBudgetCodes> EmployeesBudgetCode { get; set; }
+
+        //Just pretend tag is there not really required
+        //[InverseProperty(nameof(CFO.Employee))]
+        public CFO CFO { get; set; }
     }
 }

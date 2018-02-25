@@ -36,6 +36,9 @@ namespace PurchaseReq.Models.Entities
         [DataType(DataType.Text), MaxLength(20)]
         public string Website { get; set; }
 
+        [InverseProperty(nameof(Request.Vendor))]
+        public List<Request>Requests { get; set; }
+
     }
 }
 

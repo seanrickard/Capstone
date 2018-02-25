@@ -11,36 +11,15 @@ using System;
 namespace PurchaseReq.DAL.EF.Migrations
 {
     [DbContext(typeof(PurchaseReqContext))]
-    partial class PurchaseReqContextModelSnapshot : ModelSnapshot
+    [Migration("20180224211402_UserRelationships")]
+    partial class UserRelationships
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("PurchaseReq.Models.Entities.AlternativeRequest", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("AlternativeId");
-
-                    b.Property<int>("RequestId");
-
-                    b.Property<byte[]>("TimeStamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AlternativeId");
-
-                    b.HasIndex("RequestId");
-
-                    b.ToTable("AlternativeRequest","Order");
-                });
 
             modelBuilder.Entity("PurchaseReq.Models.Entities.Approval", b =>
                 {
@@ -57,27 +36,6 @@ namespace PurchaseReq.DAL.EF.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Approval","Order");
-                });
-
-            modelBuilder.Entity("PurchaseReq.Models.Entities.Attachment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AttachmentPath")
-                        .IsRequired();
-
-                    b.Property<int>("RequestId");
-
-                    b.Property<byte[]>("TimeStamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RequestId");
-
-                    b.ToTable("Attachments","Order");
                 });
 
             modelBuilder.Entity("PurchaseReq.Models.Entities.BudgetCode", b =>
@@ -144,8 +102,7 @@ namespace PurchaseReq.DAL.EF.Migrations
 
                     b.HasAlternateKey("DateAdded", "EmployeeId", "Id");
 
-                    b.HasIndex("EmployeeId")
-                        .IsUnique();
+                    b.HasIndex("EmployeeId");
 
                     b.HasIndex("Id");
 
@@ -257,28 +214,6 @@ namespace PurchaseReq.DAL.EF.Migrations
                     b.ToTable("Employees","User");
                 });
 
-            modelBuilder.Entity("PurchaseReq.Models.Entities.EmployeesBudgetCodes", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("BudgetCodeId");
-
-                    b.Property<int>("EmployeeId");
-
-                    b.Property<byte[]>("TimeStamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BudgetCodeId");
-
-                    b.HasIndex("EmployeeId");
-
-                    b.ToTable("EmployeesBudgetCodes","User");
-                });
-
             modelBuilder.Entity("PurchaseReq.Models.Entities.Item", b =>
                 {
                     b.Property<int>("Id")
@@ -308,9 +243,7 @@ namespace PurchaseReq.DAL.EF.Migrations
 
                     b.Property<int>("CategoryId");
 
-                    b.Property<DateTime>("DateMade")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("getdate()");
+                    b.Property<DateTime>("DateMade");
 
                     b.Property<DateTime>("DateOrdered");
 
@@ -346,21 +279,13 @@ namespace PurchaseReq.DAL.EF.Migrations
 
                     b.Property<bool>("Chosen");
 
-                    b.Property<decimal>("EstimatedCost");
-
-                    b.Property<decimal>("EstimatedTotal")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasComputedColumnSql("[QuantityRequested] * [EstimatedCost]");
-
-                    b.Property<int>("ItemId");
+                    b.Property<decimal>("EstimatedAmount");
 
                     b.Property<int>("OrderId");
 
-                    b.Property<decimal>("PaidCost");
+                    b.Property<decimal>("PaidAmount");
 
-                    b.Property<decimal>("PaidTotal")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasComputedColumnSql("[QuantityRequested] * [PaidCost]");
+                    b.Property<decimal>("PaidTotal");
 
                     b.Property<int>("QuantityRequested");
 
@@ -368,15 +293,9 @@ namespace PurchaseReq.DAL.EF.Migrations
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate();
 
-                    b.Property<int>("VendorId");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("ItemId");
-
                     b.HasIndex("OrderId");
-
-                    b.HasIndex("VendorId");
 
                     b.ToTable("Requests","Order");
                 });
@@ -465,32 +384,11 @@ namespace PurchaseReq.DAL.EF.Migrations
                     b.ToTable("Vendors","Order");
                 });
 
-            modelBuilder.Entity("PurchaseReq.Models.Entities.AlternativeRequest", b =>
-                {
-                    b.HasOne("PurchaseReq.Models.Entities.Request", "Alternative")
-                        .WithMany("RequestAlternative")
-                        .HasForeignKey("AlternativeId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("PurchaseReq.Models.Entities.Request", "Request")
-                        .WithMany("AlternativeRequests")
-                        .HasForeignKey("RequestId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("PurchaseReq.Models.Entities.Attachment", b =>
-                {
-                    b.HasOne("PurchaseReq.Models.Entities.Request", "Request")
-                        .WithMany("Attachents")
-                        .HasForeignKey("RequestId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
             modelBuilder.Entity("PurchaseReq.Models.Entities.CFO", b =>
                 {
                     b.HasOne("PurchaseReq.Models.Entities.Employee", "Employee")
-                        .WithOne("CFO")
-                        .HasForeignKey("PurchaseReq.Models.Entities.CFO", "EmployeeId")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
@@ -537,23 +435,10 @@ namespace PurchaseReq.DAL.EF.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("PurchaseReq.Models.Entities.EmployeesBudgetCodes", b =>
-                {
-                    b.HasOne("PurchaseReq.Models.Entities.BudgetCode", "BudgetCode")
-                        .WithMany("EmployeesBudgetCode")
-                        .HasForeignKey("BudgetCodeId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("PurchaseReq.Models.Entities.Employee", "Employee")
-                        .WithMany("EmployeesBudgetCode")
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
             modelBuilder.Entity("PurchaseReq.Models.Entities.Order", b =>
                 {
                     b.HasOne("PurchaseReq.Models.Entities.Category", "Category")
-                        .WithMany("Orders")
+                        .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Restrict);
 
@@ -563,26 +448,16 @@ namespace PurchaseReq.DAL.EF.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("PurchaseReq.Models.Entities.Status", "Status")
-                        .WithMany("Orders")
+                        .WithMany()
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("PurchaseReq.Models.Entities.Request", b =>
                 {
-                    b.HasOne("PurchaseReq.Models.Entities.Item", "Item")
-                        .WithMany("Requests")
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.HasOne("PurchaseReq.Models.Entities.Order", "Order")
                         .WithMany("Requests")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("PurchaseReq.Models.Entities.Vendor", "Vendor")
-                        .WithMany("Requests")
-                        .HasForeignKey("VendorId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

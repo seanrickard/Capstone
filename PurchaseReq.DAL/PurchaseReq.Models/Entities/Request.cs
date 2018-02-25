@@ -14,21 +14,41 @@ namespace PurchaseReq.Models.Entities
         public int QuantityRequested { get; set; }
 
         [DataType(DataType.Currency)]
-        public decimal EstimatedAmount { get; set; }
+        public decimal EstimatedCost { get; set; }
 
         [DataType(DataType.Currency)]
-        public decimal PaidAmount { get; set; }
+        public decimal EstimatedTotal { get; set; }
+
+        [DataType(DataType.Currency)]
+        public decimal PaidCost { get; set; }
 
         [DataType(DataType.Currency)]
         public decimal PaidTotal { get; set; }
 
-
         public bool Chosen { get; set; }
-
 
         public int OrderId { get; set; }
 
         [ForeignKey(nameof(OrderId))]
         public Order Order { get; set; }
+
+        [InverseProperty(nameof(Attachment.Request))]
+        public List<Attachment> Attachents { get; set; }
+
+        public int VendorId { get; set; }
+
+        [ForeignKey(nameof(VendorId))]
+        public Vendor Vendor { get; set; }
+
+        public int ItemId { get; set; }
+
+        [ForeignKey(nameof(ItemId))]
+        public Item Item { get; set; }
+
+        //Set by fluent api
+        public List<AlternativeRequest> AlternativeRequests { get; set; }
+
+        //Set by fluent api
+        public List<AlternativeRequest> RequestAlternative { get; set; }
     }
 }
