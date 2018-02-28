@@ -73,14 +73,34 @@ namespace PurchaseReq.DAL.Tests.ContextTests.UsersTests
         {
             _db.Employees.Add(SampleData.GetOneEmployee(_db));
             _db.SaveChanges();
-            _db.Employees.Remove(SampleData.GetOneEmployee(_db));
+            var employee = _db.Employees.First();
+            _db.Employees.Remove(employee);
             _db.SaveChanges();
             Assert.Equal(0, _db.Employees.Count());
         }
 
+        [Fact]
         public void UpdateEmployeeDepartment()
         {
-            
+            var employee = SampleData.GetOneEmployee(_db);
+            _db.Departments.AddRange(SampleData.GetAllDepartments(_db));
+            _db.Employees.Add(employee);
+            _db.SaveChanges();
+            employee = _db.Employees.First();
+            employee.DepartmentId = 0;
+            _db.Employees.Update(employee);
+            _db.SaveChanges();
+            Assert.Equal("Jane", _db.Departments.First().Employees.First().FirstName);
+           // Assert.Equal(2, _db.Employees.First().DepartmentId);
+        }
+
+        [Fact]
+        public void ReadEmployee()
+        {
+            var employee = SampleData.GetOneEmployee(_db);
+            _db.Employees.Add(employee);
+            _db.SaveChanges();
+            Assert.Equal("Jane", _db.Employees.First().FirstName);
         }
     }
 }

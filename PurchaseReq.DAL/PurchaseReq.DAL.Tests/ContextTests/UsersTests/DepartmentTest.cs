@@ -59,5 +59,22 @@ namespace PurchaseReq.DAL.Tests.ContextTests.UsersTests
             _db.SaveChanges();
             Assert.Equal(3, _db.Departments.Count());
         }
+
+        [Fact]
+        public void AddEmployeeToDepartment()
+        {
+            foreach (var dept in SampleData.GetAllDepartments(_db))
+            {
+                _db.Departments.Add(dept);
+            }
+            _db.SaveChanges();
+            var employee = SampleData.GetOneEmployee(_db);
+            _db.Employees.Add(employee);
+            _db.Employees.First().DepartmentId = 0;
+            _db.Employees.Update(employee);
+            //_db.Departments.First().Employees.Add(employee);
+            _db.SaveChanges();
+            Assert.Equal("Jane", _db.Departments.First().Employees.First().FirstName);
+        }
     }
 }
