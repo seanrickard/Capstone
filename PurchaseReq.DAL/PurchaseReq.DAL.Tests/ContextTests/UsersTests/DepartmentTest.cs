@@ -30,6 +30,7 @@ namespace PurchaseReq.DAL.Tests.ContextTests.UsersTests
 
         private void CleanDatabase()
         {
+            _db.Database.ExecuteSqlCommand("Delete from [dbo].[AspNetUsers]");
             _db.Database.ExecuteSqlCommand("Delete from [User].[Departments]");
             _db.Database.ExecuteSqlCommand($"DBCC CHECKIDENT (\"[User].[Departments]\" , RESEED, -1);");
         }
@@ -69,12 +70,17 @@ namespace PurchaseReq.DAL.Tests.ContextTests.UsersTests
             }
             _db.SaveChanges();
             var employee = SampleData.GetOneEmployee(_db);
+            ;
             _db.Employees.Add(employee);
-            _db.Employees.First().DepartmentId = 0;
+            _db.SaveChanges();
+
+            employee.DepartmentId = 0;
+
             _db.Employees.Update(employee);
             //_db.Departments.First().Employees.Add(employee);
             _db.SaveChanges();
-            Assert.Equal("Jane", _db.Departments.First().Employees.First().FirstName);
+
+            Assert.Equal(0, _db.Departments.First().Employees.First().DepartmentId);
         }
     }
 }
