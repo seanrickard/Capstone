@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace PurchaseReq.DAL.Initializers
 {
-    class DbInitializer
+    public class DbInitializer
     {
         private readonly PurchaseReqContext _context;
 
@@ -17,16 +17,24 @@ namespace PurchaseReq.DAL.Initializers
             _context = appDbContext;
         }
 
-        public void Seed()
+        public void SeedData()
         {
             _context.Database.EnsureCreated();
 
-            if(!_context.Employees.Any())
+            if (!_context.Employees.Any())
             {
-                _context.AddRange
-                (
-                    new Employee { FirstName = "John", LastName="Doe",  Active=true }    
-                );
+                _context.Employees.AddRange(SampleData.GetAllEmployees(_context));
+                _context.SaveChanges();
+            }
+            if(!_context.Divisions.Any())
+            {
+                _context.Divisions.AddRange(SampleData.GetAllDivisions(_context));
+                _context.SaveChanges();
+            }
+            if (!_context.Departments.Any())
+            {
+                _context.Departments.AddRange(SampleData.GetAllDepartments(_context));
+                _context.SaveChanges();
             }
 
             _context.SaveChanges();

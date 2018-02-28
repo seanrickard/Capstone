@@ -11,16 +11,14 @@ using Xunit;
 namespace PurchaseReq.DAL.Tests.ContextTests
 {
     [Collection("PurchaseReq.DAL")]
-    public class EmployeeTest : IDisposable
+    public class DivisionTest : IDisposable
     {
         private readonly PurchaseReqContext _db;
 
-        private DbInitializer dbInitializer; 
+        private DbInitializer dbInitializer;
 
-
-        public EmployeeTest()
+        public DivisionTest()
         {
-            
             _db = new PurchaseReqContext();
             dbInitializer = new DbInitializer(_db);
             dbInitializer.SeedData();
@@ -34,8 +32,8 @@ namespace PurchaseReq.DAL.Tests.ContextTests
 
         private void CleanDatabase()
         {
-            _db.Database.ExecuteSqlCommand("Delete from [dbo].[AspNetUsers]");
-            //_db.Database.ExecuteSqlCommand($"DBCC CHECKIDENT (\"[dbo].[AspNetUsers]\" , RESEED, -1);");
+            _db.Database.ExecuteSqlCommand("Delete from [User].[Divisions]");
+            _db.Database.ExecuteSqlCommand($"DBCC CHECKIDENT (\"[User].[Divisions]\" , RESEED, -1);");
         }
 
         [Fact]
@@ -45,15 +43,14 @@ namespace PurchaseReq.DAL.Tests.ContextTests
         }
 
         [Fact]
-        public void AddEmployee()
+        public void AddDepartment()
         {
+            var division = new Division { DivisionName = "STEM", Supervisor = SampleData.GetOneEmployee(_db, 1) };
             
-           // var employee = new Employee { FirstName = "John", LastName = "Doe", Active = true, DepartmentId = 1 };
-            //_db.Departments.Add(department);
-            //_db.Divisions.Add(division);
-            
+            _db.Divisions.Add(division);
+         
             _db.SaveChanges();
-            Assert.Equal(2, _db.Employees.Count());
+            Assert.Equal(1, _db.Divisions.Count());
         }
     }
 }
