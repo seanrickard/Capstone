@@ -30,7 +30,7 @@ namespace PurchaseReq.DAL.Tests.ContextTests.UsersTests
         private void CleanDatabase()
         {
             _db.Database.ExecuteSqlCommand("Delete from [User].[CFOs]");
-            _db.Database.ExecuteSqlCommand($"DBCC CHECKIDENT (\"[User].[CFOs]\" , RESEED, -1);");
+            _db.Database.ExecuteSqlCommand($"DBCC CHECKIDENT (\"[User].[CFOs]\" , RESEED, 0);");
         }
 
         [Fact]

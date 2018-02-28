@@ -31,8 +31,8 @@ namespace PurchaseReq.DAL.Tests.ContextTests.UsersTests
             _db.Database.ExecuteSqlCommand("Delete from [User].[Departments]");
             _db.Database.ExecuteSqlCommand("Delete from [User].[Divisions]");
             _db.Database.ExecuteSqlCommand("Delete from [dbo].[AspNetUsers]");
-            _db.Database.ExecuteSqlCommand($"DBCC CHECKIDENT (\"[User].[Divisions]\" , RESEED, -1);");
-            _db.Database.ExecuteSqlCommand($"DBCC CHECKIDENT (\"[User].[Departments]\" , RESEED, -1);");
+            _db.Database.ExecuteSqlCommand($"DBCC CHECKIDENT (\"[User].[Divisions]\" , RESEED, 0);");
+            _db.Database.ExecuteSqlCommand($"DBCC CHECKIDENT (\"[User].[Departments]\" , RESEED, 0);");
         }
 
         [Fact]
@@ -92,7 +92,7 @@ namespace PurchaseReq.DAL.Tests.ContextTests.UsersTests
             _db.Employees.Add(employee);
             _db.SaveChanges();
             employee = _db.Employees.First();
-            employee.DepartmentId = 0;
+            employee.DepartmentId = 1;
             _db.Employees.Update(employee);
             _db.SaveChanges();
             Assert.Equal("Jane", _db.Departments.First().Employees.First().FirstName);

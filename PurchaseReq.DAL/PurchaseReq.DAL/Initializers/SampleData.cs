@@ -57,9 +57,10 @@ namespace PurchaseReq.DAL.Initializers
         {
             new Employee()
             {
-                FirstName = "John",
-                LastName = "Doe",
+                FirstName = "Charles",
+                LastName = "Almond",
                 Active = true,
+               
             },
             new Employee()
             {
@@ -124,7 +125,9 @@ namespace PurchaseReq.DAL.Initializers
                 DateOrdered = DateTime.Now.AddDays(1),
                 Delivered = false,
                 StateContract = false,
-                BusinessJustification = "Need new computers for labs"
+                BusinessJustification = "Need new computers for labs",
+                Employee = SampleData.GetOneEmployee(context)
+                
             }
         };
 
@@ -222,6 +225,11 @@ namespace PurchaseReq.DAL.Initializers
             {
                 CategoryName = "Math Supplies"
             }
+        };
+
+        public static Category GetOneCategory => new Category
+        {
+            CategoryName = "Hardware"
         };
 
         public static IEnumerable<CFO> GetAllCFOs => new List<CFO>

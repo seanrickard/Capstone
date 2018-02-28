@@ -28,7 +28,7 @@ namespace PurchaseReq.DAL.Tests.ContextTests.OrderTests
         private void CleanDatabase()
         {
             _db.Database.ExecuteSqlCommand("Delete from [Order].[Statuses]");
-            _db.Database.ExecuteSqlCommand($"DBCC CHECKIDENT (\"[Order].[Statuses]\" , RESEED, -1);");
+            _db.Database.ExecuteSqlCommand($"DBCC CHECKIDENT (\"[Order].[Statuses]\" , RESEED, 0);");
         }
 
         [Fact]
