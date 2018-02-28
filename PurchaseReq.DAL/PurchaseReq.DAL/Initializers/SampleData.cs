@@ -18,23 +18,37 @@ namespace PurchaseReq.DAL.Initializers
                 // need to figure out employee foreign key info
             }
         };
-                   
+
+        public static Division GetOneDivision(PurchaseReqContext context) => new Division
+        {
+          
+               DivisionName = "STEM",
+               Active = true,
+               Supervisor = GetOneEmployee(context)
+
+                // need to figure out employee foreign key info
+            
+        };
+
         public static IEnumerable<Department> GetAllDepartments(PurchaseReqContext context) => new List<Department>
         {
             new Department()
             {
                 DepartmentName = "Computer Science",
                 Active = true,
+                Division = SampleData.GetOneDivision(context)
             },
             new Department()
             {
                 DepartmentName = "CIT",
                 Active = true,
+                Division = SampleData.GetOneDivision(context)
             },
             new Department()
             {
                 DepartmentName = "Basket Weaving",
-                Active = false
+                Active = false,
+                Division = SampleData.GetOneDivision(context)
             }
 
         };

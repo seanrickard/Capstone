@@ -83,6 +83,7 @@ namespace PurchaseReq.DAL.Tests.ContextTests.UsersTests
         public void UpdateEmployeeDepartment()
         {
             var employee = SampleData.GetOneEmployee(_db);
+            _db.Divisions.Add(SampleData.GetOneDivision(_db));
             _db.Departments.AddRange(SampleData.GetAllDepartments(_db));
             _db.Employees.Add(employee);
             _db.SaveChanges();

@@ -61,6 +61,7 @@ namespace PurchaseReq.DAL.Tests.ContextTests.UsersTests
         [Fact]
         public void AddDepartmentsFromSampleData()
         {
+            
             foreach (var dept in SampleData.GetAllDepartments(_db))
             {
                 _db.Departments.Add(dept);
