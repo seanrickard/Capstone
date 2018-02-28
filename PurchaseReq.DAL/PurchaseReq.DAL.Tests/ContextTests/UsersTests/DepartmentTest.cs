@@ -30,6 +30,7 @@ namespace PurchaseReq.DAL.Tests.ContextTests.UsersTests
 
         private void CleanDatabase()
         {
+            _db.Database.ExecuteSqlCommand("Update [dbo].[AspNetUsers] Set DepartmentId = NULL");
             _db.Database.ExecuteSqlCommand("Delete from [User].[Departments]");
             _db.Database.ExecuteSqlCommand("Delete from [User].[Divisions]");
             _db.Database.ExecuteSqlCommand("Delete from [dbo].[AspNetUsers]");
