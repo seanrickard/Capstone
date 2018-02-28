@@ -30,8 +30,10 @@ namespace PurchaseReq.DAL.Tests.ContextTests.UsersTests
 
         private void CleanDatabase()
         {
-            _db.Database.ExecuteSqlCommand("Delete from [dbo].[AspNetUsers]");
             _db.Database.ExecuteSqlCommand("Delete from [User].[Departments]");
+            _db.Database.ExecuteSqlCommand("Delete from [User].[Divisions]");
+            _db.Database.ExecuteSqlCommand("Delete from [dbo].[AspNetUsers]");
+            _db.Database.ExecuteSqlCommand($"DBCC CHECKIDENT (\"[User].[Divisions]\" , RESEED, -1);");
             _db.Database.ExecuteSqlCommand($"DBCC CHECKIDENT (\"[User].[Departments]\" , RESEED, -1);");
         }
 
@@ -43,8 +45,14 @@ namespace PurchaseReq.DAL.Tests.ContextTests.UsersTests
 
         [Fact]
         public void AddDepartment()
-        { 
-            var department = new Department { DepartmentName = "Computer Science", Active = true };
+        {
+            _db.Employees.Add(SampleData.GetOneEmployee(_db));
+            _db.SaveChanges();
+            var employee = _db.Employees.First();
+            var division = new Division { DivisionName = "STEM", Supervisor = employee };
+            _db.Divisions.Add(division);
+            _db.SaveChanges();
+            var department = new Department { DepartmentName = "Computer Science", Active = true , DivisionId = _db.Divisions.First().Id};
             _db.Departments.Add(department);
             _db.SaveChanges();
             Assert.Equal(1, _db.Departments.Count());
