@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using PurchaseReq.Models.Entities;
 using PurchaseReq.DAL.EF;
 using Xunit;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
-namespace PurchaseReq.DAL.Tests.ContextTests
+namespace PurchaseReq.DAL.Tests.ContextTests.OrderTests
 {
     [Collection("PurchaseReq.DAL")]
     public class StatusTest : IDisposable

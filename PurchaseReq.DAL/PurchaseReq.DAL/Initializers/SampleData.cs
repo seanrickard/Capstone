@@ -13,7 +13,7 @@ namespace PurchaseReq.DAL.Initializers
             {
                DivisionName = "STEM",
                Active = true,
-               SupervisorId = GetOneEmployee(context, 1).Id
+               SupervisorId = GetOneEmployee(context).Id.ToString()
 
                 // need to figure out employee foreign key info
             }
@@ -30,6 +30,11 @@ namespace PurchaseReq.DAL.Initializers
             {
                 DepartmentName = "CIT",
                 Active = true,
+            },
+            new Department()
+            {
+                DepartmentName = "Basket Weaving",
+                Active = false
             }
 
         };
@@ -47,24 +52,21 @@ namespace PurchaseReq.DAL.Initializers
                 FirstName = "Chuck",
                 LastName = "Almond",
                 Active = true
+            },
+            new Employee()
+            {
+                FirstName = "Tom",
+                LastName = "West",
+                Active = false
             }
         };
 
-        public static Employee GetOneEmployee(PurchaseReqContext context, int employeeId)
+        public static Employee GetOneEmployee(PurchaseReqContext context) => new Employee
         {
-            IEnumerable<Employee> employeeList = GetAllEmployees(context);
-            List<Employee> empList = new List<Employee>();
-            foreach(var emp in employeeList)
-            {
-               if (emp.Id == employeeId.ToString())
-                {
-                    return emp;
-                }
-            }
-            return null;       
-            
-
-        }
+            FirstName = "Jane",
+            LastName = "Doe",
+            Active = true
+        };
 
         public static IEnumerable<Status> GetAllStatuses(PurchaseReqContext context) => new List<Status>
         {

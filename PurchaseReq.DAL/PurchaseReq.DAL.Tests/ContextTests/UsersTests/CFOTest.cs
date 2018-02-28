@@ -8,20 +8,17 @@ using System.Linq;
 using System.Text;
 using Xunit;
 
-namespace PurchaseReq.DAL.Tests.ContextTests
+namespace PurchaseReq.DAL.Tests.ContextTests.UsersTests
 {
     [Collection("PurchaseReq.DAL")]
-    public class DivisionTest : IDisposable
+    public class CFOTest : IDisposable
     {
         private readonly PurchaseReqContext _db;
 
-        private DbInitializer dbInitializer;
-
-        public DivisionTest()
+        public CFOTest()
         {
             _db = new PurchaseReqContext();
-            dbInitializer = new DbInitializer(_db);
-            dbInitializer.SeedData();
+            CleanDatabase();
         }
 
         public void Dispose()
@@ -32,8 +29,8 @@ namespace PurchaseReq.DAL.Tests.ContextTests
 
         private void CleanDatabase()
         {
-            _db.Database.ExecuteSqlCommand("Delete from [User].[Divisions]");
-            _db.Database.ExecuteSqlCommand($"DBCC CHECKIDENT (\"[User].[Divisions]\" , RESEED, -1);");
+            _db.Database.ExecuteSqlCommand("Delete from [User].[CFOs]");
+            _db.Database.ExecuteSqlCommand($"DBCC CHECKIDENT (\"[User].[CFOs]\" , RESEED, -1);");
         }
 
         [Fact]
@@ -43,14 +40,12 @@ namespace PurchaseReq.DAL.Tests.ContextTests
         }
 
         [Fact]
-        public void AddDepartment()
+        public void AddCFO()
         {
-            var division = new Division { DivisionName = "STEM", Supervisor = SampleData.GetOneEmployee(_db, 1) };
-            
-            _db.Divisions.Add(division);
-         
+            var cfo = new CFO { Employee = SampleData.GetOneEmployee(_db), DateAdded = DateTime.Now };
+            _db.CFOs.Add(cfo);
             _db.SaveChanges();
-            Assert.Equal(1, _db.Divisions.Count());
+            Assert.Equal(1, _db.CFOs.Count());
         }
     }
 }
