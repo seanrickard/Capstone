@@ -38,6 +38,19 @@ namespace PurchaseReq.DAL.Tests.ContextTests.CaseTests
             int id = _db.BudgetCodes.Where(x => x.BudgetCodeName == "BakeSale Budget").ToList().First().Id;
             Assert.Equal("BakeSale Budget", _db.BudgetCodes.Find(id).BudgetCodeName);
         }
+        // the first case4 in the requirements doc
+        [Fact]
+        public void Case4()
+        {
+
+            BudgetCode tempBudgetCode = (BudgetCode)_db.BudgetCodes.Where(x => x.DA == 731180007).ToList().First();
+
+            tempBudgetCode.Active = false;
+            _db.BudgetCodes.Update(tempBudgetCode);
+            _db.SaveChanges();
+
+            Assert.False(_db.BudgetCodes.Where(x => x.DA == 731180007).ToList().First().Active);
+        }
 
         [Fact]
         public void Case6()
