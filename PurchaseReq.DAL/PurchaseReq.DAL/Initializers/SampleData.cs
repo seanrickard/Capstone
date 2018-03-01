@@ -14,14 +14,14 @@ namespace PurchaseReq.DAL.Initializers
             {
                DivisionName = "Board of Governors",
                Active = true,
-               SupervisorId = Supervisors.Find(x => x.FirstName.Equals("Alice")).Id,
+               Supervisor = Supervisors.Find(x => x.FirstName.Equals("Alice")),
                 // need to figure out employee foreign key info
             },
             new Division()
             {
                DivisionName = "STEM",
                Active = true,
-               SupervisorId = Supervisors.Find(x => x.FirstName.Equals("Jared")).Id,
+               Supervisor = Supervisors.Find(x => x.FirstName.Equals("Jared")),
                ParentId = 1
                 // need to figure out employee foreign key info
             },
@@ -29,7 +29,7 @@ namespace PurchaseReq.DAL.Initializers
             {
                DivisionName = "Nursing & Health Sciences",
                Active = true,
-               SupervisorId = Supervisors.Find(x => x.FirstName.Equals("Kathy")).Id,
+               Supervisor = Supervisors.Find(x => x.FirstName.Equals("Kathy")),
                ParentId = 1
                 // need to figure out employee foreign key info
             },
@@ -37,7 +37,7 @@ namespace PurchaseReq.DAL.Initializers
             {
                DivisionName = "Education",
                Active = true,
-               SupervisorId = Supervisors.Find(x => x.FirstName.Equals("Jeffrey")).Id,
+               Supervisor = Supervisors.Find(x => x.FirstName.Equals("Jeffrey")),
                ParentId = 1
                 // need to figure out employee foreign key info
             },
@@ -45,7 +45,7 @@ namespace PurchaseReq.DAL.Initializers
             {
                DivisionName = "Business & Economics",
                Active = true,
-               SupervisorId = Supervisors.Find(x => x.FirstName.Equals("Alice")).Id,
+               Supervisor = Supervisors.Find(x => x.FirstName.Equals("Alice")),
                ParentId = 1
                 // need to figure out employee foreign key info
             },

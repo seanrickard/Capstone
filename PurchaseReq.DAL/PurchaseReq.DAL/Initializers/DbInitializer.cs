@@ -22,12 +22,12 @@ namespace PurchaseReq.DAL.Initializers
 
         }
 
-        public static void ExecuteDeleteSQL(PurchaseReqContext appDbContext, string tableName)
+        public static void ExecuteDeleteSQL(PurchaseReqContext appDbContext, string schema, string tableName)
         {
 
         }
 
-        public void SeedData()
+        public static void SeedData(PurchaseReqContext _context)
         {
             _context.Database.EnsureCreated();
 

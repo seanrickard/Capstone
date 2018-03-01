@@ -43,13 +43,13 @@ namespace PurchaseReq.DAL.Tests.ContextTests.UsersTests
             Assert.True(true);
         }
 
-        [Fact]
-        public void AddDivision()
-        {
-            var division = new Division { DivisionName = "STEM", Supervisor = SampleData.GetOneEmployee(_db) };
-            _db.Divisions.Add(division);         
-            _db.SaveChanges();
-            Assert.Equal(1, _db.Divisions.Count());
-        }
+        //[Fact]
+        //public void AddDivision()
+        //{
+        //    var division = new Division { DivisionName = "STEM", Supervisor = SampleData.GetOneEmployee(_db) };
+        //    _db.Divisions.Add(division);         
+        //    _db.SaveChanges();
+        //    Assert.Equal(1, _db.Divisions.Count());
+        //}
     }
 }

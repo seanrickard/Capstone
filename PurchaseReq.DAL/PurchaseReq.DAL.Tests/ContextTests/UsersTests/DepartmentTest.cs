@@ -44,54 +44,54 @@ namespace PurchaseReq.DAL.Tests.ContextTests.UsersTests
             Assert.True(true);
         }
 
-        [Fact]
-        public void AddDepartment()
-        {
-            _db.Employees.Add(SampleData.GetOneEmployee(_db));
-            _db.SaveChanges();
-            var employee = _db.Employees.First();
-            var division = new Division { DivisionName = "STEM", Supervisor = employee };
-            _db.Divisions.Add(division);
-            _db.SaveChanges();
-            var department = new Department { DepartmentName = "Computer Science", Active = true , DivisionId = _db.Divisions.First().Id};
-            _db.Departments.Add(department);
-            _db.SaveChanges();
-            Assert.Equal(1, _db.Departments.Count());
-        }
+        //[Fact]
+        //public void AddDepartment()
+        //{
+        //    _db.Employees.Add(SampleData.GetOneEmployee(_db));
+        //    _db.SaveChanges();
+        //    var employee = _db.Employees.First();
+        //    var division = new Division { DivisionName = "STEM", Supervisor = employee };
+        //    _db.Divisions.Add(division);
+        //    _db.SaveChanges();
+        //    var department = new Department { DepartmentName = "Computer Science", Active = true , DivisionId = _db.Divisions.First().Id};
+        //    _db.Departments.Add(department);
+        //    _db.SaveChanges();
+        //    Assert.Equal(1, _db.Departments.Count());
+        //}
 
-        [Fact]
-        public void AddDepartmentsFromSampleData()
-        {
+        //[Fact]
+        //public void AddDepartmentsFromSampleData()
+        //{
             
-            foreach (var dept in SampleData.GetAllDepartments(_db))
-            {
-                _db.Departments.Add(dept);
-            }
-            _db.SaveChanges();
-            Assert.Equal(3, _db.Departments.Count());
-        }
+        //    foreach (var dept in SampleData.GetAllDepartments(_db))
+        //    {
+        //        _db.Departments.Add(dept);
+        //    }
+        //    _db.SaveChanges();
+        //    Assert.Equal(3, _db.Departments.Count());
+        //}
 
-        [Fact]
-        public void AddEmployeeToDepartment()
-        {
-            foreach (var dept in SampleData.GetAllDepartments(_db))
-            {
-                _db.Departments.Add(dept);
-            }
-            _db.SaveChanges();
-            var employee = SampleData.GetOneEmployee(_db);
-            ;
-            _db.Employees.Add(employee);
-            _db.SaveChanges();
+        //[Fact]
+        //public void AddEmployeeToDepartment()
+        //{
+        //    foreach (var dept in SampleData.GetAllDepartments(_db))
+        //    {
+        //        _db.Departments.Add(dept);
+        //    }
+        //    _db.SaveChanges();
+        //    var employee = SampleData.GetOneEmployee(_db);
+        //    ;
+        //    _db.Employees.Add(employee);
+        //    _db.SaveChanges();
 
-            employee.DepartmentId = 1;
+        //    employee.DepartmentId = 1;
 
-            _db.Employees.Update(employee);
-            //_db.Departments.First().Employees.Add(employee);
-            _db.SaveChanges();
+        //    _db.Employees.Update(employee);
+        //    //_db.Departments.First().Employees.Add(employee);
+        //    _db.SaveChanges();
 
-            Assert.Equal(1, _db.Departments.First().Employees.First().DepartmentId);
-        }
+        //    Assert.Equal(1, _db.Departments.First().Employees.First().DepartmentId);
+        //}
 
 
     }
