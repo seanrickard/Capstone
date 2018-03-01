@@ -79,6 +79,14 @@ namespace PurchaseReq.DAL.Initializers
                 _context.Employees.UpdateRange(SampleData.SetEmployeesDepartment(_context.Employees.ToList()));
                 _context.SaveChanges();
             }
+            if(!_context.BudgetCodes.Any())
+            {
+                _context.BudgetCodes.AddRange(SampleData.GetAllBudgetCodes);
+            }
+            if(!_context.EmployeesBudgetCodes.Any())
+            {
+                _context.EmployeesBudgetCodes.AddRange(SampleData.GetAllEmployeeBudgetCodes);
+            }
 
             _context.SaveChanges();
         }

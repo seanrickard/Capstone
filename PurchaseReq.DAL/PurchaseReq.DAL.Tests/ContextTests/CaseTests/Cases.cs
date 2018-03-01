@@ -9,7 +9,7 @@ using Xunit;
 
 namespace PurchaseReq.DAL.Tests.ContextTests.CaseTests
 {
-
+    [Collection("PurchaseReq.DAL")]
     public class Cases : IDisposable
     {
         private readonly PurchaseReqContext _db;
@@ -37,6 +37,16 @@ namespace PurchaseReq.DAL.Tests.ContextTests.CaseTests
             _db.SaveChanges();
             int id = _db.BudgetCodes.Where(x => x.BudgetCodeName == "BakeSale Budget").ToList().First().Id;
             Assert.Equal("BakeSale Budget", _db.BudgetCodes.Find(id).BudgetCodeName);
+        }
+
+        [Fact]
+        public void Case6()
+        {
+            Employee newHire = new Employee { FirstName = "Bob", LastName = "Ross", Active = true };
+            _db.Employees.Add(newHire);
+
+            _db.SaveChanges();
+
         }
     }
 }
