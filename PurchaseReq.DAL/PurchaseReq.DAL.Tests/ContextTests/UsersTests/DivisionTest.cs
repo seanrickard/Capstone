@@ -18,13 +18,16 @@ namespace PurchaseReq.DAL.Tests.ContextTests.UsersTests
         public DivisionTest()
         {
             _db = new PurchaseReqContext();
-            CleanDatabase();
+            //CleanDatabase();
+            DbInitializer.ClearData(_db);
             DbInitializer.SeedData(_db);
         }
 
         public void Dispose()
         {
-            CleanDatabase();
+            DbInitializer.SeedData(_db);
+            //CleanDatabase();
+            DbInitializer.ClearData(_db);
             _db.Dispose();
         }
 
@@ -47,7 +50,7 @@ namespace PurchaseReq.DAL.Tests.ContextTests.UsersTests
         [Fact]
         public void AddDivision()
         {
-            var division = new Division { DivisionName = "Basket Weaving", SupervisorId = _db.Employees.FirstOrDefault().Id};
+            var division = new Division { DivisionName = "Basket Weaving", SupervisorId = _db.Employees.Last().Id};
             _db.Divisions.Add(division);
             _db.SaveChanges();
             Assert.Equal(6, _db.Divisions.Count());
