@@ -17,6 +17,16 @@ namespace PurchaseReq.DAL.Initializers
             _context = appDbContext;
         }
 
+        public static void ClearData(PurchaseReqContext appDbContext)
+        {
+
+        }
+
+        public static void ExecuteDeleteSQL(PurchaseReqContext appDbContext, string tableName)
+        {
+
+        }
+
         public void SeedData()
         {
             _context.Database.EnsureCreated();
@@ -28,12 +38,13 @@ namespace PurchaseReq.DAL.Initializers
             }
             if(!_context.Divisions.Any())
             {
-                _context.Divisions.AddRange(SampleData.GetDivisions(_context, SampleData.GetEmployees(_context)).ToList());
+                _context.Divisions.AddRange(SampleData.GetDivisions(_context, SampleData.GetEmployees(_context).ToList()));
                 _context.SaveChanges();
             }
             if (!_context.Departments.Any())
             {
-                _context.Departments.AddRange(SampleData.GetAllDepartments(_context));
+                _context.Departments.AddRange(SampleData.GetDepartments(_context, SampleData.GetDivisions(_context, SampleData.GetEmployees(_context).ToList()).ToList()));
+                _context.Employees.UpdateRange(SampleData.SetEmployeesDepartment(SampleData.GetEmployees(_context).ToList()));
                 _context.SaveChanges();
             }
 
