@@ -46,7 +46,7 @@ namespace PurchaseReq.DAL.Initializers
             {
                DivisionName = "Business & Economics",
                Active = true,
-               SupervisorId =  Supervisors.Find(x => x.FirstName.ToString().Equals("Julie")).Id,
+               SupervisorId =  Supervisors.Find(x => x.FirstName.ToString().Equals("Alice")).Id,
                ParentId = 1
                 // need to figure out employee foreign key info
             },

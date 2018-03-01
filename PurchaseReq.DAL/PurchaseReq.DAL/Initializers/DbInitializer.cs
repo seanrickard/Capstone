@@ -29,7 +29,7 @@ namespace PurchaseReq.DAL.Initializers
             ExecuteDeleteSQL(appDbContext, Schema[0], "AspNetUsers");
             ExecuteDeleteSQL(appDbContext, Schema[0], "EmployeesBudgetCodes");
             ExecuteDeleteSQL(appDbContext, Schema[0], "BudgetCodes");
-            ResetIdentity(appDbContext);
+            //ResetIdentity(appDbContext);
         }
 
         public static void SetEmployeesToNull(PurchaseReqContext appDbContext)
@@ -42,15 +42,15 @@ namespace PurchaseReq.DAL.Initializers
             appDbContext.Database.ExecuteSqlCommand($"Delete from {schema}.{tableName}");
         }
 
-        public static void ResetIdentity(PurchaseReqContext appDbContext)
-        {
-            private static readonly string[] TableName = {, "AspNetUsers",
-        "Attachments", "Statuses", , "EmployeesBudgetCodes", "CFOs", "CFOApprovals",
-        "Approvals", "SupervisorApprovals", "Orders", "Requests", "Categories", "Items", "Vendors", "AlternativeRequests"};
-            string[] UserTable = { "Departments", "Divisions", "BudgetCodes", }
+        //public static void ResetIdentity(PurchaseReqContext appDbContext)
+        //{
+        //    private static readonly string[] TableName = {, "AspNetUsers",
+        //"Attachments", "Statuses", , "EmployeesBudgetCodes", "CFOs", "CFOApprovals",
+        //"Approvals", "SupervisorApprovals", "Orders", "Requests", "Categories", "Items", "Vendors", "AlternativeRequests"};
+        //    string[] UserTable = { "Departments", "Divisions", "BudgetCodes", }
 
 
-        }
+        //}
 
         public static void SeedData(PurchaseReqContext _context)
         {

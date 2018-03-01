@@ -12,9 +12,10 @@ using System;
 namespace PurchaseReq.DAL.EF.Migrations
 {
     [DbContext(typeof(PurchaseReqContext))]
-    partial class PurchaseReqContextModelSnapshot : ModelSnapshot
+    [Migration("20180301035658_FixEmpToDivision")]
+    partial class FixEmpToDivision
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
