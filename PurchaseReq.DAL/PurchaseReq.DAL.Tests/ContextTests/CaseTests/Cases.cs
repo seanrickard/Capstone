@@ -44,9 +44,13 @@ namespace PurchaseReq.DAL.Tests.ContextTests.CaseTests
         {
             Employee newHire = new Employee { FirstName = "Bob", LastName = "Ross", Active = true };
             _db.Employees.Add(newHire);
-
             _db.SaveChanges();
 
+            newHire.EmployeesBudgetCode.Add(_db.EmployeesBudgetCodes.Where(x => x.BudgetCodeId == 3).ToList().First());
+            _db.SaveChanges();
+
+            string empId = _db.EmployeesBudgetCodes.Last().EmployeeId;
+            Assert.Equal(empId, _db.Employees.Where(name => name.LastName == "Ross").ToList().First().Id);
         }
     }
 }
