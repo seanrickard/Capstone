@@ -47,7 +47,7 @@ namespace PurchaseReq.DAL.Tests.ContextTests.UsersTests
         [Fact]
         public void AddDivision()
         {
-            var division = new Division { DivisionName = "Basket Weaving", SupervisorId = _db.Employees.Last().Id};
+            var division = new Division { DivisionName = "Basket Weaving", SupervisorId = _db.Employees.FirstOrDefault().Id};
             _db.Divisions.Add(division);
             _db.SaveChanges();
             Assert.Equal(6, _db.Divisions.Count());

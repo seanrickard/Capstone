@@ -20,6 +20,7 @@ namespace PurchaseReq.DAL.Tests.ContextTests.UsersTests
         {
             _db = new PurchaseReqContext();
             CleanDatabase();
+            DbInitializer.SeedData(_db);
         }
 
         public void Dispose()
@@ -44,55 +45,35 @@ namespace PurchaseReq.DAL.Tests.ContextTests.UsersTests
             Assert.True(true);
         }
 
-        //[Fact]
-        //public void AddDepartment()
-        //{
-        //    _db.Employees.Add(SampleData.GetOneEmployee(_db));
-        //    _db.SaveChanges();
-        //    var employee = _db.Employees.First();
-        //    var division = new Division { DivisionName = "STEM", Supervisor = employee };
-        //    _db.Divisions.Add(division);
-        //    _db.SaveChanges();
-        //    var department = new Department { DepartmentName = "Computer Science", Active = true , DivisionId = _db.Divisions.First().Id};
-        //    _db.Departments.Add(department);
-        //    _db.SaveChanges();
-        //    Assert.Equal(1, _db.Departments.Count());
-        //}
-
-        //[Fact]
-        //public void AddDepartmentsFromSampleData()
-        //{
+        [Fact]
+        public void AddDepartment()
+        {
             
-        //    foreach (var dept in SampleData.GetAllDepartments(_db))
-        //    {
-        //        _db.Departments.Add(dept);
-        //    }
-        //    _db.SaveChanges();
-        //    Assert.Equal(3, _db.Departments.Count());
-        //}
+            var department = new Department { DepartmentName = "Wood Chucks", Active = true, DivisionId = _db.Divisions.First().Id };
+            _db.Departments.Add(department);
+            _db.SaveChanges();
+            Assert.Equal(9, _db.Departments.Count());
+        }
 
-        //[Fact]
-        //public void AddEmployeeToDepartment()
-        //{
-        //    foreach (var dept in SampleData.GetAllDepartments(_db))
-        //    {
-        //        _db.Departments.Add(dept);
-        //    }
-        //    _db.SaveChanges();
-        //    var employee = SampleData.GetOneEmployee(_db);
-        //    ;
-        //    _db.Employees.Add(employee);
-        //    _db.SaveChanges();
+        [Fact]
+        public void AddEmployeeToDepartment()
+        {
 
-        //    employee.DepartmentId = 1;
+            var employee = new Employee { FirstName = "Chuck", LastName = "Wagons", Active = true, DepartmentId = _db.Departments.First().Id};
+            _db.Employees.Add(employee);        
+            
+            Assert.Equal("Wagons", _db.Departments.First().Employees.Find(x => x.FirstName == "Chuck").LastName);
+        }
 
-        //    _db.Employees.Update(employee);
-        //    //_db.Departments.First().Employees.Add(employee);
-        //    _db.SaveChanges();
-
-        //    Assert.Equal(1, _db.Departments.First().Employees.First().DepartmentId);
-        //}
-
-
+        [Fact]
+        public void AddDepartmentToDivision()
+        {
+            var dept = new Department { DepartmentName = "Basket Weaving", Active = false, DivisionId = _db.Divisions.First().Id};
+            _db.Departments.Add(dept);
+            _db.SaveChanges();
+            var temp = _db.Departments.Where(x => x.DepartmentName == "Basket Weaving").ToList().First();
+            
+            Assert.Equal(temp.DivisionId , _db.Divisions.First().Id);
+        }
     }
 }
