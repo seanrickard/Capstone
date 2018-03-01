@@ -8,5 +8,6 @@ namespace PurchaseReq.DAL.Repos.Interfaces
 {
     public interface ICFOApprovalRepo : IRepo<CFOApproval>
     {
+
     }
 }

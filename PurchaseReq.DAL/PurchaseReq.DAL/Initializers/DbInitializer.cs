@@ -23,12 +23,12 @@ namespace PurchaseReq.DAL.Initializers
 
             if (!_context.Employees.Any())
             {
-                _context.Employees.AddRange(SampleData.GetAllEmployees(_context));
+                _context.Employees.AddRange(SampleData.GetEmployees(_context));
                 _context.SaveChanges();
             }
             if(!_context.Divisions.Any())
             {
-                _context.Divisions.AddRange(SampleData.GetAllDivisions(_context));
+                _context.Divisions.AddRange(SampleData.GetDivisions(_context, SampleData.GetEmployees(_context)).ToList());
                 _context.SaveChanges();
             }
             if (!_context.Departments.Any())
