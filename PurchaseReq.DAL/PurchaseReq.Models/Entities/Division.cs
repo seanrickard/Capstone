@@ -30,6 +30,7 @@ namespace PurchaseReq.Models.Entities
        [InverseProperty(nameof(Division.Parent))]
        public List<Division> Children { get; set; }
 
+       
        public string SupervisorId { get; set; }
 
        [ForeignKey(nameof(SupervisorId))]

@@ -33,6 +33,6 @@ namespace PurchaseReq.Models.Entities
         public CFO CFO { get; set; }
 
         [InverseProperty(nameof(Division.Supervisor))]
-        public Division SupervisedDivision { get; set; }
+        public List<Division> SupervisedDivision { get; set; }
     }
 }
