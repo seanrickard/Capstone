@@ -33,7 +33,7 @@ namespace PurchaseReq.Models.Entities
         public Order Order { get; set; }
 
         [InverseProperty(nameof(Attachment.Request))]
-        public List<Attachment> Attachents { get; set; }
+        public List<Attachment> Attachments { get; set; }
 
         public int VendorId { get; set; }
 
