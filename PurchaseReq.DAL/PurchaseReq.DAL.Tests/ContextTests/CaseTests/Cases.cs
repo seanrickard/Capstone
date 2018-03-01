@@ -31,11 +31,11 @@ namespace PurchaseReq.DAL.Tests.ContextTests.CaseTests
         [Fact]
         public void Case3()
         {
-            BudgetCode newBudget = new BudgetCode { Type = true, BudgetCodeName = "BakeSale Budget", Active = true, DA = 731180007, TotalAmount = 2461 };
+            BudgetCode newBudget = new BudgetCode { Type = true, BudgetCodeName = "BakeSale Budget", Active = true, DA = 731180007, TotalAmount = 2461, Function =  41234, Project = 13415,  Parent = 41534};
 
             _db.BudgetCodes.Add(newBudget);
             _db.SaveChanges();
-            var id = _db.BudgetCodes.Where(x => x.BudgetCodeName == "BakeSale Budget").ToList().First().Id;
+            int id = _db.BudgetCodes.Where(x => x.BudgetCodeName == "BakeSale Budget").ToList().First().Id;
             Assert.Equal("BakeSale Budget", _db.BudgetCodes.Find(id).BudgetCodeName);
         }
     }

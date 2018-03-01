@@ -19,13 +19,15 @@ namespace PurchaseReq.DAL.Tests.ContextTests.UsersTests
         public DepartmentTest()
         {
             _db = new PurchaseReqContext();
-            CleanDatabase();
+            //CleanDatabase();
+            DbInitializer.ClearData(_db);
             DbInitializer.SeedData(_db);
         }
 
         public void Dispose()
         {
-            CleanDatabase();
+            //CleanDatabase();
+            DbInitializer.ClearData(_db);
             _db.Dispose();
         }
 
