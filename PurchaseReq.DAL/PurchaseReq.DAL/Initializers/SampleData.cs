@@ -10,18 +10,19 @@ namespace PurchaseReq.DAL.Initializers
         //Done
         public static IEnumerable<Division> GetDivisions(PurchaseReqContext context, List<Employee> Supervisors) => new List<Division>
         {
+
             new Division()
             {
                DivisionName = "Board of Governors",
                Active = true,
-               Supervisor = Supervisors.Find(x => x.FirstName.Equals("Alice")),
+               SupervisorId = Supervisors.Find(x => x.FirstName.ToString().Equals("Alice")).Id,
                 // need to figure out employee foreign key info
             },
             new Division()
             {
                DivisionName = "STEM",
                Active = true,
-               Supervisor = Supervisors.Find(x => x.FirstName.Equals("Jared")),
+               SupervisorId = Supervisors.Find(x => x.FirstName.ToString().Equals("Jared")).Id,
                ParentId = 1
                 // need to figure out employee foreign key info
             },
@@ -29,7 +30,7 @@ namespace PurchaseReq.DAL.Initializers
             {
                DivisionName = "Nursing & Health Sciences",
                Active = true,
-               Supervisor = Supervisors.Find(x => x.FirstName.Equals("Kathy")),
+               SupervisorId = Supervisors.Find(x => x.FirstName.ToString().Equals("Kathy")).Id,
                ParentId = 1
                 // need to figure out employee foreign key info
             },
@@ -37,7 +38,7 @@ namespace PurchaseReq.DAL.Initializers
             {
                DivisionName = "Education",
                Active = true,
-               Supervisor = Supervisors.Find(x => x.FirstName.Equals("Jeffrey")),
+               SupervisorId = Supervisors.Find(x => x.FirstName.ToString().Equals("Jeffrey")).Id,
                ParentId = 1
                 // need to figure out employee foreign key info
             },
@@ -45,7 +46,7 @@ namespace PurchaseReq.DAL.Initializers
             {
                DivisionName = "Business & Economics",
                Active = true,
-               Supervisor = Supervisors.Find(x => x.FirstName.Equals("Alice")),
+               SupervisorId =  Supervisors.Find(x => x.FirstName.ToString().Equals("Julie")).Id,
                ParentId = 1
                 // need to figure out employee foreign key info
             },

@@ -38,13 +38,14 @@ namespace PurchaseReq.DAL.Initializers
             }
             if(!_context.Divisions.Any())
             {
-                _context.Divisions.AddRange(SampleData.GetDivisions(_context, SampleData.GetEmployees(_context).ToList()));
+                _context.Divisions.AddRange(SampleData.GetDivisions(_context, _context.Employees.ToList()));
                 _context.SaveChanges();
             }
             if (!_context.Departments.Any())
             {
-                _context.Departments.AddRange(SampleData.GetDepartments(_context, SampleData.GetDivisions(_context, SampleData.GetEmployees(_context).ToList()).ToList()));
-                _context.Employees.UpdateRange(SampleData.SetEmployeesDepartment(SampleData.GetEmployees(_context).ToList()));
+                _context.Departments.AddRange(SampleData.GetDepartments(_context, _context.Divisions.ToList()));
+                _context.SaveChanges();
+                _context.Employees.UpdateRange(SampleData.SetEmployeesDepartment(_context.Employees.ToList()));
                 _context.SaveChanges();
             }
 
