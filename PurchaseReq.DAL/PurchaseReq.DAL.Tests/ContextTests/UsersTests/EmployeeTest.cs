@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using PurchaseReq.DAL.EF;
 using PurchaseReq.DAL.Initializers;
 using PurchaseReq.Models.Entities;
@@ -16,25 +17,27 @@ namespace PurchaseReq.DAL.Tests.ContextTests.UsersTests
         public EmployeeTest()
         {
             _db = new PurchaseReqContext();
-            CleanDatabase();
+            DbInitializer.ClearData(_db);
+            //CleanDatabase();
             DbInitializer.SeedData(_db);
         }
 
         public void Dispose()
         {
-            CleanDatabase();
+            //CleanDatabase();
+            DbInitializer.ClearData(_db);
             _db.Dispose();
         }
 
-        private void CleanDatabase()
-        {
-            _db.Database.ExecuteSqlCommand("Update [dbo].[AspNetUsers] Set DepartmentId = NULL");
-            _db.Database.ExecuteSqlCommand("Delete from [User].[Departments]");
-            _db.Database.ExecuteSqlCommand("Delete from [User].[Divisions]");
-            _db.Database.ExecuteSqlCommand("Delete from [dbo].[AspNetUsers]");
-            _db.Database.ExecuteSqlCommand($"DBCC CHECKIDENT (\"[User].[Divisions]\" , RESEED, 0);");
-            _db.Database.ExecuteSqlCommand($"DBCC CHECKIDENT (\"[User].[Departments]\" , RESEED, 0);");
-        }
+        //private void CleanDatabase()
+        //{
+        //    _db.Database.ExecuteSqlCommand("Update [dbo].[AspNetUsers] Set DepartmentId = NULL");
+        //    _db.Database.ExecuteSqlCommand("Delete from [User].[Departments]");
+        //    _db.Database.ExecuteSqlCommand("Delete from [User].[Divisions]");
+        //    _db.Database.ExecuteSqlCommand("Delete from [dbo].[AspNetUsers]");
+        //    _db.Database.ExecuteSqlCommand($"DBCC CHECKIDENT (\"[User].[Divisions]\" , RESEED, 0);");
+        //    _db.Database.ExecuteSqlCommand($"DBCC CHECKIDENT (\"[User].[Departments]\" , RESEED, 0);");
+        //}
 
         [Fact]
         public void FirstTest()
@@ -50,64 +53,37 @@ namespace PurchaseReq.DAL.Tests.ContextTests.UsersTests
             Assert.Equal(9, _db.Employees.Count());
         }
 
-        //    [Fact]
-        //    public void AddEmployeesFromSampleData()
-        //    {
-        //        foreach(var emp in SampleData.GetAllEmployees(_db))
-        //        {
-        //            _db.Employees.Add(emp);
-        //        }
-        //        _db.SaveChanges();
-        //        Assert.Equal(3, _db.Employees.Count());
-        //    }
 
-        //    //  Ask Levi if this is how test should be done
-        //    [Fact]
-        //    public void DeleteEmployee()
-        //    {
-        //        var employee = new Employee { FirstName = "John", LastName = "Doe", Active = true };
-        //        _db.Employees.Add(employee);
-        //        _db.SaveChanges();
-        //        _db.Employees.Remove(employee);
-        //        _db.SaveChanges();
-        //        Assert.Equal(0, _db.Employees.Count());
-        //    }
-        //    // Test fails, but seems more like the proper way to run the test
-        //    [Fact]
-        //    public void DeleteEmployee2()
-        //    {
-        //        _db.Employees.Add(SampleData.GetOneEmployee(_db));
-        //        _db.SaveChanges();
-        //        var employee = _db.Employees.First();
-        //        _db.Employees.Remove(employee);
-        //        _db.SaveChanges();
-        //        Assert.Equal(0, _db.Employees.Count());
-        //    }
+        //  Ask Levi if this is how test should be done
+        [Fact]
+        public void DeleteEmployee()
+        {
+            Employee employee = (Employee)_db.Employees.Where(x => x.FirstName == "David").ToList().First();
+            _db.Employees.Remove(employee);
+            _db.SaveChanges();
+            Assert.Equal(7, _db.Employees.Count());
+        }
 
-        //    [Fact]
-        //    public void UpdateEmployeeDepartment()
-        //    {
-        //        var employee = SampleData.GetOneEmployee(_db);
-        //        _db.Divisions.Add(SampleData.GetOneDivision(_db));
-        //        _db.Departments.AddRange(SampleData.GetAllDepartments(_db));
-        //        _db.Employees.Add(employee);
-        //        _db.SaveChanges();
-        //        employee = _db.Employees.First();
-        //        employee.DepartmentId = 1;
-        //        _db.Employees.Update(employee);
-        //        _db.SaveChanges();
-        //        Assert.Equal("Jane", _db.Departments.First().Employees.First().FirstName);
-        //       // Assert.Equal(2, _db.Employees.First().DepartmentId);
-        //    }
+        [Fact]
+        public void UpdateEmployeeDepartment()
+        {
+            Employee employee = (Employee)_db.Employees.Where(x => x.FirstName == "David").ToList().First();
+            var id = employee.Id;
+            employee.FirstName = "Davvy";
+            employee.LastName = "Lockers";
+            _db.Employees.Update(employee);
+            _db.SaveChanges();
+            Assert.Equal("Davvy", _db.Employees.Find(id).FirstName);
+            // Assert.Equal(2, _db.Employees.First().DepartmentId);
+        }
 
-        //    [Fact]
-        //    public void ReadEmployee()
-        //    {
-        //        var employee = SampleData.GetOneEmployee(_db);
-        //        _db.Employees.Add(employee);
-        //        _db.SaveChanges();
-        //        Assert.Equal("Jane", _db.Employees.First().FirstName);
-        //    }
-        //
+        [Fact]
+        public void ReadEmployee()
+        {
+            Employee employee = (Employee)_db.Employees.Where(x => x.FirstName == "Charles").ToList().First();
+            var id = employee.Id;
+            Assert.Equal("Almond", _db.Employees.Find(id).LastName);
+        }
+
     }
 }
