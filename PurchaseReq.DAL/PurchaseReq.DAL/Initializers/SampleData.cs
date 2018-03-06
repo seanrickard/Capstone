@@ -201,13 +201,6 @@ namespace PurchaseReq.DAL.Initializers
             return employees;
         }
 
-        //public static Employee GetOneEmployee(PurchaseReqContext context) => new Employee
-        //{
-        //    FirstName = "Jane",
-        //    LastName = "Doe",
-        //    Active = true
-        //};
-
         //Done
         public static IEnumerable<Status> GetStatuses(PurchaseReqContext context) => new List<Status>
         {
@@ -250,24 +243,7 @@ namespace PurchaseReq.DAL.Initializers
            }
         };
         
-
-        //public static IEnumerable<Order> GetAllOrders(PurchaseReqContext context) => new List<Order>
-        //{
-        //    new Order()
-        //    {
-        //        DateMade = DateTime.Now,
-        //        Ordered = false,
-        //        DateOrdered = DateTime.Now.AddDays(1),
-        //        Delivered = false,
-        //        StateContract = false,
-        //        BusinessJustification = "Need new computers for labs",
-        //        Employee = SampleData.GetOneEmployee(context)
-                
-        //    }
-        //};
-
-
-        public static IEnumerable<Request> GetAllRequests(PurchaseReqContext context) => new List<Request>
+        public static IEnumerable<Request> GetRequests(PurchaseReqContext context) => new List<Request>
         {
             new Request()
             {
@@ -289,65 +265,48 @@ namespace PurchaseReq.DAL.Initializers
         };
 
         //Done
-        public static IEnumerable<Vendor> GetAllVendors(PurchaseReqContext context) => new List<Vendor>
-        {
+        public static IEnumerable<Vendor> GetVendors() => new List<Vendor>
+        { 
             new Vendor()
             {
                 VendorName = "Amazon",
-                Address = "112 Amazon Dr.",
-                State = "CA",
-                City = "San Francisco",
+                Address = new Address{State = "CA", StreetAddress = "112 Amazon Dr.", City = "San Francisco", Zip = "26250"},
                 Website = "www.amazon.com",
-                Zip = "26250",
                 Phone = "1-234-6489",
                 Fax = "235456"
             },
             new Vendor()
             {
                 VendorName = "Walmart",
-                Address = "Wally Street",
-                State = "Texas",
-                City = "Austin",
+                Address = new Address{State = "TX", StreetAddress = "Wally Street", City =  "Austin", Zip = "54689"},
                 Website = "Walmart.com",
-                Zip = "54689",
                 Phone = "8-652-4523",
                 Fax = "496832"
             },
             new Vendor()
             {
                 VendorName = "Home Depot",
-                Address = "Deposit Street",
-                State = "West Virginia",
-                City = "Parkersburg",
+                Address = new Address{State = "WV", StreetAddress =  "Deposit Street", City = "Parkersburg", Zip = "87654"},
                 Website = "HomeDepot.com",
-                Zip = "87654",
                 Phone = "1-304-8695",
                 Fax = "579832"
             },
             new Vendor()
             {
                 VendorName = "Computerland",
-                Address = "Land Street",
-                State = "West Virginia",
-                City = "Charleston",
+                Address = new Address{State = "WV", StreetAddress = "Land Street", City = "Charleston", Zip = "67513"},
                 Website = "ComputerLand.com",
-                Zip = "67513",
                 Phone = "1-234-7564",
                 Fax = "434863"
             },
             new Vendor()
             {
                 VendorName = "Dollar General",
-                Address = "112 Brady Dr.",
-                State = "WV",
-                City = "Parkersburg",
+                Address = new Address{State = "WV", StreetAddress = "112 Brady Dr.", City = "Parkersburg", Zip = "25142"},
                 Website = "www.dg.com",
-                Zip = "25142",
                 Phone = "1-456-4865",
                 Fax = "215489"
             },
-
-            
         };
 
         //Done
@@ -387,10 +346,6 @@ namespace PurchaseReq.DAL.Initializers
             //add attachment info here
         };
 
-        public static IEnumerable<AlternativeRequest> GetAllAlternativeRequests = new List<AlternativeRequest>
-        {
-            //add info here
-        };
 
         //Done
         public static IEnumerable<BudgetCode> GetAllBudgetCodes => new List<BudgetCode>

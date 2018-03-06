@@ -26,8 +26,8 @@ namespace PurchaseReq.DAL.Initializers
             SetEmployeesToNull(appDbContext);
             ExecuteDeleteSQL(appDbContext, Schema[0], "Departments");
             ExecuteDeleteSQL(appDbContext, Schema[0], "Divisions");
-            ExecuteDeleteSQL(appDbContext, Schema[2], "AspNetUsers");
             ExecuteDeleteSQL(appDbContext, Schema[0], "EmployeesBudgetCodes");
+            ExecuteDeleteSQL(appDbContext, Schema[2], "AspNetUsers");
             ExecuteDeleteSQL(appDbContext, Schema[0], "BudgetCodes");
             ResetIdentity(appDbContext);
         }
@@ -44,8 +44,8 @@ namespace PurchaseReq.DAL.Initializers
 
         public static void ResetIdentity(PurchaseReqContext appDbContext)
         {
-            string[] UserTables = { "Departments", "Divisions", "BudgetCodes", "EmployeesBudgetCodes", "CFOs" };
-            string[] OrderTables = { "Attachments", "Statuses", "CFOApprovals", "Approval", "SupervisorApprovals", "Orders", "Requests", "Categories", "Items", "Vendors", "AlternativeRequest" };
+            string[] UserTables = { "Departments", "Divisions", "BudgetCodes", "EmployeesBudgetCodes", "CFOs", "Rooms", "Buildings", "Addresses"};
+            string[] OrderTables = { "Attachments", "Statuses", "CFOApprovals", "Approval", "SupervisorApprovals", "Orders", "Requests", "Categories", "Items", "Vendors" };
 
             foreach(string table in UserTables)
             {
@@ -86,6 +86,10 @@ namespace PurchaseReq.DAL.Initializers
             if(!_context.EmployeesBudgetCodes.Any())
             {
                 _context.EmployeesBudgetCodes.AddRange(SampleData.GetAllEmployeeBudgetCodes);
+            }
+            if(!_context.Vendors.Any())
+            {
+                _context.Vendors.AddRange(SampleData.GetVendors());
             }
 
             _context.SaveChanges();

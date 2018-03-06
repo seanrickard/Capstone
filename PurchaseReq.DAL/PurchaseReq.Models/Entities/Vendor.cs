@@ -11,21 +11,9 @@ namespace PurchaseReq.Models.Entities
     [Table("Vendors", Schema = "Order")]
     public class Vendor : EntityBase
     {
-        
+
         [DataType(DataType.Text), MaxLength(20)]
         public string VendorName { get; set; }
-
-        [DataType(DataType.Text), MaxLength(50)]
-        public string City { get; set; }
-
-        [DataType(DataType.Text), MaxLength(2)]
-        public string State { get; set; }
-
-        [DataType(DataType.Text), MaxLength(10)]
-        public string Zip { get; set; }
-
-        [DataType(DataType.Text), MaxLength(50)]
-        public string Address { get; set; }
 
         [DataType(DataType.Text), MaxLength(20)]
         public string Phone { get; set; }
@@ -37,7 +25,13 @@ namespace PurchaseReq.Models.Entities
         public string Website { get; set; }
 
         [InverseProperty(nameof(Request.Vendor))]
-        public List<Request>Requests { get; set; }
+        public List<Request> Requests { get; set; }
+
+        public int AddressId { get; set; }
+        
+        [ForeignKey(nameof(AddressId))]
+        public Address Address{ get; set; }
+
 
     }
 }

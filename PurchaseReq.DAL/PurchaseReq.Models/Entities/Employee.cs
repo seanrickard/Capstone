@@ -34,5 +34,12 @@ namespace PurchaseReq.Models.Entities
 
         [InverseProperty(nameof(Division.Supervisor))]
         public List<Division> SupervisedDivision { get; set; }
+
+        public int? RoomId { get; set; }
+
+        [ForeignKey(nameof(RoomId))]
+        public Room Room { get; set; }
+
+
     }
 }

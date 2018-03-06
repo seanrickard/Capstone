@@ -45,10 +45,5 @@ namespace PurchaseReq.Models.Entities
         [ForeignKey(nameof(ItemId))]
         public Item Item { get; set; }
 
-        //Set by fluent api
-        public List<AlternativeRequest> AlternativeRequests { get; set; }
-
-        //Set by fluent api
-        public List<AlternativeRequest> RequestAlternative { get; set; }
     }
 }

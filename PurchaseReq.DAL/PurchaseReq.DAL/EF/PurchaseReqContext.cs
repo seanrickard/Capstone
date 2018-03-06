@@ -58,22 +58,6 @@ namespace PurchaseReq.DAL.EF
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
 
-            //Set up Alternative Request Base Request Foriegn key
-            modelBuilder.Entity<AlternativeRequest>()
-                .HasOne(r => r.Request)
-                .WithMany(alt => alt.AlternativeRequests)
-                .HasForeignKey(i => i.RequestId)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.Restrict);
-
-            //Set up Alternative Request Alternativve foreign key
-            modelBuilder.Entity<AlternativeRequest>()
-                .HasOne(alt => alt.Alternative)
-                .WithMany(altr => altr.RequestAlternative)
-                .HasForeignKey(i => i.AlternativeId)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.Restrict);
-
             //Sets up default value for Orders DateMade as today. 
             modelBuilder.Entity<Order>(entity =>
             {
@@ -110,7 +94,9 @@ namespace PurchaseReq.DAL.EF
         public DbSet<Division> Divisions { get; set; }
         public DbSet<EmployeesBudgetCodes> EmployeesBudgetCodes { get; set; }
         public DbSet<Attachment> Attachments { get; set; }
-        public DbSet<AlternativeRequest> AlternativeRequests { get; set; }
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Building> Buildings{ get; set; }
+        public DbSet<Room> Rooms { get; set; }
 
     }
 }
