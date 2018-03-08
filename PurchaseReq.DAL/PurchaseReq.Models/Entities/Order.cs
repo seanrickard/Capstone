@@ -18,7 +18,7 @@ namespace PurchaseReq.Models.Entities
         public bool Ordered { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime DateOrdered { get; set; }
+        public DateTime? DateOrdered { get; set; }
 
         
         public bool Delivered { get; set; }
@@ -52,6 +52,11 @@ namespace PurchaseReq.Models.Entities
 
         [InverseProperty(nameof(Request.Order))]
         public List<Request> Requests { get; set; }
+
+        public int BudgetCodeId { get; set; }
+
+        [ForeignKey(nameof(BudgetCodeId))]
+        public BudgetCode BudgetCode { get; set; }
 
 
     }

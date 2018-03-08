@@ -45,5 +45,7 @@ namespace PurchaseReq.Models.Entities
         [ForeignKey(nameof(ItemId))]
         public Item Item { get; set; }
 
+        public string ReasonChosen { get; set; }
+
     }
 }

@@ -12,9 +12,10 @@ using System;
 namespace PurchaseReq.DAL.EF.Migrations
 {
     [DbContext(typeof(PurchaseReqContext))]
-    partial class PurchaseReqContextModelSnapshot : ModelSnapshot
+    [Migration("20180307234748_FixedOrderAndBudgetCode")]
+    partial class FixedOrderAndBudgetCode
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -477,7 +478,7 @@ namespace PurchaseReq.DAL.EF.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValueSql("getdate()");
 
-                    b.Property<DateTime?>("DateOrdered");
+                    b.Property<DateTime>("DateOrdered");
 
                     b.Property<bool>("Delivered");
 
@@ -530,8 +531,6 @@ namespace PurchaseReq.DAL.EF.Migrations
                         .HasComputedColumnSql("[QuantityRequested] * [PaidCost]");
 
                     b.Property<int>("QuantityRequested");
-
-                    b.Property<string>("ReasonChosen");
 
                     b.Property<byte[]>("TimeStamp")
                         .IsConcurrencyToken()

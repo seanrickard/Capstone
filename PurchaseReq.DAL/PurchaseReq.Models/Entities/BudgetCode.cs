@@ -31,5 +31,8 @@ namespace PurchaseReq.Models.Entities
 
         [InverseProperty(nameof(EmployeesBudgetCodes.BudgetCode))]
         public List<EmployeesBudgetCodes> EmployeesBudgetCode { get; set; }
+
+        [InverseProperty(nameof(Order.BudgetCode))]
+        public List<Order> Orders { get; set; }
     }
 }
