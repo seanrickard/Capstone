@@ -393,10 +393,13 @@ namespace PurchaseReq.DAL.Initializers
         };
 
 
-        //public static IEnumerable<CFO> GetAllCFOs => new List<CFO>
-        //{
-        //    // add cfo info
-        //};
+        public static IEnumerable<CFO> GetCFOs(List<Employee> employees) => new List<CFO>
+        {
+            new CFO
+            {
+                EmployeeId = employees.Find(x => x.LastName.Equals("CFO")).Id
+            }
+        };
 
         public static IEnumerable<CFOApproval> GetCFOApprovals => new List<CFOApproval>
         {

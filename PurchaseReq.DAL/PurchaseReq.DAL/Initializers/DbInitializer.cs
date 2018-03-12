@@ -29,6 +29,7 @@ namespace PurchaseReq.DAL.Initializers
             ExecuteDeleteSQL(appDbContext, Schema[0], "EmployeesBudgetCodes");
             ExecuteDeleteSQL(appDbContext, Schema[1], "Requests");
             ExecuteDeleteSQL(appDbContext, Schema[1], "Orders");
+            ExecuteDeleteSQL(appDbContext, Schema[0], "CFOs");
             ExecuteDeleteSQL(appDbContext, Schema[2], "AspNetUsers");
             ExecuteDeleteSQL(appDbContext, Schema[0], "BudgetCodes");
             ExecuteDeleteSQL(appDbContext, Schema[1], "Items");
@@ -130,6 +131,10 @@ namespace PurchaseReq.DAL.Initializers
             if (!_context.Rooms.Any())
             {
                 _context.Rooms.AddRange(SampleData.GetRooms);
+            }
+            if(!_context.CFOs.Any())
+            {
+                _context.CFOs.AddRange(SampleData.GetCFOs(_context.Employees.ToList()));
             }
 
             _context.SaveChanges();
