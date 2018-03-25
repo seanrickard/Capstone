@@ -1,9 +1,8 @@
-﻿using System;
+﻿using PurchaseReq.Models.Entities.Base;
 using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using PurchaseReq.Models.Entities.Base;
 
 namespace PurchaseReq.Models.Entities
 {
@@ -13,6 +12,9 @@ namespace PurchaseReq.Models.Entities
     {   
         [DataType(DataType.Text), MaxLength(75)]
         public string CategoryName { get; set; }
+
+        [DefaultValue(true)]
+        public bool Active { get; set; }
 
         [InverseProperty(nameof(Order.Category))]
         public List<Order> Orders { get; set; }

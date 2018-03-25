@@ -3,9 +3,7 @@ using PurchaseReq.DAL.EF;
 using PurchaseReq.DAL.Initializers;
 using PurchaseReq.Models.Entities;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Xunit;
 
 namespace PurchaseReq.DAL.Tests.ContextTests.UsersTests
@@ -19,14 +17,12 @@ namespace PurchaseReq.DAL.Tests.ContextTests.UsersTests
         public DepartmentTest()
         {
             _db = new PurchaseReqContext();
-            //CleanDatabase();
             DbInitializer.ClearData(_db);
             DbInitializer.SeedData(_db);
         }
 
         public void Dispose()
         {
-            //CleanDatabase();
             DbInitializer.ClearData(_db);
             _db.Dispose();
         }

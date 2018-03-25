@@ -1,25 +1,26 @@
-﻿using PurchaseReq.Models.Entities;
-using PurchaseReq.Models.Entities.Base;
-using System;
+﻿using PurchaseReq.Models.Entities.Base;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace PurchaseReq.Models.Entities
 {
-    [Table("Buildings", Schema = "User")]
-    public class Building : EntityBase
+    [Table("Campuses", Schema = "User")]
+    public class Campus : EntityBase
     {
         [Required]
-        public string BuildingName { get; set; }
+        public string CampusName { get; set; }
+
+        [DefaultValue(true)]
+        public bool Active { get; set; }
 
         public int AddressId { get; set; }
 
         [ForeignKey(nameof(AddressId))]
         public Address Address { get; set; }
 
-        [InverseProperty(nameof(Room.Building))]
+        [InverseProperty(nameof(Room.Campus))]
         public List<Room> Rooms { get; set; }
     }
 }

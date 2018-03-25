@@ -1,9 +1,7 @@
 ﻿using PurchaseReq.Models.Entities.Base;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace PurchaseReq.Models.Entities
 {
@@ -14,6 +12,6 @@ namespace PurchaseReq.Models.Entities
         public string ApprovalName { get; set; }
 
         [InverseProperty(nameof(SupervisorApproval.Approval))]
-        public List<SupervisorApproval> SupervisorApprovals { get; set; }
+        public List<SupervisorApproval> SupervisorApprovals { get; set; } = new List<SupervisorApproval>();
     }
 }

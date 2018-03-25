@@ -1,9 +1,6 @@
 ﻿using PurchaseReq.Models.Entities.Base;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace PurchaseReq.Models.Entities
 {
@@ -11,6 +8,9 @@ namespace PurchaseReq.Models.Entities
     public class EmployeesBudgetCodes : EntityBase
     {
         public string EmployeeId { get; set; }
+
+        [DefaultValue(true)]
+        public bool Active { get; set; }
 
         [ForeignKey(nameof(EmployeeId))]
         public Employee Employee { get; set; }

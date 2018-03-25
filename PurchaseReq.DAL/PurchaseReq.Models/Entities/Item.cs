@@ -1,9 +1,7 @@
-﻿using System;
+﻿using PurchaseReq.Models.Entities.Base;
 using System.Collections.Generic;
-using System.Text;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using PurchaseReq.Models.Entities.Base;
 
 namespace PurchaseReq.Models.Entities
 {
@@ -17,6 +15,6 @@ namespace PurchaseReq.Models.Entities
         public string Description { get; set; }
 
         [InverseProperty(nameof(Request.Item))]
-        public List<Request> Requests { get; set; }
+        public List<Request> Requests { get; set; } = new List<Request>();
     }
 }

@@ -1,24 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using PurchaseReq.Models.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using PurchaseReq.DAL.EF;
-using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 
 namespace PurchaseReq.DAL.Initializers
 {
     public class DbInitializer
     {
-        private readonly PurchaseReqContext _context;
-        private static readonly string[] TableName = { "Departments", "Divisions", "AspNetUsers",
-        "Attachments", "Statuses", "BudgetCodes", "EmployeesBudgetCodes", "CFOs", "CFOApprovals",
-        "Approvals", "SupervisorApprovals", "Orders", "Requests", "Categories", "Items", "Vendors", "AlternativeRequests"};
-        private static string[] Schema = { "User", "Order", "dbo" };
+        private static readonly string[] Schema = { "User", "Order", "dbo" };
 
-        public DbInitializer(PurchaseReqContext appDbContext)
+        public static void InitializeData(IServiceProvider serviceProvider)
         {
-            _context = appDbContext;
+            var context = serviceProvider.GetService<PurchaseReqContext>();
+            InitializeData(context);
+        }
+
+        public static void InitializeData(PurchaseReqContext context)
+        {
+            context.Database.Migrate();
+            ClearData(context);
+            SeedData(context);
         }
 
         public static void ClearData(PurchaseReqContext appDbContext)
@@ -29,33 +31,32 @@ namespace PurchaseReq.DAL.Initializers
             ExecuteDeleteSQL(appDbContext, Schema[0], "EmployeesBudgetCodes");
             ExecuteDeleteSQL(appDbContext, Schema[1], "Requests");
             ExecuteDeleteSQL(appDbContext, Schema[1], "Orders");
-            ExecuteDeleteSQL(appDbContext, Schema[0], "CFOs");
             ExecuteDeleteSQL(appDbContext, Schema[2], "AspNetUsers");
             ExecuteDeleteSQL(appDbContext, Schema[0], "BudgetCodes");
             ExecuteDeleteSQL(appDbContext, Schema[1], "Items");
             ExecuteDeleteSQL(appDbContext, Schema[1], "Vendors");
             ExecuteDeleteSQL(appDbContext, Schema[0], "Rooms");
-            ExecuteDeleteSQL(appDbContext, Schema[0], "Buildings");
+            ExecuteDeleteSQL(appDbContext, Schema[0], "Campuses");
             ExecuteDeleteSQL(appDbContext, Schema[0], "Addresses");
             ExecuteDeleteSQL(appDbContext, Schema[1], "Categories");
             ExecuteDeleteSQL(appDbContext, Schema[1], "Statuses");
             ResetIdentity(appDbContext);
         }
 
-        public static void SetEmployeesToNull(PurchaseReqContext appDbContext)
+        private static void SetEmployeesToNull(PurchaseReqContext appDbContext)
         {
             appDbContext.Database.ExecuteSqlCommand("Update [dbo].[AspNetUsers] Set DepartmentId = NULL");
         }
 
-        public static void ExecuteDeleteSQL(PurchaseReqContext appDbContext, string schema, string tableName)
+        private static void ExecuteDeleteSQL(PurchaseReqContext appDbContext, string schema, string tableName)
         {
             appDbContext.Database.ExecuteSqlCommand("Delete from [" + schema + "].[" + tableName + "]");
         }
 
-        public static void ResetIdentity(PurchaseReqContext appDbContext)
+        private static void ResetIdentity(PurchaseReqContext appDbContext)
         {
-            string[] UserTables = { "Departments", "Divisions", "BudgetCodes", "EmployeesBudgetCodes", "CFOs", "Rooms", "Buildings", "Addresses"};
-            string[] OrderTables = { "Attachments", "Statuses", "CFOApprovals", "Approval", "SupervisorApprovals", "Orders", "Requests", "Categories", "Items", "Vendors" };
+            string[] UserTables = { "Departments", "Divisions", "BudgetCodes", "EmployeesBudgetCodes", "Rooms", "Campuses", "Addresses"};
+            string[] OrderTables = { "Attachments", "Statuses", "Approval", "SupervisorApprovals", "Orders", "Requests", "Categories", "Items", "Vendors" };
 
             foreach(string table in UserTables)
             {
@@ -68,76 +69,72 @@ namespace PurchaseReq.DAL.Initializers
             }
         }
 
-    public static void SeedData(PurchaseReqContext _context)
+    public static void SeedData(PurchaseReqContext context)
         {
-            _context.Database.EnsureCreated();
+            context.Database.EnsureCreated();
 
-            if (!_context.Employees.Any())
+            if (!context.Employees.Any())
             {
-                _context.Employees.AddRange(SampleData.GetEmployees);
-                _context.SaveChanges();
+                context.Employees.AddRange(SampleData.GetEmployees);
+                context.SaveChanges();
             }
-            if(!_context.Divisions.Any())
+            if(!context.Divisions.Any())
             {
-                _context.Divisions.AddRange(SampleData.GetDivisions( _context.Employees.ToList()));
-                _context.SaveChanges();
+                context.Divisions.AddRange(SampleData.GetDivisions( context.Employees.ToList()));
+                context.SaveChanges();
             }
-            if (!_context.Departments.Any())
+            if (!context.Departments.Any())
             {
-                _context.Departments.AddRange(SampleData.GetDepartments( _context.Divisions.ToList()));
-                _context.SaveChanges();
-                _context.Employees.UpdateRange(SampleData.SetEmployeesDepartment(_context.Employees.ToList()));
-                _context.SaveChanges();
+                context.Departments.AddRange(SampleData.GetDepartments( context.Divisions.ToList()));
+                context.SaveChanges();
+                context.Employees.UpdateRange(SampleData.SetEmployeesDepartment(context.Employees.ToList()));
+                context.SaveChanges();
             }
-            if(!_context.BudgetCodes.Any())
+            if(!context.BudgetCodes.Any())
             {
-                _context.BudgetCodes.AddRange(SampleData.GetBudgetCodes);
+                context.BudgetCodes.AddRange(SampleData.GetBudgetCodes);
             }
-            if(!_context.EmployeesBudgetCodes.Any())
+            if(!context.EmployeesBudgetCodes.Any())
             {
-                _context.EmployeesBudgetCodes.AddRange(SampleData.GetEmployeeBudgetCodes);
+                context.EmployeesBudgetCodes.AddRange(SampleData.GetEmployeeBudgetCodes);
             }
-            if(!_context.Vendors.Any())
+            if(!context.Vendors.Any())
             {
-                _context.Vendors.AddRange(SampleData.GetVendors);
+                context.Vendors.AddRange(SampleData.GetVendors);
             }
-            if(!_context.Statuses.Any())
+            if(!context.Statuses.Any())
             {
-                _context.Statuses.AddRange(SampleData.GetStatuses);
+                context.Statuses.AddRange(SampleData.GetStatuses);
             }
-            if (!_context.Categories.Any())
+            if (!context.Categories.Any())
             {
-                _context.Categories.AddRange(SampleData.GetCategories);
-                _context.SaveChanges();
+                context.Categories.AddRange(SampleData.GetCategories);
+                context.SaveChanges();
             }
-            if (!_context.Orders.Any())
+            if (!context.Orders.Any())
             {
-                _context.Orders.AddRange(SampleData.GetOrders(_context.Employees.ToList()));
+                context.Orders.AddRange(SampleData.GetOrders(context.Employees.ToList()));
             }
-            if (!_context.Items.Any())
+            if (!context.Items.Any())
             {
-                _context.Items.AddRange(SampleData.GetItems);
-                _context.SaveChanges();
+                context.Items.AddRange(SampleData.GetItems);
+                context.SaveChanges();
             }
-            if (!_context.Requests.Any())
+            if (!context.Requests.Any())
             {
-                _context.Requests.AddRange(SampleData.GetRequests);
+                context.Requests.AddRange(SampleData.GetRequests);
             }      
-            if (!_context.Buildings.Any())
+            if (!context.Campuses.Any())
             {
-                _context.Buildings.AddRange(SampleData.GetBuildings);
-                _context.SaveChanges();
+                context.Campuses.AddRange(SampleData.GetCampuses);
+                context.SaveChanges();
             }
-            if (!_context.Rooms.Any())
+            if (!context.Rooms.Any())
             {
-                _context.Rooms.AddRange(SampleData.GetRooms);
-            }
-            if(!_context.CFOs.Any())
-            {
-                _context.CFOs.AddRange(SampleData.GetCFOs(_context.Employees.ToList()));
+                context.Rooms.AddRange(SampleData.GetRooms);
             }
 
-            _context.SaveChanges();
+            context.SaveChanges();
         }
     }
 }

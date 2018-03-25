@@ -1,9 +1,9 @@
-﻿using System;
+﻿using PurchaseReq.DAL.EF;
+using PurchaseReq.DAL.Initializers;
 using PurchaseReq.Models.Entities;
-using PurchaseReq.DAL.EF;
-using Xunit;
-using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
+using Xunit;
 
 namespace PurchaseReq.DAL.Tests.ContextTests.OrderTests
 {
@@ -16,19 +16,14 @@ namespace PurchaseReq.DAL.Tests.ContextTests.OrderTests
         public StatusTest()
         {
             _db = new PurchaseReqContext();
-            CleanDatabase();
+            DbInitializer.ClearData(_db);
+            DbInitializer.SeedData(_db);
         }
 
         public void Dispose()
         {
-            CleanDatabase();
+            DbInitializer.ClearData(_db);
             _db.Dispose();
-        }
-
-        private void CleanDatabase()
-        {
-            _db.Database.ExecuteSqlCommand("Delete from [Order].[Statuses]");
-            _db.Database.ExecuteSqlCommand($"DBCC CHECKIDENT (\"[Order].[Statuses]\" , RESEED, 0);");
         }
 
         [Fact]
@@ -40,10 +35,11 @@ namespace PurchaseReq.DAL.Tests.ContextTests.OrderTests
         [Fact]
         public void AddAStatus()
         {
+            int beforeCount = _db.Statuses.Count();
             var status = new Status { StatusName = "Waiting for Supervisor Approval" };
             _db.Statuses.Add(status);
             _db.SaveChanges();
-            Assert.Equal(1, _db.Statuses.Count());
+            Assert.Equal(beforeCount + 1, _db.Statuses.Count());
         }
     }
 }

@@ -1,9 +1,8 @@
 ﻿using PurchaseReq.Models.Entities.Base;
-using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 /**
  * Base recursive relationship off of ->https://stackoverflow.com/questions/27720369/one-to-many-recursive-relationship-with-code-first
@@ -17,10 +16,11 @@ namespace PurchaseReq.Models.Entities
         [DataType(DataType.Text)]
         public string DivisionName { get; set; }
 
+        [DefaultValue(true)]
         public bool Active { get; set; }
 
         [InverseProperty(nameof(Department.Division))]
-        public List<Department> Departments { get; set; }
+        public List<Department> Departments { get; set; } = new List<Department>();
 
        public int? ParentId { get; set; }
 
@@ -28,7 +28,7 @@ namespace PurchaseReq.Models.Entities
        public Division Parent { get; set; }
 
        [InverseProperty(nameof(Division.Parent))]
-       public List<Division> Children { get; set; }
+       public List<Division> Children { get; set; } = new List<Division>();
 
        
        public string SupervisorId { get; set; }

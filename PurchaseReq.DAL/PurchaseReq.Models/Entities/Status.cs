@@ -1,9 +1,7 @@
-﻿using System;
+﻿using PurchaseReq.Models.Entities.Base;
 using System.Collections.Generic;
-using System.Text;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using PurchaseReq.Models.Entities.Base;
 
 namespace PurchaseReq.Models.Entities
 {
@@ -14,6 +12,6 @@ namespace PurchaseReq.Models.Entities
         public string StatusName { get; set; }
 
         [InverseProperty(nameof(Order.Status))]
-        public List<Order> Orders { get; set; }
+        public List<Order> Orders { get; set; } = new List<Order>();
     }
 }

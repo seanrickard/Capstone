@@ -1,9 +1,7 @@
 ﻿using PurchaseReq.Models.Entities.Base;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 
 namespace PurchaseReq.Models.Entities
@@ -25,7 +23,7 @@ namespace PurchaseReq.Models.Entities
         public string Website { get; set; }
 
         [InverseProperty(nameof(Request.Vendor))]
-        public List<Request> Requests { get; set; }
+        public List<Request> Requests { get; set; } = new List<Request>();
 
         public int AddressId { get; set; }
         

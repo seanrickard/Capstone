@@ -1,5 +1,4 @@
-﻿using PurchaseReq.DAL.EF;
-using PurchaseReq.Models.Entities;
+﻿using PurchaseReq.Models.Entities;
 using System;
 using System.Collections.Generic;
 
@@ -51,17 +50,6 @@ namespace PurchaseReq.DAL.Initializers
                 // need to figure out employee foreign key info
             },
         };
-
-        //public static Division GetOneDivision(PurchaseReqContext context) => new Division
-        //{
-          
-        //       DivisionName = "STEM",
-        //       Active = true,
-        //       Supervisor = GetOneEmployee(context)
-
-        //        // need to figure out employee foreign key info
-            
-        //};
 
         //Done
         public static IEnumerable<Department> GetDepartments( List<Division> Divisions ) => new List<Department>
@@ -206,6 +194,10 @@ namespace PurchaseReq.DAL.Initializers
         {
             new Status()
             {
+                StatusName = "Created"
+            },
+            new Status()
+            {
                 StatusName = "Waiting for Supervisor Approval"
             },
             new Status()
@@ -214,11 +206,11 @@ namespace PurchaseReq.DAL.Initializers
             },
             new Status()
             {
-                StatusName = "Waiting to be Ordered"
+                StatusName = "Approved"
             },
             new Status()
             {
-                StatusName = "Ordered, waiting on delivery"
+                StatusName = "Ordered"
             },
             new Status()
             {
@@ -281,27 +273,21 @@ namespace PurchaseReq.DAL.Initializers
                 DA = 731180007,
                 BudgetCodeName = "CS Budget",
                 Type = true,
-                Parent = 73118,
                 Active = true,
-                TotalAmount = 2000
             },
             new BudgetCode()
             {
                 DA = 731180007,
                 BudgetCodeName = "Nurse Budget",
                 Type = true,
-                Parent = 73118,
                 Active = true,
-                TotalAmount = 5000
             },
             new BudgetCode()
             {
                 DA = 731180007,
                 BudgetCodeName = "Backup Budget",
                 Type = false,
-                Parent = 73406,
                 Active = true,
-                TotalAmount = 7500
             },
 
         };
@@ -385,31 +371,13 @@ namespace PurchaseReq.DAL.Initializers
             {
                 CategoryName = "Equipment greater than or equal to $5,000 – Household & Furnishings"
             },
-                new Category()
+            new Category()
             {
                 CategoryName = "Equipment greater than or equal to $5,000 – Other Capital Equipment"
             },
             
         };
 
-
-        public static IEnumerable<CFO> GetCFOs(List<Employee> employees) => new List<CFO>
-        {
-            new CFO
-            {
-                EmployeeId = employees.Find(x => x.LastName.Equals("CFO")).Id
-            }
-        };
-
-        public static IEnumerable<CFOApproval> GetCFOApprovals => new List<CFOApproval>
-        {
-            new CFOApproval()
-            {
-                ApprovalId = 4,
-                OrderId = 2,
-                CFOId = 1
-            }
-        };
 
         public static IEnumerable<SupervisorApproval> GetSupervisorApprovals( List<Employee> Supervisors ) => new List<SupervisorApproval>
         {
@@ -463,8 +431,6 @@ namespace PurchaseReq.DAL.Initializers
                 StatusId = 1,
                 CategoryId = 10,
                 BudgetCodeId = 1,
-                Ordered = false,
-                Delivered = false,
                 StateContract = false,
                 BusinessJustification = "Former materials need updated",
                 DateMade = DateTime.Now
@@ -475,8 +441,6 @@ namespace PurchaseReq.DAL.Initializers
                 StatusId = 2,
                 CategoryId = 19,
                 BudgetCodeId = 1,
-                Ordered = false,
-                Delivered = false,
                 StateContract = false,
                 BusinessJustification = "Gotta have my berets",
                 DateMade = DateTime.Now.AddDays(3)
@@ -487,8 +451,6 @@ namespace PurchaseReq.DAL.Initializers
                 StatusId = 4,
                 CategoryId = 5,
                 BudgetCodeId = 3,
-                Ordered = true,
-                Delivered = false,
                 StateContract = false,
                 BusinessJustification = "Low on printer ink",
                 DateMade = new DateTime(2018, 3, 1),
@@ -500,8 +462,6 @@ namespace PurchaseReq.DAL.Initializers
                 StatusId = 3,
                 CategoryId = 1,
                 BudgetCodeId = 3,
-                Ordered = false,
-                Delivered = false,
                 StateContract = false,
                 BusinessJustification = "Textbooks for next semester",
                 DateMade = new DateTime(2018, 3, 3)
@@ -512,8 +472,6 @@ namespace PurchaseReq.DAL.Initializers
                 StatusId = 1,
                 CategoryId = 5,
                 BudgetCodeId = 3,
-                Ordered = false,
-                Delivered = false,
                 StateContract = false,
                 BusinessJustification = "Snack foods",
                 DateMade = new DateTime(2018, 2, 28)
@@ -665,33 +623,25 @@ namespace PurchaseReq.DAL.Initializers
         {
             new Approval()
             {
-                ApprovalName = "Approved by Supervisor"
-            },
-            new Approval()
-            {
-                ApprovalName = "Approved by CFO"
+                ApprovalName = "Approved"
             },
             new Approval()
             {
                 ApprovalName = "Denied"
-            },
-            new Approval()
-            {
-                ApprovalName = "Needing Approval"
             }
         };
 
-        public static IEnumerable<Building> GetBuildings => new List<Building>
+        public static IEnumerable<Campus> GetCampuses => new List<Campus>
         {
-            new Building()
+            new Campus()
             {
                 Address = new Address{State = "WV", StreetAddress = "167 Nicolett Dr.", City = "Parkersburg", Zip = "25142"},
-                BuildingName = "Main Campus"
+                CampusName  = "Main Campus"
             },
-            new Building()
+            new Campus()
             {
                 Address = new Address{State = "WV", StreetAddress = "105 Academy Dr.", City = "Ripley", Zip = "25271"},
-                BuildingName = "Jackson County Center"
+                CampusName = "Jackson County Center"
             }
         };
 
@@ -700,22 +650,26 @@ namespace PurchaseReq.DAL.Initializers
             new Room()
             {
                 BuildingId = 1,
-                RoomCode = "A550"
+                RoomCode = "A550",
+                RoomName = "Science Room"
             },
             new Room()
             {
                 BuildingId = 1,
-                RoomCode = "B220"
+                RoomCode = "B220",
+                RoomName = "Creativity Room"
             },
             new Room()
             {
                 BuildingId = 1,
-                RoomCode = "C127"
+                RoomCode = "C127",
+                RoomName = "Robotics Room"
             },
             new Room()
             {
                 BuildingId = 2,
-                RoomCode = "T651"
+                RoomCode = "T651",
+                RoomName = "Fancy Office"
             }
         };
     }

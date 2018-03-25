@@ -1,12 +1,17 @@
 ﻿using PurchaseReq.DAL.Repos.Base;
 using PurchaseReq.Models.Entities;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PurchaseReq.DAL.Repos.Interfaces
 {
     public interface IDepartmentRepo : IRepo<Department>
     {
+        Department GetDepartmentWithDivision(int? id);
+
+        IEnumerable<Department> GetAllWithDivision();
+
+        Department GetDepartmentWithEmployees(int? id);
+
+        IEnumerable<Department> GetAllWithEmployees();
     }
 }

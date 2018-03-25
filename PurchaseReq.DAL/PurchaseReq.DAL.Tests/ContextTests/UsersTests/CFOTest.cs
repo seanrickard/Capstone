@@ -1,11 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using PurchaseReq.DAL.EF;
-using PurchaseReq.DAL.Initializers;
-using PurchaseReq.Models.Entities;
+﻿using PurchaseReq.DAL.EF;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Xunit;
 
 namespace PurchaseReq.DAL.Tests.ContextTests.UsersTests
@@ -18,20 +12,13 @@ namespace PurchaseReq.DAL.Tests.ContextTests.UsersTests
         public CFOTest()
         {
             _db = new PurchaseReqContext();
-            CleanDatabase();
         }
 
         public void Dispose()
         {
-            CleanDatabase();
             _db.Dispose();
         }
 
-        private void CleanDatabase()
-        {
-            _db.Database.ExecuteSqlCommand("Delete from [User].[CFOs]");
-            _db.Database.ExecuteSqlCommand($"DBCC CHECKIDENT (\"[User].[CFOs]\" , RESEED, 0);");
-        }
 
         [Fact]
         public void FirstTest()

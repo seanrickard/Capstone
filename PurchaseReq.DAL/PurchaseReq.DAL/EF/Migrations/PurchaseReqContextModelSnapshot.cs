@@ -250,6 +250,26 @@ namespace PurchaseReq.DAL.EF.Migrations
                     b.ToTable("Attachments","Order");
                 });
 
+            modelBuilder.Entity("PurchaseReq.Models.Entities.BudgetAmount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("BudgetCodeId");
+
+                    b.Property<byte[]>("TimeStamp")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<decimal>("TotalAmount");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BudgetCodeId");
+
+                    b.ToTable("BudgetAmount","User");
+                });
+
             modelBuilder.Entity("PurchaseReq.Models.Entities.BudgetCode", b =>
                 {
                     b.Property<int>("Id")
@@ -257,21 +277,14 @@ namespace PurchaseReq.DAL.EF.Migrations
 
                     b.Property<bool>("Active");
 
-                    b.Property<string>("BudgetCodeName");
+                    b.Property<string>("BudgetCodeName")
+                        .IsRequired();
 
                     b.Property<int>("DA");
-
-                    b.Property<int>("Function");
-
-                    b.Property<int>("Parent");
-
-                    b.Property<int>("Project");
 
                     b.Property<byte[]>("TimeStamp")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate();
-
-                    b.Property<decimal>("TotalAmount");
 
                     b.Property<bool>("Type");
 
@@ -280,14 +293,16 @@ namespace PurchaseReq.DAL.EF.Migrations
                     b.ToTable("BudgetCodes","User");
                 });
 
-            modelBuilder.Entity("PurchaseReq.Models.Entities.Building", b =>
+            modelBuilder.Entity("PurchaseReq.Models.Entities.Campus", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("Active");
+
                     b.Property<int>("AddressId");
 
-                    b.Property<string>("BuildingName")
+                    b.Property<string>("CampusName")
                         .IsRequired();
 
                     b.Property<byte[]>("TimeStamp")
@@ -298,13 +313,15 @@ namespace PurchaseReq.DAL.EF.Migrations
 
                     b.HasIndex("AddressId");
 
-                    b.ToTable("Buildings","User");
+                    b.ToTable("Campuses","User");
                 });
 
             modelBuilder.Entity("PurchaseReq.Models.Entities.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("Active");
 
                     b.Property<string>("CategoryName")
                         .HasMaxLength(75);
@@ -316,60 +333,6 @@ namespace PurchaseReq.DAL.EF.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories","Order");
-                });
-
-            modelBuilder.Entity("PurchaseReq.Models.Entities.CFO", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("EmployeeId");
-
-                    b.Property<DateTime>("DateAdded");
-
-                    b.Property<byte[]>("TimeStamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("Id", "EmployeeId", "DateAdded");
-
-                    b.HasAlternateKey("DateAdded", "EmployeeId", "Id");
-
-                    b.HasIndex("EmployeeId")
-                        .IsUnique();
-
-                    b.HasIndex("Id");
-
-                    b.ToTable("CFOs","User");
-                });
-
-            modelBuilder.Entity("PurchaseReq.Models.Entities.CFOApproval", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("ApprovalId");
-
-                    b.Property<int>("CFOId");
-
-                    b.Property<string>("DeniedJustification");
-
-                    b.Property<int>("OrderId");
-
-                    b.Property<byte[]>("TimeStamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate();
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApprovalId");
-
-                    b.HasIndex("CFOId");
-
-                    b.HasIndex("OrderId")
-                        .IsUnique();
-
-                    b.ToTable("CFOApprovals","Order");
                 });
 
             modelBuilder.Entity("PurchaseReq.Models.Entities.Department", b =>
@@ -425,6 +388,8 @@ namespace PurchaseReq.DAL.EF.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("Active");
+
                     b.Property<int>("BudgetCodeId");
 
                     b.Property<string>("EmployeeId");
@@ -479,11 +444,7 @@ namespace PurchaseReq.DAL.EF.Migrations
 
                     b.Property<DateTime?>("DateOrdered");
 
-                    b.Property<bool>("Delivered");
-
                     b.Property<string>("EmployeeId");
-
-                    b.Property<bool>("Ordered");
 
                     b.Property<bool>("StateContract");
 
@@ -555,9 +516,14 @@ namespace PurchaseReq.DAL.EF.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("Active");
+
                     b.Property<int>("BuildingId");
 
                     b.Property<string>("RoomCode")
+                        .IsRequired();
+
+                    b.Property<string>("RoomName")
                         .IsRequired();
 
                     b.Property<byte[]>("TimeStamp")
@@ -599,11 +565,15 @@ namespace PurchaseReq.DAL.EF.Migrations
 
                     b.Property<int>("OrderId");
 
-                    b.Property<string>("SupervisorId");
+                    b.Property<string>("SupervisorId")
+                        .IsRequired();
 
                     b.Property<byte[]>("TimeStamp")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate();
+
+                    b.Property<string>("UserRoleId")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -613,6 +583,8 @@ namespace PurchaseReq.DAL.EF.Migrations
                         .IsUnique();
 
                     b.HasIndex("SupervisorId");
+
+                    b.HasIndex("UserRoleId");
 
                     b.ToTable("SupervisorApprovals","Order");
                 });
@@ -720,42 +692,23 @@ namespace PurchaseReq.DAL.EF.Migrations
                     b.HasOne("PurchaseReq.Models.Entities.Request", "Request")
                         .WithMany("Attachments")
                         .HasForeignKey("RequestId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("PurchaseReq.Models.Entities.Building", b =>
+            modelBuilder.Entity("PurchaseReq.Models.Entities.BudgetAmount", b =>
+                {
+                    b.HasOne("PurchaseReq.Models.Entities.BudgetCode", "BudgetCode")
+                        .WithMany("BudgetAmounts")
+                        .HasForeignKey("BudgetCodeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("PurchaseReq.Models.Entities.Campus", b =>
                 {
                     b.HasOne("PurchaseReq.Models.Entities.Address", "Address")
-                        .WithMany("Buildings")
+                        .WithMany("Campuses")
                         .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("PurchaseReq.Models.Entities.CFO", b =>
-                {
-                    b.HasOne("PurchaseReq.Models.Entities.Employee", "Employee")
-                        .WithOne("CFO")
-                        .HasForeignKey("PurchaseReq.Models.Entities.CFO", "EmployeeId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("PurchaseReq.Models.Entities.CFOApproval", b =>
-                {
-                    b.HasOne("PurchaseReq.Models.Entities.Approval", "Approval")
-                        .WithMany()
-                        .HasForeignKey("ApprovalId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("PurchaseReq.Models.Entities.CFO", "CFO")
-                        .WithMany("CFOApprovals")
-                        .HasForeignKey("CFOId")
-                        .HasPrincipalKey("Id")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("PurchaseReq.Models.Entities.Order", "Order")
-                        .WithOne("CFOApproval")
-                        .HasForeignKey("PurchaseReq.Models.Entities.CFOApproval", "OrderId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("PurchaseReq.Models.Entities.Department", b =>
@@ -763,20 +716,18 @@ namespace PurchaseReq.DAL.EF.Migrations
                     b.HasOne("PurchaseReq.Models.Entities.Division", "Division")
                         .WithMany("Departments")
                         .HasForeignKey("DivisionId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("PurchaseReq.Models.Entities.Division", b =>
                 {
                     b.HasOne("PurchaseReq.Models.Entities.Division", "Parent")
                         .WithMany("Children")
-                        .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("ParentId");
 
                     b.HasOne("PurchaseReq.Models.Entities.Employee", "Supervisor")
                         .WithMany("SupervisedDivision")
-                        .HasForeignKey("SupervisorId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("SupervisorId");
                 });
 
             modelBuilder.Entity("PurchaseReq.Models.Entities.EmployeesBudgetCodes", b =>
@@ -784,12 +735,11 @@ namespace PurchaseReq.DAL.EF.Migrations
                     b.HasOne("PurchaseReq.Models.Entities.BudgetCode", "BudgetCode")
                         .WithMany("EmployeesBudgetCode")
                         .HasForeignKey("BudgetCodeId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("PurchaseReq.Models.Entities.Employee", "Employee")
                         .WithMany("EmployeesBudgetCode")
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("EmployeeId");
                 });
 
             modelBuilder.Entity("PurchaseReq.Models.Entities.Order", b =>
@@ -797,22 +747,21 @@ namespace PurchaseReq.DAL.EF.Migrations
                     b.HasOne("PurchaseReq.Models.Entities.BudgetCode", "BudgetCode")
                         .WithMany("Orders")
                         .HasForeignKey("BudgetCodeId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("PurchaseReq.Models.Entities.Category", "Category")
                         .WithMany("Orders")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("PurchaseReq.Models.Entities.Employee", "Employee")
                         .WithMany()
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("EmployeeId");
 
                     b.HasOne("PurchaseReq.Models.Entities.Status", "Status")
                         .WithMany("Orders")
                         .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("PurchaseReq.Models.Entities.Request", b =>
@@ -820,25 +769,25 @@ namespace PurchaseReq.DAL.EF.Migrations
                     b.HasOne("PurchaseReq.Models.Entities.Item", "Item")
                         .WithMany("Requests")
                         .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("PurchaseReq.Models.Entities.Order", "Order")
                         .WithMany("Requests")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("PurchaseReq.Models.Entities.Vendor", "Vendor")
                         .WithMany("Requests")
                         .HasForeignKey("VendorId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("PurchaseReq.Models.Entities.Room", b =>
                 {
-                    b.HasOne("PurchaseReq.Models.Entities.Building", "Building")
+                    b.HasOne("PurchaseReq.Models.Entities.Campus", "Campus")
                         .WithMany("Rooms")
                         .HasForeignKey("BuildingId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("PurchaseReq.Models.Entities.SupervisorApproval", b =>
@@ -846,17 +795,22 @@ namespace PurchaseReq.DAL.EF.Migrations
                     b.HasOne("PurchaseReq.Models.Entities.Approval", "Approval")
                         .WithMany("SupervisorApprovals")
                         .HasForeignKey("ApprovalId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("PurchaseReq.Models.Entities.Order", "Order")
                         .WithOne("SupervisorApproval")
                         .HasForeignKey("PurchaseReq.Models.Entities.SupervisorApproval", "OrderId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("PurchaseReq.Models.Entities.Employee", "Employee")
                         .WithMany()
                         .HasForeignKey("SupervisorId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", "IdentityRole")
+                        .WithMany()
+                        .HasForeignKey("UserRoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("PurchaseReq.Models.Entities.Vendor", b =>
@@ -864,20 +818,18 @@ namespace PurchaseReq.DAL.EF.Migrations
                     b.HasOne("PurchaseReq.Models.Entities.Address", "Address")
                         .WithMany("Vendors")
                         .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("PurchaseReq.Models.Entities.Employee", b =>
                 {
                     b.HasOne("PurchaseReq.Models.Entities.Department", "Department")
                         .WithMany("Employees")
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("DepartmentId");
 
                     b.HasOne("PurchaseReq.Models.Entities.Room", "Room")
                         .WithMany("Employees")
-                        .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("RoomId");
                 });
 #pragma warning restore 612, 618
         }
