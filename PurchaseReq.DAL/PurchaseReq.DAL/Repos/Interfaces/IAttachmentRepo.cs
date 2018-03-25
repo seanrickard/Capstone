@@ -8,5 +8,7 @@ namespace PurchaseReq.DAL.Repos.Interfaces
 {
     public interface IAttachmentRepo : IRepo<Attachment>
     {
+        IEnumerable<Attachment> GetAllAttachments();
+        Attachment GetAttachmentById(int attachmentId);
     }
 }

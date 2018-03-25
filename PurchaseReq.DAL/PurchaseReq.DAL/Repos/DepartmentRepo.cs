@@ -26,7 +26,8 @@ namespace PurchaseReq.DAL.Repos
         public IEnumerable<Department> GetAllWithEmployees() => Table.Include(x => x.Employees).ToList();
         public Department GetOneWithDivision(int? id) => Table.Include(x => x.Division).SingleOrDefault(x => x.Id == id);
         public IEnumerable<Department> GetAllWithDivisions() => Table.Include(x => x.Division).ToList();
-        public override IEnumerable<Department> GetAll() => Table.OrderBy(x => x.DepartmentName);
+        public IEnumerable<Department> GetAllDepartments() => Table.OrderBy(x => x.DepartmentName);
         public override IEnumerable<Department> GetRange(int skip, int take) => GetRange(Table.OrderBy(x => x.DepartmentName), skip, take);
+        public Department GetDepartmentById(int departmentId) => Table.FirstOrDefault(x => x.Id == departmentId);
     }
 }

@@ -8,5 +8,7 @@ namespace PurchaseReq.DAL.Repos.Interfaces
 {
     public interface IDepartmentRepo : IRepo<Department>
     {
+        IEnumerable<Department> GetAllDepartments();
+        Department GetDepartmentById(int departmentId);
     }
 }

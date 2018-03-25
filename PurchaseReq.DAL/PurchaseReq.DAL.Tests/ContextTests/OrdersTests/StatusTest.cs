@@ -4,6 +4,7 @@ using PurchaseReq.DAL.EF;
 using Xunit;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using PurchaseReq.DAL.Initializers;
 
 namespace PurchaseReq.DAL.Tests.ContextTests.OrderTests
 {
@@ -16,21 +17,17 @@ namespace PurchaseReq.DAL.Tests.ContextTests.OrderTests
         public StatusTest()
         {
             _db = new PurchaseReqContext();
-            CleanDatabase();
+            DbInitializer.ClearData(_db);
+            DbInitializer.SeedData(_db);
         }
 
         public void Dispose()
         {
-            CleanDatabase();
+            DbInitializer.ClearData(_db);
             _db.Dispose();
         }
 
-        private void CleanDatabase()
-        {
-            _db.Database.ExecuteSqlCommand("Delete from [Order].[Statuses]");
-            _db.Database.ExecuteSqlCommand($"DBCC CHECKIDENT (\"[Order].[Statuses]\" , RESEED, 0);");
-        }
-
+     
         [Fact]
         public void FirstTest()
         {
@@ -41,9 +38,32 @@ namespace PurchaseReq.DAL.Tests.ContextTests.OrderTests
         public void AddAStatus()
         {
             var status = new Status { StatusName = "Waiting for Supervisor Approval" };
+            var count = _db.Statuses.Count();
             _db.Statuses.Add(status);
             _db.SaveChanges();
-            Assert.Equal(1, _db.Statuses.Count());
+            Assert.Equal(count + 1, _db.Statuses.Count());
+        }
+
+        [Fact]
+        public void DeleteAStatus()
+        {
+            var status = new Status { StatusName = "Waiting for Supervisor Approval" };
+            _db.Statuses.Add(status);
+            _db.SaveChanges();
+            var count = _db.Statuses.Count();
+            _db.Statuses.Remove(status);
+            _db.SaveChanges();
+            Assert.Equal(count - 1, _db.Statuses.Count());
+        }
+
+        [Fact]
+        public void UpdateAStatus()
+        {
+            Status status = _db.Statuses.FirstOrDefault();
+            status.StatusName = "Updated Name";
+            _db.Update(status);
+            _db.SaveChanges();
+            Assert.Equal("Updated Name", _db.Statuses.FirstOrDefault().StatusName);
         }
     }
 }

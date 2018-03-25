@@ -8,5 +8,7 @@ namespace PurchaseReq.DAL.Repos.Interfaces
 {
     public interface ICategoryRepo : IRepo<Category>
     {
+        IEnumerable<Category> GetAllCategories();
+        Category GetCategoryById(int categoryId);
     }
 }

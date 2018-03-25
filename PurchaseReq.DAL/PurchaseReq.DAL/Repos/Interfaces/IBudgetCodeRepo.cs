@@ -8,5 +8,7 @@ namespace PurchaseReq.DAL.Repos.Interfaces
 {
     public interface IBudgetCodeRepo : IRepo<BudgetCode>
     {
+        IEnumerable<BudgetCode> GetAllBudgetCodes();
+        BudgetCode GetBudgetCodeById(int budgetCodeId);
     }
 }

@@ -8,5 +8,7 @@ namespace PurchaseReq.DAL.Repos.Interfaces
 {
     public interface ICFORepo : IRepo<CFO>
     {
+        IEnumerable<CFO> GetAllCFOs();
+        CFO GetCFOById(int CFOId);
     }
 }

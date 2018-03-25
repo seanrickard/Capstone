@@ -27,7 +27,8 @@ namespace PurchaseReq.DAL.Repos
         public Division GetOneWithSupervisor(int? id) => Table.Include(x => x.Supervisor).SingleOrDefault(x => x.Id == id);
         public IEnumerable<Division> GetAllWithSupervisors() => Table.Include(x => x.Supervisor).ToList();
         public Division GetRootDivision() => Table.Include(x => x.Supervisor).Single(x => x.SupervisorId == null);
-        public override IEnumerable<Division> GetAll() => Table.OrderBy(x => x.DivisionName);
+        public IEnumerable<Division> GetAllDivisions() => Table.OrderBy(x => x.DivisionName);
         public override IEnumerable<Division> GetRange(int skip, int take) => GetRange(Table.OrderBy(x => x.DivisionName), skip, take);
+        public Division GetDivisionById(int divisionId) => Table.FirstOrDefault(x => x.Id == divisionId);
     }
 }
