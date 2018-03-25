@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PurchaseReq.DAL.Tests", "Pu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PurchaseReq.Models", "PurchaseReq.Models\PurchaseReq.Models.csproj", "{A0B8A8C3-D03A-4488-B574-DF6E6A816814}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PurchaseReq.MVC", "PurchaseReq.MVC\PurchaseReq.MVC.csproj", "{C4A44905-0373-48A5-8447-EFD2F2F3733D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{A0B8A8C3-D03A-4488-B574-DF6E6A816814}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0B8A8C3-D03A-4488-B574-DF6E6A816814}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0B8A8C3-D03A-4488-B574-DF6E6A816814}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C4A44905-0373-48A5-8447-EFD2F2F3733D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C4A44905-0373-48A5-8447-EFD2F2F3733D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C4A44905-0373-48A5-8447-EFD2F2F3733D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C4A44905-0373-48A5-8447-EFD2F2F3733D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
