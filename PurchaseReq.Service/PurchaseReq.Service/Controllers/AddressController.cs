@@ -4,7 +4,7 @@ using PurchaseReq.Models.Entities;
 
 namespace PurchaseReq.Service.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class AddressController : Controller
     {
         private readonly IAddressRepo _repo;
@@ -20,7 +20,7 @@ namespace PurchaseReq.Service.Controllers
             return Ok(_repo.GetAll());
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
         public IActionResult Get(int id)
         {
             var item = _repo.Find(id);
@@ -30,6 +30,31 @@ namespace PurchaseReq.Service.Controllers
             }
 
             return Json(item);
+        }
+
+
+        [HttpGet]
+        public IActionResult GetWithVendors()
+        {
+            return Ok(_repo.GetAllWithVendor());
+        }
+
+        [HttpGet]
+        public IActionResult GetWithCampuses()
+        {
+            return Ok(_repo.GetAllWithCampuses());
+        }
+
+        [HttpGet]
+        public IActionResult GetWithVendors(int id)
+        {
+            return Ok(_repo.GetAddressWithVendor(id));
+        }
+
+        [HttpGet]
+        public IActionResult GetWithCampuses(int id)
+        {
+            return Ok(_repo.GetAddressWithCampuses(id));
         }
 
         [HttpPost]
@@ -44,7 +69,7 @@ namespace PurchaseReq.Service.Controllers
             return CreatedAtRoute("Get", new {controller = "AddressController", id = model.Id});
         }
 
-        [HttpPut("{addressId}")]
+        [HttpPut]
         public IActionResult Update(int addressId, [FromBody] Address model)
         {
             if (model == null ||addressId != model.Id || !ModelState.IsValid)
@@ -54,6 +79,12 @@ namespace PurchaseReq.Service.Controllers
 
             _repo.Update(model);
             return CreatedAtRoute("Get", new { controller = "AddressController", id = model.Id });
+        }
+
+        [HttpGet]
+        public IActionResult GetRange(int skip, int take)
+        {
+            return Ok(_repo.GetRange(skip, take));
         }
     }
 }

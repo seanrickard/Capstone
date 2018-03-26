@@ -10,8 +10,8 @@ namespace PurchaseReq.DAL.Repos.Interfaces
 
         Address GetAddressWithVendor(int? id);
 
-        IEnumerable<Address> GetAllWithCampuses(int? id);
+        IEnumerable<Address> GetAllWithCampuses();
 
-        IEnumerable<Address> GetAllWithVendor(int? id);
+        IEnumerable<Address> GetAllWithVendor();
     }
 }

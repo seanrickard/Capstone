@@ -16,10 +16,10 @@ namespace PurchaseReq.DAL.Repos
         public Address GetAddressWithVendor(int? id)
             => Table.Include(x => x.Vendors).FirstOrDefault(x => x.Id == id);
 
-        public IEnumerable<Address> GetAllWithCampuses(int? id)
+        public IEnumerable<Address> GetAllWithCampuses()
             => Table.Include(x => x.Campuses);
 
-        public IEnumerable<Address> GetAllWithVendor(int? id)
+        public IEnumerable<Address> GetAllWithVendor()
             => Table.Include(x => x.Vendors);
 
     }
