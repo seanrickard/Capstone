@@ -1,5 +1,4 @@
-﻿using PurchaseReq.DAL.EF;
-using PurchaseReq.Models.Entities;
+﻿using PurchaseReq.Models.Entities;
 using System;
 using System.Collections.Generic;
 
@@ -8,7 +7,7 @@ namespace PurchaseReq.DAL.Initializers
     public static class SampleData
     {
         //Done
-        public static IEnumerable<Division> GetDivisions(PurchaseReqContext context, List<Employee> Supervisors) => new List<Division>
+        public static IEnumerable<Division> GetDivisions( List<Employee> Supervisors ) => new List<Division>
         {
 
             new Division()
@@ -52,19 +51,8 @@ namespace PurchaseReq.DAL.Initializers
             },
         };
 
-        //public static Division GetOneDivision(PurchaseReqContext context) => new Division
-        //{
-          
-        //       DivisionName = "STEM",
-        //       Active = true,
-        //       Supervisor = GetOneEmployee(context)
-
-        //        // need to figure out employee foreign key info
-            
-        //};
-
         //Done
-        public static IEnumerable<Department> GetDepartments(PurchaseReqContext context, List<Division> Divisions) => new List<Department>
+        public static IEnumerable<Department> GetDepartments( List<Division> Divisions ) => new List<Department>
         {
             new Department()
             {
@@ -117,7 +105,7 @@ namespace PurchaseReq.DAL.Initializers
         };
 
         //Done
-        public static IEnumerable<Employee> GetEmployees(PurchaseReqContext context) => new List<Employee>
+        public static IEnumerable<Employee> GetEmployees => new List<Employee>
         {
             new Employee()
             {
@@ -201,16 +189,13 @@ namespace PurchaseReq.DAL.Initializers
             return employees;
         }
 
-        //public static Employee GetOneEmployee(PurchaseReqContext context) => new Employee
-        //{
-        //    FirstName = "Jane",
-        //    LastName = "Doe",
-        //    Active = true
-        //};
-
         //Done
-        public static IEnumerable<Status> GetStatuses(PurchaseReqContext context) => new List<Status>
+        public static IEnumerable<Status> GetStatuses => new List<Status>
         {
+            new Status()
+            {
+                StatusName = "Created"
+            },
             new Status()
             {
                 StatusName = "Waiting for Supervisor Approval"
@@ -221,179 +206,66 @@ namespace PurchaseReq.DAL.Initializers
             },
             new Status()
             {
-                StatusName = "Waiting to be Ordered"
+                StatusName = "Approved"
             },
             new Status()
             {
-                StatusName = "Ordered, waiting on delivery"
+                StatusName = "Ordered"
             },
             new Status()
             {
                 StatusName = "Completed"
             }
         };
-
-        //Done
-        public static IEnumerable<Approval> GetAllApprovals(PurchaseReqContext context) => new List<Approval>
-        {
-           new Approval()
-           {
-               ApprovalName = "Approved by Supervisor"
-           },
-           new Approval()
-           {
-               ApprovalName = "Approved by CFO"               
-           },
-           new Approval()
-           {
-               ApprovalName = "Denied"
-           }
-        };
         
-
-        //public static IEnumerable<Order> GetAllOrders(PurchaseReqContext context) => new List<Order>
-        //{
-        //    new Order()
-        //    {
-        //        DateMade = DateTime.Now,
-        //        Ordered = false,
-        //        DateOrdered = DateTime.Now.AddDays(1),
-        //        Delivered = false,
-        //        StateContract = false,
-        //        BusinessJustification = "Need new computers for labs",
-        //        Employee = SampleData.GetOneEmployee(context)
-                
-        //    }
-        //};
-
-
-        public static IEnumerable<Request> GetAllRequests(PurchaseReqContext context) => new List<Request>
-        {
-            new Request()
-            {
-                QuantityRequested = 4,
-                EstimatedCost = 4.99m,
-                PaidCost = 5.75m,
-                PaidTotal = 23.00m,
-                Chosen = true
-            },
-
-            new Request()
-            {
-                QuantityRequested = 5,
-                EstimatedCost = 101.00m,
-                PaidCost = 105.56m,
-                PaidTotal = 527.80m,
-                Chosen = false
-            }
-        };
-
+   
         //Done
-        public static IEnumerable<Vendor> GetAllVendors(PurchaseReqContext context) => new List<Vendor>
-        {
+        public static IEnumerable<Vendor> GetVendors => new List<Vendor>
+        { 
             new Vendor()
             {
                 VendorName = "Amazon",
-                Address = "112 Amazon Dr.",
-                State = "CA",
-                City = "San Francisco",
+                Address = new Address{State = "CA", StreetAddress = "112 Amazon Dr.", City = "San Francisco", Zip = "26250"},
                 Website = "www.amazon.com",
-                Zip = "26250",
                 Phone = "1-234-6489",
                 Fax = "235456"
             },
             new Vendor()
             {
                 VendorName = "Walmart",
-                Address = "Wally Street",
-                State = "Texas",
-                City = "Austin",
+                Address = new Address{State = "TX", StreetAddress = "Wally Street", City =  "Austin", Zip = "54689"},
                 Website = "Walmart.com",
-                Zip = "54689",
                 Phone = "8-652-4523",
                 Fax = "496832"
             },
             new Vendor()
             {
                 VendorName = "Home Depot",
-                Address = "Deposit Street",
-                State = "West Virginia",
-                City = "Parkersburg",
+                Address = new Address{State = "WV", StreetAddress =  "Deposit Street", City = "Parkersburg", Zip = "25142"},
                 Website = "HomeDepot.com",
-                Zip = "87654",
                 Phone = "1-304-8695",
                 Fax = "579832"
             },
             new Vendor()
             {
                 VendorName = "Computerland",
-                Address = "Land Street",
-                State = "West Virginia",
-                City = "Charleston",
+                Address = new Address{State = "WV", StreetAddress = "Land Street", City = "Charleston", Zip = "67513"},
                 Website = "ComputerLand.com",
-                Zip = "67513",
                 Phone = "1-234-7564",
                 Fax = "434863"
             },
             new Vendor()
             {
                 VendorName = "Dollar General",
-                Address = "112 Brady Dr.",
-                State = "WV",
-                City = "Parkersburg",
+                Address = new Address{State = "WV", StreetAddress = "112 Brady Dr.", City = "Parkersburg", Zip = "25142"},
                 Website = "www.dg.com",
-                Zip = "25142",
                 Phone = "1-456-4865",
                 Fax = "215489"
             },
-
-            
         };
 
         //Done
-        public static List<Item> GetItems(PurchaseReqContext context) => new List<Item>
-        {
-            new Item()
-            {
-                ItemName = "Dell XPS 13",
-                Description = "A sweet laptop"
-
-            },
-            new Item()
-            {
-                ItemName = "Basque Beret",
-                Description = "A beret from the originators"
-            },
-            new Item()
-            {
-                ItemName = "Pencil",
-                Description = "A Pencil"
-            },
-            new Item()
-            {
-                ItemName = "Marker",
-                Description = "A marker that goes bad fast"
-            },
-             new Item()
-            {
-                ItemName = "Book",
-                Description = "We don’t pay enough for this"
-            }
-        };
-
-
-        public static IEnumerable<Attachment> GetAllAttachments() => new List<Attachment>
-        {
-            //add attachment info here
-        };
-
-        public static IEnumerable<AlternativeRequest> GetAllAlternativeRequests = new List<AlternativeRequest>
-        {
-            //add info here
-        };
-
-        //Done
-        public static IEnumerable<BudgetCode> GetAllBudgetCodes => new List<BudgetCode>
+        public static IEnumerable<BudgetCode> GetBudgetCodes => new List<BudgetCode>
         {
             //add info here
             new BudgetCode()
@@ -401,33 +273,27 @@ namespace PurchaseReq.DAL.Initializers
                 DA = 731180007,
                 BudgetCodeName = "CS Budget",
                 Type = true,
-                Parent = 73118,
                 Active = true,
-                TotalAmount = 2000
             },
             new BudgetCode()
             {
                 DA = 731180007,
                 BudgetCodeName = "Nurse Budget",
                 Type = true,
-                Parent = 73118,
                 Active = true,
-                TotalAmount = 5000
             },
             new BudgetCode()
             {
                 DA = 731180007,
                 BudgetCodeName = "Backup Budget",
                 Type = false,
-                Parent = 73406,
                 Active = true,
-                TotalAmount = 7500
             },
 
         };
 
         //Done
-        public static IEnumerable<Category> GetAllCategories => new List<Category>
+        public static IEnumerable<Category> GetCategories => new List<Category>
         {
             new Category()
             {
@@ -505,7 +371,7 @@ namespace PurchaseReq.DAL.Initializers
             {
                 CategoryName = "Equipment greater than or equal to $5,000 – Household & Furnishings"
             },
-                new Category()
+            new Category()
             {
                 CategoryName = "Equipment greater than or equal to $5,000 – Other Capital Equipment"
             },
@@ -513,24 +379,298 @@ namespace PurchaseReq.DAL.Initializers
         };
 
 
-        //public static IEnumerable<CFO> GetAllCFOs => new List<CFO>
-        //{
-        //    // add cfo info
-        //};
+        public static IEnumerable<SupervisorApproval> GetSupervisorApprovals( List<Employee> Supervisors ) => new List<SupervisorApproval>
+        {
+            new SupervisorApproval()
+            {
+                ApprovalId = 4,
+                OrderId = 1,
+                SupervisorId = Supervisors.Find(x => x.LastName.ToString().Equals("Gump")).Id,
+            },
+            new SupervisorApproval()
+            {
+                ApprovalId = 1,
+                OrderId = 2,
+                SupervisorId = Supervisors.Find(x => x.LastName.ToString().Equals("Gump")).Id,
+            },
+            new SupervisorApproval()
+            {
+                ApprovalId = 1,
+                OrderId = 3,
+                SupervisorId = Supervisors.Find(x => x.LastName.ToString().Equals("CFO")).Id,
+            },
+            new SupervisorApproval()
+            {
+                ApprovalId = 1,
+                OrderId = 4,
+                SupervisorId = Supervisors.Find(x => x.LastName.ToString().Equals("Frum")).Id,
+            },
+            new SupervisorApproval()
+            {
+                ApprovalId = 1,
+                OrderId = 5,
+                SupervisorId = Supervisors.Find(x => x.LastName.ToString().Equals("CFO")).Id,
+            }
+        };
 
-        public static IEnumerable<CFOApproval> GetAllCFOApprovals => new List<CFOApproval>
+        public static IEnumerable<EmployeesBudgetCodes> GetEmployeeBudgetCodes => new List<EmployeesBudgetCodes>
         {
 
         };
 
-        public static IEnumerable<SupervisorApproval> GetAllSupervisorApprovals => new List<SupervisorApproval>
+        public static IEnumerable<Attachment> GetAttachments() => new List<Attachment>
         {
-            
+            //add attachment info here
         };
 
-        public static IEnumerable<EmployeesBudgetCodes> GetAllEmployeeBudgetCodes => new List<EmployeesBudgetCodes>
+        public static IEnumerable<Order> GetOrders( List<Employee> Employees ) => new List<Order>
         {
+            new Order()
+            {
+                EmployeeId = Employees.Find(x => x.LastName.ToString().Equals("Almond")).Id,
+                StatusId = 1,
+                CategoryId = 10,
+                BudgetCodeId = 1,
+                StateContract = false,
+                BusinessJustification = "Former materials need updated",
+                DateMade = DateTime.Now
+            },
+            new Order()
+            {
+                EmployeeId = Employees.Find(x => x.LastName.ToString().Equals("Thompson")).Id,
+                StatusId = 2,
+                CategoryId = 19,
+                BudgetCodeId = 1,
+                StateContract = false,
+                BusinessJustification = "Gotta have my berets",
+                DateMade = DateTime.Now.AddDays(3)
+            },
+            new Order()
+            {
+                EmployeeId = Employees.Find(x => x.LastName.ToString().Equals("Gump")).Id,
+                StatusId = 4,
+                CategoryId = 5,
+                BudgetCodeId = 3,
+                StateContract = false,
+                BusinessJustification = "Low on printer ink",
+                DateMade = new DateTime(2018, 3, 1),
+                DateOrdered = new DateTime(2018, 3, 7)
+            },
+            new Order()
+            {
+                EmployeeId = Employees.Find(x => x.LastName.ToString().Equals("Heller")).Id,
+                StatusId = 3,
+                CategoryId = 1,
+                BudgetCodeId = 3,
+                StateContract = false,
+                BusinessJustification = "Textbooks for next semester",
+                DateMade = new DateTime(2018, 3, 3)
+            },
+            new Order()
+            {
+                EmployeeId = Employees.Find(x => x.LastName.ToString().Equals("Holland")).Id,
+                StatusId = 1,
+                CategoryId = 5,
+                BudgetCodeId = 3,
+                StateContract = false,
+                BusinessJustification = "Snack foods",
+                DateMade = new DateTime(2018, 2, 28)
+            }
+        };
 
+        public static IEnumerable<Request> GetRequests => new List<Request>
+        {
+            new Request()
+            {
+                OrderId = 1,
+                ItemId = 1, 
+                VendorId = 1,
+                QuantityRequested = 1,
+                EstimatedCost = 1000.00m,
+                EstimatedTotal = 1000.00m,
+                Chosen = true
+            },
+            new Request()
+            {
+                OrderId = 2, 
+                ItemId = 2, 
+                VendorId = 1, 
+                QuantityRequested = 365,
+                EstimatedCost = 20.00m,
+                EstimatedTotal = 7300.00m,
+                ReasonChosen = "No other beret will suffice"
+            },
+            new Request()
+            {
+                OrderId = 2,
+                ItemId = 6,
+                VendorId = 1,
+                QuantityRequested = 365,
+                EstimatedCost = 19.00m,
+                EstimatedTotal = 3650.00m,
+                Chosen = false
+            },
+            new Request()
+            {
+                OrderId = 2,
+                ItemId = 7,
+                VendorId = 1,
+                QuantityRequested = 365,
+                EstimatedCost = 10.00m,
+                EstimatedTotal = 3650.00m,
+                Chosen = false
+            },
+            new Request()
+            {
+                OrderId = 3,
+                ItemId = 3,
+                VendorId = 2,
+                QuantityRequested = 10,
+                EstimatedCost = 1.00m,
+                EstimatedTotal = 10.00m,
+                PaidCost = .75m,
+                PaidTotal = 7.50m,
+                Chosen = true
+            },
+            new Request()
+            {
+                OrderId = 1,
+                ItemId = 1,
+                VendorId = 1,
+                QuantityRequested = 1,
+                EstimatedCost = 1000.00m,
+                EstimatedTotal = 1000.00m,
+                Chosen = true
+            },
+            new Request()
+            {
+                OrderId = 4,
+                ItemId = 5,
+                VendorId = 1,
+                QuantityRequested = 5,
+                EstimatedCost = 100.00m,
+                EstimatedTotal = 500.00m,
+                Chosen = true
+            },
+            new Request()
+            {
+                OrderId = 5,
+                ItemId = 3,
+                VendorId = 1,
+                QuantityRequested = 20,
+                EstimatedCost = 0.75m,
+                EstimatedTotal = 15.00m,
+                Chosen = true
+            },
+            new Request()
+            {
+                OrderId = 5,
+                ItemId = 8,
+                VendorId = 4,
+                QuantityRequested = 3,
+                EstimatedCost = 20.00m,
+                EstimatedTotal = 60.00m,
+                Chosen = true
+            }
+        };
+
+
+        public static IEnumerable<Item> GetItems => new List<Item>
+        {
+            new Item()
+            {
+                ItemName = "Dell XPS 13",
+                Description = "A sweet laptop"
+            },
+            new Item()
+            {
+                ItemName = "Basque Beret",
+                Description = "A beret from the originators"
+            },
+            new Item()
+            {
+                ItemName = "Pencil",
+                Description = "A pencil"
+            },
+            new Item()
+            {
+                ItemName = "Marker",
+                Description = "A marker that goes bad fast"
+            },
+            new Item()
+            {
+                ItemName = "Book",
+                Description = "We don't pay enough for this"
+            },
+            new Item()
+            {
+                ItemName = "Off Brand Beret",
+                Description = "A cheaper beret"
+            },
+            new Item()
+            {
+                ItemName = "Cowboy hat",
+                Description = "yeehaw"
+            },
+            new Item()
+            {
+                ItemName = "HP Printing Paper",
+                Description = "Good quality paper"
+            }
+        };
+
+        public static IEnumerable<Approval> GetApprovals => new List<Approval>
+        {
+            new Approval()
+            {
+                ApprovalName = "Approved"
+            },
+            new Approval()
+            {
+                ApprovalName = "Denied"
+            }
+        };
+
+        public static IEnumerable<Campus> GetCampuses => new List<Campus>
+        {
+            new Campus()
+            {
+                Address = new Address{State = "WV", StreetAddress = "167 Nicolett Dr.", City = "Parkersburg", Zip = "25142"},
+                CampusName  = "Main Campus"
+            },
+            new Campus()
+            {
+                Address = new Address{State = "WV", StreetAddress = "105 Academy Dr.", City = "Ripley", Zip = "25271"},
+                CampusName = "Jackson County Center"
+            }
+        };
+
+        public static IEnumerable<Room> GetRooms => new List<Room>
+        {
+            new Room()
+            {
+                BuildingId = 1,
+                RoomCode = "A550",
+                RoomName = "Science Room"
+            },
+            new Room()
+            {
+                BuildingId = 1,
+                RoomCode = "B220",
+                RoomName = "Creativity Room"
+            },
+            new Room()
+            {
+                BuildingId = 1,
+                RoomCode = "C127",
+                RoomName = "Robotics Room"
+            },
+            new Room()
+            {
+                BuildingId = 2,
+                RoomCode = "T651",
+                RoomName = "Fancy Office"
+            }
         };
     }
 }

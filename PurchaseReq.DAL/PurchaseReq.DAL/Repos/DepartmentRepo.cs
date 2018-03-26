@@ -1,32 +1,22 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PurchaseReq.DAL.EF;
 using PurchaseReq.DAL.Repos.Base;
 using PurchaseReq.DAL.Repos.Interfaces;
 using PurchaseReq.Models.Entities;
-using System.Linq;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace PurchaseReq.DAL.Repos
 {
     public class DepartmentRepo : RepoBase<Department>, IDepartmentRepo
     {
-        public DepartmentRepo(DbContextOptions<PurchaseReqContext> options) : base(options)
-        {
+        public Department GetDepartmentWithDivision(int? id)
+            => Table.Include(x => x.Division).SingleOrDefault(x => x.Id == id);
 
-        }
+        public IEnumerable<Department> GetAllWithDivision()
+            => Table.Include(x => x.Division).ToList();
 
-        public DepartmentRepo()
-        {
+        public Department GetDepartmentWithEmployees(int? id)
+            => Table.Include(x => x.Employees).SingleOrDefault(x => x.Id == id);
 
-        }
-
-        public Department GetOneWithEmployees(int? id) => Table.Include(x => x.Employees).SingleOrDefault(x => x.Id == id);
-        public IEnumerable<Department> GetAllWithEmployees() => Table.Include(x => x.Employees).ToList();
-        public Department GetOneWithDivision(int? id) => Table.Include(x => x.Division).SingleOrDefault(x => x.Id == id);
-        public IEnumerable<Department> GetAllWithDivisions() => Table.Include(x => x.Division).ToList();
-        public override IEnumerable<Department> GetAll() => Table.OrderBy(x => x.DepartmentName);
-        public override IEnumerable<Department> GetRange(int skip, int take) => GetRange(Table.OrderBy(x => x.DepartmentName), skip, take);
     }
 }

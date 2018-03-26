@@ -4,6 +4,7 @@ using PurchaseReq.DAL.EF;
 using PurchaseReq.DAL.Initializers;
 using PurchaseReq.Models.Entities;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -18,26 +19,14 @@ namespace PurchaseReq.DAL.Tests.ContextTests.UsersTests
         {
             _db = new PurchaseReqContext();
             DbInitializer.ClearData(_db);
-            //CleanDatabase();
             DbInitializer.SeedData(_db);
         }
 
         public void Dispose()
         {
-            //CleanDatabase();
             DbInitializer.ClearData(_db);
             _db.Dispose();
         }
-
-        //private void CleanDatabase()
-        //{
-        //    _db.Database.ExecuteSqlCommand("Update [dbo].[AspNetUsers] Set DepartmentId = NULL");
-        //    _db.Database.ExecuteSqlCommand("Delete from [User].[Departments]");
-        //    _db.Database.ExecuteSqlCommand("Delete from [User].[Divisions]");
-        //    _db.Database.ExecuteSqlCommand("Delete from [dbo].[AspNetUsers]");
-        //    _db.Database.ExecuteSqlCommand($"DBCC CHECKIDENT (\"[User].[Divisions]\" , RESEED, 0);");
-        //    _db.Database.ExecuteSqlCommand($"DBCC CHECKIDENT (\"[User].[Departments]\" , RESEED, 0);");
-        //}
 
         [Fact]
         public void FirstTest()
@@ -54,7 +43,6 @@ namespace PurchaseReq.DAL.Tests.ContextTests.UsersTests
         }
 
 
-        //  Ask Levi if this is how test should be done
         [Fact]
         public void DeleteEmployee()
         {
@@ -85,5 +73,24 @@ namespace PurchaseReq.DAL.Tests.ContextTests.UsersTests
             Assert.Equal("Almond", _db.Employees.Find(id).LastName);
         }
 
+        [Fact]
+        public void GiveEmployeeABudget()
+        {
+            Employee employee = _db.Employees.Where(x => x.FirstName == "Charles").ToList().First();
+            BudgetCode code = _db.BudgetCodes.Where(x => x.BudgetCodeName == "CS Budget").ToList().First();
+            string id = employee.Id;
+
+            employee.EmployeesBudgetCode = new List<EmployeesBudgetCodes> {
+                new EmployeesBudgetCodes
+                {
+                    Employee = employee,
+                    BudgetCode = code,
+                }
+            };
+
+            _db.SaveChanges();
+
+            Assert.Equal(id, _db.EmployeesBudgetCodes.Where(x => x.EmployeeId == id).ToList().First().EmployeeId);
+        }
     }
 }

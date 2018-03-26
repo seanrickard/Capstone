@@ -1,9 +1,7 @@
 ﻿using PurchaseReq.Models.Entities.Base;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 
 namespace PurchaseReq.Models.Entities
@@ -11,21 +9,9 @@ namespace PurchaseReq.Models.Entities
     [Table("Vendors", Schema = "Order")]
     public class Vendor : EntityBase
     {
-        
+
         [DataType(DataType.Text), MaxLength(20)]
         public string VendorName { get; set; }
-
-        [DataType(DataType.Text), MaxLength(50)]
-        public string City { get; set; }
-
-        [DataType(DataType.Text), MaxLength(2)]
-        public string State { get; set; }
-
-        [DataType(DataType.Text), MaxLength(10)]
-        public string Zip { get; set; }
-
-        [DataType(DataType.Text), MaxLength(50)]
-        public string Address { get; set; }
 
         [DataType(DataType.Text), MaxLength(20)]
         public string Phone { get; set; }
@@ -37,7 +23,13 @@ namespace PurchaseReq.Models.Entities
         public string Website { get; set; }
 
         [InverseProperty(nameof(Request.Vendor))]
-        public List<Request>Requests { get; set; }
+        public List<Request> Requests { get; set; } = new List<Request>();
+
+        public int AddressId { get; set; }
+        
+        [ForeignKey(nameof(AddressId))]
+        public Address Address{ get; set; }
+
 
     }
 }

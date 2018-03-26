@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
-using PurchaseReq.DAL.EF;
-using PurchaseReq.Models.Entities.Base;
-using System.Linq;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage;
+using PurchaseReq.DAL.EF;
+using PurchaseReq.Models.Entities.Base;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 //Class taken from Building Web Applications with Visual Studio 2017
 namespace PurchaseReq.DAL.Repos.Base
@@ -16,6 +15,7 @@ namespace PurchaseReq.DAL.Repos.Base
         protected readonly PurchaseReqContext Db;
         protected DbSet<T> Table;
         public PurchaseReqContext Context => Db;
+
         protected RepoBase()
         {
             Db = new PurchaseReqContext();
@@ -28,7 +28,7 @@ namespace PurchaseReq.DAL.Repos.Base
             Table = Db.Set<T>();
         }
 
-        bool _disposed = false;
+        private bool _disposed = false;
         public void Dispose()
         {
             Dispose(true);

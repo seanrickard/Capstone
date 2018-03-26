@@ -1,24 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using PurchaseReq.Models.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using PurchaseReq.DAL.EF;
-using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 
 namespace PurchaseReq.DAL.Initializers
 {
     public class DbInitializer
     {
-        private readonly PurchaseReqContext _context;
-        private static readonly string[] TableName = { "Departments", "Divisions", "AspNetUsers",
-        "Attachments", "Statuses", "BudgetCodes", "EmployeesBudgetCodes", "CFOs", "CFOApprovals",
-        "Approvals", "SupervisorApprovals", "Orders", "Requests", "Categories", "Items", "Vendors", "AlternativeRequests"};
-        private static string[] Schema = { "User", "Order", "dbo" };
+        private static readonly string[] Schema = { "User", "Order", "dbo" };
 
-        public DbInitializer(PurchaseReqContext appDbContext)
+        public static void InitializeData(IServiceProvider serviceProvider)
         {
-            _context = appDbContext;
+            var context = serviceProvider.GetService<PurchaseReqContext>();
+            InitializeData(context);
+        }
+
+        public static void InitializeData(PurchaseReqContext context)
+        {
+            context.Database.Migrate();
+            ClearData(context);
+            SeedData(context);
         }
 
         public static void ClearData(PurchaseReqContext appDbContext)
@@ -26,26 +28,35 @@ namespace PurchaseReq.DAL.Initializers
             SetEmployeesToNull(appDbContext);
             ExecuteDeleteSQL(appDbContext, Schema[0], "Departments");
             ExecuteDeleteSQL(appDbContext, Schema[0], "Divisions");
-            ExecuteDeleteSQL(appDbContext, Schema[2], "AspNetUsers");
             ExecuteDeleteSQL(appDbContext, Schema[0], "EmployeesBudgetCodes");
+            ExecuteDeleteSQL(appDbContext, Schema[1], "Requests");
+            ExecuteDeleteSQL(appDbContext, Schema[1], "Orders");
+            ExecuteDeleteSQL(appDbContext, Schema[2], "AspNetUsers");
             ExecuteDeleteSQL(appDbContext, Schema[0], "BudgetCodes");
+            ExecuteDeleteSQL(appDbContext, Schema[1], "Items");
+            ExecuteDeleteSQL(appDbContext, Schema[1], "Vendors");
+            ExecuteDeleteSQL(appDbContext, Schema[0], "Rooms");
+            ExecuteDeleteSQL(appDbContext, Schema[0], "Campuses");
+            ExecuteDeleteSQL(appDbContext, Schema[0], "Addresses");
+            ExecuteDeleteSQL(appDbContext, Schema[1], "Categories");
+            ExecuteDeleteSQL(appDbContext, Schema[1], "Statuses");
             ResetIdentity(appDbContext);
         }
 
-        public static void SetEmployeesToNull(PurchaseReqContext appDbContext)
+        private static void SetEmployeesToNull(PurchaseReqContext appDbContext)
         {
             appDbContext.Database.ExecuteSqlCommand("Update [dbo].[AspNetUsers] Set DepartmentId = NULL");
         }
 
-        public static void ExecuteDeleteSQL(PurchaseReqContext appDbContext, string schema, string tableName)
+        private static void ExecuteDeleteSQL(PurchaseReqContext appDbContext, string schema, string tableName)
         {
             appDbContext.Database.ExecuteSqlCommand("Delete from [" + schema + "].[" + tableName + "]");
         }
 
-        public static void ResetIdentity(PurchaseReqContext appDbContext)
+        private static void ResetIdentity(PurchaseReqContext appDbContext)
         {
-            string[] UserTables = { "Departments", "Divisions", "BudgetCodes", "EmployeesBudgetCodes", "CFOs" };
-            string[] OrderTables = { "Attachments", "Statuses", "CFOApprovals", "Approval", "SupervisorApprovals", "Orders", "Requests", "Categories", "Items", "Vendors", "AlternativeRequest" };
+            string[] UserTables = { "Departments", "Divisions", "BudgetCodes", "EmployeesBudgetCodes", "Rooms", "Campuses", "Addresses"};
+            string[] OrderTables = { "Attachments", "Statuses", "Approval", "SupervisorApprovals", "Orders", "Requests", "Categories", "Items", "Vendors" };
 
             foreach(string table in UserTables)
             {
@@ -58,37 +69,72 @@ namespace PurchaseReq.DAL.Initializers
             }
         }
 
-    public static void SeedData(PurchaseReqContext _context)
+    public static void SeedData(PurchaseReqContext context)
         {
-            _context.Database.EnsureCreated();
+            context.Database.EnsureCreated();
 
-            if (!_context.Employees.Any())
+            if (!context.Employees.Any())
             {
-                _context.Employees.AddRange(SampleData.GetEmployees(_context));
-                _context.SaveChanges();
+                context.Employees.AddRange(SampleData.GetEmployees);
+                context.SaveChanges();
             }
-            if(!_context.Divisions.Any())
+            if(!context.Divisions.Any())
             {
-                _context.Divisions.AddRange(SampleData.GetDivisions(_context, _context.Employees.ToList()));
-                _context.SaveChanges();
+                context.Divisions.AddRange(SampleData.GetDivisions( context.Employees.ToList()));
+                context.SaveChanges();
             }
-            if (!_context.Departments.Any())
+            if (!context.Departments.Any())
             {
-                _context.Departments.AddRange(SampleData.GetDepartments(_context, _context.Divisions.ToList()));
-                _context.SaveChanges();
-                _context.Employees.UpdateRange(SampleData.SetEmployeesDepartment(_context.Employees.ToList()));
-                _context.SaveChanges();
+                context.Departments.AddRange(SampleData.GetDepartments( context.Divisions.ToList()));
+                context.SaveChanges();
+                context.Employees.UpdateRange(SampleData.SetEmployeesDepartment(context.Employees.ToList()));
+                context.SaveChanges();
             }
-            if(!_context.BudgetCodes.Any())
+            if(!context.BudgetCodes.Any())
             {
-                _context.BudgetCodes.AddRange(SampleData.GetAllBudgetCodes);
+                context.BudgetCodes.AddRange(SampleData.GetBudgetCodes);
             }
-            if(!_context.EmployeesBudgetCodes.Any())
+            if(!context.EmployeesBudgetCodes.Any())
             {
-                _context.EmployeesBudgetCodes.AddRange(SampleData.GetAllEmployeeBudgetCodes);
+                context.EmployeesBudgetCodes.AddRange(SampleData.GetEmployeeBudgetCodes);
+            }
+            if(!context.Vendors.Any())
+            {
+                context.Vendors.AddRange(SampleData.GetVendors);
+            }
+            if(!context.Statuses.Any())
+            {
+                context.Statuses.AddRange(SampleData.GetStatuses);
+            }
+            if (!context.Categories.Any())
+            {
+                context.Categories.AddRange(SampleData.GetCategories);
+                context.SaveChanges();
+            }
+            if (!context.Orders.Any())
+            {
+                context.Orders.AddRange(SampleData.GetOrders(context.Employees.ToList()));
+            }
+            if (!context.Items.Any())
+            {
+                context.Items.AddRange(SampleData.GetItems);
+                context.SaveChanges();
+            }
+            if (!context.Requests.Any())
+            {
+                context.Requests.AddRange(SampleData.GetRequests);
+            }      
+            if (!context.Campuses.Any())
+            {
+                context.Campuses.AddRange(SampleData.GetCampuses);
+                context.SaveChanges();
+            }
+            if (!context.Rooms.Any())
+            {
+                context.Rooms.AddRange(SampleData.GetRooms);
             }
 
-            _context.SaveChanges();
+            context.SaveChanges();
         }
     }
 }

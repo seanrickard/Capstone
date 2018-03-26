@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using PurchaseReq.Models.Entities.Base;
-using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 
 namespace PurchaseReq.Models.Entities
@@ -18,6 +16,7 @@ namespace PurchaseReq.Models.Entities
         [DataType(DataType.Text)]
         public string LastName { get; set; }
 
+        [DefaultValue(true)]
         public bool Active { get; set; }
 
         public int? DepartmentId { get; set; }
@@ -26,13 +25,16 @@ namespace PurchaseReq.Models.Entities
         public Department Department { get; set; }
 
         [InverseProperty(nameof(EmployeesBudgetCodes.Employee))]
-        public List<EmployeesBudgetCodes> EmployeesBudgetCode { get; set; }
-
-        //Just pretend tag is there not really required
-        //[InverseProperty(nameof(CFO.Employee))]
-        public CFO CFO { get; set; }
+        public List<EmployeesBudgetCodes> EmployeesBudgetCode { get; set; } = new List<EmployeesBudgetCodes>();
 
         [InverseProperty(nameof(Division.Supervisor))]
-        public List<Division> SupervisedDivision { get; set; }
+        public List<Division> SupervisedDivision { get; set; } = new List<Division>();
+
+        public int? RoomId { get; set; }
+
+        [ForeignKey(nameof(RoomId))]
+        public Room Room { get; set; }
+
+
     }
 }

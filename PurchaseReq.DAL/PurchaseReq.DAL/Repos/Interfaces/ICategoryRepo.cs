@@ -1,12 +1,15 @@
-﻿using PurchaseReq.DAL.Repos.Base;
-using PurchaseReq.Models.Entities;
-using System;
+﻿using PurchaseReq.Models.Entities;
 using System.Collections.Generic;
-using System.Text;
 
 namespace PurchaseReq.DAL.Repos.Interfaces
 {
-    public interface ICategoryRepo : IRepo<Category>
+    public interface ICategoryRepo
     {
+        IEnumerable<Category> GetAllActiveCategories();
+
+        Category GetCategoryWithOrders(int? id);
+
+        IEnumerable<Category> GetAllWithOrders();
+        
     }
 }

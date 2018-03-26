@@ -8,5 +8,7 @@ namespace PurchaseReq.DAL.Repos.Interfaces
 {
     public interface IEmployeesBudgetCodesRepo : IRepo<EmployeesBudgetCodes>
     {
+        IEnumerable<EmployeesBudgetCodes> GetAllEmployeesBudgetCodes();
+        EmployeesBudgetCodes GetEmployeesBudgetCodeById(int employeesBudgetCodesId);
     }
 }
