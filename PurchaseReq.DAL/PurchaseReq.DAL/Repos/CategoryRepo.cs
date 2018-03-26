@@ -13,14 +13,14 @@ namespace PurchaseReq.DAL.Repos
     {
 
         public IEnumerable<Category> GetAllActiveCategories()
-            => Table.Where(x => x.Active == true);
+            => Table.Where(x => x.Active == true).ToList();
 
         public Category GetCategoryWithOrders(int? id)
             => Table.Include(x => x.Orders).SingleOrDefault(x => x.Id == id);
 
 
         public IEnumerable<Category> GetAllWithOrders()
-            => Table.Include(x => x.Orders);
+            => Table.Include(x => x.Orders).ToList();
 
 
     }

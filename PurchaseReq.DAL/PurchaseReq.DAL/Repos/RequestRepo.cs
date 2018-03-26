@@ -16,16 +16,16 @@ namespace PurchaseReq.DAL.Repos
 
         public IEnumerable<Request> GetAllWithOrderAndAttachmentAndItemAndVendor()
             => Table.Include(x => x.Order).Include(x => x.Attachments)
-                .Include(x => x.Item).Include(x => x.Vendor);
+                .Include(x => x.Item).Include(x => x.Vendor).ToList();
 
         public IEnumerable<Request> GetAllRequestForOrder(int orderId)
             => Table.Include(x => x.Order).Include(x => x.Attachments)
                 .Include(x => x.Item).Include(x => x.Vendor)
-                .Where(x => x.OrderId == orderId);
+                .Where(x => x.OrderId == orderId).ToList();
 
         public IEnumerable<Request> GetAllChoosenForOrder(int orderId)
             => Table.Include(x => x.Order).Include(x => x.Attachments)
                 .Include(x => x.Item).Include(x => x.Vendor)
-                .Where(x => x.OrderId == orderId && x.Chosen == true);
+                .Where(x => x.OrderId == orderId && x.Chosen == true).ToList();
     }
 }

@@ -4,6 +4,7 @@ using PurchaseReq.Models.Entities;
 
 namespace PurchaseReq.Service.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]/[action]")]
     public class AddressController : Controller
     {
@@ -20,7 +21,7 @@ namespace PurchaseReq.Service.Controllers
             return Ok(_repo.GetAll());
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
             var item = _repo.Find(id);
@@ -45,13 +46,13 @@ namespace PurchaseReq.Service.Controllers
             return Ok(_repo.GetAllWithCampuses());
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public IActionResult GetWithVendors(int id)
         {
             return Ok(_repo.GetAddressWithVendor(id));
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public IActionResult GetWithCampuses(int id)
         {
             return Ok(_repo.GetAddressWithCampuses(id));

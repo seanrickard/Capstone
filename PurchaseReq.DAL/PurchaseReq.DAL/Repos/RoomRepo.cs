@@ -13,12 +13,12 @@ namespace PurchaseReq.DAL.Repos
             => Table.Include(x => x.Campus).SingleOrDefault(x => x.Id == id);
 
         public IEnumerable<Room> GetAllWithCampus(int? id)
-            => Table.Include(x => x.Campus);
+            => Table.Include(x => x.Campus).ToList();
 
         public Room GetRoomWithEmployees(int? id)
             => Table.Include(x => x.Employees).SingleOrDefault(x => x.Id == id);
 
         public IEnumerable<Room> GetAllWithEmployees()
-            => Table.Include(x => x.Employees);
+            => Table.Include(x => x.Employees).ToList();
     }
 }

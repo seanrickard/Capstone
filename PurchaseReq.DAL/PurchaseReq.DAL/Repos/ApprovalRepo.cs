@@ -14,7 +14,7 @@ namespace PurchaseReq.DAL.Repos
             => Table.Include(x => x.SupervisorApprovals).SingleOrDefault(x => x.Id == id);
 
         public IEnumerable<Approval> GetAllWithSupervisorApprovals(int? id)
-            => Table.Include(x => x.SupervisorApprovals);
+            => Table.Include(x => x.SupervisorApprovals).ToList();
 
     }
 }

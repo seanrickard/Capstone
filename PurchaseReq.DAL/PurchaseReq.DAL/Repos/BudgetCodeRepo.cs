@@ -17,10 +17,10 @@ namespace PurchaseReq.DAL.Repos
             => Table.Include(x => x.BudgetAmounts).SingleOrDefault(x => x.Id == id);
 
         public IEnumerable<BudgetCode> GetAllWithBudgetAmount()
-            => Table.Include(x => x.BudgetAmounts);
+            => Table.Include(x => x.BudgetAmounts).ToList();
 
         public IEnumerable<BudgetCode> GetAllActiveBudgetCodes()
-            => Table.Include(x => x.BudgetAmounts).Where(x => x.Active == true);
+            => Table.Include(x => x.BudgetAmounts).Where(x => x.Active == true).ToList();
 
 
 

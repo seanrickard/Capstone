@@ -13,7 +13,7 @@ namespace PurchaseReq.DAL.Repos
             => Table.Include(x => x.Division).SingleOrDefault(x => x.Id == id);
 
         public IEnumerable<Department> GetAllWithDivision()
-            => Table.Include(x => x.Division);
+            => Table.Include(x => x.Division).ToList();
 
         public Department GetDepartmentWithEmployees(int? id)
             => Table.Include(x => x.Employees).SingleOrDefault(x => x.Id == id);

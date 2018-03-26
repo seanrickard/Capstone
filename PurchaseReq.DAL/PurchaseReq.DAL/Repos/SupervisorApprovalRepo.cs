@@ -13,6 +13,6 @@ namespace PurchaseReq.DAL.Repos
             => Table.Include(x => x.Approval).FirstOrDefault(x => x.Id == id);
 
         public IEnumerable<SupervisorApproval> GetAllWithSupervisorApprovals()
-            => Table.Include(x => x.Approval);
+            => Table.Include(x => x.Approval).ToList();
     }
 }

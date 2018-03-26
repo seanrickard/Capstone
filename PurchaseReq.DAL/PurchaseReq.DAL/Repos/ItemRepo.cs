@@ -13,6 +13,6 @@ namespace PurchaseReq.DAL.Repos
             => Table.Include(x => x.Requests).SingleOrDefault(x => x.Id == id);
 
         public IEnumerable<Item> GetAllWithRequest()
-            => Table.Include(x => x.Requests);
+            => Table.Include(x => x.Requests).ToList();
     }
 }

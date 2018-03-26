@@ -17,10 +17,10 @@ namespace PurchaseReq.DAL.Repos
             => Table.Include(x => x.Vendors).FirstOrDefault(x => x.Id == id);
 
         public IEnumerable<Address> GetAllWithCampuses()
-            => Table.Include(x => x.Campuses);
+            => Table.Include(x => x.Campuses).ToList();
 
         public IEnumerable<Address> GetAllWithVendor()
-            => Table.Include(x => x.Vendors);
+            => Table.Include(x => x.Vendors).ToList();
 
     }
 }

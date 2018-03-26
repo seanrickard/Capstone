@@ -13,12 +13,12 @@ namespace PurchaseReq.DAL.Repos
             => Table.Include(x => x.Requests).SingleOrDefault(x => x.Id == id);
 
         public IEnumerable<Vendor> GetAllWithRequest()
-            => Table.Include(x => x.Requests);
+            => Table.Include(x => x.Requests).ToList();
 
         public Vendor GetVendorWithAddress(int? id)
             => Table.Include(x => x.Address).SingleOrDefault(x => x.Id == id);
 
         public IEnumerable<Vendor> GetAllWithAddress()
-            => Table.Include(x => x.Address);
+            => Table.Include(x => x.Address).ToList();
     }
 }

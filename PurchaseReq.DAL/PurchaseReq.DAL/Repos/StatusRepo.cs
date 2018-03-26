@@ -13,7 +13,7 @@ namespace PurchaseReq.DAL.Repos
             => Table.Include(x => x.Orders).SingleOrDefault(x => x.Id == id);
 
         public IEnumerable<Status> GetAllWithOrders()
-            => Table.Include(x => x.Orders);
+            => Table.Include(x => x.Orders).ToList();
 
     }
 }

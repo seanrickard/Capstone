@@ -16,9 +16,9 @@ namespace PurchaseReq.DAL.Repos
             => Table.Include(x => x.Supervisor).SingleOrDefault(x => x.Id == id);
 
         public IEnumerable<Division> GetAllWithDepartments()
-            => Table.Include(x => x.Departments);
+            => Table.Include(x => x.Departments).ToList();
 
         public IEnumerable<Division> GetAllWithSupervisor()
-            => Table.Include(x => x.Supervisor);
+            => Table.Include(x => x.Supervisor).ToList();
     }
 }
