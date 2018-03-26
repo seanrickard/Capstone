@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using PurchaseReq.DAL.Repos.Base;
 using PurchaseReq.DAL.Repos.Interfaces;
 using PurchaseReq.Models.Entities;
+using PurchaseReq.Models.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,7 +23,25 @@ namespace PurchaseReq.DAL.Repos
         public IEnumerable<BudgetCode> GetAllActiveBudgetCodes()
             => Table.Include(x => x.BudgetAmounts).Where(x => x.Active == true).ToList();
 
+        public IEnumerable<BudgetCodeWithAmount> GetAllWithCurrentAmount()
+            => Table.Include(x => x.BudgetAmounts).Select(item => GetRecord(item, item.BudgetAmounts.Last()));
 
+        public BudgetCodeWithAmount GetBudgetCodeWithCurrentAmount(int id)
+            => Table.Where(x => x.Id == id).Include(x => x.BudgetAmounts)
+                    .Select(item => GetRecord(item, item.BudgetAmounts.Last())).SingleOrDefault();
+
+        internal BudgetCodeWithAmount GetRecord(BudgetCode c, BudgetAmount p)
+            => new BudgetCodeWithAmount()
+            {
+                Id = c.Id,
+                Active = c.Active,
+                BudgetCodeName = c.BudgetCodeName,
+                DA = c.DA,
+                TimeStamp = c.TimeStamp,
+                Type = c.Type,
+                BudgetAmountId = p.Id,
+                TotalAmount = p.TotalAmount
+            };
 
     }
 }
