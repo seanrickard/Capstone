@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PurchaseReq.Models.ViewModels
 {
+    //Good
     public class BudgetCodeWithAmount : EntityBase
     {
         [Required]

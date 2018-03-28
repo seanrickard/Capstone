@@ -1,5 +1,6 @@
 ﻿using PurchaseReq.DAL.Repos.Base;
 using PurchaseReq.Models.Entities;
+using PurchaseReq.Models.ViewModels;
 using System.Collections.Generic;
 
 namespace PurchaseReq.DAL.Repos.Interfaces
@@ -8,11 +9,11 @@ namespace PurchaseReq.DAL.Repos.Interfaces
     {
         Division GetDivisionWithDepartments(int? id);
 
-        Division GetDivisionWithSupervisor(int? id);
+        DivisionWithSupervisor GetDivisionWithSupervisor(int? id);
 
         IEnumerable<Division> GetAllWithDepartments();
 
-        IEnumerable<Division> GetAllWithSupervisor();
+        IEnumerable<DivisionWithSupervisor> GetAllWithSupervisor();
 
     }
 }

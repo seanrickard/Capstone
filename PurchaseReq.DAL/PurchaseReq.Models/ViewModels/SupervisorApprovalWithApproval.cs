@@ -3,6 +3,7 @@ using PurchaseReq.Models.Entities;
 
 namespace PurchaseReq.Models.ViewModels
 {
+    //Good
     public class SupervisorApprovalWithApproval
     {
         public Approval Approval { get; set; }

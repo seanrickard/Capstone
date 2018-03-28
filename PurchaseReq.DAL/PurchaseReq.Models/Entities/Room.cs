@@ -12,7 +12,7 @@ namespace PurchaseReq.Models.Entities
         [Required]
         public string RoomCode { get; set; }
 
-        public int BuildingId { get; set; }
+        public int CampusId { get; set; }
 
         [Required]
         [Display(Name = "Room Name")]
@@ -21,7 +21,7 @@ namespace PurchaseReq.Models.Entities
         [DefaultValue(true)]
         public bool Active { get; set; }
 
-        [ForeignKey(nameof(BuildingId))]
+        [ForeignKey(nameof(CampusId))]
         public Campus Campus { get; set; }
 
         [InverseProperty(nameof(Employee.Room))]

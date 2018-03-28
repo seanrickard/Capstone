@@ -1,11 +1,13 @@
 ﻿using PurchaseReq.Models.Entities;
+using PurchaseReq.Models.Entities.Base;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace PurchaseReq.Models.ViewModels
 {
-    public class RequestWithVendor
+    //Good
+    public class RequestWithVendor : EntityBase
     {
         [Display(Name = "Quantity Requested")]
         public int QuantityRequested { get; set; }

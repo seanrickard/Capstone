@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PurchaseReq.DAL.Repos.Interfaces;
+using PurchaseReq.Models.Entities;
 
 namespace PurchaseReq.Service.Controllers
 {
     [Produces("application/json")]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class CampusController : Controller
     {
         private readonly ICampusRepo _repo;
@@ -32,13 +33,13 @@ namespace PurchaseReq.Service.Controllers
             return Json(item);
         }
 
-        [HttpGet("/Address")]
+        [HttpGet]
         public IActionResult GetWithAddress()
         {
             return Ok(_repo.GetAllWithAddress());
         }
 
-        [HttpGet("{id}/Address")]
+        [HttpGet("{id}")]
         public IActionResult GetWithAddress(int id)
         {
             var item = _repo.GetCampusWithAddress(id);
@@ -50,13 +51,13 @@ namespace PurchaseReq.Service.Controllers
             return Json(item);
         }
 
-        [HttpGet("/Rooms")]
+        [HttpGet]
         public IActionResult GetWithRooms()
         {
             return Ok(_repo.GetAllWithRooms());
         }
 
-        [HttpGet("{id}/Rooms")]
+        [HttpGet("{id}")]
         public IActionResult GetWithRooms(int id)
         {
             var item = _repo.GetCampusWithRooms(id);
@@ -66,6 +67,30 @@ namespace PurchaseReq.Service.Controllers
             }
 
             return Json(item);
+        }
+
+        [HttpPost]
+        public IActionResult Create([FromBody] Campus model)
+        {
+            if (model == null || !ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            _repo.Update(model);
+            return CreatedAtRoute("Get", new { controller = "CampusController", id = model.Id });
+        }
+
+        [HttpPut]
+        public IActionResult Update(int campusId, [FromBody] Campus model)
+        {
+            if (model == null || campusId != model.Id || !ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            _repo.Update(model);
+            return CreatedAtRoute("Get", new { controller = "CampusController", id = model.Id });
         }
     }
 }

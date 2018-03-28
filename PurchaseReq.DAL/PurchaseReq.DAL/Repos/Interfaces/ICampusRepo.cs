@@ -1,5 +1,6 @@
 ﻿using PurchaseReq.DAL.Repos.Base;
 using PurchaseReq.Models.Entities;
+using PurchaseReq.Models.ViewModels;
 using System.Collections.Generic;
 
 namespace PurchaseReq.DAL.Repos.Interfaces
@@ -11,8 +12,8 @@ namespace PurchaseReq.DAL.Repos.Interfaces
 
         IEnumerable<Campus> GetAllWithRooms();
 
-        Campus GetCampusWithAddress(int? id);
+        CampusWithAddress GetCampusWithAddress(int? id);
 
-        IEnumerable<Campus> GetAllWithAddress();
+        IEnumerable<CampusWithAddress> GetAllWithAddress();
     }
 }

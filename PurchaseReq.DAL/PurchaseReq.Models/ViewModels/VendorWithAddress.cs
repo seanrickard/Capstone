@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PurchaseReq.Models.ViewModels
 {
+    //Good
     public class VendorWithAddress : EntityBase
     {
         [DataType(DataType.Text), MaxLength(20)]
@@ -17,7 +18,7 @@ namespace PurchaseReq.Models.ViewModels
         [DataType(DataType.Text), MaxLength(20)]
         public string Website { get; set; }
 
-        public int VendorId { get; set; }
+        public int AddressId { get; set; }
 
         public string City { get; set; }
 

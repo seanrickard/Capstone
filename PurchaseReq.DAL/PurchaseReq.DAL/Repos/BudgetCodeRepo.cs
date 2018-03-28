@@ -43,5 +43,9 @@ namespace PurchaseReq.DAL.Repos
                 TotalAmount = p.TotalAmount
             };
 
+
+        public IEnumerable<BudgetCodeWithAmount> GetRangeWithCurrentAmounts(int skip, int take)
+            => GetAllWithCurrentAmount().Skip(skip).Take(take);
+
     }
 }

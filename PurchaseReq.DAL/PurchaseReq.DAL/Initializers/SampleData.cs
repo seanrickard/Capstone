@@ -22,7 +22,6 @@ namespace PurchaseReq.DAL.Initializers
                DivisionName = "STEM",
                Active = true,
                SupervisorId = Supervisors.Find(x => x.FirstName.ToString().Equals("Jared")).Id,
-               ParentId = 1
                 // need to figure out employee foreign key info
             },
             new Division()
@@ -30,7 +29,6 @@ namespace PurchaseReq.DAL.Initializers
                DivisionName = "Nursing & Health Sciences",
                Active = true,
                SupervisorId = Supervisors.Find(x => x.FirstName.ToString().Equals("Kathy")).Id,
-               ParentId = 1
                 // need to figure out employee foreign key info
             },
             new Division()
@@ -38,7 +36,6 @@ namespace PurchaseReq.DAL.Initializers
                DivisionName = "Education",
                Active = true,
                SupervisorId = Supervisors.Find(x => x.FirstName.ToString().Equals("Jeffrey")).Id,
-               ParentId = 1
                 // need to figure out employee foreign key info
             },
             new Division()
@@ -46,7 +43,6 @@ namespace PurchaseReq.DAL.Initializers
                DivisionName = "Business & Economics",
                Active = true,
                SupervisorId =  Supervisors.Find(x => x.FirstName.ToString().Equals("Alice")).Id,
-               ParentId = 1
                 // need to figure out employee foreign key info
             },
         };
@@ -649,25 +645,25 @@ namespace PurchaseReq.DAL.Initializers
         {
             new Room()
             {
-                BuildingId = 1,
+                CampusId = 1,
                 RoomCode = "A550",
                 RoomName = "Science Room"
             },
             new Room()
             {
-                BuildingId = 1,
+                CampusId = 1,
                 RoomCode = "B220",
                 RoomName = "Creativity Room"
             },
             new Room()
             {
-                BuildingId = 1,
+                CampusId = 1,
                 RoomCode = "C127",
                 RoomName = "Robotics Room"
             },
             new Room()
             {
-                BuildingId = 2,
+                CampusId = 2,
                 RoomCode = "T651",
                 RoomName = "Fancy Office"
             }
