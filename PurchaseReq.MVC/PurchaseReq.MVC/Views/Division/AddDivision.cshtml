@@ -1,0 +1,42 @@
+﻿@model DivisionWithSupervisor
+
+@{
+    ViewData["Title"] = "Add Division";
+}
+
+<h2>Add New Division</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddDivision">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DivisionName" class="control-label"></label>
+                <input asp-for="DivisionName" class="form-control" />
+                <span asp-validation-for="DivisionName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="Active" /> @Html.DisplayNameFor(model => model.Active)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="SupervisorId" class="control-label">Supervisor</label>
+
+                @*<select asp-for="SupervisorId" asp-items="@(new SelectList(Model.SupervisorList, "Id", "FirstName" ))">
+                    <option>Select Division Supervisor</option>
+                </select>*@
+                <span asp-validation-for="SupervisorId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

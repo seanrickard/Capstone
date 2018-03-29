@@ -1,0 +1,40 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
+@model IEnumerable<DepartmentWithDivision>
+
+    <h2>Departments</h2>
+
+    <table class="table table-condensed table-bordered" header header-content="Department">
+        <tr>
+            <th>Department Name</th>
+            <th>Active</th>
+            <th>Division</th>
+        </tr>
+
+        @foreach (DepartmentWithDivision department in Model)
+    {
+
+        <tr>
+            <td>@department.DepartmentName</td>
+            <td>@department.Active</td>
+            <td>@department.Division.DivisionName</td>
+
+
+
+            <td>
+                <form asp-action="DeleteCampus" asp-route-id="@department.Id" method="post">
+                    <a class="btn btn-sm btn-primary" asp-action="EditDivision" asp-route-id="@department.Id">Edit</a>
+                    <a class="btn btn-sm btn-primary" asp-action="Departments" asp-controller="Department" asp-route-Id="@department.Id">View Departments</a>
+
+                    <button type="submit" onclick="return confirm('Do you really want to delete this department?');" class="btn btn-sm btn-danger">
+                        Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+}
+    </table>
+
+    <p>
+        <a anchor-style="primary" asp-action="AddDepartment">Add new department</a>
+    </p>

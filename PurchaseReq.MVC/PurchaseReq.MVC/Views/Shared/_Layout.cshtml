@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using PurchaseReq.Models.Entities
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
+
+
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -33,7 +40,11 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    @await Component.InvokeAsync("AdminMenu")
+               
                 </ul>
+                @*@await Html.PartialAsync("_LoginPartial")*@
+
             </div>
         </div>
     </nav>
