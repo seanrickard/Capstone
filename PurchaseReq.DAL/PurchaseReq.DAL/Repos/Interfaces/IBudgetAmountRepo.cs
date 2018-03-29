@@ -1,5 +1,6 @@
 ﻿using PurchaseReq.DAL.Repos.Base;
 using PurchaseReq.Models.Entities;
+using System.Collections.Generic;
 
 namespace PurchaseReq.DAL.Repos.Interfaces
 {
@@ -8,7 +9,7 @@ namespace PurchaseReq.DAL.Repos.Interfaces
 
         BudgetAmount GetBudgetCodesCurrentBudgetAmount(int id);
 
-       
+        IEnumerable<BudgetAmount> GetBudgetAmountsForBudgetCode(int id);
 
     }
 }

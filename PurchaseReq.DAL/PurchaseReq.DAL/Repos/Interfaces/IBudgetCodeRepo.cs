@@ -1,5 +1,6 @@
 ﻿using PurchaseReq.DAL.Repos.Base;
 using PurchaseReq.Models.Entities;
+using PurchaseReq.Models.ViewModels;
 using System.Collections.Generic;
 
 namespace PurchaseReq.DAL.Repos.Interfaces
@@ -13,5 +14,12 @@ namespace PurchaseReq.DAL.Repos.Interfaces
 
         IEnumerable<BudgetCode> GetAllActiveBudgetCodes();
 
+        IEnumerable<BudgetCodeWithAmount> GetRangeWithCurrentAmounts(int skip, int take);
+
+        IEnumerable<BudgetCodeWithAmount> GetActive(int skip, int take);
+
+        IEnumerable<BudgetCodeWithAmount> GetAllWithCurrentAmount();
+
+        BudgetCodeWithAmount GetBudgetCodeWithCurrentAmount(int id);
     }
 }

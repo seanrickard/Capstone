@@ -13,35 +13,30 @@ namespace PurchaseReq.DAL.Initializers
             new Division()
             {
                DivisionName = "Board of Governors",
-               Active = true,
                SupervisorId = Supervisors.Find(x => x.FirstName.ToString().Equals("Alice")).Id,
                 // need to figure out employee foreign key info
             },
             new Division()
             {
                DivisionName = "STEM",
-               Active = true,
                SupervisorId = Supervisors.Find(x => x.FirstName.ToString().Equals("Jared")).Id,
                 // need to figure out employee foreign key info
             },
             new Division()
             {
                DivisionName = "Nursing & Health Sciences",
-               Active = true,
                SupervisorId = Supervisors.Find(x => x.FirstName.ToString().Equals("Kathy")).Id,
                 // need to figure out employee foreign key info
             },
             new Division()
             {
                DivisionName = "Education",
-               Active = true,
                SupervisorId = Supervisors.Find(x => x.FirstName.ToString().Equals("Jeffrey")).Id,
                 // need to figure out employee foreign key info
             },
             new Division()
             {
                DivisionName = "Business & Economics",
-               Active = true,
                SupervisorId =  Supervisors.Find(x => x.FirstName.ToString().Equals("Alice")).Id,
                 // need to figure out employee foreign key info
             },
@@ -53,49 +48,41 @@ namespace PurchaseReq.DAL.Initializers
             new Department()
             {
                 DepartmentName = "Purchase Department",
-                Active = true,
                 Division = Divisions.Find(x => x.DivisionName.Equals("Business & Economics"))
             },
             new Department()
             {
                 DepartmentName = "IT Department",
-                Active = true,
                 Division = Divisions.Find(x => x.DivisionName.Equals("Business & Economics"))
             },
             new Department()
             {
                 DepartmentName = "Business Office",
-                Active = false,
-                Division =Divisions.Find(x => x.DivisionName.Equals("Business & Economics"))
+                Division = Divisions.Find(x => x.DivisionName.Equals("Business & Economics"))
             },
             new Department()
             {
                 DepartmentName = "Nursing Department",
-                Active = false,
                 Division = Divisions.Find(x => x.DivisionName.Equals("Nursing & Health Sciences"))
             },
             new Department()
             {
                 DepartmentName = "Computer Science",
-                Active = false,
                 Division =  Divisions.Find(x => x.DivisionName.Equals("STEM"))
             },
             new Department()
             {
                 DepartmentName = "Math Department",
-                Active = false,
                 Division = Divisions.Find(x => x.DivisionName.Equals("STEM"))
             },
             new Department()
             {
                 DepartmentName = "Teaching Department",
-                Active = false,
                 Division = Divisions.Find(x => x.DivisionName.Equals("Education"))
             },
             new Department()
             {
                 DepartmentName = "Division Chairperson",
-                Active = false,
                 Division = Divisions.Find(x => x.DivisionName.Equals("Board of Governors"))
             }
         };
@@ -107,49 +94,41 @@ namespace PurchaseReq.DAL.Initializers
             {
                 FirstName = "Charles",
                 LastName = "Almond",
-                Active = true,
             },
             new Employee()
             {
                 FirstName = "Gary",
                 LastName = "Thompson",
-                Active = true
             },
             new Employee()
             {
                 FirstName = "Jared",
                 LastName = "Gump",
-                Active = true
             },
             new Employee()
             {
                 FirstName = "Kathy",
                 LastName = "Frum",
-                Active = true
             },
             new Employee()
             {
                 FirstName = "Julie",
                 LastName = "Heller",
-                Active = true
             },
             new Employee()
             {
                 FirstName = "David",
                 LastName = "Lancaster",
-                Active = true
             },
             new Employee()
             {
                 FirstName = "Jeffrey",
                 LastName = "Holland",
-                Active = true
             },
             new Employee()
             {
                 FirstName = "Alice",
                 LastName = "CFO",
-                Active = true
             }
         };
 
@@ -269,21 +248,18 @@ namespace PurchaseReq.DAL.Initializers
                 DA = 731180007,
                 BudgetCodeName = "CS Budget",
                 Type = true,
-                Active = true,
             },
             new BudgetCode()
             {
                 DA = 731180007,
                 BudgetCodeName = "Nurse Budget",
                 Type = true,
-                Active = true,
             },
             new BudgetCode()
             {
                 DA = 731180007,
                 BudgetCodeName = "Backup Budget",
                 Type = false,
-                Active = true,
             },
 
         };

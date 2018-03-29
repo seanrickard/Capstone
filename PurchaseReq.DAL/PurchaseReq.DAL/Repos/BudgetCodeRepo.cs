@@ -47,5 +47,7 @@ namespace PurchaseReq.DAL.Repos
         public IEnumerable<BudgetCodeWithAmount> GetRangeWithCurrentAmounts(int skip, int take)
             => GetAllWithCurrentAmount().Skip(skip).Take(take);
 
+        public IEnumerable<BudgetCodeWithAmount> GetActive(int skip, int take)
+            => GetAllActiveBudgetCodes().Select(item => GetRecord(item, item.BudgetAmounts.Last())).Skip(skip).Take(take);
     }
 }

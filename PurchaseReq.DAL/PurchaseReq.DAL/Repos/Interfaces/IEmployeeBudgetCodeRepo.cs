@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace PurchaseReq.DAL.Repos.Interfaces
 {
-    public interface IEmployeeBudgetCode : IRepo<EmployeesBudgetCodes>
+    public interface IEmployeeBudgetCodeRepo : IRepo<EmployeesBudgetCodes>
     {
         IEnumerable<EmployeesBudgetCodes> GetAllActiveEmployeeBudgetCodes(string id);
 

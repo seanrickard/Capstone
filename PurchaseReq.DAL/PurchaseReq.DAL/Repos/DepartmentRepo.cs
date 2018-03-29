@@ -32,8 +32,7 @@ namespace PurchaseReq.DAL.Repos
                 Division = di,
                 Active = de.Active,
                 DepartmentName = de.DepartmentName,
-                DivisionId = di.Id,
-                Divisions = Context.Divisions.ToList() 
+                DivisionId = di.Id
             };
     }
 }

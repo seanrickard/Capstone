@@ -54,7 +54,6 @@ namespace PurchaseReq.DAL.EF
                 .HasComputedColumnSql("[QuantityRequested] * [PaidCost]");
             });
 
-
             base.OnModelCreating(modelBuilder);
         }
 

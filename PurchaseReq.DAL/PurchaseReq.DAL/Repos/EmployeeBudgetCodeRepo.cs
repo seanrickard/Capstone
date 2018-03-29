@@ -9,7 +9,7 @@ using System.Linq;
 namespace PurchaseReq.DAL.Repos
 {
     //Need to come back to this
-    public class EmployeeBudgetCodeRepo : RepoBase<EmployeesBudgetCodes>, IEmployeeBudgetCode
+    public class EmployeeBudgetCodeRepo : RepoBase<EmployeesBudgetCodes>, IEmployeeBudgetCodeRepo
     {
         public IEnumerable<EmployeesBudgetCodes> GetAllActiveEmployeeBudgetCodes(string id)
             => Table.Include(x => x.BudgetCode).Where(x => x.EmployeeId == id && x.Active == true && x.BudgetCode.Active == true).ToList();
