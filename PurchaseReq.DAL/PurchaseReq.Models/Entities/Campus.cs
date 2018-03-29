@@ -13,7 +13,7 @@ namespace PurchaseReq.Models.Entities
         public string CampusName { get; set; }
 
         [DefaultValue(true)]
-        public bool Active { get; set; }
+        public bool Active { get; set; } = true;
 
         public int AddressId { get; set; }
 

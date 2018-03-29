@@ -10,6 +10,10 @@ namespace PurchaseReq.Models.ViewModels
     //Good
     public class PRWithRequest : EntityBase
     {
+        public Employee Employee { get; set; }
+
+        public Employee Supervisor { get; set; }
+
         public Status Status { get; set; }
 
         public int StatusId { get; set; }
@@ -17,6 +21,8 @@ namespace PurchaseReq.Models.ViewModels
         public Category Category { get; set; }
 
         public BudgetCode BudgetCode { get; set; }
+
+        public List<BudgetCode> BudgetCodes { get; set; } = new List<BudgetCode>();
 
         public int BudgetCodeId { get; set; }
 

@@ -18,7 +18,7 @@ namespace PurchaseReq.Models.Entities
         public string DivisionName { get; set; }
 
         [DefaultValue(true)]
-        public bool Active { get; set; }
+        public bool Active { get; set; } = true;
 
         [InverseProperty(nameof(Department.Division))]
         public List<Department> Departments { get; set; } = new List<Department>();

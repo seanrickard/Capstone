@@ -10,7 +10,7 @@ namespace PurchaseReq.Models.Entities
         public string EmployeeId { get; set; }
 
         [DefaultValue(true)]
-        public bool Active { get; set; }
+        public bool Active { get; set; } = true;
 
         [ForeignKey(nameof(EmployeeId))]
         public Employee Employee { get; set; }

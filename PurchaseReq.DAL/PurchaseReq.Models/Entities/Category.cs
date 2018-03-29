@@ -14,7 +14,7 @@ namespace PurchaseReq.Models.Entities
         public string CategoryName { get; set; }
 
         [DefaultValue(true)]
-        public bool Active { get; set; }
+        public bool Active { get; set; } = true;
 
         [InverseProperty(nameof(Order.Category))]
         public List<Order> Orders { get; set; }

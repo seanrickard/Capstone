@@ -19,7 +19,7 @@ namespace PurchaseReq.Models.Entities
         public string RoomName { get; set; }
 
         [DefaultValue(true)]
-        public bool Active { get; set; }
+        public bool Active { get; set; } = true;
 
         [ForeignKey(nameof(CampusId))]
         public Campus Campus { get; set; }

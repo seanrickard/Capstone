@@ -29,7 +29,7 @@ namespace PurchaseReq.Models.Entities
         public decimal PaidTotal { get; set; }
 
         [DefaultValue(true)]
-        public bool Chosen { get; set; }
+        public bool Chosen { get; set; } = true;
 
         public int OrderId { get; set; }
 

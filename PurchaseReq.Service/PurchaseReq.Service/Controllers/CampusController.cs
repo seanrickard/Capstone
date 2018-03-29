@@ -77,7 +77,7 @@ namespace PurchaseReq.Service.Controllers
                 return BadRequest();
             }
 
-            _repo.Update(model);
+            _repo.Add(model);
             return CreatedAtRoute("Get", new { controller = "CampusController", id = model.Id });
         }
 

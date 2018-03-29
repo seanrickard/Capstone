@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using PurchaseReq.DAL.EF;
+﻿using PurchaseReq.DAL.EF;
 using PurchaseReq.DAL.Initializers;
 using PurchaseReq.Models.Entities;
 using System;
@@ -27,15 +26,6 @@ namespace PurchaseReq.DAL.Tests.ContextTests.UsersTests
             _db.Dispose();
         }
 
-        private void CleanDatabase()
-        {
-            _db.Database.ExecuteSqlCommand("Update [dbo].[AspNetUsers] Set DepartmentId = NULL");
-            _db.Database.ExecuteSqlCommand("Delete from [User].[Departments]");
-            _db.Database.ExecuteSqlCommand("Delete from [User].[Divisions]");
-            _db.Database.ExecuteSqlCommand("Delete from [dbo].[AspNetUsers]");
-            _db.Database.ExecuteSqlCommand($"DBCC CHECKIDENT (\"[User].[Divisions]\" , RESEED, 0);");
-            _db.Database.ExecuteSqlCommand($"DBCC CHECKIDENT (\"[User].[Departments]\" , RESEED, 0);");
-        }
 
         [Fact]
         public void FirstTest()

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PurchaseReq.DAL.Repos.Interfaces;
+using PurchaseReq.Models.Entities;
 
 namespace PurchaseReq.Service.Controllers
 {
@@ -33,13 +34,13 @@ namespace PurchaseReq.Service.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetRoomWithCampus()
+        public IActionResult GetWithCampus()
         {
             return Ok(_repo.GetAllWithCampus());
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetRoomWithCampus(int id)
+        public IActionResult GetWithCampus(int id)
         {
             var item = _repo.GetRoomWithCampus(id);
             if (item == null)
@@ -51,13 +52,13 @@ namespace PurchaseReq.Service.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetRoomWithEmployee()
+        public IActionResult GetWithEmployee()
         {
             return Ok(_repo.GetAllWithEmployees());
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetRoomWithEmployee(int id)
+        public IActionResult GetWithEmployee(int id)
         {
             var item = _repo.GetRoomWithEmployees(id);
             if (item == null)
@@ -69,9 +70,33 @@ namespace PurchaseReq.Service.Controllers
         }
 
         [HttpGet("{campusId}")]
-        public IActionResult GetRoomsForCampus(int campusId)
+        public IActionResult GetByCampus(int campusId)
         {
             return Ok(_repo.GetRoomsForCampus(campusId));
+        }
+
+        [HttpPost]
+        public IActionResult Create([FromBody] Room model)
+        {
+            if (model == null || !ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            _repo.Add(model);
+            return CreatedAtRoute("Get", new { controller = "RoomController", id = model.Id });
+        }
+
+        [HttpPut]
+        public IActionResult Update(int roomId, [FromBody] Room model)
+        {
+            if (model == null || roomId != model.Id || !ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            _repo.Update(model);
+            return CreatedAtRoute("Get", new { controller = "RoomController", id = model.Id });
         }
     }
 }

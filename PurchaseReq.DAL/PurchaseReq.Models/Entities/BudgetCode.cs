@@ -20,7 +20,7 @@ namespace PurchaseReq.Models.Entities
         public bool Type { get; set; }
 
         [DefaultValue(true)]
-        public bool Active { get; set; }
+        public bool Active { get; set; } = true;
 
         [InverseProperty(nameof(BudgetAmount.BudgetCode))]
         public List<BudgetAmount> BudgetAmounts { get; set; } = new List<BudgetAmount>();

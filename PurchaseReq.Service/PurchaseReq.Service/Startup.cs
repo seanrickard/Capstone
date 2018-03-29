@@ -64,7 +64,7 @@ namespace PurchaseReq.Service
             services.AddScoped<IDivisionRepo, DivisionRepo>();
             services.AddScoped<IBudgetCodeRepo, BudgetCodeRepo>();
             services.AddScoped<IBudgetAmountRepo, BudgetAmountRepo>();
-            services.AddScoped<IEmployeeBudgetCode, EmployeeBudgetCodeRepo>();
+            services.AddScoped<IEmployeeBudgetCodeRepo, EmployeeBudgetCodeRepo>();
             services.AddScoped<IApprovalRepo, ApprovalRepo>();
             services.AddScoped<ISupervisorApproval, SupervisorApprovalRepo>();
             services.AddScoped<IOrderRepo, OrderRepo>();
