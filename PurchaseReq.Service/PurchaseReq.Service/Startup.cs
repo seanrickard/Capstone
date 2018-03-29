@@ -87,6 +87,9 @@ namespace PurchaseReq.Service
                 
             }
 
+
+            app.UseAuthentication();
+
             app.UseCors("AllowAll");
 
             app.UseMvc();
