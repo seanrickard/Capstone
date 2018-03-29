@@ -20,15 +20,15 @@ namespace PurchaseReq.Service.Controllers
         }
 
 
-        public async Task<IActionResult> signIn()
-        {
+        //public async Task<IActionResult> signIn()
+        //{
 
-        }
+        //}
         
-        public async Task<IActionResult> signOut()
-        {
+        //public async Task<IActionResult> signOut()
+        //{
 
-        }
+        //}
 
     }
 }
