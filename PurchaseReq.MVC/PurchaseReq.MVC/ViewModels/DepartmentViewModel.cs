@@ -2,8 +2,7 @@
 
 namespace PurchaseReq.MVC.ViewModels
 {
-    public class CampusViewModel : CampusWithAddress
+    public class DepartmentViewModel : DepartmentWithDivision
     {
-
     }
 }

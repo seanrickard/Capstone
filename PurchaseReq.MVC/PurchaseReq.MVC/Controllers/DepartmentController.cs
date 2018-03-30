@@ -1,20 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PurchaseReq.Models.ViewModels;
-
+using PurchaseReq.MVC.WebServiceAccess.Base;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PurchaseReq.MVC.Controllers
 {
     public class DepartmentController : Controller
     {
-        public IActionResult Index()
-        {
-            IEnumerable<DepartmentWithDivision> list = new List<DepartmentWithDivision>();
+        private readonly IWebApiCalls _webApiCalls;
 
-            return View(list);
+        public DepartmentController(IWebApiCalls webApiCalls)
+        {
+            _webApiCalls = webApiCalls;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            IList<DepartmentWithDivision> departments;
+            departments = await _webApiCalls.GetDepartmentsAsync();
+
+            return View(departments);
         }
 
         public IActionResult AddDepartment()

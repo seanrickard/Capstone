@@ -1,9 +1,9 @@
 ﻿using PurchaseReq.Models.ViewModels;
 
+
 namespace PurchaseReq.MVC.ViewModels
 {
-    public class CampusViewModel : CampusWithAddress
+    public class DivisionViewModel : DivisionWithSupervisor
     {
-
     }
 }

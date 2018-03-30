@@ -1,13 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PurchaseReq.Models.ViewModels;
-using PurchaseReq.MVC.ViewModels;
 using PurchaseReq.MVC.WebServiceAccess.Base;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PurchaseReq.MVC.Controllers
 {
-    [Route("[controller]/[action]/{id}")]
     public class CampusController : Controller
     {
         private readonly IWebApiCalls _webApiCalls;
@@ -17,23 +15,15 @@ namespace PurchaseReq.MVC.Controllers
             _webApiCalls = webApiCalls;
         }
 
-        public async Task<IActionResult> Index(int id)
+        public async Task<IActionResult> Index()
         {
-            var campus = await _webApiCalls.GetCampusAsync(id);
-            System.Console.WriteLine(campus.CampusName);
-            var viewModel = new CampusViewModel
-            {
-                CampusName = campus.CampusName,
-                Active = campus.Active,
-                //StreetAddress = campus.Address.StreetAddress,
-                //City = campus.Address.City,
-                //State = campus.Address.State,
-                //Zip = campus.Address.Zip
-            };
-            var list = new List<CampusViewModel>();
-            list.Add(viewModel);
+            IList<CampusWithAddress> campuses;
+            campuses = await _webApiCalls.GetCampusesAsync();
             
-            return View(list);
+           
+            
+
+            return View(campuses);
         }
 
         public IActionResult AddCampus()

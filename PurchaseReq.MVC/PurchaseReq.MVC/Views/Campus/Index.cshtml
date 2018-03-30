@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.Identity.EntityFrameworkCore
-@model IEnumerable<CampusViewModel>
->
+@model IList<CampusWithAddress>
+
 
 @{
     ViewData["Title"] = "Index";
@@ -10,7 +10,7 @@
 <h2>Campus</h2>
 
 
-@if (true == false)
+@if (!Model.Any())
 {
     <tr><td colspan="3" class="text-center">No campuses yet</td></tr>
 }
@@ -27,7 +27,7 @@ else
 
         </tr>
 
-        @foreach (CampusViewModel campus in Model)
+        @foreach (CampusWithAddress campus in Model)
         {
 
             <tr>

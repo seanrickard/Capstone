@@ -11,12 +11,19 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
     public abstract class WebApiCallsBase
     {
         protected readonly string ServiceAddress;
-        protected readonly string CampusBaseUri;
+        protected readonly string CampusWithAddressBaseUri;
+        protected readonly string BudgetCodeWithAmountBaseUri;
+        protected readonly string DivisionWithSupervisorBaseUri;
+        protected readonly string DepartmentWithDivisionBaseUri;
 
         protected WebApiCallsBase(IWebServiceLocator settings)
         {
             ServiceAddress = settings.ServiceAddress;
-            CampusBaseUri = $"{ServiceAddress}api/Campus/Get/";
+            CampusWithAddressBaseUri = $"{ServiceAddress}api/Campus/GetWithAddress/";
+            BudgetCodeWithAmountBaseUri = $"{ServiceAddress}api/BudgetCode/Get/";
+            DivisionWithSupervisorBaseUri = $"{ServiceAddress}api/Division/GetWithSupervisor/";
+            DepartmentWithDivisionBaseUri = $"{ServiceAddress}api/Department/Get/";
+
         }
 
         internal async Task<string> GetJsonFromGetResponseAsync(string uri)
@@ -25,7 +32,6 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
             {
                 using (var client = new HttpClient())
                 {
-                    Console.WriteLine("In GetJsonFromGetResponseAsync. uri : " + uri);
                     var response = await client.GetAsync(uri);
                     if(!response.IsSuccessStatusCode)
                     {

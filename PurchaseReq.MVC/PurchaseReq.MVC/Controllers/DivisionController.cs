@@ -1,20 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PurchaseReq.Models.ViewModels;
-
+using PurchaseReq.MVC.WebServiceAccess.Base;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PurchaseReq.MVC.Controllers
 {
     public class DivisionController : Controller
     {
-        public IActionResult Index()
-        {
-            IEnumerable<DivisionWithSupervisor> list = new List<DivisionWithSupervisor>();
+        private readonly IWebApiCalls _webApiCalls;
 
-            return View(list);
+        public DivisionController(IWebApiCalls webApiCalls)
+        {
+            _webApiCalls = webApiCalls;
+        }
+        public async Task<IActionResult> Index()
+        {
+            IList<DivisionWithSupervisor> divisions;
+            divisions = await _webApiCalls.GetDivisionsAsync();
+
+            return View(divisions);
         }
 
         public IActionResult AddDivision()

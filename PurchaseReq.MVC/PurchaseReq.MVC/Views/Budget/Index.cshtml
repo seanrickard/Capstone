@@ -1,11 +1,11 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.Identity.EntityFrameworkCore
-@model IEnumerable<BudgetCodeWithAmount>
+@model IList<BudgetCodeWithAmount>
 
 <h2>Budget Codes</h2>
 
 
-@if (true == false)
+@if (!Model.Any())
 {
     <tr><td colspan="3" class="text-center">No Budget Codes yet</td></tr>
 }

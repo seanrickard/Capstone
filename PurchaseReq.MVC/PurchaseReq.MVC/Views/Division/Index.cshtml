@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.Identity.EntityFrameworkCore
-@model IEnumerable<DivisionWithSupervisor>
+@model IList<DivisionWithSupervisor>
 
 @{
     ViewData["Title"] = "Index";
@@ -9,7 +9,7 @@
 <h2>Divisions</h2>
 
 
-@if (true == false)
+@if (!Model.Any())
 {
     <tr><td colspan="3" class="text-center">No campuses yet</td></tr>
 }
@@ -29,7 +29,7 @@ else
             <tr>
                 <td>@division.DivisionName</td>
                 <td>@division.Active</td>
-                <td>@division.Supervisor</td>
+                <td>@division.Supervisor.FullName</td>
                
 
 
