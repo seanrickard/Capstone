@@ -32,5 +32,13 @@ namespace PurchaseReq.MVC.Controllers
 
             return View(cmp);
         }
+
+        public async Task<IActionResult> Rooms(int id)
+        {
+            IList<RoomWithCampus> rooms;
+            rooms = await _webApiCalls.GetRoomsByCampusAsync(id);
+
+            return View();
+        }
     }
 }

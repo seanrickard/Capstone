@@ -25,9 +25,9 @@
             <div class="form-group">
                 <label asp-for="SupervisorId" class="control-label">Supervisor</label>
 
-                @*<select asp-for="SupervisorId" asp-items="@(new SelectList(Model.SupervisorList, "Id", "FirstName" ))">
+                <select asp-for="SupervisorId" asp-items="@(new SelectList(Model.SupervisorList, "Id", "FirstName" ))">
                     <option>Select Division Supervisor</option>
-                </select>*@
+                </select>
                 <span asp-validation-for="SupervisorId" class="text-danger"></span>
             </div>
             <div class="form-group">

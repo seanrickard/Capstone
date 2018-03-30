@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using PurchaseReq.Models.Entities;
+﻿using Microsoft.AspNetCore.Mvc;
 using PurchaseReq.Models.ViewModels;
+using System.Collections.Generic;
 
 namespace PurchaseReq.MVC.Controllers
 {
@@ -23,5 +19,7 @@ namespace PurchaseReq.MVC.Controllers
         }
 
         public IActionResult AddUser() => View();
+
+        
     }
 }

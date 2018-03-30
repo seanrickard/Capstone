@@ -15,22 +15,27 @@ namespace PurchaseReq.MVC.Components
                 new AdminMenuItem()
                 {
                     DisplayValue = "Budget Code Management",
-                    ActionValue = "BudgetCode"
+                    ActionValue = "Index",
+                    ControllerValue = "Budget"
                 },
                 new AdminMenuItem()
                 {
                     DisplayValue = "Campus Management",
-                    ActionValue = "CampusManagement"
+                    ActionValue = "Index",
+                    ControllerValue = "Campus"
+
                 },
                 new AdminMenuItem()
                 {
                     DisplayValue = "Division Management",
-                    ActionValue = "DivisionManagement"
+                    ActionValue = "Index",
+                    ControllerValue = "Division"
                 },
                 new AdminMenuItem()
                 {
                     DisplayValue = "Department Management",
-                    ActionValue = "DepartmentManagement"
+                    ActionValue = "Index",
+                    ControllerValue = "Department"
                 }};
 
 
@@ -42,5 +47,6 @@ namespace PurchaseReq.MVC.Components
     {
         public string DisplayValue { get; set; }
         public string ActionValue { get; set; }
+        public string ControllerValue { get; set; }
     }
 }

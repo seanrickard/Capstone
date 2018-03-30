@@ -36,7 +36,7 @@ else
                 <td>
                     <form asp-action="DeleteCampus" asp-route-id="@division.Id" method="post">
                         <a class="btn btn-sm btn-primary" asp-action="EditDivision" asp-route-id="@division.Id">Edit</a>
-                        <a class="btn btn-sm btn-primary" asp-action="Departments" asp-controller="Department" asp-route-Id="@division.Id">View Departments</a>
+                        <a class="btn btn-sm btn-primary" asp-action="Departments" asp-controller="Division" asp-route-Id="@division.Id">View Departments</a>
 
                         <button type="submit" onclick="return confirm('Do you really want to delete this campus?');" class="btn btn-sm btn-danger">
                             Delete

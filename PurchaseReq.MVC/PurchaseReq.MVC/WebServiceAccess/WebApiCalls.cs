@@ -23,6 +23,11 @@ namespace PurchaseReq.MVC.WebServiceAccess
             return await GetItemAsync<CampusWithAddress>($"{CampusWithAddressBaseUri}{id}");
         }
 
+        public async Task<IList<RoomWithCampus>> GetRoomsByCampusAsync(int id)
+        {
+            return await GetItemListAsync<RoomWithCampus>($"{RoomsByCampusBaseUri}{id}");
+        }
+
         public async Task<IList<BudgetCodeWithAmount>> GetBudgetsAsync()
         {
             return await GetItemListAsync<BudgetCodeWithAmount>(BudgetCodeWithAmountBaseUri);
@@ -51,6 +56,11 @@ namespace PurchaseReq.MVC.WebServiceAccess
         public async Task<DepartmentWithDivision> GetDepartmentAsync(int id)
         {
             return await GetItemAsync<DepartmentWithDivision>($"{DepartmentWithDivisionBaseUri}{id}");
+        }
+
+        public async Task<IList<DepartmentWithDivision>> GetDepartmentsByDivison(int id)
+        {
+            return await GetItemListAsync<DepartmentWithDivision>($"{DepartmentByDivisionBaseUri}{id}");
         }
     }
 }

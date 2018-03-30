@@ -12,17 +12,21 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
     {
         protected readonly string ServiceAddress;
         protected readonly string CampusWithAddressBaseUri;
+        protected readonly string RoomsByCampusBaseUri;            // Needs work
         protected readonly string BudgetCodeWithAmountBaseUri;
         protected readonly string DivisionWithSupervisorBaseUri;
         protected readonly string DepartmentWithDivisionBaseUri;
+        protected readonly string DepartmentByDivisionBaseUri;
 
         protected WebApiCallsBase(IWebServiceLocator settings)
         {
             ServiceAddress = settings.ServiceAddress;
             CampusWithAddressBaseUri = $"{ServiceAddress}api/Campus/GetWithAddress/";
+            RoomsByCampusBaseUri = $"{ServiceAddress}api/Campus/GetWithRooms/";
             BudgetCodeWithAmountBaseUri = $"{ServiceAddress}api/BudgetCode/Get/";
             DivisionWithSupervisorBaseUri = $"{ServiceAddress}api/Division/GetWithSupervisor/";
             DepartmentWithDivisionBaseUri = $"{ServiceAddress}api/Department/Get/";
+            DepartmentByDivisionBaseUri = $"{ServiceAddress}api/Department/GetByDivision/";
 
         }
 

@@ -22,11 +22,19 @@ namespace PurchaseReq.MVC.Controllers
             return View(divisions);
         }
 
-        public IActionResult AddDivision()
+        public async Task<IActionResult> AddDivision()
         {
-            DivisionWithSupervisor dv = new DivisionWithSupervisor();
-            
+            IList<DivisionWithSupervisor> dv = await  _webApiCalls.GetDivisionsAsync();
             return View(dv);
+        }
+
+        public async Task<IActionResult> Departments(int id)
+        {
+            IList<DepartmentWithDivision> departments;
+
+            departments = await _webApiCalls.GetDepartmentsByDivison(id);
+
+            return View(departments);
         }
     }
 }
