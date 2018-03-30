@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.Identity.EntityFrameworkCore
-@model IEnumerable<CampusWithAddress> 
+@model IEnumerable<CampusViewModel>
+>
 
 @{
     ViewData["Title"] = "Index";
@@ -26,32 +27,32 @@ else
 
         </tr>
 
-        @foreach ( CampusWithAddress campus in Model)
+        @foreach (CampusViewModel campus in Model)
         {
 
-        <tr>
-            <td>@campus.CampusName</td>
-            <td>@campus.Active</td>
-            <td>@campus.StreetAddress</td>
-            <td>@campus.City</td>
-            <td>@campus.State</td>
-            <td>@campus.Zip</td>
+            <tr>
+                <td>@campus.CampusName</td>
+                <td>@campus.Active</td>
+                <td>@campus.StreetAddress</td>
+                <td>@campus.City</td>
+                <td>@campus.State</td>
+                <td>@campus.Zip</td>
 
 
 
 
 
-            <td>
-                <form asp-action="DeleteCampus" asp-route-id="@campus.Id" method="post">
-                    <a class="btn btn-sm btn-primary" asp-action="EditCampus" asp-route-id="@campus.Id">Edit</a>
-                    <a class="btn btn-sm btn-primary" asp-action="Rooms" asp-controller="Campus" asp-route-campusId="@campus.Id">View Rooms</a>
+                <td>
+                    <form asp-action="DeleteCampus" asp-route-id="@campus.Id" method="post">
+                        <a class="btn btn-sm btn-primary" asp-action="EditCampus" asp-route-id="@campus.Id">Edit</a>
+                        <a class="btn btn-sm btn-primary" asp-action="Rooms" asp-controller="Campus" asp-route-campusId="@campus.Id">View Rooms</a>
 
-                    <button type="submit" onclick="return confirm('Do you really want to delete this campus?');" class="btn btn-sm btn-danger">
-                        Delete
-                    </button>
-                </form>
-            </td>
-        </tr>
+                        <button type="submit" onclick="return confirm('Do you really want to delete this campus?');" class="btn btn-sm btn-danger">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
         }
     </table>
 }

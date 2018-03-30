@@ -1,14 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PurchaseReq.MVC.Configuration
 {
     public class WebServiceLocator : IWebServiceLocator
     {
-        public WebServiceLocator(IConfigurationRoot config)
+        public WebServiceLocator(IConfiguration config)
         {
             var customSection = config.GetSection(nameof(WebServiceLocator));
             ServiceAddress = customSection?.GetSection(nameof(ServiceAddress))?.Value;
