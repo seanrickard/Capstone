@@ -85,55 +85,89 @@ namespace PurchaseReq.DAL.Initializers
         };
 
         //Done
+        //Users have sign in issues without a SecurityStamp -> https://stackoverflow.com/questions/29350167/how-to-create-a-security-stamp-value-for-asp-net-identity-iusersecuritystampsto
         public static IEnumerable<Employee> GetEmployees => new List<Employee>
         {
             new Employee()
             {
                 FirstName = "Charles",
                 LastName = "Almond",
-                Email = "Almond@Develop.com"
+                Email = "Almond@Develop.com",
+                UserName = "Almond@Develop.com",
+                NormalizedEmail = "ALMOND@DEVELOP.COM",
+                NormalizedUserName = "ALMOND@DEVELOP.COM",
+                SecurityStamp = Guid.NewGuid().ToString()
+
             },
             new Employee()
             {
                 FirstName = "Gary",
                 LastName = "Thompson",
-                Email = "Thompson@Develop.com"
+                Email = "Thompson@Develop.com",
+                UserName = "Thompson@Develop.com",
+                NormalizedEmail = "THOMPSON@DEVELOP.COM",
+                NormalizedUserName = "THOMPSON@DEVELOP.COM",
+                SecurityStamp = Guid.NewGuid().ToString()
             },
             new Employee()
             {
                 FirstName = "Jared",
                 LastName = "Gump",
-                Email = "Gump@Develop.com"
+                Email = "Gump@Develop.com",
+                UserName = "Gump@Develop.com",
+                NormalizedEmail = "GUMP@DEVELOP.COM",
+                NormalizedUserName = "GUMP@DEVELOP.COM",
+                SecurityStamp = Guid.NewGuid().ToString()
             },
             new Employee()
             {
                 FirstName = "Kathy",
                 LastName = "Frum",
-                Email = "Frum@Develop.com"
+                Email = "Frum@Develop.com",
+                UserName = "Frum@Develop.com",
+                NormalizedEmail = "FRUM@DEVELOP.COM",
+                NormalizedUserName = "FRUM@DEVELOP.COM",
+                SecurityStamp = Guid.NewGuid().ToString()
             },
             new Employee()
             {
                 FirstName = "Julie",
                 LastName = "Heller",
-                Email = "Heller@Develop.com"
+                Email = "Heller@Develop.com",
+                UserName = "Heller@Develop.com",
+                NormalizedEmail = "HELLER@DEVELOP.COM",
+                NormalizedUserName = "HELLER@DEVELOP.COM",
+                SecurityStamp = Guid.NewGuid().ToString()
             },
             new Employee()
             {
                 FirstName = "David",
                 LastName = "Lancaster",
-                Email = "Lancaster@Develop.com"
+                Email = "Lancaster@Develop.com",
+                UserName = "Lancaster@Develop.com",
+                NormalizedEmail = "LANCASTER@DEVELOP.COM",
+                NormalizedUserName = "LANCASTER@DEVELOP.COM",
+                SecurityStamp = Guid.NewGuid().ToString()
             },
             new Employee()
             {
                 FirstName = "Jeffrey",
                 LastName = "Holland",
-                Email = "Holland@Develop.com"
+                Email = "Holland@Develop.com",
+                UserName = "Holland@Develop.com",
+                NormalizedEmail = "HOLLAND@DEVELOP.COM",
+                NormalizedUserName = "HOLLAND@DEVELOP.COM",
+                SecurityStamp = Guid.NewGuid().ToString()
             },
             new Employee()
             {
                 FirstName = "Alice",
                 LastName = "CFO",
                 Email = "CFO@Develop.com",
+                UserName = "CFO@Develop.com",
+                NormalizedEmail = "CFO@DEVELOP.COM",
+                NormalizedUserName = "CFO@DEVELOP.COM",
+                SecurityStamp = Guid.NewGuid().ToString()
             }
         };
 

@@ -1,20 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
 using PurchaseReq.Models.Entities;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PurchaseReq.Service.Controllers
 {
-    //Way to log in users with JWT -> https://logcorner.com/token-based-authentication-using-asp-net-web-api-core/
+
     /*
      * Credit for Generating the JWT token and login, logout functionality goes to BLANK BLANK
      * Source -> https://medium.com/@ozgurgul/asp-net-core-2-0-webapi-jwt-authentication-with-identity-mysql-3698eeba6ff8
@@ -28,7 +21,7 @@ namespace PurchaseReq.Service.Controllers
         private readonly SignInManager<Employee> _signInManager;
         private readonly IConfiguration _configuration;
 
-        public EmployeeController(UserManager<Employee> userManager, RoleManager<IdentityRole> roleManager, SignInManager<Employee> signInManager, IConfiguration configuration)
+        public EmployeeController(UserManager<Employee> userManager, SignInManager<Employee> signInManager, IConfiguration configuration)
 
         {
             _userManager = userManager;
@@ -36,47 +29,24 @@ namespace PurchaseReq.Service.Controllers
             _configuration = configuration;
         }
 
-
-        private async Task<object> GenerateJwtToken(string email, Employee user)
-        {
-            var claims = new List<Claim>
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, email),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.NameIdentifier, user.Id)
-            };
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtKey"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expires = DateTime.Now.AddDays(Convert.ToDouble(_configuration["JwtExpireDays"]));
-
-            var token = new JwtSecurityToken(
-                _configuration["JwtIssuer"],
-                _configuration["JwtIssuer"],
-                claims,
-                expires: expires,
-                signingCredentials: creds
-            );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-
         [HttpPost]
-        public async Task<object> Login([FromBody] LoginDto model)
+        public async Task<object> Login([FromBody] LoginDto model) 
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Bad Model");
+            }
             var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
 
             if (result.Succeeded)
             {
-                var appUser = _userManager.Users.SingleOrDefault(r => r.Email == model.Email);
-                return await GenerateJwtToken(model.Email, appUser);
+                return Ok("Signed in");
             }
 
-            return Ok("Why you no work");
-            //throw new ApplicationException("INVALID_LOGIN_ATTEMPT");
+            return BadRequest("Sign in Failure");
         }
 
-        public async Task<IActionResult> SignOut()
+        public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return Ok();
@@ -91,10 +61,24 @@ namespace PurchaseReq.Service.Controllers
             public string Password { get; set; }
         }
 
-        [HttpGet]
-        public IActionResult Get()
+        //Test method for now
+        [HttpPost]
+        public async Task<IActionResult> Get(string name)
         {
-            return Ok(_userManager);
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByNameAsync(name);
+                
+                if (user == null)
+                {
+                    return BadRequest("My dude is null");
+                }
+                var can = _signInManager.CanSignInAsync(user);
+                return Ok(new{can,user});
+
+            }
+
+            return BadRequest("Bad");
         }
 
 
