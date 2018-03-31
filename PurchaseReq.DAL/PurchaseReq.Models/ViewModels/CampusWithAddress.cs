@@ -18,7 +18,6 @@ namespace PurchaseReq.Models.ViewModels
         [Required]
         public string City { get; set; }
 
-        //Possibly might want to make State another table
         [Required]
         public string State { get; set; }
 

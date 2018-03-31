@@ -12,7 +12,7 @@ namespace PurchaseReq.Models.Entities
     {
 
         [NotMapped]
-        public string FullName { get => FirstName + " " + LastName; }
+        public string FullName => FirstName + " " + LastName;
 
         [DataType(DataType.Text)]
         public string FirstName { get; set; }

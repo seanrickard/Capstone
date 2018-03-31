@@ -41,10 +41,9 @@ namespace PurchaseReq.DAL.Repos
                 Id = d.Id,
                 Active = d.Active,
                 TimeStamp = d.TimeStamp,
-                Supervisor = e,
                 SupervisorId = e.Id,
                 DivisionName = d.DivisionName,
-                SupervisorList = _userManger.GetUsersInRoleAsync("Supervisor").Result.ToList()
+                SupervisorName = e.FullName
             };
     }
 }

@@ -2,16 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using PurchaseReq.Models.Entities;
-using System.ComponentModel.DataAnnotations;
+using PurchaseReq.Models.ViewModels;
 using System.Threading.Tasks;
 
 namespace PurchaseReq.Service.Controllers
 {
-
-    /*
-     * Credit for Generating the JWT token and login, logout functionality goes to BLANK BLANK
-     * Source -> https://medium.com/@ozgurgul/asp-net-core-2-0-webapi-jwt-authentication-with-identity-mysql-3698eeba6ff8
-     */
 
     [Produces("application/json")]
     [Route("api/[controller]/[action]")]
@@ -30,7 +25,7 @@ namespace PurchaseReq.Service.Controllers
         }
 
         [HttpPost]
-        public async Task<object> Login([FromBody] LoginDto model) 
+        public async Task<object> Login([FromBody] LogInViewModel model) 
         {
             if (!ModelState.IsValid)
             {
@@ -52,35 +47,23 @@ namespace PurchaseReq.Service.Controllers
             return Ok();
         }
 
-        public class LoginDto
+        [HttpGet]
+        public IActionResult Get()
         {
-            [Required]
-            public string Email { get; set; }
-
-            [Required]
-            public string Password { get; set; }
+            return Ok(_userManager.Users);
         }
 
-        //Test method for now
-        [HttpPost]
-        public async Task<IActionResult> Get(string name)
+        [HttpGet("{id}")]
+        public IActionResult Get(string id)
         {
-            if (ModelState.IsValid)
+            var item = _userManager.FindByIdAsync(id);
+            if (item == null)
             {
-                var user = await _userManager.FindByNameAsync(name);
-                
-                if (user == null)
-                {
-                    return BadRequest("My dude is null");
-                }
-                var can = _signInManager.CanSignInAsync(user);
-                return Ok(new{can,user});
-
+                return NotFound();
             }
 
-            return BadRequest("Bad");
+            return Json(item);
         }
-
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] Employee model, string password)

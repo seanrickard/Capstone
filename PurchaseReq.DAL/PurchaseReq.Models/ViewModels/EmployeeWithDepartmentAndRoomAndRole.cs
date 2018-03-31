@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using PurchaseReq.Models.Entities;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace PurchaseReq.Models.ViewModels
@@ -24,15 +21,14 @@ namespace PurchaseReq.Models.ViewModels
 
         public int DepartmentId { get; set; }
 
-        public List<Department> Departments { get; set; }
+        public string DepartmentName { get; set; }
 
         public int? RoomId { get; set; }
 
-        public List<Room> Rooms { get; set; }
-
+        public string RoomName { get; set; }
         [Required]
         public string RoleId { get; set; }
 
-        public List<IdentityRole> Roles { get; set; }
+        public string RoleName { get; set; }
     }
 }

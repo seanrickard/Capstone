@@ -20,9 +20,7 @@ namespace PurchaseReq.Models.ViewModels
 
         public Category Category { get; set; }
 
-        public BudgetCode BudgetCode { get; set; }
-
-        public List<BudgetCode> BudgetCodes { get; set; } = new List<BudgetCode>();
+        public string BudgetCodeName { get; set; }
 
         public int BudgetCodeId { get; set; }
 

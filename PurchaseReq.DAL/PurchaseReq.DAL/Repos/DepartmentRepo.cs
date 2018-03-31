@@ -29,10 +29,10 @@ namespace PurchaseReq.DAL.Repos
             {
                 Id = de.Id,
                 TimeStamp = de.TimeStamp,
-                Division = di,
+                DivisonName = di.DivisionName,
                 Active = de.Active,
                 DepartmentName = de.DepartmentName,
-                DivisionId = di.Id
+                DivisionId = di.Id,
             };
     }
 }

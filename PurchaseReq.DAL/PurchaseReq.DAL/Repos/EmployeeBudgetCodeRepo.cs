@@ -11,26 +11,29 @@ namespace PurchaseReq.DAL.Repos
     //Need to come back to this
     public class EmployeeBudgetCodeRepo : RepoBase<EmployeesBudgetCodes>, IEmployeeBudgetCodeRepo
     {
-        public IEnumerable<EmployeesBudgetCodes> GetAllActiveEmployeeBudgetCodes(string id)
-            => Table.Include(x => x.BudgetCode).Where(x => x.EmployeeId == id && x.Active == true && x.BudgetCode.Active == true).ToList();
+        public IEnumerable<EmployeeBudgetCodeViewModel> GetAllActiveEmployeeBudgetCodes(string id)
+            => Table.Include(x => x.BudgetCode).Where(x => x.EmployeeId == id && x.Active == true && x.BudgetCode.Active == true)
+                .Select(item => GetRecord(item, item.Employee, item.BudgetCode));
 
-        public IEnumerable<EmployeesBudgetCodes> GetAllEmployeesBudgetCodes(string id)
-            => Table.Include(x => x.BudgetCode).Where(x => x.EmployeeId == id).ToList();
+        public IEnumerable<EmployeeBudgetCodeViewModel> GetAllEmployeesBudgetCodes(string id)
+            => Table.Include(x => x.BudgetCode).Where(x => x.EmployeeId == id)
+                .Select(item => GetRecord(item, item.Employee, item.BudgetCode));
 
-        public IEnumerable<EmployeesBudgetCodes> GetAllWithEmployeeAndBudgetCodes()
-            => Table.Include(x => x.BudgetCode).Include(x => x.Employee).ToList();
+        public IEnumerable<EmployeeBudgetCodeViewModel> GetAllWithEmployeeAndBudgetCodes()
+            => Table.Include(x => x.BudgetCode).Include(x => x.Employee)
+                .Select(item => GetRecord(item, item.Employee, item.BudgetCode));
 
         //not use for now.
-        internal EmployeeBudgetCodeViewModel GetRecord(EmployeesBudgetCodes eb)
+        internal EmployeeBudgetCodeViewModel GetRecord(EmployeesBudgetCodes eb, Employee e, BudgetCode b)
             => new EmployeeBudgetCodeViewModel()
             {
                 Id = eb.Id,
                 Active = eb.Active,
-                Employees = Context.Employees.Where(x => x.Active).ToList(),
-                BudgetCodeId = eb.BudgetCodeId,
-                EmployeeId = eb.EmployeeId,
+                BudgetCodeId = b.Id,
+                EmployeeId = e.Id,
                 TimeStamp = eb.TimeStamp,
-                BudgetCodes = Context.BudgetCodes.Where(x => x.Active).ToList()
+                BudgetCodeName = b.BudgetCodeName,
+                EmployeeName = e.FullName
             };
     }
 }

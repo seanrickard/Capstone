@@ -1,6 +1,4 @@
-﻿using PurchaseReq.Models.Entities;
-using PurchaseReq.Models.Entities.Base;
-using System.Collections.Generic;
+﻿using PurchaseReq.Models.Entities.Base;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -16,8 +14,6 @@ namespace PurchaseReq.Models.ViewModels
 
         public string SupervisorId { get; set; }
 
-        public Employee Supervisor { get; set; }
-
-        public List<Employee> SupervisorList { get; set; }
+        public string SupervisorName { get; set; }
     }
 }

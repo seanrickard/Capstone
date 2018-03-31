@@ -1,6 +1,4 @@
-﻿using PurchaseReq.Models.Entities;
-using PurchaseReq.Models.Entities.Base;
-using System.Collections.Generic;
+﻿using PurchaseReq.Models.Entities.Base;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -17,8 +15,8 @@ namespace PurchaseReq.Models.ViewModels
         [Required]
         public int DivisionId { get; set; }
 
-        public Division Division { get; set; }
+        public string DivisonName { get; set; }
 
-        public List<Division> Divisions { get; set; }
+
     }
 }
