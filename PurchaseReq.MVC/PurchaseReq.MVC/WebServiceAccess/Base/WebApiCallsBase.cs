@@ -17,16 +17,20 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         protected readonly string DivisionWithSupervisorBaseUri;
         protected readonly string DepartmentWithDivisionBaseUri;
         protected readonly string DepartmentByDivisionBaseUri;
+        protected readonly string CreateCampusWithBaseUri;
+        protected readonly string RequestWithVendorBaseUri;
 
         protected WebApiCallsBase(IWebServiceLocator settings)
         {
             ServiceAddress = settings.ServiceAddress;
             CampusWithAddressBaseUri = $"{ServiceAddress}api/Campus/GetWithAddress/";
-            RoomsByCampusBaseUri = $"{ServiceAddress}api/Campus/GetWithRooms/";
+            CreateCampusWithBaseUri = $"{ServiceAddress}api/Campus/Create/";
+            RoomsByCampusBaseUri = $"{ServiceAddress}api/Room/GetByCampus/";
             BudgetCodeWithAmountBaseUri = $"{ServiceAddress}api/BudgetCode/Get/";
             DivisionWithSupervisorBaseUri = $"{ServiceAddress}api/Division/GetWithSupervisor/";
             DepartmentWithDivisionBaseUri = $"{ServiceAddress}api/Department/Get/";
             DepartmentByDivisionBaseUri = $"{ServiceAddress}api/Department/GetByDivision/";
+            RequestWithVendorBaseUri = $"{ServiceAddress}api/Request/Get/";
 
         }
 

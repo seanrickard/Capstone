@@ -17,11 +17,7 @@ namespace PurchaseReq.MVC.Controllers
 
         public async Task<IActionResult> Index()
         {
-            IList<CampusWithAddress> campuses;
-            campuses = await _webApiCalls.GetCampusesAsync();
-            
-           
-            
+            IList<CampusWithAddress> campuses = await _webApiCalls.GetCampusesAsync();     
 
             return View(campuses);
         }
@@ -33,12 +29,25 @@ namespace PurchaseReq.MVC.Controllers
             return View(cmp);
         }
 
+        //not work
+        [HttpPost]
+        public async Task<IActionResult> AddCampus(CampusWithAddress cmp)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(cmp);
+            }
+
+           return RedirectToAction("Index");
+        }
+
         public async Task<IActionResult> Rooms(int id)
         {
             IList<RoomWithCampus> rooms;
             rooms = await _webApiCalls.GetRoomsByCampusAsync(id);
+            
 
-            return View();
+            return View(rooms);
         }
     }
 }

@@ -62,5 +62,15 @@ namespace PurchaseReq.MVC.WebServiceAccess
         {
             return await GetItemListAsync<DepartmentWithDivision>($"{DepartmentByDivisionBaseUri}{id}");
         }
+
+        //public async Task<CampusWithAddress> CreateCampusAsync(CampusWithAddress campus)
+        //{
+
+        //}
+
+        public async Task<IList<RequestWithVendor>> GetRequestWithVendors()
+        {
+            return await GetItemListAsync<RequestWithVendor>(RequestWithVendorBaseUri);
+        }
     }
 }

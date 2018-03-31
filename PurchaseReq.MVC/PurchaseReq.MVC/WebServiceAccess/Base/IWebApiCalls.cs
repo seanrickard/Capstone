@@ -16,5 +16,7 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         Task<IList<DepartmentWithDivision>> GetDepartmentsAsync();
         Task<DepartmentWithDivision> GetDepartmentAsync(int id);
         Task<IList<DepartmentWithDivision>> GetDepartmentsByDivison(int id);
+        //Task<CampusWithAddress> CreateCampusAsync(CampusWithAddress campus);
+        Task<IList<RequestWithVendor>> GetRequestWithVendors();
     }
 }
