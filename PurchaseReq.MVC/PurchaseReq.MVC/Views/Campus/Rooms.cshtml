@@ -1,0 +1,62 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
+@model IList<RoomWithCampus>
+
+@{
+    ViewData["Title"] = "Rooms";
+}
+
+<h2>Rooms</h2>
+
+@if (!Model.Any())
+{
+    <tr><td colspan="3" class="text-center">No rooms yet</td></tr>
+}
+else
+{
+    <table class="table table-condensed table-bordered" header header-content="Campus">
+        <tr>
+            <th>Room Code</th>
+            <th>Room Name</th>
+            <th>Active</th>
+            @*<th>City</th>
+            <th>State</th>
+            <th>Zip</th>*@
+
+        </tr>
+
+        @foreach (RoomWithCampus campus in Model)
+        {
+
+            <tr>
+                <td>@campus.RoomCode</td>
+                <td>@campus.RoomName</td>
+                <td>@campus.Active</td>
+                @*<td>@campus.City</td>
+                <td>@campus.State</td>
+                <td>@campus.Zip</td>*@
+
+
+
+
+
+                <td>
+                    <form asp-action="DeleteCampus" asp-route-id="@campus.Id" method="post">
+                        <a class="btn btn-sm btn-primary" asp-action="EditCampus" asp-route-id="@campus.Id">Edit</a>
+                        <a class="btn btn-sm btn-primary" asp-action="Rooms" asp-controller="Campus" asp-route-id="@campus.Id">View Rooms</a>
+
+                        <button type="submit" onclick="return confirm('Do you really want to delete this campus?');" class="btn btn-sm btn-danger">
+                            Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+<p>
+    <a anchor-style="primary" asp-action="AddCampus">Add new campus</a>
+</p>
+
+

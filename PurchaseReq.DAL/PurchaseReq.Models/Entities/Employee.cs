@@ -10,6 +10,10 @@ namespace PurchaseReq.Models.Entities
     [Table("Employees", Schema = "User")]
     public class Employee : IdentityUser
     {
+
+        [NotMapped]
+        public string FullName { get => FirstName + " " + LastName; }
+
         [DataType(DataType.Text)]
         public string FirstName { get; set; }
 

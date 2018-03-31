@@ -97,7 +97,7 @@ namespace PurchaseReq.Service.Controllers
             return Ok(_userManager);
         }
 
-        
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] Employee model, string password)
         {
@@ -140,7 +140,7 @@ namespace PurchaseReq.Service.Controllers
                 return BadRequest();
             }
 
-            
+
             var result = await _userManager.RemovePasswordAsync(model);
             if (!result.Succeeded)
             {

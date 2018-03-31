@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
+using PurchaseReq.MVC.Configuration;
+using PurchaseReq.MVC.WebServiceAccess;
+using PurchaseReq.MVC.WebServiceAccess.Base;
 
 namespace PurchaseReq.MVC
 {
@@ -23,6 +21,8 @@ namespace PurchaseReq.MVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton(_ => Configuration);
+            services.AddSingleton<IWebServiceLocator, WebServiceLocator>();
+            services.AddSingleton<IWebApiCalls, WebApiCalls>();
             services.AddMvc();
         }
 
