@@ -1,6 +1,8 @@
-﻿using PurchaseReq.Models.Entities;
+﻿using Microsoft.AspNetCore.Identity;
+using PurchaseReq.Models.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PurchaseReq.DAL.Initializers
 {
@@ -14,31 +16,26 @@ namespace PurchaseReq.DAL.Initializers
             {
                DivisionName = "Board of Governors",
                SupervisorId = Supervisors.Find(x => x.FirstName.ToString().Equals("Alice")).Id,
-                // need to figure out employee foreign key info
             },
             new Division()
             {
                DivisionName = "STEM",
                SupervisorId = Supervisors.Find(x => x.FirstName.ToString().Equals("Jared")).Id,
-                // need to figure out employee foreign key info
             },
             new Division()
             {
                DivisionName = "Nursing & Health Sciences",
                SupervisorId = Supervisors.Find(x => x.FirstName.ToString().Equals("Kathy")).Id,
-                // need to figure out employee foreign key info
             },
             new Division()
             {
                DivisionName = "Education",
                SupervisorId = Supervisors.Find(x => x.FirstName.ToString().Equals("Jeffrey")).Id,
-                // need to figure out employee foreign key info
             },
             new Division()
             {
                DivisionName = "Business & Economics",
                SupervisorId =  Supervisors.Find(x => x.FirstName.ToString().Equals("Alice")).Id,
-                // need to figure out employee foreign key info
             },
         };
 
@@ -94,41 +91,49 @@ namespace PurchaseReq.DAL.Initializers
             {
                 FirstName = "Charles",
                 LastName = "Almond",
+                Email = "Almond@Develop.com"
             },
             new Employee()
             {
                 FirstName = "Gary",
                 LastName = "Thompson",
+                Email = "Thompson@Develop.com"
             },
             new Employee()
             {
                 FirstName = "Jared",
                 LastName = "Gump",
+                Email = "Gump@Develop.com"
             },
             new Employee()
             {
                 FirstName = "Kathy",
                 LastName = "Frum",
+                Email = "Frum@Develop.com"
             },
             new Employee()
             {
                 FirstName = "Julie",
                 LastName = "Heller",
+                Email = "Heller@Develop.com"
             },
             new Employee()
             {
                 FirstName = "David",
                 LastName = "Lancaster",
+                Email = "Lancaster@Develop.com"
             },
             new Employee()
             {
                 FirstName = "Jeffrey",
                 LastName = "Holland",
+                Email = "Holland@Develop.com"
             },
             new Employee()
             {
                 FirstName = "Alice",
                 LastName = "CFO",
+                Email = "CFO@Develop.com",
             }
         };
 
@@ -159,6 +164,8 @@ namespace PurchaseReq.DAL.Initializers
                     default:
                         break;
                 }
+
+                count++;
             });
 
             return employees;
@@ -248,18 +255,21 @@ namespace PurchaseReq.DAL.Initializers
                 DA = 731180007,
                 BudgetCodeName = "CS Budget",
                 Type = true,
+                BudgetAmounts = new List<BudgetAmount>{new BudgetAmount(){TotalAmount = 2000}}
             },
             new BudgetCode()
             {
                 DA = 731180007,
                 BudgetCodeName = "Nurse Budget",
                 Type = true,
+                BudgetAmounts = new List<BudgetAmount>{new BudgetAmount(){TotalAmount = 5500}, new BudgetAmount(){TotalAmount = 5000}}
             },
             new BudgetCode()
             {
                 DA = 731180007,
                 BudgetCodeName = "Backup Budget",
                 Type = false,
+                BudgetAmounts = new List<BudgetAmount>{new BudgetAmount(){TotalAmount = 7500}}
             },
 
         };
@@ -385,8 +395,33 @@ namespace PurchaseReq.DAL.Initializers
             }
         };
 
-        public static IEnumerable<EmployeesBudgetCodes> GetEmployeeBudgetCodes => new List<EmployeesBudgetCodes>
+        public static IEnumerable<EmployeesBudgetCodes> GetEmployeeBudgetCodes(List<Employee> employees, List<BudgetCode> codes) => new List<EmployeesBudgetCodes>
         {
+            new EmployeesBudgetCodes()
+            {
+                Employee = employees.First(),
+                BudgetCode = codes.First()
+            },
+            new EmployeesBudgetCodes()
+            {
+                Employee = employees[1],
+                BudgetCode = codes.First()
+            },
+            new EmployeesBudgetCodes()
+            {
+                Employee = employees[3],
+                BudgetCode = codes[1]
+            },
+            new EmployeesBudgetCodes()
+            {
+                Employee = employees[4],
+                BudgetCode = codes[1]
+            },
+            new EmployeesBudgetCodes()
+            {
+                Employee = employees[2],
+                BudgetCode = codes[2]
+            },
 
         };
 
@@ -644,5 +679,17 @@ namespace PurchaseReq.DAL.Initializers
                 RoomName = "Fancy Office"
             }
         };
+
+        public static  IEnumerable<Employee> SetPasswords( List<Employee> employees)
+        {
+            PasswordHasher<Employee> passwordHasher = new PasswordHasher<Employee>();
+
+            foreach (var employee in employees)
+            {
+                employee.PasswordHash = passwordHasher.HashPassword(employee, "Develop@90");
+            }
+
+            return employees;
+        }
     }
 }

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PurchaseReq.Models.Entities
 {
-    [Table("BudgetAmount", Schema = "User")]
+    [Table("BudgetAmounts", Schema = "User")]
     public class BudgetAmount : EntityBase
     {
         public int BudgetCodeId { get; set; }
