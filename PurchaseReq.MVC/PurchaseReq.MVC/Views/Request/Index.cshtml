@@ -1,0 +1,64 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
+@model IList<RequestWithVendor>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Requests</h2>
+
+
+@if (!Model.Any())
+{
+    <tr><td colspan="3" class="text-center">No requests yet</td></tr>
+}
+else
+{
+    <table class="table table-condensed table-bordered" header header-content="Division">
+        <tr>
+            <th>Quantity</th>
+            <th>Recommended Vendor</th>
+            <th>Description</th>
+            <th>Estimated Price</th>
+            <th>Estimated Amount</th>
+            <th>Paid Price</th>
+            <th>Paid Amount</th>
+            <th>Attachments</th>
+            <th>Chosen</th>
+
+        </tr>
+
+        @foreach (RequestWithVendor request in Model)
+        {
+
+        <tr>
+            <td>@request.QuantityRequested</td>
+            <td>@request.Vendor</td>
+            <td>@request.ReasonChosen</td>
+            <td>@request.EstimatedCost</td>
+            <td>@request.EstimatedTotal</td>
+            <td>@request.PaidCost</td>
+            <td>@request.PaidTotal</td>
+            <td>@request.Attachments</td>
+            <td>@request.ReasonChosen</td>
+
+            <td>
+                <form asp-action="DeleteCampus" asp-route-id="@request.Id" method="post">
+                    <a class="btn btn-sm btn-primary" asp-action="EditDivision" asp-route-id="@request.Id">Edit</a>
+                    <a class="btn btn-sm btn-primary" asp-action="Departments" asp-controller="Division" asp-route-Id="@request.Id">View Departments</a>
+
+                    <button type="submit" onclick="return confirm('Do you really want to delete this campus?');" class="btn btn-sm btn-danger">
+                        Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+        }
+    </table>
+}
+
+<p>
+    <a anchor-style="primary" asp-action="AddDivision">Add new division</a>
+</p>
+

@@ -24,8 +24,15 @@ namespace PurchaseReq.MVC.Controllers
 
         public async Task<IActionResult> AddDivision()
         {
-            IList<DivisionWithSupervisor> dv = await  _webApiCalls.GetDivisionsAsync();
+            DivisionWithSupervisor dv = new DivisionWithSupervisor();
+            //IList<DivisionWithSupervisor> dv = await  _webApiCalls.GetDivisionsAsync();
             return View(dv);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddDivision(DivisionWithSupervisor dv)
+        {
+            return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> Departments(int id)

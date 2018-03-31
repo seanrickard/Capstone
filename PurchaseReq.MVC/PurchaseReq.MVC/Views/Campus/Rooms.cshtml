@@ -25,13 +25,12 @@ else
 
         </tr>
 
-        @foreach (RoomWithCampus campus in Model)
-        {
-
+        @foreach (RoomWithCampus room in Model)
+        { 
             <tr>
-                <td>@campus.RoomCode</td>
-                <td>@campus.RoomName</td>
-                <td>@campus.Active</td>
+                <td>@room.RoomCode</td>
+                <td>@room.RoomName</td>
+                <td>@room.Active</td>
                 @*<td>@campus.City</td>
                 <td>@campus.State</td>
                 <td>@campus.Zip</td>*@
@@ -41,9 +40,9 @@ else
 
 
                 <td>
-                    <form asp-action="DeleteCampus" asp-route-id="@campus.Id" method="post">
-                        <a class="btn btn-sm btn-primary" asp-action="EditCampus" asp-route-id="@campus.Id">Edit</a>
-                        <a class="btn btn-sm btn-primary" asp-action="Rooms" asp-controller="Campus" asp-route-id="@campus.Id">View Rooms</a>
+                    <form asp-action="DeleteCampus" asp-route-id="@room.Id" method="post">
+                        <a class="btn btn-sm btn-primary" asp-action="EditCampus" asp-route-id="@room.Id">Edit</a>
+                        <a class="btn btn-sm btn-primary" asp-action="Rooms" asp-controller="Campus" asp-route-id="@room.Id">View Rooms</a>
 
                         <button type="submit" onclick="return confirm('Do you really want to delete this campus?');" class="btn btn-sm btn-danger">
                             Delete
