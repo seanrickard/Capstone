@@ -24,7 +24,6 @@ else
             <th>Estimated Amount</th>
             <th>Paid Price</th>
             <th>Paid Amount</th>
-            <th>Attachments</th>
             <th>Chosen</th>
 
         </tr>
@@ -40,24 +39,26 @@ else
             <td>@request.EstimatedTotal</td>
             <td>@request.PaidCost</td>
             <td>@request.PaidTotal</td>
-            <td>@request.Attachments</td>
             <td>@request.ReasonChosen</td>
 
             <td>
-                <form asp-action="DeleteCampus" asp-route-id="@request.Id" method="post">
-                    <a class="btn btn-sm btn-primary" asp-action="EditDivision" asp-route-id="@request.Id">Edit</a>
-                    <a class="btn btn-sm btn-primary" asp-action="Departments" asp-controller="Division" asp-route-Id="@request.Id">View Departments</a>
+                @*<form asp-action="DeleteCampus" asp-route-id="@request.Id" method="post">*@
+                    @*<a class="btn btn-sm btn-primary" asp-action="EditDivision" asp-route-id="@request.Id">Details</a>*@
+                   <form> 
+                    <a class="btn btn-sm btn-primary" asp-action="Departments" asp-controller="Division" asp-route-Id="@request.Id">View Details</a>
 
-                    <button type="submit" onclick="return confirm('Do you really want to delete this campus?');" class="btn btn-sm btn-danger">
+                    @*<button type="submit" onclick="return confirm('Do you really want to delete this campus?');" class="btn btn-sm btn-danger">
                         Delete
-                    </button>
+                    </button>*@
                 </form>
             </td>
         </tr>
         }
     </table>
 }
-
+    <div>
+        <button type="submit">Cancel</button>       <button>    Edit</button>
+    </div>
 <p>
     <a anchor-style="primary" asp-action="AddDivision">Add new division</a>
 </p>

@@ -1,4 +1,6 @@
-﻿using PurchaseReq.Models.ViewModels;
+﻿using Newtonsoft.Json;
+using PurchaseReq.Models.Entities;
+using PurchaseReq.Models.ViewModels;
 using PurchaseReq.MVC.Configuration;
 using PurchaseReq.MVC.WebServiceAccess.Base;
 using System.Collections.Generic;
@@ -8,6 +10,7 @@ namespace PurchaseReq.MVC.WebServiceAccess
 {
     public class WebApiCalls : WebApiCallsBase, IWebApiCalls
     {
+       
         public WebApiCalls(IWebServiceLocator settings ) : base(settings)
         {
 
@@ -63,14 +66,21 @@ namespace PurchaseReq.MVC.WebServiceAccess
             return await GetItemListAsync<DepartmentWithDivision>($"{DepartmentByDivisionBaseUri}{id}");
         }
 
-        //public async Task<CampusWithAddress> CreateCampusAsync(CampusWithAddress campus)
-        //{
-
-        //}
+        public async Task<string> CreateCampusAsync(Campus campus)
+        {
+            var json = JsonConvert.SerializeObject(campus);
+            return await SubmitPostRequestAsync(CreateCampusWithBaseUri,  json);
+        }
 
         public async Task<IList<RequestWithVendor>> GetRequestWithVendors()
         {
             return await GetItemListAsync<RequestWithVendor>(RequestWithVendorBaseUri);
         }
+
+        public async Task<IList<EmployeeWithDepartmentAndRoomAndRole>> GetEmployeeByDepartment(int id)
+        {
+            return await GetItemListAsync<EmployeeWithDepartmentAndRoomAndRole>($"{GetEmployeeByDepartmentBaseUri}{id}");
+        }
+
     }
 }

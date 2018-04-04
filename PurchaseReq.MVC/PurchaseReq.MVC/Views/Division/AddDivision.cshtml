@@ -25,9 +25,11 @@
             <div class="form-group">
                 <label asp-for="SupervisorId" class="control-label">Supervisor</label>
 
-                @*<select asp-for="SupervisorId" asp-items="@(new SelectList(Model.SupervisorList, "Id", "FirstName" ))">
-                    <option>Select Division Supervisor</option>
-                </select>*@
+                @*<div class="form-group">
+                    <label asp-for="SupervisorName"></label>
+                    @Html.DropDownListFor(m => m.SupervisorName, (SelectList)ViewBag., "Pick a Supervisor", new { @class = "form-control" })
+                    <span asp-validation-for="SupervisorName" class="text-danger"></span>
+                </div>*@
                 <span asp-validation-for="SupervisorId" class="text-danger"></span>
             </div>
             <div class="form-group">

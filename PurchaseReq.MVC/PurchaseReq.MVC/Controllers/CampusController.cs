@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PurchaseReq.Models.Entities;
 using PurchaseReq.Models.ViewModels;
 using PurchaseReq.MVC.WebServiceAccess.Base;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace PurchaseReq.MVC.Controllers
             return View(cmp);
         }
 
-        //not work
+     
         [HttpPost]
         public async Task<IActionResult> AddCampus(CampusWithAddress cmp)
         {
@@ -37,6 +38,17 @@ namespace PurchaseReq.MVC.Controllers
             {
                 return View(cmp);
             }
+            var campus = new Campus()
+            {
+                CampusName = cmp.CampusName,
+
+                Address = new Address { StreetAddress = cmp.StreetAddress, City = cmp.City, State = cmp.State, Zip = cmp.Zip }
+
+            };
+
+            var result = await _webApiCalls.CreateCampusAsync(campus);
+            
+            
 
            return RedirectToAction("Index");
         }

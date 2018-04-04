@@ -1,4 +1,5 @@
-﻿using PurchaseReq.Models.ViewModels;
+﻿using PurchaseReq.Models.Entities;
+using PurchaseReq.Models.ViewModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,7 +17,8 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         Task<IList<DepartmentWithDivision>> GetDepartmentsAsync();
         Task<DepartmentWithDivision> GetDepartmentAsync(int id);
         Task<IList<DepartmentWithDivision>> GetDepartmentsByDivison(int id);
-        //Task<CampusWithAddress> CreateCampusAsync(CampusWithAddress campus);
+        Task<string> CreateCampusAsync(Campus campus);
         Task<IList<RequestWithVendor>> GetRequestWithVendors();
+        Task<IList<EmployeeWithDepartmentAndRoomAndRole>> GetEmployeeByDepartment(int id);
     }
 }

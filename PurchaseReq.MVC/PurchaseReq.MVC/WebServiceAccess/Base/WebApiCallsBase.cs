@@ -19,6 +19,7 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         protected readonly string DepartmentByDivisionBaseUri;
         protected readonly string CreateCampusWithBaseUri;
         protected readonly string RequestWithVendorBaseUri;
+        protected readonly string GetEmployeeByDepartmentBaseUri;
 
         protected WebApiCallsBase(IWebServiceLocator settings)
         {
@@ -31,6 +32,7 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
             DepartmentWithDivisionBaseUri = $"{ServiceAddress}api/Department/Get/";
             DepartmentByDivisionBaseUri = $"{ServiceAddress}api/Department/GetByDivision/";
             RequestWithVendorBaseUri = $"{ServiceAddress}api/Request/Get/";
+            GetEmployeeByDepartmentBaseUri = $"{ServiceAddress}api/Employee/Get";
 
         }
 
@@ -90,7 +92,7 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         {
             try
             {
-                var response = await task;
+                var response = await task;   
                 if(!response.IsSuccessStatusCode)
                 {
                     throw new Exception($"The Call to {uri} failed. Status code: {response.StatusCode}");

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PurchaseReq.Models.Entities;
 using PurchaseReq.Models.ViewModels;
 using PurchaseReq.MVC.WebServiceAccess.Base;
 using System.Collections.Generic;
@@ -28,6 +29,22 @@ namespace PurchaseReq.MVC.Controllers
             DepartmentWithDivision dp = new DepartmentWithDivision();
 
             return View(dp);
+        }
+
+        public async Task<IActionResult> Employees(int id)
+        {
+            IList<EmployeeWithDepartmentAndRoomAndRole> employees;
+            employees = await _webApiCalls.GetEmployeeByDepartment(id);
+            
+            foreach (EmployeeWithDepartmentAndRoomAndRole  emp in employees)
+            {
+                if(emp.DepartmentId == id)
+                {
+
+                }
+            }
+
+            return View(employees);
         }
 
     }

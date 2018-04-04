@@ -42,7 +42,7 @@ else
                 <td>
                     <form asp-action="DeleteCampus" asp-route-id="@room.Id" method="post">
                         <a class="btn btn-sm btn-primary" asp-action="EditCampus" asp-route-id="@room.Id">Edit</a>
-                        <a class="btn btn-sm btn-primary" asp-action="Rooms" asp-controller="Campus" asp-route-id="@room.Id">View Rooms</a>
+                        @*<a class="btn btn-sm btn-primary" asp-action="Rooms" asp-controller="Campus" asp-route-id="@room.Id">View Rooms</a>*@
 
                         <button type="submit" onclick="return confirm('Do you really want to delete this campus?');" class="btn btn-sm btn-danger">
                             Delete
@@ -55,7 +55,7 @@ else
 }
 
 <p>
-    <a anchor-style="primary" asp-action="AddCampus">Add new campus</a>
+    <a anchor-style="primary" asp-action="AddRoom">Add new room</a>
 </p>
 
 

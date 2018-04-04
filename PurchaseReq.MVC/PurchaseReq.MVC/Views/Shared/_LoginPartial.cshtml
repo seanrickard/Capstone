@@ -3,6 +3,7 @@
 @using PurchaseReq.Models.Entities;
 
 @inject SignInManager<Employee> SignInManager
+@inject UserManager<Employee> UserManager
 
 
 @if (SignInManager.IsSignedIn(User))
@@ -20,3 +21,4 @@ else
         <li><a id="loginLink" asp-controller="Account" asp-action="Login">Log in</a></li>
     </ul>
 }
+    

@@ -29,14 +29,14 @@ else
             <tr>
                 <td>@department.DepartmentName</td>
                 <td>@department.Active</td>
-                <td>@department.Division</td>
+                <td>@department.DivisonName</td>
 
 
 
                 <td>
                     <form asp-action="DeleteCampus" asp-route-id="@department.Id" method="post">
                         <a class="btn btn-sm btn-primary" asp-action="EditDivision" asp-route-id="@department.Id">Edit</a>
-                        <a class="btn btn-sm btn-primary" asp-action="Departments" asp-controller="Division" asp-route-Id="@department.Id">View Departments</a>
+                        <a class="btn btn-sm btn-primary" asp-action="Employees" asp-controller="Department" asp-route-id="@department.Id">View Employees</a>
 
                         <button type="submit" onclick="return confirm('Do you really want to delete this campus?');" class="btn btn-sm btn-danger">
                             Delete

@@ -23,6 +23,9 @@ namespace PurchaseReq.MVC
             services.AddSingleton(_ => Configuration);
             services.AddSingleton<IWebServiceLocator, WebServiceLocator>();
             services.AddSingleton<IWebApiCalls, WebApiCalls>();
+            //services.AddIdentity<Employee, IdentityRole>()
+            //    .AddEntityFrameworkStores<PurchaseReqContext>()
+            //    .AddDefaultTokenProviders();
             services.AddMvc();
         }
 
@@ -40,6 +43,7 @@ namespace PurchaseReq.MVC
             }
 
             app.UseStaticFiles();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
