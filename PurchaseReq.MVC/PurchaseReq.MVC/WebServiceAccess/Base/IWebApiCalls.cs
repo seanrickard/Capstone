@@ -20,5 +20,8 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         Task<string> CreateCampusAsync(Campus campus);
         Task<IList<RequestWithVendor>> GetRequestWithVendors();
         Task<IList<EmployeeWithDepartmentAndRoomAndRole>> GetEmployeeByDepartment(int id);
+        Task<object> LoginEmployee(LogInViewModel logInViewModel);
+        Task<string> CreateDivisionAsync(Division division);
+        
     }
 }

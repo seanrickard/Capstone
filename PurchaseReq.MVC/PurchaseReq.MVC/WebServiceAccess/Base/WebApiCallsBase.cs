@@ -18,14 +18,17 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         protected readonly string DepartmentWithDivisionBaseUri;
         protected readonly string DepartmentByDivisionBaseUri;
         protected readonly string CreateCampusWithBaseUri;
+        protected readonly string CreateDivisionWithBaseUri;
         protected readonly string RequestWithVendorBaseUri;
         protected readonly string GetEmployeeByDepartmentBaseUri;
+        protected readonly string GetEmployeeLoginBaseUri;
 
         protected WebApiCallsBase(IWebServiceLocator settings)
         {
             ServiceAddress = settings.ServiceAddress;
             CampusWithAddressBaseUri = $"{ServiceAddress}api/Campus/GetWithAddress/";
             CreateCampusWithBaseUri = $"{ServiceAddress}api/Campus/Create/";
+            CreateDivisionWithBaseUri = $"{ServiceAddress}api/Division/Create/";
             RoomsByCampusBaseUri = $"{ServiceAddress}api/Room/GetByCampus/";
             BudgetCodeWithAmountBaseUri = $"{ServiceAddress}api/BudgetCode/Get/";
             DivisionWithSupervisorBaseUri = $"{ServiceAddress}api/Division/GetWithSupervisor/";
@@ -33,6 +36,7 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
             DepartmentByDivisionBaseUri = $"{ServiceAddress}api/Department/GetByDivision/";
             RequestWithVendorBaseUri = $"{ServiceAddress}api/Request/Get/";
             GetEmployeeByDepartmentBaseUri = $"{ServiceAddress}api/Employee/Get";
+            GetEmployeeLoginBaseUri = $"{ServiceAddress}api/Employee/Login";
 
         }
 

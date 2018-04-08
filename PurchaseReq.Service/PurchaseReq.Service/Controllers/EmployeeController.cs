@@ -17,7 +17,6 @@ namespace PurchaseReq.Service.Controllers
         private readonly IConfiguration _configuration;
 
         public EmployeeController(UserManager<Employee> userManager, SignInManager<Employee> signInManager, IConfiguration configuration)
-
         {
             _userManager = userManager;
             _signInManager = signInManager;

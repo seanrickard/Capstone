@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PurchaseReq.Models.Entities;
 using PurchaseReq.Models.ViewModels;
 using PurchaseReq.MVC.WebServiceAccess.Base;
 using System.Collections.Generic;
@@ -22,16 +23,29 @@ namespace PurchaseReq.MVC.Controllers
             return View(divisions);
         }
 
-        public async Task<IActionResult> AddDivision()
+        public IActionResult AddDivision()
         {
-            DivisionWithSupervisor dv = new DivisionWithSupervisor();
-            //IList<DivisionWithSupervisor> dv = await  _webApiCalls.GetDivisionsAsync();
-            return View(dv);
+            DivisionWithSupervisor division = new DivisionWithSupervisor();
+            return View(division);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddDivision(DivisionWithSupervisor dv)
+        public async Task<IActionResult> AddDivision(DivisionWithSupervisor division)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(division);
+            }
+            var dv = new Division()
+            {
+                DivisionName = division.DivisionName,
+                SupervisorId = division.SupervisorId,
+                Active = division.Active
+
+            };
+
+            var result = await _webApiCalls.CreateDivisionAsync(dv);
+
             return RedirectToAction("Index");
         }
 

@@ -72,6 +72,12 @@ namespace PurchaseReq.MVC.WebServiceAccess
             return await SubmitPostRequestAsync(CreateCampusWithBaseUri,  json);
         }
 
+        public async Task<string> CreateDivisionAsync(Division division)
+        {
+            var json = JsonConvert.SerializeObject(division);
+            return await SubmitPostRequestAsync(CreateDivisionWithBaseUri, json);
+        }
+
         public async Task<IList<RequestWithVendor>> GetRequestWithVendors()
         {
             return await GetItemListAsync<RequestWithVendor>(RequestWithVendorBaseUri);
@@ -80,6 +86,12 @@ namespace PurchaseReq.MVC.WebServiceAccess
         public async Task<IList<EmployeeWithDepartmentAndRoomAndRole>> GetEmployeeByDepartment(int id)
         {
             return await GetItemListAsync<EmployeeWithDepartmentAndRoomAndRole>($"{GetEmployeeByDepartmentBaseUri}{id}");
+        }
+
+        public async Task<object> LoginEmployee(LogInViewModel logInViewModel)
+        {
+            var json = JsonConvert.SerializeObject(logInViewModel);
+            return await SubmitPostRequestAsync(GetEmployeeLoginBaseUri, json);
         }
 
     }
