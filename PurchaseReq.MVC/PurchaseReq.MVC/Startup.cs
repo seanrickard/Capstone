@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PurchaseReq.DAL.EF;
+using PurchaseReq.Models.Entities;
 using PurchaseReq.MVC.Configuration;
 using PurchaseReq.MVC.WebServiceAccess;
 using PurchaseReq.MVC.WebServiceAccess.Base;
@@ -12,20 +16,25 @@ namespace PurchaseReq.MVC
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
         
-        public IConfiguration Configuration { get; }
+        public IConfiguration _configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton(_ => Configuration);
+            services.AddSingleton(_ => _configuration);
             services.AddSingleton<IWebServiceLocator, WebServiceLocator>();
             services.AddSingleton<IWebApiCalls, WebApiCalls>();
-            //services.AddIdentity<Employee, IdentityRole>()
-            //    .AddEntityFrameworkStores<PurchaseReqContext>()
-            //    .AddDefaultTokenProviders();
+
+            //Sets up DB Connection from appsettings.json
+            services.AddDbContext<PurchaseReqContext>(options =>
+                options.UseSqlServer(_configuration.GetConnectionString("PurchaseReq")));
+
+            services.AddIdentity<Employee, IdentityRole>()
+                .AddEntityFrameworkStores<PurchaseReqContext>()
+                .AddDefaultTokenProviders();
             services.AddMvc();
         }
 

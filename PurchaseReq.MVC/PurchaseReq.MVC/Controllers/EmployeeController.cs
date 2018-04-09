@@ -1,30 +1,38 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using PurchaseReq.Models.Entities;
+﻿using Microsoft.AspNetCore.Mvc;
 using PurchaseReq.Models.ViewModels;
+using PurchaseReq.MVC.WebServiceAccess.Base;
+using System;
+using System.Threading.Tasks;
 
 namespace PurchaseReq.MVC.Controllers
 {
     public class EmployeeController : Controller
     {
-        private readonly SignInManager<Employee> _signInManager;
+        private readonly IWebApiCalls _webApiCalls;
 
-        public EmployeeController(SignInManager<Employee> signInManager)
+        public EmployeeController(IWebApiCalls webApiCalls)
         {
-            _signInManager = signInManager;
+            _webApiCalls = webApiCalls;
         }
 
+        [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Login(LogInViewModel loginViewModel)
+        public async Task<IActionResult> Login(LogInViewModel loginViewModel)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View(loginViewModel);
+                StatusCodeResult result = (StatusCodeResult) await _webApiCalls.LoginEmployee(loginViewModel);
+
+                
+
+                Console.WriteLine("Result was + " + result);
+                //Add check for successful later
+                return View();
             }
          
             return RedirectToAction("Index");
