@@ -12,15 +12,18 @@ namespace PurchaseReq.Service.Controllers
     [Route("api/[controller]/[action]")]
     public class EmployeeController : Controller
     {
+        private const string SUPERVISOR = "Supervisor";
         private readonly UserManager<Employee> _userManager;
         private readonly SignInManager<Employee> _signInManager;
         private readonly IConfiguration _configuration;
+        public readonly RoleManager<Employee> _roleManager;
 
-        public EmployeeController(UserManager<Employee> userManager, SignInManager<Employee> signInManager, IConfiguration configuration)
+        public EmployeeController(UserManager<Employee> userManager, SignInManager<Employee> signInManager, IConfiguration configuration, RoleManager<Employee> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
+            _roleManager = roleManager;
         }
 
         [HttpPost]
@@ -62,6 +65,12 @@ namespace PurchaseReq.Service.Controllers
             }
 
             return Json(item);
+        }
+
+        [HttpGet]
+        public IActionResult GetSupervisor()
+        {
+            return Ok(_userManager.GetUsersInRoleAsync(SUPERVISOR));
         }
 
 

@@ -96,8 +96,7 @@ namespace PurchaseReq.DAL.Initializers
                 UserName = "Almond@Develop.com",
                 NormalizedEmail = "ALMOND@DEVELOP.COM",
                 NormalizedUserName = "ALMOND@DEVELOP.COM",
-                SecurityStamp = Guid.NewGuid().ToString()
-
+                SecurityStamp = Guid.NewGuid().ToString(),
             },
             new Employee()
             {

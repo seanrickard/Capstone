@@ -19,7 +19,7 @@ namespace PurchaseReq.Service.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_repo.GetAll());
+            return Ok(_repo.GetAllWithDivision());
         }
 
         [HttpGet("{id}")]
