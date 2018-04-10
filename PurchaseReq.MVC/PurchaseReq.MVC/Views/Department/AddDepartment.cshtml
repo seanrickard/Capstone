@@ -11,23 +11,18 @@
         <form asp-action="AddDepartment">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="DepartmentName" class="control-label"></label>
+                <label  class="control-label">Department Name</label>
                 <input asp-for="DepartmentName" class="form-control" />
                 <span asp-validation-for="DepartmentName" class="text-danger"></span>
             </div>
+          
             <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="Active" /> @Html.DisplayNameFor(model => model.Active)
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label asp-for="DivisionId" class="control-label"></label>
+                <label class="control-label">Division</label>
 
-                @*<select asp-for="DivisionId" asp-items="@(new SelectList(Model.Divisions, "Id", "DivisionName"))">
-                    <option>Select Division</option>
-                </select>*@
+               
+                    @Html.DropDownListFor(m => m.DivisionId,  (SelectList)ViewBag.Divisions, "Select Division", new { @class = "form-control" })
+               
+               
 
                 <span asp-validation-for="DivisionId" class="text-danger"></span>
             </div>
