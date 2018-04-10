@@ -38,7 +38,7 @@ namespace PurchaseReq.Service.Controllers
         public IActionResult GetByDivision(int divisionId)
         {
             //Refactor Later
-            return Ok(_repo.GetAll().Where(x => x.DivisionId == divisionId));
+            return Ok(_repo.GetAllWithDivision().Where(x => x.DivisionId == divisionId));
         }
 
         [HttpPost]
