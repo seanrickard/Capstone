@@ -28,12 +28,8 @@ namespace PurchaseReq.MVC.Controllers
         {
             DepartmentWithDivision dp = new DepartmentWithDivision();
             var divisionList = await _webApiCalls.GetDivisionsAsync();
-            ViewBag.Divisions = new SelectList(divisionList);
-            foreach (var division in divisionList)
-            {
-                new SelectListItem { Text = division.DivisionName, Value = division.Id.ToString() };
-                 
-            }
+            ViewBag.Divisions = divisionList;
+            
             
 
             return View(dp);

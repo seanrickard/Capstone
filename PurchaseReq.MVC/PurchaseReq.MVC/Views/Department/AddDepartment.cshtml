@@ -19,7 +19,10 @@
             <div class="form-group">
                 <label class="control-label">Division</label>
 
-               
+                <select asp-for="DivisionId"
+                        asp-items="@(new SelectList(ViewBag.Divisions,"Id","Name"))">
+                    <option>Please select a Divison</option>
+                </select>
                     @Html.DropDownListFor(m => m.DivisionId,  (SelectList)ViewBag.Divisions, "Select Division", new { @class = "form-control" })
                
                
