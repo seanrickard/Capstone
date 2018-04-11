@@ -41,6 +41,7 @@ namespace PurchaseReq.DAL.Initializers
             ExecuteDeleteSQL(appDbContext, Schema[0], "Addresses");
             ExecuteDeleteSQL(appDbContext, Schema[1], "Categories");
             ExecuteDeleteSQL(appDbContext, Schema[1], "Statuses");
+            ExecuteDeleteSQL(appDbContext, Schema[1], "Approval");
             ResetIdentity(appDbContext);
         }
 
@@ -140,6 +141,11 @@ namespace PurchaseReq.DAL.Initializers
             if (!context.Rooms.Any())
             {
                 context.Rooms.AddRange(SampleData.GetRooms);
+                context.SaveChanges();
+            }
+            if (!context.Approval.Any())
+            {
+                context.Approval.AddRange(SampleData.GetApprovals);
                 context.SaveChanges();
             }
 
