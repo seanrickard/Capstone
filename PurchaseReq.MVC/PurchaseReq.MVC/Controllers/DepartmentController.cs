@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using PurchaseReq.Models.ViewModels;
 using PurchaseReq.MVC.WebServiceAccess.Base;
 using System.Collections.Generic;
@@ -28,13 +27,13 @@ namespace PurchaseReq.MVC.Controllers
         {
             DepartmentWithDivision dp = new DepartmentWithDivision();
             var divisionList = await _webApiCalls.GetDivisionsAsync();
-            ViewBag.Divisions = new SelectList(divisionList);
-            foreach (var division in divisionList)
-            {
-                new SelectListItem { Text = division.DivisionName, Value = division.Id.ToString() };
-                 
-            }
-            
+            //divisionList =  new SelectList(
+            //    foreach (var division in divisionList)
+            //    new List<SelectListItem>
+            //    {
+            //        new SelectListItem { Text = division.DivisionName, Value = division.Id.ToString() }
+            //    }, "Value" , "Text"); 
+
 
             return View(dp);
         }
