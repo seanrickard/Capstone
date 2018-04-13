@@ -30,7 +30,7 @@ namespace PurchaseReq.DAL.Repos
         //Getters
         public async Task<IEnumerable<Employee>> GetAuditors()
         {
-            return await _UserManager.GetUsersInRoleAsync("Auditors");
+            return await _UserManager.GetUsersInRoleAsync("Auditor");
         }
 
         public async Task<IEnumerable<Employee>> GetCFO()

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using PurchaseReq.Models.Entities;
 using System.Threading.Tasks;
 
@@ -12,14 +11,13 @@ namespace PurchaseReq.Service.Controllers
     public class EmployeeController : Controller
     {
         private const string SUPERVISOR = "Supervisor";
-        private readonly UserManager<Employee> _userManager;
-        private readonly SignInManager<Employee> _signInManager;
-        private readonly IConfiguration _configuration;
+        public readonly UserManager<Employee> _userManager;
+        public readonly SignInManager<Employee> _signInManager;
 
-        public EmployeeController(UserManager<Employee> userManager, SignInManager<Employee> signInManager, IConfiguration configuration)
+        public EmployeeController(UserManager<Employee> userManager, SignInManager<Employee> signInManager)
         {
+            _userManager = userManager;
             _signInManager = signInManager;
-            _configuration = configuration;
         }
 
         //[HttpPost]
@@ -54,7 +52,7 @@ namespace PurchaseReq.Service.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(string id)
         {
-            var item = _userManager.FindByIdAsync(id);
+            var item = _userManager.FindByIdAsync(id).Result;
             if (item == null)
             {
                 return NotFound();
@@ -62,13 +60,6 @@ namespace PurchaseReq.Service.Controllers
 
             return Json(item);
         }
-
-        [HttpGet]
-        public IActionResult GetSupervisor()
-        {
-            return Ok(_userManager.GetUsersInRoleAsync(SUPERVISOR));
-        }
-
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] Employee model, string password)
