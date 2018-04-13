@@ -63,7 +63,7 @@ namespace PurchaseReq.Service.Controllers
             return CreatedAtAction("Create", model);
         }
 
-        [HttpPut]
+        [HttpPut("{budgetCodeId}")]
         public IActionResult Update(int budgetCodeId, [FromBody] BudgetCode model)
         {
             if (model == null || budgetCodeId != model.Id || !ModelState.IsValid)

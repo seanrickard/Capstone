@@ -87,7 +87,7 @@ namespace PurchaseReq.Service.Controllers
             return CreatedAtAction("Create", model);
         }
 
-        [HttpPut]
+        [HttpPut("{roomId}")]
         public IActionResult Update(int roomId, [FromBody] Room model)
         {
             if (model == null || roomId != model.Id || !ModelState.IsValid)

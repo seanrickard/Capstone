@@ -37,7 +37,7 @@ namespace PurchaseReq.Service.Controllers
         [HttpPost]
         public IActionResult Create([FromBody] Vendor model)
         {
-            
+
             if (model == null || !ModelState.IsValid)
             {
                 return BadRequest();
@@ -47,6 +47,7 @@ namespace PurchaseReq.Service.Controllers
             return CreatedAtAction("Create", model);
         }
 
+        [HttpPut("{vendorId}")]
         public IActionResult Update(int vendorId, [FromBody] Vendor model)
         {
             if (model == null || vendorId != model.Id || !ModelState.IsValid)

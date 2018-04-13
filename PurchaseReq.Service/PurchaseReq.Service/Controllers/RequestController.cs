@@ -45,7 +45,7 @@ namespace PurchaseReq.Service.Controllers
             return CreatedAtAction("Create", model);
         }
 
-        [HttpPut]
+        [HttpPut("{requestId}")]
         public IActionResult Update(int requestId, [FromBody] Request model)
         {
             if (model == null || requestId != model.Id || !ModelState.IsValid)

@@ -52,7 +52,7 @@ namespace PurchaseReq.Service.Controllers
             return CreatedAtAction("Create", model);
         }
 
-        [HttpPut]
+        [HttpPut("{divisionId}")]
         public IActionResult Update(int divisionId, [FromBody] Division model)
         {
             if (model == null || divisionId != model.Id || !ModelState.IsValid)
