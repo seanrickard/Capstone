@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using PurchaseReq.Models.Entities;
-using PurchaseReq.Models.ViewModels;
 using System.Threading.Tasks;
 
 namespace PurchaseReq.Service.Controllers
@@ -16,38 +15,35 @@ namespace PurchaseReq.Service.Controllers
         private readonly UserManager<Employee> _userManager;
         private readonly SignInManager<Employee> _signInManager;
         private readonly IConfiguration _configuration;
-        public readonly RoleManager<Employee> _roleManager;
 
-        public EmployeeController(UserManager<Employee> userManager, SignInManager<Employee> signInManager, IConfiguration configuration, RoleManager<Employee> roleManager)
+        public EmployeeController(UserManager<Employee> userManager, SignInManager<Employee> signInManager, IConfiguration configuration)
         {
-            _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
-            _roleManager = roleManager;
         }
 
-        [HttpPost]
-        public async Task<object> Login([FromBody] LogInViewModel model) 
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest("Bad Model");
-            }
-            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
+        //[HttpPost]
+        //public async Task<object> Login([FromBody] LogInViewModel model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest("Bad Model");
+        //    }
+        //    var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
 
-            if (result.Succeeded)
-            {
-                return Ok("Signed in");
-            }
+        //    if (result.Succeeded)
+        //    {
+        //        return Ok("Signed in");
+        //    }
 
-            return BadRequest("Sign in Failure");
-        }
+        //    return BadRequest("Sign in Failure");
+        //}
 
-        public async Task<IActionResult> Logout()
-        {
-            await _signInManager.SignOutAsync();
-            return Ok();
-        }
+        //public async Task<IActionResult> Logout()
+        //{
+        //    await _signInManager.SignOutAsync();
+        //    return Ok();
+        //}
 
         [HttpGet]
         public IActionResult Get()
