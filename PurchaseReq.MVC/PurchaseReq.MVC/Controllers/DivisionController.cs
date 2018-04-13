@@ -49,6 +49,23 @@ namespace PurchaseReq.MVC.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult EditDivision(int id)
+        {
+            DivisionWithSupervisor division = new DivisionWithSupervisor();
+            return View(division);
+        }
+
+        //[HttpPost]
+        //public async Task<IActionResult> EditDivision(DivisionWithSupervisor division)
+        //{
+        //    if(!ModelState.IsValid)
+        //    {
+        //        return View(division);
+        //    }
+
+            
+        //}
+
         public async Task<IActionResult> Departments(int id)
         {
             IList<DepartmentWithDivision> departments;

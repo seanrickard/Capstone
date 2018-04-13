@@ -22,19 +22,36 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         protected readonly string RequestWithVendorBaseUri;
         protected readonly string GetEmployeeByDepartmentBaseUri;
         protected readonly string GetEmployeeLoginBaseUri;
+        protected readonly string CreateDepartmentWithBaseUri;
+        protected readonly string UpdateDepartmentBaseUri;
 
         protected WebApiCallsBase(IWebServiceLocator settings)
         {
             ServiceAddress = settings.ServiceAddress;
+
+
+            //Campus
             CampusWithAddressBaseUri = $"{ServiceAddress}api/Campus/GetWithAddress/";
             CreateCampusWithBaseUri = $"{ServiceAddress}api/Campus/Create/";
-            CreateDivisionWithBaseUri = $"{ServiceAddress}api/Division/Create/";
             RoomsByCampusBaseUri = $"{ServiceAddress}api/Room/GetByCampus/";
-            BudgetCodeWithAmountBaseUri = $"{ServiceAddress}api/BudgetCode/Get/";
+
+            //Division
+            CreateDivisionWithBaseUri = $"{ServiceAddress}api/Division/Create/";
             DivisionWithSupervisorBaseUri = $"{ServiceAddress}api/Division/GetWithSupervisor/";
+
+            //Department
+            CreateDepartmentWithBaseUri = $"{ServiceAddress}api/Department/Create/";
+            DepartmentByDivisionBaseUri = $"{ServiceAddress}api/Department/GetByDivision/";   
             DepartmentWithDivisionBaseUri = $"{ServiceAddress}api/Department/Get/";
-            DepartmentByDivisionBaseUri = $"{ServiceAddress}api/Department/GetByDivision/";
+            UpdateDepartmentBaseUri = $"{ServiceAddress}api/Department/Update/";
+
+            //Budget
+            BudgetCodeWithAmountBaseUri = $"{ServiceAddress}api/BudgetCode/Get/";
+
+            //Request
             RequestWithVendorBaseUri = $"{ServiceAddress}api/Request/Get/";
+
+            //Employee
             GetEmployeeByDepartmentBaseUri = $"{ServiceAddress}api/Employee/Get";
             GetEmployeeLoginBaseUri = $"{ServiceAddress}api/Employee/Login";
 
@@ -97,6 +114,7 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
             try
             {
                 var response = await task;   
+                
                 if(!response.IsSuccessStatusCode)
                 {
                     throw new Exception($"The Call to {uri} failed. Status code: {response.StatusCode}");
