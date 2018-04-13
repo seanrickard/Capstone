@@ -58,6 +58,11 @@ namespace PurchaseReq.MVC.WebServiceAccess
             return await GetItemListAsync<DivisionWithSupervisor>(DivisionWithSupervisorBaseUri);
         }
 
+        public async Task<DivisionWithSupervisor> GetDivisionAsync(int id)
+        {
+            return await GetItemAsync<DivisionWithSupervisor>($"{DivisionWithSupervisorBaseUri}{id}");
+        }
+
         public async Task<List<SelectListItem>> GetDivisionsForDropDown()
         {
             var groups = await GetDivisionsAsync();
@@ -75,15 +80,19 @@ namespace PurchaseReq.MVC.WebServiceAccess
             return ls;
         }
 
-        public async Task<DivisionWithSupervisor> GetDivisionAsync(int id)
-        {
-            return await GetItemAsync<DivisionWithSupervisor>($"{DivisionWithSupervisorBaseUri}{id}");
-        }
+   
 
         public async Task<string> CreateDivisionAsync(Division division)
         {
             var json = JsonConvert.SerializeObject(division);
             return await SubmitPostRequestAsync(CreateDivisionWithBaseUri, json);
+        }
+
+        public async Task<string> UpdateDivision(int id, Division division)
+        {
+            string uri = $"{UpdateDivisionBaseUri}{id}";
+            var json = JsonConvert.SerializeObject(division);
+            return await SubmitPutRequestAsync(uri, json);
         }
 
 
@@ -133,6 +142,28 @@ namespace PurchaseReq.MVC.WebServiceAccess
         {
             var json = JsonConvert.SerializeObject(logInViewModel);
             return await SubmitPostRequestAsync(GetEmployeeLoginBaseUri, json);
+        }
+
+        public async Task<IList<Employee>> GetSupervisors()
+        {
+            return await GetItemListAsync<Employee>($"{GetSupervisorsBaseUri}");
+        }
+
+        public async Task<List<SelectListItem>> GetSupervisorsForDropDown()
+        {
+            var groups = await GetSupervisors();
+
+            var ls = new List<SelectListItem>();
+
+            foreach (Employee e in groups)
+            {
+                ls.Add(new SelectListItem
+                {
+                    Value = e.Id,
+                    Text = e.FullName
+                });
+            }
+            return ls;
         }
 
     }

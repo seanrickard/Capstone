@@ -15,6 +15,7 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         protected readonly string RoomsByCampusBaseUri;            // Needs work
         protected readonly string BudgetCodeWithAmountBaseUri;
         protected readonly string DivisionWithSupervisorBaseUri;
+        protected readonly string DivisionBaseUri;
         protected readonly string DepartmentWithDivisionBaseUri;
         protected readonly string DepartmentByDivisionBaseUri;
         protected readonly string CreateCampusWithBaseUri;
@@ -24,6 +25,8 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         protected readonly string GetEmployeeLoginBaseUri;
         protected readonly string CreateDepartmentWithBaseUri;
         protected readonly string UpdateDepartmentBaseUri;
+        protected readonly string UpdateDivisionBaseUri;
+        protected readonly string GetSupervisorsBaseUri;
 
         protected WebApiCallsBase(IWebServiceLocator settings)
         {
@@ -38,6 +41,8 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
             //Division
             CreateDivisionWithBaseUri = $"{ServiceAddress}api/Division/Create/";
             DivisionWithSupervisorBaseUri = $"{ServiceAddress}api/Division/GetWithSupervisor/";
+            DivisionBaseUri = $"{ServiceAddress}api/Division/Get/";
+            UpdateDivisionBaseUri = $"{ServiceAddress}api/Division/Update/";
 
             //Department
             CreateDepartmentWithBaseUri = $"{ServiceAddress}api/Department/Create/";
@@ -54,6 +59,11 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
             //Employee
             GetEmployeeByDepartmentBaseUri = $"{ServiceAddress}api/Employee/Get";
             GetEmployeeLoginBaseUri = $"{ServiceAddress}api/Employee/Login";
+
+
+            //Roles
+
+            GetSupervisorsBaseUri = $"{ServiceAddress}api/Role/GetSupervisors";
 
         }
 

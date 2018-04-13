@@ -24,6 +24,8 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         Task<DivisionWithSupervisor> GetDivisionAsync(int id);
         Task<string> CreateDivisionAsync(Division division);
 
+        Task<string> UpdateDivision(int id, Division division);
+
         //Department
         Task<IList<DepartmentWithDivision>> GetDepartmentsAsync();
         Task<DepartmentWithDivision> GetDepartmentAsync(int id);
@@ -37,11 +39,13 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         //Employee
         Task<IList<EmployeeWithDepartmentAndRoomAndRole>> GetEmployeeByDepartment(int id);
         Task<object> LoginEmployee(LogInViewModel logInViewModel);
-        
-        
+
+        //Roles
+      //  Task<IList<Employee>> GetSupervisors();
 
         //Dropdowns
         Task<List<SelectListItem>> GetDivisionsForDropDown();
+        Task<List<SelectListItem>> GetSupervisorsForDropDown();
 
 
     }
