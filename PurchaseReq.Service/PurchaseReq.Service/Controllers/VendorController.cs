@@ -44,7 +44,7 @@ namespace PurchaseReq.Service.Controllers
             }
 
             _repo.Add(model);
-            return CreatedAtRoute("Get", new { controller = "VendorController", id = model.Id });
+            return CreatedAtAction("Create", model);
         }
 
         public IActionResult Update(int vendorId, [FromBody] Vendor model)
@@ -55,7 +55,7 @@ namespace PurchaseReq.Service.Controllers
             }
 
             _repo.Update(model);
-            return CreatedAtRoute("Get", new { controller = "CampusController", id = model.Id });
+            return CreatedAtAction("Update", model);
         }
 
         [HttpGet]

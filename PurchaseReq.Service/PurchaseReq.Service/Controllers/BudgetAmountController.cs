@@ -45,7 +45,7 @@ namespace PurchaseReq.Service.Controllers
             return CreatedAtRoute("Get", new { controller = "AddressController", id = model.Id });
         }
 
-        [HttpPut]
+        [HttpPut("{budgetAmountId}")]
         public IActionResult Update(int budgetAmountId, [FromBody] BudgetAmount model)
         {
             if (model == null || budgetAmountId != model.Id || !ModelState.IsValid)

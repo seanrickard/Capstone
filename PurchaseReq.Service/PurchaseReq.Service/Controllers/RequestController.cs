@@ -1,4 +1,4 @@
-﻿    using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PurchaseReq.DAL.Repos.Interfaces;
 using PurchaseReq.Models.Entities;
 
@@ -42,7 +42,7 @@ namespace PurchaseReq.Service.Controllers
             }
 
             _repo.Add(model);
-            return CreatedAtRoute("Get", new { controller = "RequestController", id = model.Id });
+            return CreatedAtAction("Create", model);
         }
 
         [HttpPut]
@@ -54,7 +54,7 @@ namespace PurchaseReq.Service.Controllers
             }
 
             _repo.Update(model);
-            return CreatedAtRoute("Get", new { controller = "RequestController", id = model.Id });
+            return CreatedAtAction("Update", model);
         }
 
         [HttpGet("{orderId}")]
