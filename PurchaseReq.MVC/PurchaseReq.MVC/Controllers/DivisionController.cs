@@ -49,22 +49,38 @@ namespace PurchaseReq.MVC.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult EditDivision(int id)
+        public async Task<IActionResult> EditDivision(int id)
         {
-            DivisionWithSupervisor division = new DivisionWithSupervisor();
-            return View(division);
+            DivisionWithSupervisor div = await _webApiCalls.GetDivisionAsync(id);
+
+            ViewBag.Supervisors = await _webApiCalls.GetSupervisorsForDropDown();
+
+            return View(div);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> EditDivision(DivisionWithSupervisor division)
-        //{
-        //    if(!ModelState.IsValid)
-        //    {
-        //        return View(division);
-        //    }
+        [HttpPost]
+        public async Task<IActionResult> EditDivision(DivisionWithSupervisor div)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(div);
+            }
 
-            
-        //}
+            var division = new Division()
+            {
+
+                Id = div.Id,
+                Active = div.Active,
+                DivisionName = div.DivisionName,
+                SupervisorId = div.SupervisorId,
+                TimeStamp = div.TimeStamp
+            };
+
+            var result = await _webApiCalls.UpdateDivision(div.Id, division);
+
+            return RedirectToAction("Index");
+
+        }
 
         public async Task<IActionResult> Departments(int id)
         {
