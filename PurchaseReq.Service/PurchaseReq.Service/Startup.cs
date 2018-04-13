@@ -38,8 +38,12 @@ namespace PurchaseReq.Service
                     j.Formatting = Formatting.Indented;
                 })
                 //This below code fixed JSON not displaying NAV Props -> https://stackoverflow.com/questions/41373878/json-response-does-not-contain-all-the-navigation-properties-entityframework-cor
-                .AddJsonOptions(x => 
-                    x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+                .AddJsonOptions(x =>
+                {
+                    x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                    x.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                });
+                    
 
             //Sets up Cors for JS Librarys
             services.AddCors(options =>
