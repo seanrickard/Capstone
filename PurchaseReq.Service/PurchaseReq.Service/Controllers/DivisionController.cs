@@ -74,7 +74,7 @@ namespace PurchaseReq.Service.Controllers
         public IActionResult GetWithSupervisor(int id)
         {
 
-            var item = _repo.GetAllWithSupervisor();
+            var item = _repo.GetAllWithSupervisor().Where(x => x.Id == id);
             if (item == null)
             {
                 return NotFound();
