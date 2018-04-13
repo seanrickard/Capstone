@@ -25,6 +25,7 @@ namespace PurchaseReq.DAL.Initializers
 
         public static void ClearData(PurchaseReqContext appDbContext)
         {
+            string[] dboTables = { "AspNetRoles", "AspNetRoleClaims", "AspNetUserClaims", "AspNetUserLogins", "AspNetUserRoles", "AspNetUserTokens" };
             SetEmployeesToNull(appDbContext);
             ExecuteDeleteSQL(appDbContext, Schema[0], "Departments");
             ExecuteDeleteSQL(appDbContext, Schema[0], "Divisions");
@@ -42,6 +43,7 @@ namespace PurchaseReq.DAL.Initializers
             ExecuteDeleteSQL(appDbContext, Schema[1], "Categories");
             ExecuteDeleteSQL(appDbContext, Schema[1], "Statuses");
             ExecuteDeleteSQL(appDbContext, Schema[1], "Approval");
+            ExecuteDeleteSQL(appDbContext, Schema[2], "AspNetRoles");
             ResetIdentity(appDbContext);
         }
 
@@ -57,6 +59,7 @@ namespace PurchaseReq.DAL.Initializers
 
         private static void ResetIdentity(PurchaseReqContext appDbContext)
         {
+            
             string[] UserTables = { "Departments", "Divisions", "BudgetCodes", "EmployeesBudgetCodes", "Rooms", "Campuses", "Addresses", "BudgetAmounts"};
             string[] OrderTables = { "Attachments", "Statuses", "Approval", "SupervisorApprovals", "Orders", "Requests", "Categories", "Items", "Vendors" };
 
@@ -75,9 +78,19 @@ namespace PurchaseReq.DAL.Initializers
         {
             context.Database.EnsureCreated();
 
+            if (!context.Campuses.Any())
+            {
+                context.Campuses.AddRange(SampleData.GetCampuses);
+                context.SaveChanges();
+            }
+            if (!context.Rooms.Any())
+            {
+                context.Rooms.AddRange(SampleData.GetRooms);
+                context.SaveChanges();
+            }
             if (!context.Employees.Any())
             {
-                context.Employees.AddRange(SampleData.GetEmployees);
+                context.Employees.AddRange(SampleData.GetEmployees(context.Rooms.ToList()));
                 context.SaveChanges();
             }
             if(!context.Divisions.Any())
@@ -89,7 +102,7 @@ namespace PurchaseReq.DAL.Initializers
             {
                 context.Departments.AddRange(SampleData.GetDepartments( context.Divisions.ToList()));
                 context.SaveChanges();
-                context.Employees.UpdateRange(SampleData.SetEmployeesDepartment(context.Employees.ToList()));
+                context.Employees.UpdateRange(SampleData.SetEmployeesDepartment(context.Employees.OrderBy(x => x.FirstName).ToList()));
                 context.SaveChanges();
             }
             if(!context.BudgetCodes.Any())
@@ -133,21 +146,23 @@ namespace PurchaseReq.DAL.Initializers
                 context.Requests.AddRange(SampleData.GetRequests);
                 context.SaveChanges();
             }      
-            if (!context.Campuses.Any())
-            {
-                context.Campuses.AddRange(SampleData.GetCampuses);
-                context.SaveChanges();
-            }
-            if (!context.Rooms.Any())
-            {
-                context.Rooms.AddRange(SampleData.GetRooms);
-                context.SaveChanges();
-            }
             if (!context.Approval.Any())
             {
                 context.Approval.AddRange(SampleData.GetApprovals);
                 context.SaveChanges();
             }
+            if(!context.Roles.Any())
+            {
+                context.Roles.AddRange(SampleData.GetRoles);
+                context.SaveChanges();
+            }
+            if(!context.UserRoles.Any())
+            {
+                context.UserRoles.AddRange(SampleData.GetUserWithRole(context.Employees.ToList(), context.Roles.ToList()));
+                context.SaveChanges();
+            }
+
+            
 
             context.SaveChanges();
         }

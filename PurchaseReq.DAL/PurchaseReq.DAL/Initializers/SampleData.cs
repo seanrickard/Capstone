@@ -9,7 +9,7 @@ namespace PurchaseReq.DAL.Initializers
     public static class SampleData
     {
         //Done
-        public static IEnumerable<Division> GetDivisions( List<Employee> Supervisors ) => new List<Division>
+        public static IEnumerable<Division> GetDivisions(List<Employee> Supervisors) => new List<Division>
         {
 
             new Division()
@@ -40,7 +40,7 @@ namespace PurchaseReq.DAL.Initializers
         };
 
         //Done
-        public static IEnumerable<Department> GetDepartments( List<Division> Divisions ) => new List<Department>
+        public static IEnumerable<Department> GetDepartments(List<Division> Divisions) => new List<Department>
         {
             new Department()
             {
@@ -86,7 +86,7 @@ namespace PurchaseReq.DAL.Initializers
 
         //Done
         //Users have sign in issues without a SecurityStamp -> https://stackoverflow.com/questions/29350167/how-to-create-a-security-stamp-value-for-asp-net-identity-iusersecuritystampsto
-        public static IEnumerable<Employee> GetEmployees => new List<Employee>
+        public static IEnumerable<Employee> GetEmployees(List<Room> rooms) => new List<Employee>
         {
             new Employee()
             {
@@ -97,6 +97,7 @@ namespace PurchaseReq.DAL.Initializers
                 NormalizedEmail = "ALMOND@DEVELOP.COM",
                 NormalizedUserName = "ALMOND@DEVELOP.COM",
                 SecurityStamp = Guid.NewGuid().ToString(),
+                Room = rooms.Where(x => x.Id == 3).FirstOrDefault()
             },
             new Employee()
             {
@@ -106,7 +107,9 @@ namespace PurchaseReq.DAL.Initializers
                 UserName = "Thompson@Develop.com",
                 NormalizedEmail = "THOMPSON@DEVELOP.COM",
                 NormalizedUserName = "THOMPSON@DEVELOP.COM",
-                SecurityStamp = Guid.NewGuid().ToString()
+                SecurityStamp = Guid.NewGuid().ToString(),
+                Room = rooms.Where(x => x.Id == 3).FirstOrDefault()
+
             },
             new Employee()
             {
@@ -116,7 +119,8 @@ namespace PurchaseReq.DAL.Initializers
                 UserName = "Gump@Develop.com",
                 NormalizedEmail = "GUMP@DEVELOP.COM",
                 NormalizedUserName = "GUMP@DEVELOP.COM",
-                SecurityStamp = Guid.NewGuid().ToString()
+                SecurityStamp = Guid.NewGuid().ToString(),
+                Room = rooms.Where(x => x.Id == 1).FirstOrDefault()
             },
             new Employee()
             {
@@ -126,7 +130,8 @@ namespace PurchaseReq.DAL.Initializers
                 UserName = "Frum@Develop.com",
                 NormalizedEmail = "FRUM@DEVELOP.COM",
                 NormalizedUserName = "FRUM@DEVELOP.COM",
-                SecurityStamp = Guid.NewGuid().ToString()
+                SecurityStamp = Guid.NewGuid().ToString(),
+                Room = rooms.Where(x => x.Id == 2).FirstOrDefault()
             },
             new Employee()
             {
@@ -136,7 +141,8 @@ namespace PurchaseReq.DAL.Initializers
                 UserName = "Heller@Develop.com",
                 NormalizedEmail = "HELLER@DEVELOP.COM",
                 NormalizedUserName = "HELLER@DEVELOP.COM",
-                SecurityStamp = Guid.NewGuid().ToString()
+                SecurityStamp = Guid.NewGuid().ToString(),
+                Room = rooms.Where(x => x.Id == 4).FirstOrDefault()
             },
             new Employee()
             {
@@ -146,7 +152,8 @@ namespace PurchaseReq.DAL.Initializers
                 UserName = "Lancaster@Develop.com",
                 NormalizedEmail = "LANCASTER@DEVELOP.COM",
                 NormalizedUserName = "LANCASTER@DEVELOP.COM",
-                SecurityStamp = Guid.NewGuid().ToString()
+                SecurityStamp = Guid.NewGuid().ToString(),
+                Room = rooms.Where(x => x.Id == 1).FirstOrDefault()
             },
             new Employee()
             {
@@ -156,16 +163,49 @@ namespace PurchaseReq.DAL.Initializers
                 UserName = "Holland@Develop.com",
                 NormalizedEmail = "HOLLAND@DEVELOP.COM",
                 NormalizedUserName = "HOLLAND@DEVELOP.COM",
-                SecurityStamp = Guid.NewGuid().ToString()
+                SecurityStamp = Guid.NewGuid().ToString(),
+                Room = rooms.Where(x => x.Id == 2).FirstOrDefault()
             },
             new Employee()
             {
                 FirstName = "Alice",
-                LastName = "CFO",
-                Email = "CFO@Develop.com",
-                UserName = "CFO@Develop.com",
-                NormalizedEmail = "CFO@DEVELOP.COM",
-                NormalizedUserName = "CFO@DEVELOP.COM",
+                LastName = "Harris",
+                Email = "Harris@Develop.com",
+                UserName = "Harris@Develop.com",
+                NormalizedEmail = "HARRIS@DEVELOP.COM",
+                NormalizedUserName = "HARRIS@DEVELOP.COM",
+                SecurityStamp = Guid.NewGuid().ToString(),
+                Room = rooms.Where(x => x.Id == 2).FirstOrDefault()
+            },
+            new Employee()
+            {
+                FirstName = "Auditor",
+                LastName = "Auditor",
+                Email = "Auditor@Develop.com",
+                UserName = "Auditor@Develop.com",
+                NormalizedEmail = "AUDITOR@DEVELOP.COM",
+                NormalizedUserName = "AUDITOR@DEVELOP.COM",
+                SecurityStamp = Guid.NewGuid().ToString()
+            },
+            new Employee()
+            {
+                FirstName = "Sue",
+                LastName = "Purchase",
+                Email = "Purchase@Develop.com",
+                UserName = "Purchase@Develop.com",
+                NormalizedEmail = "PURCHASE@DEVELOP.COM",
+                NormalizedUserName = "PURCHASE@DEVELOP.COM",
+                SecurityStamp = Guid.NewGuid().ToString(),
+                Room = rooms.Where(x => x.Id == 2).FirstOrDefault()
+            },
+            new Employee()
+            {
+                FirstName = "Admin",
+                LastName = "Admin",
+                Email = "Admin@Develop.com",
+                UserName = "Admin@Develop.com",
+                NormalizedEmail = "ADMIN@DEVELOP.COM",
+                NormalizedUserName = "ADMIN@DEVELOP.COM",
                 SecurityStamp = Guid.NewGuid().ToString()
             }
         };
@@ -175,24 +215,29 @@ namespace PurchaseReq.DAL.Initializers
         {
             int count = 1;
             employees.ForEach(x => {
-                
-                switch(count)
+
+                switch (count)
                 {
-                    case 1:
+                    //Alice and Sue
                     case 2:
+                    case 11:
+                        x.DepartmentId = 1;
+                        break;
+                    //Almond and Gary
+                    case 4:
+                    case 6:
                         x.DepartmentId = 5;
                         break;
-                    case 3:
-                    case 6:
+                    //David, Gump, and Jeffrey
+                    case 5:
                     case 7:
+                    case 8:
                         x.DepartmentId = 8;
                         break;
-                    case 4:
-                    case 5:
+                    //Julie and Kathy
+                    case 9:
+                    case 10:
                         x.DepartmentId = 4;
-                        break;
-                    case 8:
-                        x.DepartmentId = 1;
                         break;
                     default:
                         break;
@@ -232,11 +277,11 @@ namespace PurchaseReq.DAL.Initializers
                 StatusName = "Completed"
             }
         };
-        
-   
+
+
         //Done
         public static IEnumerable<Vendor> GetVendors => new List<Vendor>
-        { 
+        {
             new Vendor()
             {
                 VendorName = "Amazon",
@@ -390,11 +435,11 @@ namespace PurchaseReq.DAL.Initializers
             {
                 CategoryName = "Equipment greater than or equal to $5,000 – Other Capital Equipment"
             },
-            
+
         };
 
 
-        public static IEnumerable<SupervisorApproval> GetSupervisorApprovals( List<Employee> Supervisors ) => new List<SupervisorApproval>
+        public static IEnumerable<SupervisorApproval> GetSupervisorApprovals(List<Employee> Supervisors) => new List<SupervisorApproval>
         {
             new SupervisorApproval()
             {
@@ -463,7 +508,7 @@ namespace PurchaseReq.DAL.Initializers
             //add attachment info here
         };
 
-        public static IEnumerable<Order> GetOrders( List<Employee> Employees ) => new List<Order>
+        public static IEnumerable<Order> GetOrders(List<Employee> Employees) => new List<Order>
         {
             new Order()
             {
@@ -523,7 +568,7 @@ namespace PurchaseReq.DAL.Initializers
             new Request()
             {
                 OrderId = 1,
-                ItemId = 1, 
+                ItemId = 1,
                 VendorId = 1,
                 QuantityRequested = 1,
                 EstimatedCost = 1000.00m,
@@ -532,9 +577,9 @@ namespace PurchaseReq.DAL.Initializers
             },
             new Request()
             {
-                OrderId = 2, 
-                ItemId = 2, 
-                VendorId = 1, 
+                OrderId = 2,
+                ItemId = 2,
+                VendorId = 1,
                 QuantityRequested = 365,
                 EstimatedCost = 20.00m,
                 EstimatedTotal = 7300.00m,
@@ -713,7 +758,7 @@ namespace PurchaseReq.DAL.Initializers
             }
         };
 
-        public static  IEnumerable<Employee> SetPasswords( List<Employee> employees)
+        public static IEnumerable<Employee> SetPasswords(List<Employee> employees)
         {
             PasswordHasher<Employee> passwordHasher = new PasswordHasher<Employee>();
 
@@ -724,5 +769,104 @@ namespace PurchaseReq.DAL.Initializers
 
             return employees;
         }
+
+        public static IEnumerable<IdentityRole> GetRoles => new List<IdentityRole>
+        {
+            new IdentityRole()
+            {
+                Name = "Supervisor",
+                NormalizedName = "SUPERVISOR",
+                ConcurrencyStamp = Guid.NewGuid().ToString()
+            },
+            new IdentityRole()
+            {
+                Name = "Admin",
+                NormalizedName = "ADMIN",
+                ConcurrencyStamp = Guid.NewGuid().ToString()
+            },
+            new IdentityRole()
+            {
+                Name = "Purchasing",
+                NormalizedName = "PURCHASING",
+                ConcurrencyStamp = Guid.NewGuid().ToString()
+            },
+            new IdentityRole()
+            {
+                Name = "Auditor",
+                NormalizedName = "AUDITOR",
+                ConcurrencyStamp = Guid.NewGuid().ToString()
+            },
+            new IdentityRole()
+            {
+                Name = "CFO",
+                NormalizedName = "CFO",
+                ConcurrencyStamp = Guid.NewGuid().ToString()
+            },
+            new IdentityRole()
+            {
+                Name = "User",
+                NormalizedName = "USER",
+                ConcurrencyStamp = Guid.NewGuid().ToString()
+            },
+        };
+
+        public static IEnumerable<IdentityUserRole<string>> GetUserWithRole(List<Employee> users, List<IdentityRole> roles) => new List<IdentityUserRole<string>>
+        {
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "User").FirstOrDefault().Id,
+                UserId = users.Where(x => x.LastName == "Almond").FirstOrDefault().Id
+            },
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "User").FirstOrDefault().Id,
+                UserId = users.Where(x => x.LastName == "Thompson").FirstOrDefault().Id
+            },
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "Supervisor").FirstOrDefault().Id,
+                UserId = users.Where(x => x.LastName == "Gump").FirstOrDefault().Id
+            },
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "Supervisor").FirstOrDefault().Id,
+                UserId = users.Where(x => x.LastName == "Frum").FirstOrDefault().Id
+            },
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "User").FirstOrDefault().Id,
+                UserId = users.Where(x => x.LastName == "Heller").FirstOrDefault().Id
+            },
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "User").FirstOrDefault().Id,
+                UserId = users.Where(x => x.LastName == "Lancaster").FirstOrDefault().Id
+            },
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "Supervisor").FirstOrDefault().Id,
+                UserId = users.Where(x => x.LastName == "Holland").FirstOrDefault().Id
+            },
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "CFO").FirstOrDefault().Id,
+                UserId = users.Where(x => x.LastName == "Harris").FirstOrDefault().Id
+            },
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "Auditor").FirstOrDefault().Id,
+                UserId = users.Where(x => x.LastName == "Auditor").FirstOrDefault().Id
+            },
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "Purchasing").FirstOrDefault().Id,
+                UserId = users.Where(x => x.LastName == "Purchase").FirstOrDefault().Id
+            },
+            new IdentityUserRole<string>()
+            {
+                RoleId = roles.Where(x => x.Name == "Admin").FirstOrDefault().Id,
+                UserId = users.Where(x => x.LastName == "Admin").FirstOrDefault().Id
+            },
+        };
     }
 }
