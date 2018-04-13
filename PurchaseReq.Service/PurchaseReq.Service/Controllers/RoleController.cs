@@ -176,5 +176,26 @@ namespace PurchaseReq.Service.Controllers
                 return BadRequest();
             }
         }
+
+        [HttpPost]
+        public IActionResult AddToRole(string employeeId, string roleId)
+        {
+            if (employeeId == null || roleId == null)
+            {
+                return BadRequest();
+            }
+
+            var result = Repo.AddToRoleById(employeeId, roleId).Result;
+
+            if (result)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+
+        }
     }
 }

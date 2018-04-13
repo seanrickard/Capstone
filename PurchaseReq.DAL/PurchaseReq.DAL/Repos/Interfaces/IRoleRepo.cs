@@ -21,6 +21,8 @@ namespace PurchaseReq.DAL.Repos.Interfaces
 
         Task<IEnumerable<Employee>> GetAdmins();
 
+        Task<bool> AddToRoleById(string employeeId, string roleId);
+
         Task<bool> AddToSupervisor(string employeeId);
 
         Task<bool> AddToCFO(string employeeId);

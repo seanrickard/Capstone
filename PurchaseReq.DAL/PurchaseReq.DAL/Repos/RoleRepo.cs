@@ -92,10 +92,16 @@ namespace PurchaseReq.DAL.Repos
             return await AddToRole(employeeId, "Admin");
         }
 
+        public async Task<bool> AddToRoleById(string employeeId, string roleId)
+        {
+            var role = await _RoleManager.FindByIdAsync(roleId);
+            return await AddToRole(employeeId, role.Id);
+        }
+
         internal async Task<bool> AddToRole(string Id, string roleName)
         {
             var user = await _UserManager.FindByIdAsync(Id);
-            var allRoles = _RoleManager.Roles.Select(x => x.Name);
+            var allRoles = _RoleManager.Roles.Select(x => x.Name).ToList();
             await _UserManager.RemoveFromRolesAsync(user, allRoles);
 
             var result = await _UserManager.AddToRoleAsync(user, roleName);
