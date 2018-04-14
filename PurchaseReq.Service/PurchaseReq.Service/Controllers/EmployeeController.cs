@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using PurchaseReq.DAL.Repos.Interfaces;
 using PurchaseReq.Models.Entities;
 using System.Threading.Tasks;
 
@@ -14,10 +15,13 @@ namespace PurchaseReq.Service.Controllers
         public readonly UserManager<Employee> _userManager;
         public readonly SignInManager<Employee> _signInManager;
 
-        public EmployeeController(UserManager<Employee> userManager, SignInManager<Employee> signInManager)
+        public readonly IEmployeeRepo Repo;
+
+        public EmployeeController(UserManager<Employee> userManager, SignInManager<Employee> signInManager, IEmployeeRepo repo)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            Repo = repo;
         }
 
         //[HttpPost]
@@ -46,13 +50,13 @@ namespace PurchaseReq.Service.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_userManager.Users);
+            return Ok(Repo.Get());
         }
 
         [HttpGet("{id}")]
         public IActionResult Get(string id)
         {
-            var item = _userManager.FindByIdAsync(id).Result;
+            var item = Repo.Get(id);
             if (item == null)
             {
                 return NotFound();

@@ -4,7 +4,6 @@ using PurchaseReq.DAL.EF;
 using PurchaseReq.DAL.Repos.Interfaces;
 using PurchaseReq.Models.Entities;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PurchaseReq.DAL.Repos
@@ -101,7 +100,7 @@ namespace PurchaseReq.DAL.Repos
         internal async Task<bool> AddToRole(string Id, string roleName)
         {
             var user = await _UserManager.FindByIdAsync(Id);
-            var allRoles = _RoleManager.Roles.Select(x => x.Name).ToList();
+            var allRoles = await _UserManager.GetRolesAsync(user);
             await _UserManager.RemoveFromRolesAsync(user, allRoles);
 
             var result = await _UserManager.AddToRoleAsync(user, roleName);
