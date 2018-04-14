@@ -3,14 +3,14 @@
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.Identity.EntityFrameworkCore
 
-
+@inject SignInManager<Employee> SignInManager
 
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - PurchaseReq.MVC</title>
+    <title>@ViewData["Title"] - PRS</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -33,17 +33,40 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">PurchaseReq.MVC</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">PRS</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    @await Component.InvokeAsync("AdminMenu")
-               
+                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                    {
+                        @await Component.InvokeAsync("AdminMenu")
+                    }
+                    else if (SignInManager.IsSignedIn(User) && User.IsInRole("CFO"))
+                    {
+                         @await Component.InvokeAsync("CFOMenu")
+                    }
+                    else if (SignInManager.IsSignedIn(User) && User.IsInRole("Auditor"))
+                    {
+                         @await Component.InvokeAsync("AuditorMenu") //needs created
+                    }
+                    else if (SignInManager.IsSignedIn(User) && User.IsInRole("Supervisor"))
+                    {
+                         @await Component.InvokeAsync("SupervisorMenu")
+                    }
+                     else if (SignInManager.IsSignedIn(User) && User.IsInRole("Purchasing"))
+                    {
+                         @await Component.InvokeAsync("PurchasingDeptMenu")
+                    }
+                    else
+                    {
+                       // @await Component.InvokeAsync("UserMenu")
+                    }
+
                 </ul>
-                @await Html.PartialAsync("_LoginPartial")
+               @await Html.PartialAsync("_LoginPartial")
 
             </div>
         </div>

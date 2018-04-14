@@ -21,9 +21,10 @@ else
             <th>Last Name</th>
             <th>Email</th>
             <th>Active</th>
-            <th>Department Id</th>
-            <th>Room Id</th>
-            <th>Role Id</th>
+            <th>Department</th>
+            <th>Room</th>
+            <th>Role</th>
+
         </tr>
 
         @foreach (EmployeeWithDepartmentAndRoomAndRole emp in Model)
@@ -33,18 +34,16 @@ else
             <td>@emp.LastName</td>
             <td>@emp.Email</td>
             <td>@emp.Active</td>
-            <td>@emp.DepartmentId</td>
-            <td>@emp.RoomId</td>
-            <td>@emp.RoleId</td>
+            <td>@emp.DepartmentName</td>
+            <td>@emp.RoomName</td>
+            <td>@emp.RoleName</td>
 
-            @*<td>
-                <form asp-action="DeleteUser" asp-route-id="@emp.Id" method="post">
-                    <a class="btn btn-sm btn-primary" asp-action="EditUser" asp-route-id="@emp.Id">Edit</a>
-                    <button type="submit" onclick="return confirm('Do you really want to delete this user?');" class="btn btn-sm btn-danger">
-                        Delete
-                    </button>
-                </form>
-            </td>*@
+
+            <td>
+            
+                <a class="btn btn-sm btn-primary" asp-action="EditUser" asp-route-id="@emp.Id">Edit</a>
+            
+        </td>
         </tr>
         }
     </table>

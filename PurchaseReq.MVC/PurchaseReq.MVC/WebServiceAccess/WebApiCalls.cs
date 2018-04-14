@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using PurchaseReq.Models.Entities;
 using PurchaseReq.Models.ViewModels;
@@ -39,6 +40,27 @@ namespace PurchaseReq.MVC.WebServiceAccess
             return await SubmitPostRequestAsync(CreateCampusWithBaseUri, json);
         }
 
+        public async Task<IList<Room>> GetRoomsAsync()
+        {
+            return await GetItemListAsync<Room>($"{GetRoomsBaseUri}");
+        }
+
+        public async Task<List<SelectListItem>> GetRoomsForDropdown()
+        {
+            var groups = await GetRoomsAsync();
+
+            var ls = new List<SelectListItem>();
+
+            foreach (Room room in groups)
+            {
+                ls.Add(new SelectListItem
+                {
+                    Value = room.Id.ToString(),
+                    Text = room.RoomName
+                });
+            }
+            return ls;
+        }
 
 
         //Budget
@@ -126,6 +148,23 @@ namespace PurchaseReq.MVC.WebServiceAccess
             return await SubmitPutRequestAsync(uri, json);
         }
 
+        public async Task<List<SelectListItem>> GetDepartmentsForDropDown()
+        {
+            var groups = await GetDepartmentsAsync();
+
+            var ls = new List<SelectListItem>();
+
+            foreach (DepartmentWithDivision d in groups)
+            {
+                ls.Add(new SelectListItem
+                {
+                    Value = d.Id.ToString(),
+                    Text = d.DepartmentName
+                });
+            }
+            return ls;
+        }
+
         //Request
         public async Task<IList<RequestWithVendor>> GetRequestWithVendors()
         {
@@ -133,6 +172,12 @@ namespace PurchaseReq.MVC.WebServiceAccess
         }
 
         //Employee
+
+        public async Task<IList<EmployeeWithDepartmentAndRoomAndRole>> GetEmployees()
+        {
+           return await GetItemListAsync<EmployeeWithDepartmentAndRoomAndRole>($"{GetEmployeeBaseUri}");
+        }
+
         public async Task<IList<EmployeeWithDepartmentAndRoomAndRole>> GetEmployeeByDepartment(int id)
         {
             return await GetItemListAsync<EmployeeWithDepartmentAndRoomAndRole>($"{GetEmployeeByDepartmentBaseUri}{id}");
@@ -161,6 +206,29 @@ namespace PurchaseReq.MVC.WebServiceAccess
                 {
                     Value = e.Id,
                     Text = e.FullName
+                });
+            }
+            return ls;
+        }
+
+        //Roles
+        public async Task<IList<IdentityRole>> GetRoles()
+        {
+            return await GetItemListAsync<IdentityRole>($"{GetRolesBaseUri}");
+        }
+
+        public async Task<List<SelectListItem>> GetRolesForDropdown()
+        {
+            var groups = await GetRoles();
+
+            var ls = new List<SelectListItem>();
+
+            foreach(IdentityRole role in groups)
+            {
+                ls.Add(new SelectListItem
+                {
+                    Value = role.Id,
+                    Text = role.Name
                 });
             }
             return ls;

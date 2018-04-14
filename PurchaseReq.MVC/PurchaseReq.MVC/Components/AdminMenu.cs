@@ -10,7 +10,9 @@ namespace PurchaseReq.MVC.Components
             var menuItems = new List<AdminMenuItem> { new AdminMenuItem()
                 {
                     DisplayValue = "User Management",
-                    ActionValue = "UserManagement"
+                    ActionValue = "UserManagement",
+                    ControllerValue = "Admin"
+
                 },
                 new AdminMenuItem()
                 {
