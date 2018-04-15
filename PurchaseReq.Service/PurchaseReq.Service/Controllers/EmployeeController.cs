@@ -72,9 +72,9 @@ namespace PurchaseReq.Service.Controllers
         }
 
         [HttpGet("{divisionId}")]
-        public IActionResult GetByDivison(int divisonId)
+        public IActionResult GetByDivision(int divisionId)
         {
-            return Ok(Repo.GetByDivision(divisonId));
+            return Ok(Repo.GetByDivision(divisionId));
         }
 
         [HttpPost]
