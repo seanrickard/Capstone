@@ -9,6 +9,8 @@ namespace PurchaseReq.DAL.Repos.Interfaces
 
         EmployeeWithDepartmentAndRoomAndRole Get(string id);
 
+        IEnumerable<EmployeeWithDepartmentAndRoomAndRole> GetByDepartment(int departmentId);
 
+        IEnumerable<EmployeeWithDepartmentAndRoomAndRole> GetByDivision(int divisionId);
     }
 }

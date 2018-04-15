@@ -65,6 +65,18 @@ namespace PurchaseReq.Service.Controllers
             return Json(item);
         }
 
+        [HttpGet("{departmentId}")]
+        public IActionResult GetByDepartment(int departmentId)
+        {
+            return Ok(Repo.GetByDepartment(departmentId));
+        }
+
+        [HttpGet("{divisionId}")]
+        public IActionResult GetByDivison(int divisonId)
+        {
+            return Ok(Repo.GetByDivision(divisonId));
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] Employee model, string password)
         {

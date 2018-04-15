@@ -23,6 +23,14 @@ namespace PurchaseReq.DAL.Repos.Interfaces
 
         IEnumerable<PRWithRequest> GetAllCompletedForUser(string EmployeeId);
 
+        IEnumerable<PRWithRequest> GetAllWaitingForSupervisor(string employeeId);
+
+        IEnumerable<PRWithRequest> GetAllWaitingForCFO();
+
+        IEnumerable<PRWithRequest> GetAllCompleted();
+
+        IEnumerable<PRWithRequest> GetAllApproved();
+
         //Create a new Order and return the viewModel
         PRWithRequest GetNewOrder(string EmployeeId);
 

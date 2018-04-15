@@ -81,6 +81,7 @@ namespace PurchaseReq.Service
             services.AddScoped<IStatusRepo, StatusRepo>();
             services.AddScoped<IRoleRepo, RoleRepo>();
             services.AddScoped<IEmployeeRepo, EmployeeRepo>();
+            services.AddScoped<IOrderRepo, OrderRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

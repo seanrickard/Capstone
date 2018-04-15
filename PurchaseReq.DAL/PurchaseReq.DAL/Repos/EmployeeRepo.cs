@@ -81,5 +81,25 @@ namespace PurchaseReq.DAL.Repos
 
             return employee;
         }
+
+        public IEnumerable<EmployeeWithDepartmentAndRoomAndRole> GetByDepartment(int departmentId)
+        {
+            return Get().Where(x => x.DepartmentId == departmentId);
+                
+        }
+
+        public IEnumerable<EmployeeWithDepartmentAndRoomAndRole> GetByDivision(int divisionId)
+        {
+            var employees = Table.Include(x => x.Room).Include(x => x.Department).ThenInclude(x => x.Division).Where(x => x.Department.Division.Id == divisionId);
+            var returnList = new List<EmployeeWithDepartmentAndRoomAndRole>();
+
+            foreach (var employee in employees)
+            {
+                var roleName = UserManager.GetRolesAsync(employee).GetAwaiter().GetResult().Last();
+                var actualRole = _RoleManager.Roles.Where(x => x.Name == roleName).Last();
+                returnList.Add(Map(employee, employee.Department, employee.Room, actualRole));
+            }
+            return returnList;
+        }
     }
 }
