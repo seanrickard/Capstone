@@ -44,7 +44,7 @@ namespace PurchaseReq.MVC.Controllers
 
             };
 
-            var result = await _webApiCalls.CreateDivisionAsync(dv);
+            var result = await _webApiCalls.CreateAsync(dv);
 
             return RedirectToAction("Index");
         }
@@ -76,7 +76,7 @@ namespace PurchaseReq.MVC.Controllers
                 TimeStamp = div.TimeStamp
             };
 
-            var result = await _webApiCalls.UpdateDivision(div.Id, division);
+            var result = await _webApiCalls.UpdateAsync(div.Id, division);
 
             return RedirectToAction("Index");
 

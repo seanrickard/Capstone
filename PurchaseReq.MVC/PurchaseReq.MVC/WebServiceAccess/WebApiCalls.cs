@@ -12,7 +12,21 @@ namespace PurchaseReq.MVC.WebServiceAccess
 {
     public class WebApiCalls : WebApiCallsBase, IWebApiCalls
     {
-       
+        public async Task<string> CreateAsync<T>(T input)
+        {
+            var json = JsonConvert.SerializeObject(input);
+            string type = input.ToString().Remove(0, 28);
+            return await SubmitPostRequestAsync(BaseUri + type + "/Create/", json);
+        }
+
+        public async Task<string> UpdateAsync<T>(int id, T input)
+        {
+            var json = JsonConvert.SerializeObject(input);
+            string type = input.ToString().Remove(0, 28);
+            return await SubmitPutRequestAsync(BaseUri + type + "/Update/" + id + "/", json);
+        }
+
+    
         public WebApiCalls(IWebServiceLocator settings ) : base(settings)
         {
 
@@ -32,12 +46,6 @@ namespace PurchaseReq.MVC.WebServiceAccess
         public async Task<IList<RoomWithCampus>> GetRoomsByCampusAsync(int id)
         {
             return await GetItemListAsync<RoomWithCampus>($"{RoomsByCampusBaseUri}{id}");
-        }
-
-        public async Task<string> CreateCampusAsync(Campus campus)
-        {
-            var json = JsonConvert.SerializeObject(campus);
-            return await SubmitPostRequestAsync(CreateCampusWithBaseUri, json);
         }
 
         public async Task<IList<Room>> GetRoomsAsync()
@@ -102,20 +110,7 @@ namespace PurchaseReq.MVC.WebServiceAccess
             return ls;
         }
 
-   
-
-        public async Task<string> CreateDivisionAsync(Division division)
-        {
-            var json = JsonConvert.SerializeObject(division);
-            return await SubmitPostRequestAsync(CreateDivisionWithBaseUri, json);
-        }
-
-        public async Task<string> UpdateDivision(int id, Division division)
-        {
-            string uri = $"{UpdateDivisionBaseUri}{id}";
-            var json = JsonConvert.SerializeObject(division);
-            return await SubmitPutRequestAsync(uri, json);
-        }
+       
 
 
         //Department
@@ -132,20 +127,6 @@ namespace PurchaseReq.MVC.WebServiceAccess
         public async Task<IList<DepartmentWithDivision>> GetDepartmentsByDivison(int id)
         {
             return await GetItemListAsync<DepartmentWithDivision>($"{DepartmentByDivisionBaseUri}{id}");
-        }
-
-        public async Task<string> CreateDepartmentAsync(Department department)
-        {
-            var json = JsonConvert.SerializeObject(department);
-            return await SubmitPostRequestAsync(CreateDepartmentWithBaseUri, json);
-        }
-
-        public async Task<string> UpdateDepartment(int id, Department department)
-        {
-            
-            string uri = $"{UpdateDepartmentBaseUri}{id}";
-            var json = JsonConvert.SerializeObject(department);
-            return await SubmitPutRequestAsync(uri, json);
         }
 
         public async Task<List<SelectListItem>> GetDepartmentsForDropDown()

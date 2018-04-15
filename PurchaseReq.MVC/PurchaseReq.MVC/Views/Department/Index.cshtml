@@ -2,6 +2,7 @@
 @using Microsoft.AspNetCore.Identity.EntityFrameworkCore
 @model IEnumerable<DepartmentWithDivision>
 
+    
     <h2>Departments</h2>
 
     <table class="table table-condensed table-bordered" header header-content="Department">
@@ -12,28 +13,22 @@
         </tr>
 
         @foreach (DepartmentWithDivision department in Model)
-    {
+        {
 
-        <tr>
-            <td>@department.DepartmentName</td>
-            <td>@department.Active</td>
-            <td>@department.DivisonName</td>
-            
-
+            <tr>
+                <td>@department.DepartmentName</td>
+                <td>@department.Active</td>
+                <td>@department.DivisonName</td>
 
 
-            <td>
-                <form asp-action="DeleteCampus" asp-route-id="@department.Id" method="post">
+
+
+                <td>
                     <a class="btn btn-sm btn-primary" asp-action="EditDepartment" asp-route-id="@department.Id">Edit</a>
                     <a class="btn btn-sm btn-primary" asp-action="Employees" asp-controller="Department" asp-route-Id="@department.Id">View Employees</a>
-
-                    <button type="submit" onclick="return confirm('Do you really want to delete this department?');" class="btn btn-sm btn-danger">
-                        Delete
-                    </button>
-                </form>
-            </td>
-        </tr>
-}
+                </td>
+            </tr>
+        }
     </table>
 
     <p>

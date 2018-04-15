@@ -8,10 +8,11 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
 {
     public interface IWebApiCalls
     {
+        Task<string> CreateAsync<T>(T input);
+        Task<string> UpdateAsync<T>(int id, T input);
 
         //Campus
         Task<IList<CampusWithAddress>> GetCampusesAsync();
-        Task<string> CreateCampusAsync(Campus campus);
         Task<CampusWithAddress> GetCampusAsync(int id);
         Task<IList<RoomWithCampus>> GetRoomsByCampusAsync(int id);
         Task<IList<Room>> GetRoomsAsync();
@@ -23,16 +24,11 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         //Division
         Task<IList<DivisionWithSupervisor>> GetDivisionsAsync();
         Task<DivisionWithSupervisor> GetDivisionAsync(int id);
-        Task<string> CreateDivisionAsync(Division division);
-
-        Task<string> UpdateDivision(int id, Division division);
 
         //Department
         Task<IList<DepartmentWithDivision>> GetDepartmentsAsync();
         Task<DepartmentWithDivision> GetDepartmentAsync(int id);
         Task<IList<DepartmentWithDivision>> GetDepartmentsByDivison(int id);
-        Task<string> CreateDepartmentAsync(Department department);
-        Task<string> UpdateDepartment(int id, Department department);
 
         //Request
         Task<IList<RequestWithVendor>> GetRequestWithVendors();
@@ -43,8 +39,8 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         Task<object> LoginEmployee(LogInViewModel logInViewModel);
 
         //Roles
-      //  Task<IList<Employee>> GetSupervisors();
-        
+        //  Task<IList<Employee>> GetSupervisors();
+
 
         //Dropdowns
         Task<List<SelectListItem>> GetDivisionsForDropDown();

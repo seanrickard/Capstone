@@ -27,7 +27,7 @@ namespace PurchaseReq.MVC.Controllers
         public async Task<IActionResult> AddDepartment()
         {
             DepartmentWithDivision dp = new DepartmentWithDivision();
-            
+
             ViewBag.Divisions = await _webApiCalls.GetDivisionsForDropDown();
 
 
@@ -37,23 +37,23 @@ namespace PurchaseReq.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> AddDepartment(DepartmentWithDivision dept)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(dept);
             }
-            
+
             var dp = new Department()
             {
                 DepartmentName = dept.DepartmentName,
                 DivisionId = dept.DivisionId
             };
 
-            var result = await _webApiCalls.CreateDepartmentAsync(dp);
+            var result = await _webApiCalls.CreateAsync(dp);
 
             return RedirectToAction("Index");
         }
 
-        public async Task<IActionResult> EditDepartment( int id )
+        public async Task<IActionResult> EditDepartment(int id)
         {
             DepartmentWithDivision dp = await _webApiCalls.GetDepartmentAsync(id);
 
@@ -63,16 +63,16 @@ namespace PurchaseReq.MVC.Controllers
         }
 
         [HttpPost]
-        public  async Task<IActionResult> EditDepartment(DepartmentWithDivision dept)
+        public async Task<IActionResult> EditDepartment(DepartmentWithDivision dept)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(dept);
             }
 
             var dp = new Department()
             {
-               
+
                 Id = dept.Id,
                 Active = dept.Active,
                 DepartmentName = dept.DepartmentName,
@@ -80,20 +80,20 @@ namespace PurchaseReq.MVC.Controllers
                 TimeStamp = dept.TimeStamp
             };
 
-            var result = await _webApiCalls.UpdateDepartment(dept.Id, dp);
+            var result = await _webApiCalls.UpdateAsync(dept.Id, dp);
 
             return RedirectToAction("Index");
 
         }
- 
+
         public async Task<IActionResult> Employees(int id)
         {
             IList<EmployeeWithDepartmentAndRoomAndRole> employees;
             employees = await _webApiCalls.GetEmployeeByDepartment(id);
-            
-            foreach (EmployeeWithDepartmentAndRoomAndRole  emp in employees)
+
+            foreach (EmployeeWithDepartmentAndRoomAndRole emp in employees)
             {
-                if(emp.DepartmentId == id)
+                if (emp.DepartmentId == id)
                 {
 
                 }

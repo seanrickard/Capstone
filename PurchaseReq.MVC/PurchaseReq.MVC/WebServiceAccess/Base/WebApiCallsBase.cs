@@ -23,8 +23,6 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
 
         //Division
         protected readonly string DivisionBaseUri;
-        protected readonly string CreateDivisionWithBaseUri;
-        protected readonly string UpdateDivisionBaseUri;
         protected readonly string DivisionWithSupervisorBaseUri;
 
         //Department
@@ -45,47 +43,37 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         //Roles
         protected readonly string GetRolesBaseUri;
         protected readonly string GetSupervisorsBaseUri;
+        protected readonly string BaseUri;
+
+
+
+
 
         protected WebApiCallsBase(IWebServiceLocator settings)
         {
             ServiceAddress = settings.ServiceAddress;
 
+            
+            BaseUri = $"{ServiceAddress}api/";
 
             //Campus
             CampusWithAddressBaseUri = $"{ServiceAddress}api/Campus/GetWithAddress/";
-            CreateCampusWithBaseUri = $"{ServiceAddress}api/Campus/Create/";
-            RoomsByCampusBaseUri = $"{ServiceAddress}api/Room/GetByCampus/";
-            GetRoomsBaseUri = $"{ServiceAddress}api/Room/Get/";
+            RoomsByCampusBaseUri = $"{ServiceAddress}api/Room/GetByCampus/";           
 
             //Division
-            CreateDivisionWithBaseUri = $"{ServiceAddress}api/Division/Create/";
             DivisionWithSupervisorBaseUri = $"{ServiceAddress}api/Division/GetWithSupervisor/";
-            DivisionBaseUri = $"{ServiceAddress}api/Division/Get/";
-            UpdateDivisionBaseUri = $"{ServiceAddress}api/Division/Update/";
 
             //Department
-            CreateDepartmentWithBaseUri = $"{ServiceAddress}api/Department/Create/";
             DepartmentByDivisionBaseUri = $"{ServiceAddress}api/Department/GetByDivision/";   
-            DepartmentWithDivisionBaseUri = $"{ServiceAddress}api/Department/Get/";
-            UpdateDepartmentBaseUri = $"{ServiceAddress}api/Department/Update/";
-
-            //Budget
-            BudgetCodeWithAmountBaseUri = $"{ServiceAddress}api/BudgetCode/Get/";
-
-            //Request
-            RequestWithVendorBaseUri = $"{ServiceAddress}api/Request/Get/";
-
-            //Employee
-            GetEmployeeBaseUri = $"{ServiceAddress}api/Employee/Get";
-            GetEmployeeByDepartmentBaseUri = $"{ServiceAddress}api/Employee/Get";  // Delete if unused
+       
+            GetEmployeeByDepartmentBaseUri = $"{ServiceAddress}api/Employee/GetByDepartment/";  
             GetEmployeeLoginBaseUri = $"{ServiceAddress}api/Employee/Login";
 
-
             //Roles
-            GetRolesBaseUri = $"{ServiceAddress}api/Role/Get/";
             GetSupervisorsBaseUri = $"{ServiceAddress}api/Role/GetSupervisors";
-
         }
+
+
 
         internal async Task<string> GetJsonFromGetResponseAsync(string uri)
         {
@@ -168,8 +156,17 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         {
             using (var client = new HttpClient())
             {
-                var task = client.PostAsync(uri, CreateStringContent(json));
-                return await ExecuteRequestAndProcessResponse(uri, task);
+                try{
+                    var task = client.PostAsync(uri, CreateStringContent(json));
+                    return await ExecuteRequestAndProcessResponse(uri, task);
+                }
+
+                catch(Exception e)
+                {
+                    throw new Exception($"The Call to {uri} failed");
+                }
+                
+               
             }
         }
 

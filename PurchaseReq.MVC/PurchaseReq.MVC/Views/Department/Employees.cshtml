@@ -1,7 +1,55 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
+@model IEnumerable<EmployeeWithDepartmentAndRoomAndRole>
+
+
 @{
     ViewData["Title"] = "Employees";
 }
 
 <h2>Employees</h2>
+
+@if (!Model.Any())
+{
+    <tr><td colspan="3" class="text-center">No Employees Yet</td></tr>
+}
+else
+{
+    <table class="table table-condensed table-bordered" header header-content="User Management">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Active</th>
+            <th>Department</th>
+            <th>Room</th>
+            <th>Role</th>
+
+        </tr>
+
+        @foreach (EmployeeWithDepartmentAndRoomAndRole emp in Model)
+        {
+            <tr>
+                <td>@emp.FirstName</td>
+                <td>@emp.LastName</td>
+                <td>@emp.Email</td>
+                <td>@emp.Active</td>
+                <td>@emp.DepartmentName</td>
+                <td>@emp.RoomName</td>
+                <td>@emp.RoleName</td>
+
+
+                <td>
+
+                    <a class="btn btn-sm btn-primary" asp-action="EditUser" asp-route-id="@emp.Id">Edit</a>
+
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+@*<p>
+    <a anchor-style="primary" asp-action="AddUser">Add new user</a>
+</p>*@
 
