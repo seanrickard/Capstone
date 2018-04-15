@@ -1,6 +1,7 @@
 ﻿using PurchaseReq.Models.Entities.Base;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -16,7 +17,7 @@ namespace PurchaseReq.Models.Entities
         [DataType(DataType.Date)]
         public DateTime? DateOrdered { get; set; }
 
-        
+        [DefaultValue(false)]
         public bool StateContract { get; set; }
 
         [DataType(DataType.MultilineText)]
@@ -32,7 +33,7 @@ namespace PurchaseReq.Models.Entities
         [ForeignKey(nameof(StatusId))]
         public Status Status { get; set; }
 
-        public int CategoryId { get; set; }
+        public int? CategoryId { get; set; }
 
         [ForeignKey(nameof(CategoryId))]
         public Category Category{ get; set; }
@@ -44,7 +45,7 @@ namespace PurchaseReq.Models.Entities
         [InverseProperty(nameof(Request.Order))]
         public List<Request> Requests { get; set; }
 
-        public int BudgetCodeId { get; set; }
+        public int? BudgetCodeId { get; set; }
 
         [ForeignKey(nameof(BudgetCodeId))]
         public BudgetCode BudgetCode { get; set; }

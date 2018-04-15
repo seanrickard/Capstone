@@ -1,5 +1,4 @@
-﻿using PurchaseReq.Models.Entities;
-using PurchaseReq.Models.Entities.Base;
+﻿using PurchaseReq.Models.Entities.Base;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,18 +9,29 @@ namespace PurchaseReq.Models.ViewModels
     //Good
     public class PRWithRequest : EntityBase
     {
-        public Employee Employee { get; set; }
+        public string EmployeeFullName { get; set; }
 
-        public Employee Supervisor { get; set; }
+        [Required]
+        public string EmployeeId { get; set; }
 
-        public Status Status { get; set; }
+        public string SupervisorFullName { get; set; }
 
+        [Required]
+        public string SupervisorId { get; set; }
+
+        public string StatusName { get; set; }
+
+        [Required]
         public int StatusId { get; set; }
 
-        public Category Category { get; set; }
+        public string CategoryName { get; set; }
+
+        [Required]
+        public int CategoryId { get; set; }
 
         public string BudgetCodeName { get; set; }
 
+        [Required]
         public int BudgetCodeId { get; set; }
 
         [DataType(DataType.Date)]
@@ -38,6 +48,7 @@ namespace PurchaseReq.Models.ViewModels
 
         public List<RequestWithVendor> RequestsWithVendor { get; set; } = new List<RequestWithVendor>();
 
+        //I Don't think this is necessary
         public List<SupervisorApprovalWithApproval> SupervisorApprovalWithApprovals { get; set; } = new List<SupervisorApprovalWithApproval>();
 
     }
