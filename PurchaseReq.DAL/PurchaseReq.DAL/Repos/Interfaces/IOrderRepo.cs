@@ -23,9 +23,13 @@ namespace PurchaseReq.DAL.Repos.Interfaces
 
         IEnumerable<PRWithRequest> GetAllCompletedForUser(string EmployeeId);
 
-        IEnumerable<PRWithRequest> GetAllWaitingForSupervisor(string employeeId);
+        IEnumerable<PRWithRequest> GetAllWaitingForSupervisor();
+
+        IEnumerable<PRWithRequest> GetAllWaitingForSupervisor(string supervisorId);
 
         IEnumerable<PRWithRequest> GetAllWaitingForCFO();
+
+        IEnumerable<PRWithRequest> GetAllOrdered();
 
         IEnumerable<PRWithRequest> GetAllCompleted();
 
@@ -37,7 +41,6 @@ namespace PurchaseReq.DAL.Repos.Interfaces
         //Moves the Order to the Next stage of the life cycle
         //Increment status ID by 1
         PRWithRequest MoveToTheNextLifeCycle(int id);
-
 
     }
 }
