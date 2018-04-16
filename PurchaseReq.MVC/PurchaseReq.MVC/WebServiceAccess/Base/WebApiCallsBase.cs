@@ -36,18 +36,13 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
 
         //Employee
         protected readonly string GetEmployeeByDepartmentBaseUri;
-        protected readonly string GetEmployeeLoginBaseUri;
-        
+        protected readonly string GetEmployeeLoginBaseUri;        
         protected readonly string GetEmployeeBaseUri;
 
         //Roles
         protected readonly string GetRolesBaseUri;
         protected readonly string GetSupervisorsBaseUri;
         protected readonly string BaseUri;
-
-
-
-
 
         protected WebApiCallsBase(IWebServiceLocator settings)
         {
@@ -58,19 +53,27 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
 
             //Campus
             CampusWithAddressBaseUri = $"{ServiceAddress}api/Campus/GetWithAddress/";
-            RoomsByCampusBaseUri = $"{ServiceAddress}api/Room/GetByCampus/";           
+            RoomsByCampusBaseUri = $"{ServiceAddress}api/Room/GetByCampus/";
+            GetRoomsBaseUri = $"{ServiceAddress}api/Room/Get/";
 
             //Division
             DivisionWithSupervisorBaseUri = $"{ServiceAddress}api/Division/GetWithSupervisor/";
 
             //Department
-            DepartmentByDivisionBaseUri = $"{ServiceAddress}api/Department/GetByDivision/";   
-       
-            GetEmployeeByDepartmentBaseUri = $"{ServiceAddress}api/Employee/GetByDepartment/";  
+            DepartmentByDivisionBaseUri = $"{ServiceAddress}api/Department/GetByDivision/";
+            DepartmentWithDivisionBaseUri = $"{ServiceAddress}api/Department/Get/";
+
+            GetEmployeeByDepartmentBaseUri = $"{ServiceAddress}api/Employee/GetByDepartment/";
+            GetEmployeeBaseUri= $"{ServiceAddress}api/Employee/Get/";
             GetEmployeeLoginBaseUri = $"{ServiceAddress}api/Employee/Login";
+
+            //Budget
+
+            BudgetCodeWithAmountBaseUri = $"{ServiceAddress}api/BudgetCode/Get/";
 
             //Roles
             GetSupervisorsBaseUri = $"{ServiceAddress}api/Role/GetSupervisors";
+            GetRolesBaseUri = $"{ServiceAddress}api/Role/Get/";
         }
 
 
@@ -156,17 +159,8 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         {
             using (var client = new HttpClient())
             {
-                try{
-                    var task = client.PostAsync(uri, CreateStringContent(json));
-                    return await ExecuteRequestAndProcessResponse(uri, task);
-                }
-
-                catch(Exception e)
-                {
-                    throw new Exception($"The Call to {uri} failed");
-                }
-                
-               
+                var task = client.PostAsync(uri, CreateStringContent(json));
+                return await ExecuteRequestAndProcessResponse(uri, task);               
             }
         }
 

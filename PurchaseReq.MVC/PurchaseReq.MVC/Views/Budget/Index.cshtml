@@ -2,6 +2,9 @@
 @using Microsoft.AspNetCore.Identity.EntityFrameworkCore
 @model IList<BudgetCodeWithAmount>
 
+@{
+    ViewData["Title"] = "Budget Codes";
+}
 <h2>Budget Codes</h2>
 
 
@@ -24,25 +27,16 @@ else
         @foreach (BudgetCodeWithAmount budgetCode in Model)
         {
 
-        <tr>
-            <td>@budgetCode.DA</td>
-            <td>@budgetCode.BudgetCodeName</td>
-            <td>@budgetCode.Type</td>
-            <td>@budgetCode.Active</td>
-            <td>@budgetCode.TotalAmount</td>
-
-
-
-            <td>
-                <form asp-action="DeleteBudgetCode" asp-route-id="@budgetCode.Id" method="post">
+            <tr>
+                <td>@budgetCode.DA</td>
+                <td>@budgetCode.BudgetCodeName</td>
+                <td>@budgetCode.Type</td>
+                <td>@budgetCode.Active</td>
+                <td>@budgetCode.TotalAmount</td>
+                <td>
                     <a class="btn btn-sm btn-primary" asp-action="EditBudgetCode" asp-route-id="@budgetCode.Id">Edit</a>
-                   
-                    <button type="submit" onclick="return confirm('Do you really want to mark this code inactive?');" class="btn btn-sm btn-danger">
-                        Remove
-                    </button>
-                </form>
-            </td>
-        </tr>
+                </td>
+            </tr>
         }
     </table>
 }

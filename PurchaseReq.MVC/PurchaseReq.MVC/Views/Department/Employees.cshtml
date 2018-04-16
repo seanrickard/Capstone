@@ -37,11 +37,9 @@ else
                 <td>@emp.DepartmentName</td>
                 <td>@emp.RoomName</td>
                 <td>@emp.RoleName</td>
-
-
                 <td>
 
-                    <a class="btn btn-sm btn-primary" asp-action="EditUser" asp-route-id="@emp.Id">Edit</a>
+                    <a class="btn btn-sm btn-primary" asp-controller="Admin" asp-action="EditUser" asp-route-id="@emp.Id">Edit</a>
 
                 </td>
             </tr>
@@ -49,7 +47,7 @@ else
     </table>
 }
 
-@*<p>
-    <a anchor-style="primary" asp-action="AddUser">Add new user</a>
-</p>*@
+<p>
+    <a anchor-style="primary" asp-action="Index">Back to Departments</a>
+</p>
 

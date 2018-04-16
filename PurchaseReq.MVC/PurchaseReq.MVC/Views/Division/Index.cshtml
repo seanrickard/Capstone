@@ -3,7 +3,7 @@
 @model IList<DivisionWithSupervisor>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Division";
 }
 
 <h2>Divisions</h2>
@@ -11,7 +11,7 @@
 
 @if (!Model.Any())
 {
-    <tr><td colspan="3" class="text-center">No campuses yet</td></tr>
+    <tr><td colspan="3" class="text-center">No divisions yet</td></tr>
 }
 else
 {
@@ -36,14 +36,8 @@ else
 
 
             <td>
-                <form asp-action="DeleteCampus" asp-route-id="@division.Id" method="post">
-                    <a class="btn btn-sm btn-primary" asp-action="EditDivision" asp-route-id="@division.Id">Edit</a>
-                    <a class="btn btn-sm btn-primary" asp-action="Departments" asp-controller="Division" asp-route-Id="@division.Id">View Departments</a>
-
-                    <button type="submit" onclick="return confirm('Do you really want to delete this campus?');" class="btn btn-sm btn-danger">
-                        Delete
-                    </button>
-                </form>
+                <a class="btn btn-sm btn-primary" asp-action="EditDivision" asp-route-id="@division.Id">Edit</a>
+                <a class="btn btn-sm btn-primary" asp-action="Departments" asp-controller="Division" asp-route-Id="@division.Id">View Departments</a>
             </td>
         </tr>
         }

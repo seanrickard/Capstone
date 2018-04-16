@@ -38,8 +38,8 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         Task<IList<EmployeeWithDepartmentAndRoomAndRole>> GetEmployeeByDepartment(int id);
         Task<object> LoginEmployee(LogInViewModel logInViewModel);
 
-        //Roles
-        //  Task<IList<Employee>> GetSupervisors();
+       //Roles
+        Task<IList<Employee>> GetSupervisors();
 
 
         //Dropdowns

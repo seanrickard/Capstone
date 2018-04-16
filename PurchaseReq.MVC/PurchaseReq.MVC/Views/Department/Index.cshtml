@@ -2,9 +2,19 @@
 @using Microsoft.AspNetCore.Identity.EntityFrameworkCore
 @model IEnumerable<DepartmentWithDivision>
 
-    
-    <h2>Departments</h2>
+@{
+    ViewData["Title"] = "Departments";
+}
 
+<h2>Departments</h2>
+
+
+@if (!Model.Any())
+{
+    <tr><td colspan="3" class="text-center">No departments yet</td></tr>
+}
+else
+{
     <table class="table table-condensed table-bordered" header header-content="Department">
         <tr>
             <th>Department Name</th>
@@ -34,3 +44,4 @@
     <p>
         <a anchor-style="primary" asp-action="AddDepartment">Add new department</a>
     </p>
+}
