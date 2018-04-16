@@ -44,10 +44,6 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         protected readonly string GetSupervisorsBaseUri;
         protected readonly string BaseUri;
 
-
-
-
-
         protected WebApiCallsBase(IWebServiceLocator settings)
         {
             ServiceAddress = settings.ServiceAddress;
@@ -163,17 +159,8 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         {
             using (var client = new HttpClient())
             {
-                try{
-                    var task = client.PostAsync(uri, CreateStringContent(json));
-                    return await ExecuteRequestAndProcessResponse(uri, task);
-                }
-
-                catch(Exception e)
-                {
-                    throw new Exception($"The Call to {uri} failed");
-                }
-                
-               
+                var task = client.PostAsync(uri, CreateStringContent(json));
+                return await ExecuteRequestAndProcessResponse(uri, task);               
             }
         }
 

@@ -19,10 +19,6 @@ else
             <th>Room Code</th>
             <th>Room Name</th>
             <th>Active</th>
-            @*<th>City</th>
-            <th>State</th>
-            <th>Zip</th>*@
-
         </tr>
 
         @foreach (RoomWithCampus room in Model)
@@ -31,23 +27,8 @@ else
                 <td>@room.RoomCode</td>
                 <td>@room.RoomName</td>
                 <td>@room.Active</td>
-                @*<td>@campus.City</td>
-                <td>@campus.State</td>
-                <td>@campus.Zip</td>*@
-
-
-
-
-
                 <td>
-                    <form asp-action="DeleteCampus" asp-route-id="@room.Id" method="post">
-                        <a class="btn btn-sm btn-primary" asp-action="EditCampus" asp-route-id="@room.Id">Edit</a>
-                        @*<a class="btn btn-sm btn-primary" asp-action="Rooms" asp-controller="Campus" asp-route-id="@room.Id">View Rooms</a>*@
-
-                        <button type="submit" onclick="return confirm('Do you really want to delete this campus?');" class="btn btn-sm btn-danger">
-                            Delete
-                        </button>
-                    </form>
+                    <a class="btn btn-sm btn-primary" asp-action="EditRoom" asp-route-id="@room.Id">Edit</a>
                 </td>
             </tr>
         }
@@ -55,7 +36,7 @@ else
 }
 
 <p>
-    <a anchor-style="primary" asp-action="AddRoom">Add new room</a>
+    <a anchor-style="primary" asp-action="Index">Back to Campus</a>
 </p>
 
 

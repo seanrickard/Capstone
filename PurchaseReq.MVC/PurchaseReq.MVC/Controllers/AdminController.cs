@@ -95,6 +95,11 @@ namespace PurchaseReq.MVC.Controllers
 
             var vm = new PasswordEmployeeViewModel() { Id = user.Id, FirstName = user.FirstName, LastName = user.LastName };
 
+
+            ViewBag.Departments = await _webApiCalls.GetDepartmentsForDropDown();
+            ViewBag.Roles = await _webApiCalls.GetRolesForDropdown();
+            ViewBag.Rooms = await _webApiCalls.GetRoomsForDropdown();
+
             return View(vm);
         }
 
@@ -121,6 +126,10 @@ namespace PurchaseReq.MVC.Controllers
             }
 
             ModelState.AddModelError("", "User not updated, something went wrong.");
+
+            ViewBag.Departments = await _webApiCalls.GetDepartmentsForDropDown();
+            ViewBag.Roles = await _webApiCalls.GetRolesForDropdown();
+            ViewBag.Rooms = await _webApiCalls.GetRoomsForDropdown();
 
             return View(emp);
         }
