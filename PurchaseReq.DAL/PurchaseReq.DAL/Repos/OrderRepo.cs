@@ -10,30 +10,49 @@ namespace PurchaseReq.DAL.Repos
 {
     public class OrderRepo : RepoBase<Order>, IOrderRepo
     {
-        internal PRWithRequest GetRecord(Employee user, Employee supervisor, Status status, Category c, BudgetCode bc, Order o) => new PRWithRequest
+        internal PRWithRequest GetRecord(Employee user, Employee supervisor, Status status, Category c, BudgetCode bc, Order o)
         {
-            BudgetCodeId = bc.Id,
-            BudgetCodeName = bc.BudgetCodeName,
-            
-            Id = o.Id, 
-            BusinessJustification = o.BusinessJustification,
-            DateMade = o.DateMade,
-            DateOrdered = o.DateOrdered,
-            StateContract = o.StateContract,
-            TimeStamp = o.TimeStamp,
+            //BusinessJustification & DateOrdered && CategoryId && BudgetCodeId
+            var request = new PRWithRequest() {
+                Id = o.Id,
+                BusinessJustification = o.BusinessJustification,
+                DateMade = o.DateMade,
+                DateOrdered = o.DateOrdered,
+                StateContract = o.StateContract,
+                StatusId = status.Id,
+                StatusName = status.StatusName,
+            };
 
-            CategoryId = c.Id,
-            CategoryName = c.CategoryName,
+            if(o.TimeStamp != null)
+            {
+                request.TimeStamp = o.TimeStamp;
+            }
 
-            EmployeeFullName = user.FullName,
-            EmployeeId = user.Id,
+            if(user != null)
+            {
+                request.EmployeeFullName = user.FullName;
+                request.EmployeeId = user.Id;
+            }
 
-            StatusId = status.Id,
-            StatusName = status.StatusName,
+            if(supervisor != null)
+            {
+                request.SupervisorId = supervisor.Id;
+                request.SupervisorFullName = supervisor.FullName;
+            }
 
-            SupervisorId = supervisor.Id,
-            SupervisorFullName = supervisor.FullName,
-        };
+
+            if(bc != null){
+                request.BudgetCodeId = bc.Id;
+                request.BudgetCodeName = bc.BudgetCodeName;
+            }
+
+            if(c != null){
+                request.CategoryId = c.Id;
+                request.CategoryName = c.CategoryName;
+            }
+
+            return request;
+        }
 
         public IEnumerable<PRWithRequest> GetAllApproved()
         {
@@ -119,10 +138,7 @@ namespace PurchaseReq.DAL.Repos
                 .Select(item => GetRecord(item.Employee, item.Employee.Department.Division.Supervisor, item.Status, item.Category, item.BudgetCode, item));
         }
 
-        public PRWithRequest GetNewOrder(string EmployeeId)
-        {
-            throw new System.NotImplementedException();
-        }
+
 
 
         internal IEnumerable<Order> QueryAll() => Table.Include(x => x.Status)
@@ -130,7 +146,7 @@ namespace PurchaseReq.DAL.Repos
                 .Include(x => x.Employee).ThenInclude(x => x.Department)
                 .ThenInclude(x => x.Division)
                 .ThenInclude(x => x.Supervisor);
-        
+
 
         public PRWithRequest GetOrder(int? id)
         {
@@ -138,31 +154,37 @@ namespace PurchaseReq.DAL.Repos
             return QueryAll()
             .Select(item => GetRecord(item.Employee, item.Employee.Department.Division.Supervisor, item.Status, item.Category, item.BudgetCode, item))
             .SingleOrDefault(x => x.Id == id);
-
-            //var order = Table.SingleOrDefault(x => x.Id == id);
-
-            //var user = Context.Employees.Include(x => x.Department).ThenInclude(x => x.Division).ThenInclude(x => x.Supervisor).SingleOrDefault(x => x.Id == order.EmployeeId);
-
-            //var supervisor = Context.Employees.SingleOrDefault(x => x.Id == user.Department.Division.Supervisor.Id);
-
-            //var status = Context.Statuses.SingleOrDefault(x => order.StatusId == x.Id);
-
-            //var category = Context.Categories.SingleOrDefault(x => x.Id == order.CategoryId);
-
-            //var budget = Context.BudgetCodes.SingleOrDefault(x => x.Id == order.BudgetCodeId);
-
-            //return GetRecord(user, supervisor, status, category, budget, order);
         }
-        public PRWithRequest MoveToTheNextLifeCycle(int id)
-        {
-            throw new System.NotImplementedException();
-        }
+
 
         public IEnumerable<PRWithRequest> GetAllOrdered()
         {
             return QueryAll()
                 .Where(x => x.Status.StatusName == "Ordered")
                 .Select(item => GetRecord(item.Employee, item.Employee.Department.Division.Supervisor, item.Status, item.Category, item.BudgetCode, item));
+        }
+
+        //Start Functionality methods
+
+        public PRWithRequest GetNewOrder(string EmployeeId)
+        {
+            Order newOrder = new Order();
+            newOrder.StatusId = Context.Statuses.Where(x => x.StatusName == "Created").FirstOrDefault().Id;
+            newOrder.EmployeeId = EmployeeId;
+            Add(newOrder);
+
+            return GetOrder(newOrder.Id);
+        }
+
+        public PRWithRequest MoveToTheNextLifeCycle(int id)
+        {
+            Order order = Find(id);
+
+            if(order.StatusId != Context.Statuses.Last().Id)
+                order.StatusId = order.StatusId + 1;
+
+            Update(order);
+            return GetOrder(order.Id);
         }
     }
 }

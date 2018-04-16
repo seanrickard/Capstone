@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PurchaseReq.DAL.Repos.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using PurchaseReq.Models.Entities;
 
 namespace PurchaseReq.Service.Controllers
 {
@@ -105,6 +102,54 @@ namespace PurchaseReq.Service.Controllers
             return Ok(Repo.GetAllCreatedForUser(employeeId));
         }
 
+        [HttpGet("{employeeId}")]
+        public IActionResult GetNewOrder(string employeeId)
+        {
+            var item = Repo.GetNewOrder(employeeId);
+            if (item == null)
+            {
+                return BadRequest();
+            }
 
+            return Json(item);
+        }
+
+        [HttpGet("{orderId}")]
+        public IActionResult MoveOrderLifeCycleUp(int orderId)
+        {
+            var item = Repo.MoveToTheNextLifeCycle(orderId);
+            if(item == null)
+            {
+                return BadRequest();
+            }
+
+            return Json(item);
+        }
+
+        //Shouldn't Need to use these (Create & Update)
+        //Just here in case or as convience
+        [HttpPost]
+        public IActionResult Create([FromBody] Order model)
+        {
+            if (model == null || !ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            Repo.Add(model);
+            return CreatedAtAction("Create", model);
+        }
+
+        [HttpPut("{orderId}")]
+        public IActionResult Update(int orderId, [FromBody] Order model)
+        {
+            if (model == null || orderId != model.Id || !ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            Repo.Update(model);
+            return CreatedAtAction("Update", model);
+        }
     }
 }
