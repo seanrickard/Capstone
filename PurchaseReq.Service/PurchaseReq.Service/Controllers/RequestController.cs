@@ -24,7 +24,7 @@ namespace PurchaseReq.Service.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var item = _repo.Find(id);
+            var item = _repo.GetRequest(id);
             if (item == null)
             {
                 return NotFound();
@@ -60,16 +60,13 @@ namespace PurchaseReq.Service.Controllers
         [HttpGet("{orderId}")]
         public IActionResult GetAllForOrder(int orderId)
         {
-            return Ok(_repo.GetAllRequestForOrder(orderId));
+            return Ok(_repo.GetAllForOrder(orderId));
         }
 
         [HttpGet("{orderId}")]
         public IActionResult GetAllChoosenForOrder(int orderId)
         {
-
             return Ok(_repo.GetAllChoosenForOrder(orderId));
         }
-
-
     }
 }

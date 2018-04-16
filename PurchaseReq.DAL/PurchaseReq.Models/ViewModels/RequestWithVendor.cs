@@ -35,13 +35,17 @@ namespace PurchaseReq.Models.ViewModels
 
         public List<Attachment> Attachments { get; set; } = new List<Attachment>();
 
-        public Item Item { get; set; }
+        [DataType(DataType.Text), MaxLength(50)]
+        public string ItemName { get; set; }
+
+        [DataType(DataType.Text), MaxLength(200)]
+        public string Description { get; set; }
 
         public int ItemId { get; set; }
 
         public string ReasonChosen { get; set; }
 
-        public VendorWithAddress Vendor { get; set; }
+        public string VendorName { get; set; }
 
         public int VendorId { get; set; }
     }

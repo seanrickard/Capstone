@@ -1,17 +1,18 @@
 ﻿using PurchaseReq.DAL.Repos.Base;
 using PurchaseReq.Models.Entities;
+using PurchaseReq.Models.ViewModels;
 using System.Collections.Generic;
 
 namespace PurchaseReq.DAL.Repos.Interfaces
 {
     public interface IRequestRepo : IRepo<Request>
     {
-        Request GetRequestWithOrderAndAttachmentAndItemAndVendor(int? id);
+        RequestWithVendor GetRequest(int? id);
 
-        IEnumerable<Request> GetAllWithOrderAndAttachmentAndItemAndVendor();
+        IEnumerable<RequestWithVendor> GetAllForOrder(int orderId);
 
-        IEnumerable<Request> GetAllRequestForOrder(int orderId);
+        new IEnumerable<RequestWithVendor> GetAll();
 
-        IEnumerable<Request> GetAllChoosenForOrder(int orderId);
+        IEnumerable<RequestWithVendor> GetAllChoosenForOrder(int orderId);
     }
 }
