@@ -6,8 +6,10 @@ namespace PurchaseReq.DAL.Repos.Interfaces
 {
     public interface ISupervisorApproval : IRepo<SupervisorApproval>
     {
-        SupervisorApproval GetSupervisorApprovalWithApproval(int? id);
+        IEnumerable<SupervisorApproval> Get();
 
-        IEnumerable<SupervisorApproval> GetAllWithSupervisorApprovals();
+        SupervisorApproval Get(int id);
+
+        IEnumerable<SupervisorApproval> GetForOrder(int orderId);
     }
 }

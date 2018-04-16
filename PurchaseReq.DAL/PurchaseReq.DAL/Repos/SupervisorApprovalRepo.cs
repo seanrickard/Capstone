@@ -9,10 +9,19 @@ namespace PurchaseReq.DAL.Repos
 {
     public class SupervisorApprovalRepo : RepoBase<SupervisorApproval>, ISupervisorApproval
     {
-        public SupervisorApproval GetSupervisorApprovalWithApproval(int? id)
-            => Table.Include(x => x.Approval).FirstOrDefault(x => x.Id == id);
+        public IEnumerable<SupervisorApproval> Get()
+        {
+            return Table;
+        }
 
-        public IEnumerable<SupervisorApproval> GetAllWithSupervisorApprovals()
-            => Table.Include(x => x.Approval).ToList();
+        public SupervisorApproval Get(int id)
+        {
+            return Table.SingleOrDefault(x => x.Id == id);
+        }
+
+        public IEnumerable<SupervisorApproval> GetForOrder(int orderId)
+        {
+            return Table.Where(x => x.OrderId == orderId);
+        }
     }
 }
