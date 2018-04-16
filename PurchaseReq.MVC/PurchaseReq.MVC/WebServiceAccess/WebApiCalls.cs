@@ -11,7 +11,12 @@ using System.Threading.Tasks;
 namespace PurchaseReq.MVC.WebServiceAccess
 {
     public class WebApiCalls : WebApiCallsBase, IWebApiCalls
-    {
+    {    
+        public WebApiCalls(IWebServiceLocator settings ) : base(settings)
+        {
+
+        }
+
         public async Task<string> CreateAsync<T>(T input)
         {
             var json = JsonConvert.SerializeObject(input);
@@ -26,11 +31,6 @@ namespace PurchaseReq.MVC.WebServiceAccess
             return await SubmitPutRequestAsync(BaseUri + type + "/Update/" + id + "/", json);
         }
 
-    
-        public WebApiCalls(IWebServiceLocator settings ) : base(settings)
-        {
-
-        }
 
         //Campus
         public async Task<IList<CampusWithAddress>> GetCampusesAsync()
