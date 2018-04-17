@@ -179,12 +179,65 @@ namespace PurchaseReq.DAL.Repos
         public PRWithRequest MoveToTheNextLifeCycle(int id)
         {
             Order order = Find(id);
-
-            if(order.StatusId != Context.Statuses.Last().Id)
+            var Status = Context.Statuses.Find(order.StatusId);
+            if (Status.StatusName == "Waiting for Supervisor Approval")
+            {
+                order.StatusId = order.StatusId + 2;
+            }
+            else if(Status.StatusName == "Denied")
+            {
+                //Do Nothing
+                //Should never happen but defensive programming incase
+            }
+            else
+            {
                 order.StatusId = order.StatusId + 1;
+            }
 
             Update(order);
             return GetOrder(order.Id);
+        }
+
+        public PRWithRequest MoveToCFOStatus(int orderId)
+        {
+            Order order = Find(orderId);
+            var CFOStatus = Context.Statuses.Where(x => x.StatusName == "Waiting for CFO approval").FirstOrDefault();
+
+            if (order.StatusId < CFOStatus.Id)
+            {
+                order.StatusId = CFOStatus.Id;
+                Update(order);
+            }
+
+            return GetOrder(order.Id);
+        }
+
+        public PRWithRequest DenyOrder(int orderId)
+        {
+            Order order = Find(orderId);
+            var DenyStatus = Context.Statuses.Where(x => x.StatusName == "Denied").FirstOrDefault();
+
+            if (order.StatusId < DenyStatus.Id)
+            {
+                order.StatusId = DenyStatus.Id;
+                Update(order);
+            }
+
+            return GetOrder(order.Id);
+        }
+
+        public IEnumerable<PRWithRequest> GetDenied()
+        {
+            return QueryAll()
+                .Where(x => x.Status.StatusName == "Denied")
+                .Select(item => GetRecord(item.Employee, item.Employee.Department.Division.Supervisor, item.Status, item.Category, item.BudgetCode, item));
+        }
+
+        public IEnumerable<PRWithRequest> GetDenied(string employeeId)
+        {
+            return QueryAll()
+                .Where(x => x.Status.StatusName == "Denied" && x.EmployeeId == employeeId)
+                .Select(item => GetRecord(item.Employee, item.Employee.Department.Division.Supervisor, item.Status, item.Category, item.BudgetCode, item));
         }
     }
 }

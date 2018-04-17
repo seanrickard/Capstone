@@ -118,7 +118,7 @@ namespace PurchaseReq.Service.Controllers
         public IActionResult MoveOrderLifeCycleUp(int orderId)
         {
             var item = Repo.MoveToTheNextLifeCycle(orderId);
-            if(item == null)
+            if (item == null)
             {
                 return BadRequest();
             }
@@ -150,6 +150,40 @@ namespace PurchaseReq.Service.Controllers
 
             Repo.Update(model);
             return CreatedAtAction("Update", model);
+        }
+
+        [HttpGet]
+        public IActionResult GetDenied()
+        {
+            return Ok(Repo.GetDenied());
+        }
+
+        [HttpGet("{employeeId}")]
+        public IActionResult GetDenied(string employeeId)
+        {
+            return Ok(Repo.GetDenied(employeeId));
+        }
+
+        [HttpGet("{orderId}")]
+        public IActionResult DenyOrder(int orderId)
+        {
+            var item = Repo.DenyOrder(orderId);
+            if (item == null)
+            {
+                return BadRequest();
+            }
+            return Json(item);
+        }
+
+        [HttpGet("{orderId}")]
+        public IActionResult MoveToCFOStatus(int orderId)
+        {
+            var item = Repo.MoveToCFOStatus(orderId);
+            if (item == null)
+            {
+                return BadRequest();
+            }
+            return Json(item);
         }
     }
 }

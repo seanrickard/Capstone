@@ -42,5 +42,13 @@ namespace PurchaseReq.DAL.Repos.Interfaces
         //Increment status ID by 1
         PRWithRequest MoveToTheNextLifeCycle(int id);
 
+        PRWithRequest MoveToCFOStatus(int orderId);
+
+        PRWithRequest DenyOrder(int orderId);
+
+        IEnumerable<PRWithRequest> GetDenied();
+
+        IEnumerable<PRWithRequest> GetDenied(string employedId);
+
     }
 }
