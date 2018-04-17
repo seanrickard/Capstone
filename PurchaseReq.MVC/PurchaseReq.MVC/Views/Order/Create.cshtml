@@ -1,9 +1,67 @@
-﻿
+﻿@model PRWithRequest
+
 @{
     ViewData["Title"] = "CreateOrder";
 }
 
-<h2>Create Order</h2>
+<h2>Create New Order</h2>
 
-<label>Requested By:</label>
-<input />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="EmployeeFullName" class="control-label">Name</label>
+                <input asp-for="EmployeeFullName" class="form-control" readonly />
+                <span asp-validation-for="EmployeeFullName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+
+                <div class="form-group">
+                    <label asp-for="SupervisorFullName" class="control-label">Supervisor</label>
+                    <input asp-for="SupervisorFullName" class="form-control" readonly />
+                    <span asp-validation-for="SupervisorFullName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DateMade" class="control-label">Date</label>
+                    <input asp-for="DateMade" class="form-control" readonly />
+                    <span asp-validation-for="DateMade" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Budget Code</label>
+                    @Html.DropDownListFor(x => x.BudgetCodeId, new List<SelectListItem>(ViewBag.BudgetCodes))
+                    <span asp-validation-for="BudgetCodeId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Category</label>
+                    @Html.DropDownListFor(x => x.CategoryId, new List<SelectListItem>(ViewBag.Categories))
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="StateContract" /> @Html.DisplayNameFor(model => model.StateContract)
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group"
+                    <label asp-for="DateMade" class="control-label">Date</label>
+                    <input asp-for="DateMade" class="form-control" readonly />
+                    <span asp-validation-for="DateMade" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add New Item" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div></p>

@@ -16,6 +16,7 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         Task<CampusWithAddress> GetCampusAsync(int id);
         Task<IList<RoomWithCampus>> GetRoomsByCampusAsync(int id);
         Task<IList<Room>> GetRoomsAsync();
+        //Task<IList<PRWithRequest>> GetOrdersAsync();
 
         //Budget
         Task<IList<BudgetCodeWithAmount>> GetBudgetsAsync();
@@ -33,6 +34,10 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         //Request
         Task<IList<RequestWithVendor>> GetRequestWithVendors();
 
+        //Order
+        Task<PRWithRequest> GetNewOrder(string id);
+        Task<IList<Category>> GetCategoriesAsync();
+
         //Employee
         Task<IList<EmployeeWithDepartmentAndRoomAndRole>> GetEmployees();
         Task<IList<EmployeeWithDepartmentAndRoomAndRole>> GetEmployeeByDepartment(int id);
@@ -48,6 +53,8 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         Task<List<SelectListItem>> GetDepartmentsForDropDown();
         Task<List<SelectListItem>> GetRolesForDropdown();
         Task<List<SelectListItem>> GetRoomsForDropdown();
+        Task<List<SelectListItem>> GetBudgetCodesForDropDown();
+        Task<List<SelectListItem>> GetCategoriesForDropDown();
 
 
     }

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PurchaseReq.Models.ViewModels;
 using PurchaseReq.MVC.WebServiceAccess.Base;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PurchaseReq.MVC.Controllers
@@ -14,13 +13,15 @@ namespace PurchaseReq.MVC.Controllers
         {
             _webApiCalls = webApiCalls;
         }
-        // Needs work
-        public async Task<IActionResult> Index()
+        
+        public IActionResult AddItem(PRWithRequest request)
+        {           
+            return View(request);
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddItem(RequestWithVendor vm)
         {
-            IList<RequestWithVendor> requests;
-            requests = await _webApiCalls.GetRequestWithVendors();
-
-            return View(requests);
+            return View(vm);
         }
     }
 }

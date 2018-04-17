@@ -23,9 +23,12 @@ namespace PurchaseReq.MVC.Controllers
             return View(divisions);
         }
 
-        public IActionResult AddDivision()
+        public async Task<IActionResult> AddDivision()
         {
             DivisionWithSupervisor division = new DivisionWithSupervisor();
+
+            ViewBag.Supervisors = await _webApiCalls.GetSupervisorsForDropDown();
+
             return View(division);
         }
 

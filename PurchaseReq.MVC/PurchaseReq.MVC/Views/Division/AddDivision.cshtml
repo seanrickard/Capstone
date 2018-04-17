@@ -24,19 +24,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="SupervisorId" class="control-label">Supervisor</label>
-
-                @*<div class="form-group">
-            <label asp-for="SupervisorName"></label>
-            @Html.DropDownListFor(m => m.SupervisorName, (SelectList)ViewBag., "Pick a Supervisor", new { @class = "form-control" })
-            <span asp-validation-for="SupervisorName" class="text-danger"></span>
-        </div>
-        <span asp-validation-for="SupervisorId" class="text-danger"></span>*@
-
-                <div class="form-group">
-                    <label asp-for="SupervisorId" class="control-label"></label>
-                    <input asp-for="SupervisorId" class="form-control" />
-                    <span asp-validation-for="SupervisorId" class="text-danger"></span>
-                </div>
+                @Html.DropDownListFor(x => x.SupervisorId, new List<SelectListItem>(ViewBag.Supervisors));
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />

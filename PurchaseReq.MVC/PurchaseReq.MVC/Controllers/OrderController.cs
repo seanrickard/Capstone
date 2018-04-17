@@ -1,26 +1,53 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using PurchaseReq.Models.Entities;
 using PurchaseReq.Models.ViewModels;
+using PurchaseReq.MVC.WebServiceAccess.Base;
+using System.Threading.Tasks;
 
 namespace PurchaseReq.MVC.Controllers
 {
     public class OrderController : Controller
     {
-        public IActionResult PastOrders()
+        private readonly IWebApiCalls _webApiCalls;
+        private UserManager<Employee> _userManager;
+
+        public OrderController(IWebApiCalls webApiCalls, UserManager<Employee> userManager)
         {
-            IEnumerable<PRWithRequest> list = new List<PRWithRequest>();
-            return View(list);
+            _webApiCalls = webApiCalls;
+            _userManager = userManager;
         }
 
-        public IActionResult Create()
+        //public async Task<IActionResult> PastOrders()
+        //{
+        //    IList<PRWithRequest> orders;
+        //    orders = await _webApiCalls.GetOrdersAsync();
+        //    return View(orders);
+        //}
+
+        public async Task<IActionResult> Create()
         {
-            return View();
+            string id = _userManager.GetUserId(User);
+            var request = await _webApiCalls.GetNewOrder(id);
+            ViewBag.BudgetCodes = await _webApiCalls.GetBudgetCodesForDropDown();
+            ViewBag.Categories = await _webApiCalls.GetCategoriesForDropDown();
+            return View(request);
         }
 
-        public IActionResult Items()
+        [HttpPost]
+        public async Task<IActionResult> Create(PRWithRequest request)
+        {
+            RequestWithVendor req = new RequestWithVendor();
+
+            req.OrderId = request.Id;
+
+            return RedirectToAction("AddItem", "Request");
+        }
+
+
+
+
+        public IActionResult AddItem()
         {
             return View();
         }

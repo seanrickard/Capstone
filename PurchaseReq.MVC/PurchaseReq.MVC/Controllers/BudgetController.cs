@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PurchaseReq.Models.Entities;
 using PurchaseReq.Models.ViewModels;
 using PurchaseReq.MVC.WebServiceAccess.Base;
 using System.Collections.Generic;
@@ -22,5 +23,40 @@ namespace PurchaseReq.MVC.Controllers
           
             return View(budgets);
         }
+
+        public IActionResult AddBudgetCode()
+        {
+            BudgetCodeWithAmount bc = new BudgetCodeWithAmount();
+
+            return View(bc);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddBudgetCode(BudgetCodeWithAmount bc)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(bc);
+            }
+
+            var code = new BudgetCode()
+            {
+                BudgetCodeName = bc.BudgetCodeName,
+                DA = bc.DA,
+                Type = bc.Type,
+                BudgetAmounts = new List<BudgetAmount>
+                {
+                    new BudgetAmount
+                    {
+                        TotalAmount = bc.TotalAmount
+                    }
+                }
+            };
+            
+            var codeResult = await _webApiCalls.CreateAsync(code);
+
+            return RedirectToAction("Index");
+        }
+
     }
 }

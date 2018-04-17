@@ -53,24 +53,6 @@ namespace PurchaseReq.MVC.WebServiceAccess
             return await GetItemListAsync<Room>($"{GetRoomsBaseUri}");
         }
 
-        public async Task<List<SelectListItem>> GetRoomsForDropdown()
-        {
-            var groups = await GetRoomsAsync();
-
-            var ls = new List<SelectListItem>();
-
-            foreach (Room room in groups)
-            {
-                ls.Add(new SelectListItem
-                {
-                    Value = room.Id.ToString(),
-                    Text = room.RoomName
-                });
-            }
-            return ls;
-        }
-
-
         //Budget
         public async Task<IList<BudgetCodeWithAmount>> GetBudgetsAsync()
         {
@@ -93,26 +75,6 @@ namespace PurchaseReq.MVC.WebServiceAccess
             return await GetItemAsync<DivisionWithSupervisor>($"{DivisionWithSupervisorBaseUri}{id}");
         }
 
-        public async Task<List<SelectListItem>> GetDivisionsForDropDown()
-        {
-            var groups = await GetDivisionsAsync();
-
-            var ls = new List<SelectListItem>();
-
-            foreach(DivisionWithSupervisor d in groups)
-            {
-                ls.Add(new SelectListItem
-                {
-                    Value = d.Id.ToString(),
-                    Text = d.DivisionName
-                });
-            }
-            return ls;
-        }
-
-       
-
-
         //Department
         public async Task<IList<DepartmentWithDivision>> GetDepartmentsAsync()
         {
@@ -129,31 +91,25 @@ namespace PurchaseReq.MVC.WebServiceAccess
             return await GetItemListAsync<DepartmentWithDivision>($"{DepartmentByDivisionBaseUri}{id}");
         }
 
-        public async Task<List<SelectListItem>> GetDepartmentsForDropDown()
-        {
-            var groups = await GetDepartmentsAsync();
-
-            var ls = new List<SelectListItem>();
-
-            foreach (DepartmentWithDivision d in groups)
-            {
-                ls.Add(new SelectListItem
-                {
-                    Value = d.Id.ToString(),
-                    Text = d.DepartmentName
-                });
-            }
-            return ls;
-        }
-
         //Request
         public async Task<IList<RequestWithVendor>> GetRequestWithVendors()
         {
             return await GetItemListAsync<RequestWithVendor>(RequestWithVendorBaseUri);
         }
 
-        //Employee
+        //Order
+        public async Task<PRWithRequest> GetNewOrder(string id)
+        {
+            return await GetItemAsync<PRWithRequest>($"{GetNewOrderUri}{id}");
+        }
 
+        public async Task<IList<Category>> GetCategoriesAsync()
+        {
+            return await GetItemListAsync<Category>(GetCategoriesUri);
+        }
+
+
+        //Employee
         public async Task<IList<EmployeeWithDepartmentAndRoomAndRole>> GetEmployees()
         {
            return await GetItemListAsync<EmployeeWithDepartmentAndRoomAndRole>($"{GetEmployeeBaseUri}");
@@ -175,6 +131,30 @@ namespace PurchaseReq.MVC.WebServiceAccess
             return await GetItemListAsync<Employee>($"{GetSupervisorsBaseUri}");
         }
 
+        //Roles
+        public async Task<IList<IdentityRole>> GetRoles()
+        {
+            return await GetItemListAsync<IdentityRole>($"{GetRolesBaseUri}");
+        }
+
+        // Dropdowns
+        public async Task<List<SelectListItem>> GetRolesForDropdown()
+        {
+            var groups = await GetRoles();
+
+            var ls = new List<SelectListItem>();
+
+            foreach(IdentityRole role in groups)
+            {
+                ls.Add(new SelectListItem
+                {
+                    Value = role.Id,
+                    Text = role.Name
+                });
+            }
+            return ls;
+        }
+
         public async Task<List<SelectListItem>> GetSupervisorsForDropDown()
         {
             var groups = await GetSupervisors();
@@ -192,28 +172,91 @@ namespace PurchaseReq.MVC.WebServiceAccess
             return ls;
         }
 
-        //Roles
-        public async Task<IList<IdentityRole>> GetRoles()
+        public async Task<List<SelectListItem>> GetDepartmentsForDropDown()
         {
-            return await GetItemListAsync<IdentityRole>($"{GetRolesBaseUri}");
-        }
-
-        public async Task<List<SelectListItem>> GetRolesForDropdown()
-        {
-            var groups = await GetRoles();
+            var groups = await GetDepartmentsAsync();
 
             var ls = new List<SelectListItem>();
 
-            foreach(IdentityRole role in groups)
+            foreach (DepartmentWithDivision d in groups)
             {
                 ls.Add(new SelectListItem
                 {
-                    Value = role.Id,
-                    Text = role.Name
+                    Value = d.Id.ToString(),
+                    Text = d.DepartmentName
                 });
             }
             return ls;
         }
+
+        public async Task<List<SelectListItem>> GetDivisionsForDropDown()
+        {
+            var groups = await GetDivisionsAsync();
+
+            var ls = new List<SelectListItem>();
+
+            foreach (DivisionWithSupervisor d in groups)
+            {
+                ls.Add(new SelectListItem
+                {
+                    Value = d.Id.ToString(),
+                    Text = d.DivisionName
+                });
+            }
+            return ls;
+        }
+
+        public async Task<List<SelectListItem>> GetBudgetCodesForDropDown()
+        {
+            var groups = await GetBudgetsAsync();
+
+            var ls = new List<SelectListItem>();
+
+            foreach (BudgetCodeWithAmount d in groups)
+            {
+                ls.Add(new SelectListItem
+                {
+                    Value = d.Id.ToString(),
+                    Text = d.BudgetCodeName
+                });
+            }
+            return ls;
+        }
+
+        public async Task<List<SelectListItem>> GetRoomsForDropdown()
+        {
+            var groups = await GetRoomsAsync();
+
+            var ls = new List<SelectListItem>();
+
+            foreach (Room room in groups)
+            {
+                ls.Add(new SelectListItem
+                {
+                    Value = room.Id.ToString(),
+                    Text = room.RoomName
+                });
+            }
+            return ls;
+        }
+
+        public async Task<List<SelectListItem>> GetCategoriesForDropDown()
+          {
+            var groups = await GetCategoriesAsync();
+
+             var ls = new List<SelectListItem>();
+
+            foreach (Category cat in groups)
+            {
+                ls.Add(new SelectListItem
+                {
+                    Value = cat.Id.ToString(),
+                    Text = cat.CategoryName
+                });
+            }
+            return ls;
+        }
+
 
     }
 }

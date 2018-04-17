@@ -15,14 +15,14 @@ else
         <tr>
 
             <th>Date Created</th>
-            <th>User Name</th>
+            <th>Employee</th>
             <th>Supervisor</th>
             <th>Est. Amount</th>
             <th>Status</th>
             <th>Category</th>
             <th>Budget Code</th>
             <th>State Contract</th>
-
+            <th>Justification</th>
 
         </tr>
 
@@ -30,13 +30,14 @@ else
         {
 
         <tr>
-            @*<td>@pr.Status</td>
-            <td>@pr.Category</td>
-            <td>@pr.BudgetCode</td>
-            <td>@pr.DateMade</td>
-            <td>@pr.DateOrdered</td>
+            <td>@pr.EmployeeFullName</td>
+            <td>@pr.SupervisorFullName</td>
+            <td>needAmount</td>
+            <td>@pr.StatusName</td>
+            <td>@pr.CategoryName</td>
+            <td>@pr.BudgetCodeName</td>
             <td>@pr.StateContract</td>
-            <td>@pr.BusinessJustification</td>*@
+            <td>@pr.BusinessJustification</td>
 
 
             <td>
