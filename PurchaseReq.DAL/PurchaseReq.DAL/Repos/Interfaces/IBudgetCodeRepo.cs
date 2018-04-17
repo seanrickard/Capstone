@@ -8,11 +8,11 @@ namespace PurchaseReq.DAL.Repos.Interfaces
     public interface IBudgetCodeRepo : IRepo<BudgetCode>
     {
 
-        BudgetCode GetBudgetCodeWithBudgetAmount(int? id);
+        BudgetCodeWithAmount GetBudgetCodeWithBudgetAmount(int? id);
 
-        IEnumerable<BudgetCode> GetAllWithBudgetAmount();
+        IEnumerable<BudgetCodeWithAmount> GetAllWithBudgetAmount();
 
-        IEnumerable<BudgetCode> GetAllActiveBudgetCodes();
+        IEnumerable<BudgetCodeWithAmount> GetAllActiveBudgetCodes();
 
         IEnumerable<BudgetCodeWithAmount> GetRangeWithCurrentAmounts(int skip, int take);
 

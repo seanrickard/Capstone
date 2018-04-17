@@ -14,14 +14,17 @@ namespace PurchaseReq.DAL.Repos
     public class BudgetCodeRepo : RepoBase<BudgetCode>, IBudgetCodeRepo
     {
 
-        public BudgetCode GetBudgetCodeWithBudgetAmount(int? id)
-            => Table.Include(x => x.BudgetAmounts).SingleOrDefault(x => x.Id == id);
+        public BudgetCodeWithAmount GetBudgetCodeWithBudgetAmount(int? id)
+            => Table.Include(x => x.BudgetAmounts)
+            .Select(item => GetRecord(item, item.BudgetAmounts.Last()))
+            .SingleOrDefault();
 
-        public IEnumerable<BudgetCode> GetAllWithBudgetAmount()
-            => Table.Include(x => x.BudgetAmounts).ToList();
+        public IEnumerable<BudgetCodeWithAmount> GetAllWithBudgetAmount()
+            => Table.Include(x => x.BudgetAmounts).Select(item => GetRecord(item, item.BudgetAmounts.Last()));
 
-        public IEnumerable<BudgetCode> GetAllActiveBudgetCodes()
-            => Table.Include(x => x.BudgetAmounts).Where(x => x.Active == true).ToList();
+        public IEnumerable<BudgetCodeWithAmount> GetAllActiveBudgetCodes()
+            => Table.Include(x => x.BudgetAmounts).Where(x => x.Active == true)
+            .Select(item => GetRecord(item, item.BudgetAmounts.Last()));
 
         public IEnumerable<BudgetCodeWithAmount> GetAllWithCurrentAmount()
             => Table.Include(x => x.BudgetAmounts).Select(item => GetRecord(item, item.BudgetAmounts.Last()));
@@ -48,6 +51,6 @@ namespace PurchaseReq.DAL.Repos
             => GetAllWithCurrentAmount().Skip(skip).Take(take);
 
         public IEnumerable<BudgetCodeWithAmount> GetActive(int skip, int take)
-            => GetAllActiveBudgetCodes().Select(item => GetRecord(item, item.BudgetAmounts.Last())).Skip(skip).Take(take);
+            => GetAllActiveBudgetCodes().Skip(skip).Take(take);
     }
 }
