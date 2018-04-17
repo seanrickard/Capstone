@@ -39,7 +39,7 @@ namespace PurchaseReq.Models.Entities
         [InverseProperty(nameof(Attachment.Request))]
         public List<Attachment> Attachments { get; set; } = new List<Attachment>();
 
-        public int VendorId { get; set; }
+        public int? VendorId { get; set; }
 
         [ForeignKey(nameof(VendorId))]
         public Vendor Vendor { get; set; }
