@@ -185,5 +185,28 @@ namespace PurchaseReq.Service.Controllers
             }
             return Json(item);
         }
+
+        [HttpGet("{employeeId}")]
+        public IActionResult GetCancelled(string employeeId)
+        {
+            return Ok(Repo.GetAllCancelled(employeeId));
+        }
+
+        [HttpGet("{orderId}")]
+        public IActionResult CancellOrder(int orderId)
+        {
+            var item = Repo.CancelOrder(orderId);
+            if (item == null)
+            {
+                return BadRequest();
+            }
+            return Json(item);
+        }
+
+        [HttpGet("{employeeId}")]
+        public IActionResult GetPending(string employeeId)
+        {
+            return Ok(Repo.GetPendingForUser(employeeId));
+        }
     }
 }

@@ -40,15 +40,23 @@ namespace PurchaseReq.DAL.Repos.Interfaces
 
         //Moves the Order to the Next stage of the life cycle
         //Increment status ID by 1
+
+        IEnumerable<PRWithRequest> GetAllCancelled(string employeeId);
+
         PRWithRequest MoveToTheNextLifeCycle(int id);
 
         PRWithRequest MoveToCFOStatus(int orderId);
 
         PRWithRequest DenyOrder(int orderId);
 
+        PRWithRequest CancelOrder(int orderId);
+
         IEnumerable<PRWithRequest> GetDenied();
 
         IEnumerable<PRWithRequest> GetDenied(string employedId);
+
+        //Meaning both Waiting for Supervisor and CFO
+        IEnumerable<PRWithRequest> GetPendingForUser(string employeeId);
 
     }
 }

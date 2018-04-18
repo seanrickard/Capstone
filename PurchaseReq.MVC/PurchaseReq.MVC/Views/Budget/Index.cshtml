@@ -35,7 +35,11 @@ else
                 <td>@budgetCode.TotalAmount</td>
                 <td>
                     <a class="btn btn-sm btn-primary" asp-action="EditBudgetCode" asp-route-id="@budgetCode.Id">Edit</a>
-                    <a class="btn btn-sm btn-primary" asp-action="UpdateTotal" asp-route-id="@budgetCode.Id">UpdateTotal</a>
+
+                    @if (budgetCode.Type)
+                    {
+                        <a class="btn btn-sm btn-primary" asp-action="UpdateTotal" asp-route-id="@budgetCode.Id">Add New Budget Amount</a>
+                    }
                 </td>
             </tr>
         }

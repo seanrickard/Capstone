@@ -253,5 +253,33 @@ namespace PurchaseReq.DAL.Repos
                 .Where(x => x.Status.StatusName == "Denied" && x.EmployeeId == employeeId)
                 .Select(item => GetRecord(item.Employee, item.Employee.Department.Division.Supervisor, item.Status, item.Category, item.BudgetCode, item));
         }
+
+        public IEnumerable<PRWithRequest> GetAllCancelled(string employeeId)
+        {
+            return QueryAll()
+                .Where(x => x.Status.StatusName == "Cancelled" && x.EmployeeId == employeeId)
+                .Select(item => GetRecord(item.Employee, item.Employee.Department.Division.Supervisor, item.Status, item.Category, item.BudgetCode, item));
+        }
+
+        public PRWithRequest CancelOrder(int orderId)
+        {
+            Order order = Find(orderId);
+            var CancellStatus = Context.Statuses.Where(x => x.StatusName == "Cancelled").FirstOrDefault();
+
+            if (order.StatusId < CancellStatus.Id)
+            {
+                order.StatusId = CancellStatus.Id;
+                Update(order);
+            }
+
+            return GetOrder(order.Id);
+        }
+
+        public IEnumerable<PRWithRequest> GetPendingForUser(string employeeId)
+        {
+            return QueryAll()
+                    .Where(x => x.EmployeeId == employeeId).Where(x => x.Status.StatusName == "Waiting for Supervisor Approval" || x.Status.StatusName == "Waiting for CFO approval")
+                    .Select(item => GetRecord(item.Employee, item.Employee.Department.Division.Supervisor, item.Status, item.Category, item.BudgetCode, item));
+        }
     }
 }

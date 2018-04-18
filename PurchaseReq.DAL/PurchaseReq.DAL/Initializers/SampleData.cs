@@ -279,6 +279,10 @@ namespace PurchaseReq.DAL.Initializers
             new Status()
             {
                 StatusName = "Denied"
+            },
+            new Status()
+            {
+                StatusName = "Cancelled"
             }
         };
 
