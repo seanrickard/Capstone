@@ -7,6 +7,7 @@ namespace PurchaseReq.Models.ViewModels
     public class VendorWithAddress : EntityBase
     {
         [DataType(DataType.Text), MaxLength(20)]
+        [Display(Name = "Vendor")]
         public string VendorName { get; set; }
 
         [DataType(DataType.Text), MaxLength(20)]
@@ -24,6 +25,7 @@ namespace PurchaseReq.Models.ViewModels
 
         public string State { get; set; }
 
+        [Display(Name = "Street Address")]
         public string StreetAddress { get; set; }
 
         [MaxLength(10)]

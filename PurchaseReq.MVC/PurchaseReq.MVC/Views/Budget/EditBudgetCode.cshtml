@@ -10,9 +10,13 @@
     <div class="col-md-4">
         <form asp-action="EditBudgetCode">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
             <div class="form-group">
-                <label asp-for="BudgetCodeName" class="control-label">Name</label>
+                <label asp-for="DA" class="control-label"></label>
+                <input asp-for="DA" class="form-control" />
+                <span asp-validation-for="DA" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BudgetCodeName" class="control-label"></label>
                 <input asp-for="BudgetCodeName" class="form-control" />
                 <span asp-validation-for="BudgetCodeName" class="text-danger"></span>
             </div>
@@ -23,7 +27,6 @@
                     </label>
                 </div>
             </div>
-
             <div class="form-group">
                 <div class="checkbox">
                     <label>
@@ -32,11 +35,9 @@
                 </div>
             </div>
 
-
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
-
             @Html.HiddenFor(x => x.TotalAmount)
             @Html.HiddenFor(x => x.TimeStamp)
             @Html.HiddenFor(x => x.Id)

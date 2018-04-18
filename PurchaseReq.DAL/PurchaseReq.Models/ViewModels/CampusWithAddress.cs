@@ -8,6 +8,7 @@ namespace PurchaseReq.Models.ViewModels
     public class CampusWithAddress : EntityBase
     {
         [Required]
+        [Display(Name = "Name")]
         public string CampusName { get; set; }
 
         [DefaultValue(true)]
@@ -22,6 +23,7 @@ namespace PurchaseReq.Models.ViewModels
         public string State { get; set; }
 
         [Required]
+        [Display(Name = "Street Address")]
         public string StreetAddress { get; set; }
 
         [MaxLength(10)]

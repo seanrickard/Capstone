@@ -8,6 +8,7 @@ namespace PurchaseReq.Models.ViewModels
     public class EmployeeBudgetCodeViewModel : EntityBase
     {
 
+        [Display(Name = "Name")]
         public string EmployeeName { get; set; }
 
         [Required]
@@ -16,6 +17,7 @@ namespace PurchaseReq.Models.ViewModels
         [Required]
         public int BudgetCodeId { get; set; }
 
+        [Display(Name = "Budget Name")]
         public string BudgetCodeName { get; set; }
 
         [DefaultValue(true)]

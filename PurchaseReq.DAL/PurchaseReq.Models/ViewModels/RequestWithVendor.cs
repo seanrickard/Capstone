@@ -36,6 +36,7 @@ namespace PurchaseReq.Models.ViewModels
         public List<Attachment> Attachments { get; set; } = new List<Attachment>();
 
         [DataType(DataType.Text), MaxLength(50)]
+        [Display(Name = "Item Name")]
         public string ItemName { get; set; }
 
         [DataType(DataType.Text), MaxLength(200)]
@@ -43,8 +44,10 @@ namespace PurchaseReq.Models.ViewModels
 
         public int ItemId { get; set; }
 
+        [Display(Name = "Reason Chosen")]
         public string ReasonChosen { get; set; }
 
+        [Display(Name = "Vendor")]
         public string VendorName { get; set; }
 
         public int VendorId { get; set; }

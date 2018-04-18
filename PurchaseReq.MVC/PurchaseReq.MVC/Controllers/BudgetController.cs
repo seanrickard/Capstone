@@ -81,11 +81,8 @@ namespace PurchaseReq.MVC.Controllers
                 Active = code.Active,
                 BudgetCodeName = code.BudgetCodeName,
                 DA = code.DA,
+                Type = code.Type,
                 TimeStamp = code.TimeStamp,
-                BudgetAmounts = new List<BudgetAmount>
-                {
-                    new BudgetAmount { TotalAmount = code.TotalAmount}
-                }
             };
 
             var result = await _webApiCalls.UpdateAsync(code.Id, budget);

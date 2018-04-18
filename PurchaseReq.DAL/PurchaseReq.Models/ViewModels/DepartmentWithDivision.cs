@@ -7,6 +7,7 @@ namespace PurchaseReq.Models.ViewModels
     public class DepartmentWithDivision : EntityBase
     {
         [DataType(DataType.Text)]
+        [Display(Name = "Department")]
         public string DepartmentName { get; set; }
 
         [DefaultValue(true)]
@@ -15,6 +16,7 @@ namespace PurchaseReq.Models.ViewModels
         [Required]
         public int DivisionId { get; set; }
 
+        [Display(Name = "Division")]
         public string DivisonName { get; set; }
 
 

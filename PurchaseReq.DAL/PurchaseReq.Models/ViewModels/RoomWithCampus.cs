@@ -7,6 +7,7 @@ namespace PurchaseReq.Models.ViewModels
     public class RoomWithCampus : EntityBase
     {
         [Required]
+        [Display(Name = "Room Code")]
         public string RoomCode { get; set; }
 
         [Required]

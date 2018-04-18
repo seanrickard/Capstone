@@ -7,6 +7,7 @@ namespace PurchaseReq.Models.ViewModels
     public class DivisionWithSupervisor : EntityBase
     {
         [DataType(DataType.Text)]
+        [Display(Name = "Division")]
         public string DivisionName { get; set; }
 
         [DefaultValue(true)]
@@ -14,6 +15,7 @@ namespace PurchaseReq.Models.ViewModels
 
         public string SupervisorId { get; set; }
 
+        [Display(Name = "Supervisor")]
         public string SupervisorName { get; set; }
     }
 }
