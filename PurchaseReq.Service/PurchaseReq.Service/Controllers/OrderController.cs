@@ -69,7 +69,7 @@ namespace PurchaseReq.Service.Controllers
         [HttpGet("{supervisorId}")]
         public IActionResult GetWaitingSupervisor(string supervisorId)
         {
-            return Ok(Repo.GetAllWaitingForSupervisorForUser(supervisorId));
+            return Ok(Repo.GetAllWaitingForSupervisor(supervisorId));
         }
 
         [HttpGet]
