@@ -45,7 +45,7 @@
             <div class="form-group">
                 <label class="control-label">Department</label>
 
-                @Html.DropDownListFor(x => x.DepartmentId, new List<SelectListItem>(ViewBag.Departments))
+                @Html.DropDownListFor(x => x.DepartmentId, new List<SelectListItem>(ViewBag.Departments), new { @class = "form-control" })
 
                 <span asp-validation-for="DepartmentId" class="text-danger"></span>
             </div>
@@ -53,7 +53,7 @@
             <div class="form-group">
                 <label class="control-label">Room</label>
 
-                @Html.DropDownListFor(x => x.RoomId, new List<SelectListItem>(ViewBag.Rooms));
+                @Html.DropDownListFor(x => x.RoomId, new List<SelectListItem>(ViewBag.Rooms), new { @class = "form-control" })
 
                 <span asp-validation-for="RoomId" class="text-danger"></span>
             </div>
@@ -61,7 +61,7 @@
             <div class="form-group">
                 <label class="control-label">Role</label>
 
-                @Html.DropDownListFor(x => x.RoleId, new List<SelectListItem>(ViewBag.Roles));
+                @Html.DropDownListFor(x => x.RoleId, new List<SelectListItem>(ViewBag.Roles), new { @class = "form-control" })
 
                 <span asp-validation-for="RoleId" class="text-danger"></span>
             </div>

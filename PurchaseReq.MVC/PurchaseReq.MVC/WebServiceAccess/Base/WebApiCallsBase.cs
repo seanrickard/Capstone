@@ -40,12 +40,17 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         protected readonly string GetOrderUri;
         protected readonly string GetOrdersUri;
         protected readonly string IncrementStatusUri;
+        protected readonly string GetPendingUri;
+
 
 
         //Employee
         protected readonly string GetEmployeeByDepartmentBaseUri;
         protected readonly string GetEmployeeLoginBaseUri;        
         protected readonly string GetEmployeeBaseUri;
+
+        //Supervisor
+        protected readonly string GetSubmittedUri;
 
         //Roles
         protected readonly string GetRolesBaseUri;
@@ -89,6 +94,11 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
             GetOrderUri = $"{ServiceAddress}api/Order/Get/";
             GetOrdersUri = $"{ServiceAddress}api/Order/GetAll/";
             IncrementStatusUri = $"{ServiceAddress}api/Order/MoveOrderLifeCycleUp/";
+            GetPendingUri = $"{ServiceAddress}api/Order/GetPending/";
+
+
+            //Supervisor
+            GetSubmittedUri = $"{ServiceAddress}api/Order/GetWaitingSupervisor/";
 
             //Roles
             GetSupervisorsBaseUri = $"{ServiceAddress}api/Role/GetSupervisors";
