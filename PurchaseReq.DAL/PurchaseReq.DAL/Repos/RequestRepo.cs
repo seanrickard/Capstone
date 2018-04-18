@@ -41,25 +41,41 @@ namespace PurchaseReq.DAL.Repos
                         .SingleOrDefault(x => x.Id == id);
         }
 
-        internal RequestWithVendor GetRecord(Request r, Item i, Vendor v) => new RequestWithVendor
+        internal RequestWithVendor GetRecord(Request r, Item i, Vendor v)
         {
-            Id = r.Id,
-            TimeStamp = r.TimeStamp,
-            EstimatedTotal = r.EstimatedTotal,
-            Chosen = r.Chosen,
-            OrderId = r.OrderId,
-            PaidCost = r.PaidCost,
-            PaidTotal = r.PaidTotal,
-            ReasonChosen = r.ReasonChosen,
-            EstimatedCost = r.EstimatedCost,
-            QuantityRequested = r.QuantityRequested,
 
-            ItemName = i.ItemName,
-            Description = i.Description,
-            ItemId = i.Id,
+            var request = new RequestWithVendor
+            {
+                Id = r.Id,
+                EstimatedTotal = r.EstimatedTotal,
+                Chosen = r.Chosen,
+                OrderId = r.OrderId,
+                PaidCost = r.PaidCost,
+                PaidTotal = r.PaidTotal,
+                EstimatedCost = r.EstimatedCost,
+                QuantityRequested = r.QuantityRequested,
+                ItemName = i.ItemName,
+                Description = i.Description,
+                ItemId = i.Id,
+            };
 
-            VendorId = v.Id,
-            VendorName = v.VendorName,
-        };
+            if(r.ReasonChosen != null)
+            {
+                request.ReasonChosen = r.ReasonChosen;
+            }
+
+            if (r.TimeStamp != null)
+            {
+                request.TimeStamp = r.TimeStamp;
+            }
+
+
+            if (i != null)
+            {
+                request.VendorId = v.Id;
+                request.VendorName = v.VendorName;
+            }
+            return request;
+        }
     }
 }
