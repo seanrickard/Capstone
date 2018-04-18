@@ -37,7 +37,9 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         //Order
         Task<PRWithRequest> GetNewOrder(string id);
         Task<IList<Category>> GetCategoriesAsync();
+        Task<PRWithRequest> IncrementStatus(int id);
         Task<PRWithRequest> GetOrderAsync(int id);
+        Task<IList<PRWithRequest>> GetOrdersAsync(string id);
 
         //Employee
         Task<IList<EmployeeWithDepartmentAndRoomAndRole>> GetEmployees();

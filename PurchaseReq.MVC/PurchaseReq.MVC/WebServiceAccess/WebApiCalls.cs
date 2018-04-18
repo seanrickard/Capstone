@@ -113,6 +113,16 @@ namespace PurchaseReq.MVC.WebServiceAccess
             return await GetItemListAsync<Category>(GetCategoriesUri);
         }
 
+        public async Task<IList<PRWithRequest>> GetOrdersAsync(string id)
+        {
+            return await GetItemListAsync<PRWithRequest>($"{GetOrdersUri}{id}");
+        }
+
+        public async Task<PRWithRequest> IncrementStatus(int id)
+        {
+            return await GetItemAsync<PRWithRequest>($"{IncrementStatusUri}{id}");
+        }
+
 
         //Employee
         public async Task<IList<EmployeeWithDepartmentAndRoomAndRole>> GetEmployees()

@@ -30,6 +30,13 @@
                 </div>
 
                 <div class="form-group">
+                    <label asp-for="BusinessJustification" class="control-label"></label>
+                    <input asp-for="BusinessJustification" class="form-control"  />
+                    <span asp-validation-for="BusinessJustification" class="text-danger"></span>
+                </div>
+
+
+                <div class="form-group">
                     <label class="control-label">Budget Code</label>
                     @Html.DropDownListFor(x => x.BudgetCodeId, new List<SelectListItem>(ViewBag.BudgetCodes))
                     <span asp-validation-for="BudgetCodeId" class="text-danger"></span>
@@ -49,11 +56,6 @@
                     </div>
                 </div>
 
-                <div class="form-group"
-                    <label asp-for="DateMade" class="control-label">Date</label>
-                    <input asp-for="DateMade" class="form-control" readonly />
-                    <span asp-validation-for="DateMade" class="text-danger"></span>
-                </div>
             </div>
                  
                 <a asp-controller="Request" asp-action="AddItem" asp-route-orderId="@Model.Id" class="btn btn-default">Add New Item</a>
