@@ -12,31 +12,29 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="BudgetCodeName" class="control-label">Name</label>
-                <input asp-for="BudgetCodeName" class="form-control" />
+                <input asp-for="BudgetCodeName" class="form-control" readonly />
                 <span asp-validation-for="BudgetCodeName" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="DA" class="control-label">DA Code</label>
-                <input asp-for="DA" class="form-control" />
+                <input asp-for="DA" class="form-control" readonly />
                 <span asp-validation-for="DA" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="TotalAmount" class="control-label">Total Amount</label>
-                <input asp-for="TotalAmount" class="form-control" />
+                <input asp-for="TotalAmount" class="form-control"  />
                 <span asp-validation-for="TotalAmount" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <div class="checkbox">
-                    <label>
-                        <input asp-for="Type" /> @Html.DisplayNameFor(model => model.Type)
-                    </label>
+                    <input asp-for="Type" onclick="return false;"/> @Html.DisplayNameFor(model => model.Type)
                 </div>
             </div>
-           
+
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Submit" class="btn btn-default" />
             </div>
         </form>
     </div>

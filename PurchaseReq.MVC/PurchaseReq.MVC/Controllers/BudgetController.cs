@@ -58,5 +58,67 @@ namespace PurchaseReq.MVC.Controllers
             return RedirectToAction("Index");
         }
 
+
+        public async Task<IActionResult> EditBudgetCode(int id)
+        {
+            BudgetCodeWithAmount code = await _webApiCalls.GetBudgetAsync(id);
+
+             return View(code);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditBudgetCode(BudgetCodeWithAmount code)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(code);
+            }
+
+            var budget = new BudgetCode()
+            {
+
+                Id = code.Id,
+                Active = code.Active,
+                BudgetCodeName = code.BudgetCodeName,
+                DA = code.DA,
+                TimeStamp = code.TimeStamp,
+                BudgetAmounts = new List<BudgetAmount>
+                {
+                    new BudgetAmount { TotalAmount = code.TotalAmount}
+                }
+            };
+
+            var result = await _webApiCalls.UpdateAsync(code.Id, budget);
+
+            return RedirectToAction("Index");
+
+        }
+
+        public async Task<IActionResult> UpdateTotal(int id)
+        {
+            BudgetCodeWithAmount code = await _webApiCalls.GetBudgetAsync(id);
+
+            return View(code);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateTotal(BudgetCodeWithAmount code)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(code);
+            }
+
+            var budget = new BudgetAmount()
+            {
+                BudgetCodeId = code.Id,
+                TotalAmount = code.TotalAmount,
+            };
+
+            var result = await _webApiCalls.CreateAsync( budget );
+
+            return RedirectToAction("Index");
+
+        }
     }
 }

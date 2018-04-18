@@ -26,8 +26,9 @@
 
             <div class="form-group">
                 <div class="checkbox">
-                        <label asp-for="BudgetCodeName" class="control-label">Annual Budget</label>
+                    <label>
                         <input asp-for="Type" /> @Html.DisplayNameFor(model => model.Type)
+                    </label>
                 </div>
             </div>
 
@@ -36,6 +37,7 @@
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
 
+            @Html.HiddenFor(x => x.TotalAmount)
             @Html.HiddenFor(x => x.TimeStamp)
             @Html.HiddenFor(x => x.Id)
         </form>
