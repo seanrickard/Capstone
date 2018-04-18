@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using PurchaseReq.DAL.EF;
+﻿using PurchaseReq.DAL.EF;
 using PurchaseReq.DAL.Initializers;
 using PurchaseReq.Models.Entities;
 using System;
@@ -37,19 +35,21 @@ namespace PurchaseReq.DAL.Tests.ContextTests.UsersTests
         [Fact]
         public void AddEmployee()
         {
+            var count = _db.Employees.Count();
             _db.Employees.Add(new Employee { FirstName = "Bob", LastName = "Bobnby", Active = true});
             _db.SaveChanges();
-            Assert.Equal(9, _db.Employees.Count());
+            Assert.Equal(count + 1, _db.Employees.Count());
         }
 
 
         [Fact]
         public void DeleteEmployee()
         {
+            var count = _db.Employees.Count();
             Employee employee = (Employee)_db.Employees.Where(x => x.FirstName == "David").ToList().First();
             _db.Employees.Remove(employee);
             _db.SaveChanges();
-            Assert.Equal(7, _db.Employees.Count());
+            Assert.Equal(count - 1, _db.Employees.Count());
         }
 
         [Fact]
