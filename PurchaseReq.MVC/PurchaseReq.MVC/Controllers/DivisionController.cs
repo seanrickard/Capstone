@@ -26,7 +26,6 @@ namespace PurchaseReq.MVC.Controllers
         public async Task<IActionResult> AddDivision()
         {
             DivisionWithSupervisor division = new DivisionWithSupervisor();
-
             ViewBag.Supervisors = await _webApiCalls.GetSupervisorsForDropDown();
 
             return View(division);
@@ -43,8 +42,6 @@ namespace PurchaseReq.MVC.Controllers
             {
                 DivisionName = division.DivisionName,
                 SupervisorId = division.SupervisorId,
-                Active = division.Active
-
             };
 
             var result = await _webApiCalls.CreateAsync(dv);

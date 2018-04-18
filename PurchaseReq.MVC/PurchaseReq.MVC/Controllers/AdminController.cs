@@ -93,7 +93,7 @@ namespace PurchaseReq.MVC.Controllers
                 return RedirectToAction("UserManagement", _userManager.Users);
             }
 
-            var vm = new PasswordEmployeeViewModel() { Id = user.Id, FirstName = user.FirstName, LastName = user.LastName };
+            var vm = new PasswordEmployeeViewModel() { Id = user.Id, FirstName = user.FirstName, LastName = user.LastName, Email = user.Email, Active = user.Active };
 
 
             ViewBag.Departments = await _webApiCalls.GetDepartmentsForDropDown();
@@ -115,6 +115,7 @@ namespace PurchaseReq.MVC.Controllers
                 user.DepartmentId = emp.DepartmentId;
                 user.RoomId = emp.RoomId;
                 user.Active = emp.Active;
+                user.Email = emp.Email;
 
             }
 
