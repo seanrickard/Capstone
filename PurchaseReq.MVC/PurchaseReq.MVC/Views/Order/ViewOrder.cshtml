@@ -56,10 +56,25 @@
     </div>
     @if (Model.RequestsWithVendor.Any())
     {
+    <table class="table">
+        <tr>
+            <th>Quantity Requested</th>
+            <th>Item Name</th>
+            <th>Description</th>
+            <th>Estimated Cost</th>
+            <th>Estimated Total</th>
+        </tr>
+
         @foreach (RequestWithVendor req in Model.RequestsWithVendor)
         {
-
-            <div class="form-group">
+        <tr>
+            <td>@req.QuantityRequested</td>
+            <td>@req.ItemName</td>
+            <td>@req.Description</td>
+            <td>@req.EstimatedCost</td>
+            <td>@req.EstimatedTotal</td>
+        </tr>
+            @*<div class="form-group">
                 <label asp-for="@req.QuantityRequested" class="control-label">Category</label>
                 <input asp-for="@req.QuantityRequested" class="form-control" readonly />
             </div>
@@ -82,8 +97,10 @@
             <div class="form-group">
                 <label asp-for="@req.EstimatedTotal" class="control-label">Category</label>
                 <input asp-for="@req.EstimatedTotal" class="form-control" readonly />
-            </div>
+            </div>*@
         }
+    </table>
+
     }
 
 </div>

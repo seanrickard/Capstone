@@ -70,7 +70,7 @@ namespace PurchaseReq.DAL.Repos
             }
 
 
-            if (i != null)
+            if (v != null)
             {
                 request.VendorId = v.Id;
                 request.VendorName = v.VendorName;
