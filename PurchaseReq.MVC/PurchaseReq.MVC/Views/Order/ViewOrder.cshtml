@@ -39,7 +39,7 @@
                 <div class="form-group">
                     <div class="checkbox">
                         <label>
-                            <input asp-for="StateContract" onclick="return false;"  /> @Html.DisplayNameFor(model => model.StateContract)
+                            <input asp-for="StateContract" onclick="return false;" /> @Html.DisplayNameFor(model => model.StateContract)
                         </label>
                     </div>
                 </div>
@@ -56,51 +56,30 @@
     </div>
     @if (Model.RequestsWithVendor.Any())
     {
-    <table class="table">
-        <tr>
-            <th>Quantity Requested</th>
-            <th>Item Name</th>
-            <th>Description</th>
-            <th>Estimated Cost</th>
-            <th>Estimated Total</th>
-        </tr>
+        <table class="table">
+            <tr>
+                <th>Quantity Requested</th>
+                <th>Item Name</th>
+                <th>Description</th>
+                <th>Estimated Cost</th>
+                <th>Estimated Total</th>
+            </tr>
 
-        @foreach (RequestWithVendor req in Model.RequestsWithVendor)
-        {
-        <tr>
-            <td>@req.QuantityRequested</td>
-            <td>@req.ItemName</td>
-            <td>@req.Description</td>
-            <td>@req.EstimatedCost</td>
-            <td>@req.EstimatedTotal</td>
-        </tr>
-            @*<div class="form-group">
-                <label asp-for="@req.QuantityRequested" class="control-label">Category</label>
-                <input asp-for="@req.QuantityRequested" class="form-control" readonly />
-            </div>
+            @foreach (RequestWithVendor req in Model.RequestsWithVendor)
+            {
+                <tr>
+                    <td>@req.QuantityRequested</td>
+                    <td>@req.ItemName</td>
+                    <td>@req.Description</td>
+                    <td>@req.EstimatedCost</td>
+                    <td>@req.EstimatedTotal</td>
+                </tr>
 
-            <div class="form-group">
-                <label asp-for="@req.ItemName" class="control-label">Category</label>
-                <input asp-for="@req.ItemName" class="form-control" readonly />
-            </div>
+            }
 
-            <div class="form-group">
-                <label asp-for="@req.Description" class="control-label">Category</label>
-                <input asp-for="@req.Description" class="form-control" readonly />
-            </div>
-
-            <div class="form-group">
-                <label asp-for="@req.EstimatedCost" class="control-label">Category</label>
-                <input asp-for="@req.EstimatedCost" class="form-control" readonly />
-            </div>
-
-            <div class="form-group">
-                <label asp-for="@req.EstimatedTotal" class="control-label">Category</label>
-                <input asp-for="@req.EstimatedTotal" class="form-control" readonly />
-            </div>*@
-        }
-    </table>
-
+        </table>
+        <a asp-controller="Request" asp-action="AddItem" asp-route-orderId="@Model.Id" class="btn btn-default">Add New Item</a>
+        <a asp-controller="Order" asp-action="UpdateStatus" asp-route-id="@Model.Id" class="btn btn-default">Submit</a>
     }
 
 </div>
