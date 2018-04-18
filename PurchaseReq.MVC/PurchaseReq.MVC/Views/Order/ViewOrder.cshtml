@@ -1,0 +1,89 @@
+﻿@model PRWithRequest
+
+<h2>View Order</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="EmployeeFullName" class="control-label">Name</label>
+                <input asp-for="EmployeeFullName" class="form-control" readonly />
+                <span asp-validation-for="EmployeeFullName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+
+                <div class="form-group">
+                    <label asp-for="SupervisorFullName" class="control-label">Supervisor</label>
+                    <input asp-for="SupervisorFullName" class="form-control" readonly />
+                    <span asp-validation-for="SupervisorFullName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DateMade" class="control-label">Date</label>
+                    <input asp-for="DateMade" class="form-control" readonly />
+                    <span asp-validation-for="DateMade" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="BudgetCodeName" class="control-label">Budget Code</label>
+                    <input asp-for="BudgetCodeName" class="form-control" readonly />
+
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="CategoryName" class="control-label">Category</label>
+                    <input asp-for="CategoryName" class="form-control" readonly />
+                </div>
+
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="StateContract" onclick="return false;"  /> @Html.DisplayNameFor(model => model.StateContract)
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group"
+                        <label asp-for="DateMade" class="control-label">Date</label>
+                        <input asp-for="DateMade" class="form-control" readonly />
+                        <span asp-validation-for="DateMade" class="text-danger"></span>
+                    </div>
+
+
+            </div>
+        </form>
+    </div>
+    @if (Model.RequestsWithVendor.Any())
+    {
+        @foreach (RequestWithVendor req in Model.RequestsWithVendor)
+        {
+
+            <div class="form-group">
+                <label asp-for="@req.QuantityRequested" class="control-label">Category</label>
+                <input asp-for="@req.QuantityRequested" class="form-control" readonly />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@req.ItemName" class="control-label">Category</label>
+                <input asp-for="@req.ItemName" class="form-control" readonly />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@req.Description" class="control-label">Category</label>
+                <input asp-for="@req.Description" class="form-control" readonly />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@req.EstimatedCost" class="control-label">Category</label>
+                <input asp-for="@req.EstimatedCost" class="form-control" readonly />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@req.EstimatedTotal" class="control-label">Category</label>
+                <input asp-for="@req.EstimatedTotal" class="form-control" readonly />
+            </div>
+        }
+    }
+
+</div>

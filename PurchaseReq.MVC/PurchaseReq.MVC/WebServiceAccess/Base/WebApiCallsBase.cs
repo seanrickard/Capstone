@@ -37,6 +37,8 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         //Order
         protected readonly string GetNewOrderUri;
         protected readonly string GetCategoriesUri;
+        protected readonly string GetOrderUri;
+
 
         //Employee
         protected readonly string GetEmployeeByDepartmentBaseUri;
@@ -82,6 +84,7 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
             //Order
             GetNewOrderUri = $"{ServiceAddress}api/Order/GetNewOrder/";
             GetCategoriesUri = $"{ServiceAddress}api/Category/Get/";
+            GetOrderUri = $"{ServiceAddress}api/Order/Get/";
 
             //Roles
             GetSupervisorsBaseUri = $"{ServiceAddress}api/Role/GetSupervisors";

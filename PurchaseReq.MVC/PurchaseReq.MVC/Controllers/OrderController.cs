@@ -37,13 +37,21 @@ namespace PurchaseReq.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(PRWithRequest request)
         {
-            RequestWithVendor req = new RequestWithVendor();
-
-            req.OrderId = request.Id;
+            RequestWithVendor req = new RequestWithVendor
+            {
+                OrderId = request.Id
+            };
 
             return RedirectToAction("AddItem", "Request");
         }
 
+        public async Task<IActionResult> ViewOrder(int id)
+        {
+            PRWithRequest order =  await _webApiCalls.GetOrderAsync(id);
+
+            
+            return View(order);
+        }
 
 
 

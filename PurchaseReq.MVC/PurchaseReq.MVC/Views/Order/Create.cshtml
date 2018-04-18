@@ -55,9 +55,9 @@
                     <span asp-validation-for="DateMade" class="text-danger"></span>
                 </div>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Add New Item" class="btn btn-default" />
-            </div>
+                 
+                <a asp-controller="Request" asp-action="AddItem" asp-route-orderId="@Model.Id" class="btn btn-default">Add New Item</a>
+            
         </form>
     </div>
 </div>
