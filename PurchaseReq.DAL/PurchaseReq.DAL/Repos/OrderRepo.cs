@@ -10,6 +10,13 @@ namespace PurchaseReq.DAL.Repos
 {
     public class OrderRepo : RepoBase<Order>, IOrderRepo
     {
+        public IRequestRepo RequestRepo { get; }
+
+        public OrderRepo(IRequestRepo requestRepo) : base()
+        {
+            RequestRepo = requestRepo;
+        }
+
         internal PRWithRequest GetRecord(Employee user, Employee supervisor, Status status, Category c, BudgetCode bc, Order o)
         {
             //BusinessJustification & DateOrdered && CategoryId && BudgetCodeId
@@ -21,6 +28,7 @@ namespace PurchaseReq.DAL.Repos
                 StateContract = o.StateContract,
                 StatusId = status.Id,
                 StatusName = status.StatusName,
+                RequestsWithVendor = RequestRepo.GetAllForOrder(o.Id).ToList()
             };
 
             if(o.TimeStamp != null)
