@@ -20,7 +20,7 @@ namespace PurchaseReq.DAL.Repos
         internal PRWithRequest GetRecord(Employee user, Employee supervisor, Status status, Category c, BudgetCode bc, Order o)
         {
             //BusinessJustification & DateOrdered && CategoryId && BudgetCodeId
-            var request = new PRWithRequest() {
+            var order = new PRWithRequest() {
                 Id = o.Id,
                 BusinessJustification = o.BusinessJustification,
                 DateMade = o.DateMade,
@@ -28,38 +28,44 @@ namespace PurchaseReq.DAL.Repos
                 StateContract = o.StateContract,
                 StatusId = status.Id,
                 StatusName = status.StatusName,
-                RequestsWithVendor = RequestRepo.GetAllForOrder(o.Id).ToList()
             };
 
-            if(o.TimeStamp != null)
+            var request = RequestRepo.GetAllForOrder(o.Id).ToList();
+
+            if(request.Count > 0)
             {
-                request.TimeStamp = o.TimeStamp;
+                order.RequestsWithVendor = request;
+            }
+
+            if (o.TimeStamp != null)
+            {
+                    order.TimeStamp = o.TimeStamp;
             }
 
             if(user != null)
             {
-                request.EmployeeFullName = user.FullName;
-                request.EmployeeId = user.Id;
+                order.EmployeeFullName = user.FullName;
+                order.EmployeeId = user.Id;
             }
 
             if(supervisor != null)
             {
-                request.SupervisorId = supervisor.Id;
-                request.SupervisorFullName = supervisor.FullName;
+                order.SupervisorId = supervisor.Id;
+                order.SupervisorFullName = supervisor.FullName;
             }
 
 
             if(bc != null){
-                request.BudgetCodeId = bc.Id;
-                request.BudgetCodeName = bc.BudgetCodeName;
+                order.BudgetCodeId = bc.Id;
+                order.BudgetCodeName = bc.BudgetCodeName;
             }
 
             if(c != null){
-                request.CategoryId = c.Id;
-                request.CategoryName = c.CategoryName;
+                order.CategoryId = c.Id;
+                order.CategoryName = c.CategoryName;
             }
 
-            return request;
+            return order;
         }
 
         public IEnumerable<PRWithRequest> GetAllApproved()
