@@ -43,6 +43,7 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         Task<PRWithRequest> GetOrderAsync(int id);
         Task<IList<PRWithRequest>> GetOrdersAsync(string id);
         Task<IList<PRWithRequest>> GetPendingOrdersAsync(string id);
+        Task<PRWithRequest> MoveToCFOStatus(int id);
 
 
         //Employee

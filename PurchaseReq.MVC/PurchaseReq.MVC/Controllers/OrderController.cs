@@ -20,6 +20,7 @@ namespace PurchaseReq.MVC.Controllers
             _userManager = userManager;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Create()
         {
             string id = _userManager.GetUserId(User);
@@ -29,15 +30,74 @@ namespace PurchaseReq.MVC.Controllers
             return View(request);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(PRWithRequest request)
+        [HttpPost("{id}")]
+        public async Task<IActionResult> Create(int id, PRWithRequest request)
         {
-            RequestWithVendor req = new RequestWithVendor
+
+
+            if (!ModelState.IsValid)
             {
-                OrderId = request.Id
+                ViewBag.BudgetCodes = await _webApiCalls.GetBudgetCodesForDropDown();
+                ViewBag.Categories = await _webApiCalls.GetCategoriesForDropDown();
+                return View(request);
+            }
+
+
+            var order = new Order()
+            {
+                Id = request.Id,
+                DateMade = request.DateMade,
+                EmployeeId = request.EmployeeId,
+                StatusId = request.StatusId,
+                BusinessJustification = request.BusinessJustification,
+                CategoryId = request.CategoryId,
+                BudgetCodeId = request.BudgetCodeId,
+                StateContract = request.StateContract,
+                TimeStamp = request.TimeStamp
             };
 
-            return RedirectToAction("AddItem", "Request");
+
+            var result = await _webApiCalls.UpdateAsync(order.Id, order);
+
+
+            RequestWithVendor req = new RequestWithVendor
+            {
+                OrderId = request.Id,
+            };
+
+            return RedirectToAction("AddItem", "Request", new { orderId = req.OrderId });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditOrder(int id)
+        {
+            var request = await _webApiCalls.GetOrderAsync(id);
+            ViewBag.BudgetCodes = await _webApiCalls.GetBudgetCodesForDropDown();
+            ViewBag.Categories = await _webApiCalls.GetCategoriesForDropDown();
+
+            return View(request);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditOrder(PRWithRequest request)
+        {
+            var order = new Order()
+            {
+                Id = request.Id,
+                DateMade = request.DateMade,
+                EmployeeId = request.EmployeeId,
+                StatusId = request.StatusId,
+                BusinessJustification = request.BusinessJustification,
+                CategoryId = request.CategoryId,
+                BudgetCodeId = request.BudgetCodeId,
+                StateContract = request.StateContract,
+                TimeStamp = request.TimeStamp
+            };
+
+
+            var result = await _webApiCalls.UpdateAsync(order.Id, order);
+
+            return RedirectToAction("ViewOrders");
         }
 
         public async Task<IActionResult> ViewOrder(int id)
@@ -46,6 +106,15 @@ namespace PurchaseReq.MVC.Controllers
 
             
             return View(order);
+        }
+
+        public async Task<IActionResult> ViewOrders()
+        {
+            string id = _userManager.GetUserId(User);
+
+            IList<PRWithRequest> orders = await _webApiCalls.GetOrdersAsync(id);
+
+            return View(orders);
         }
 
         public async Task<IActionResult> UpdateStatus(int id)
@@ -79,7 +148,7 @@ namespace PurchaseReq.MVC.Controllers
 
             IList<PRWithRequest> orders = await _webApiCalls.GetPendingOrdersAsync(id);
 
-            return View("OrderList", orders);
+            return View("ViewOrders", orders);
         }
 
         public async Task<IActionResult> UpdateToCFO(int id)
@@ -112,7 +181,7 @@ namespace PurchaseReq.MVC.Controllers
 
             IList<PRWithRequest> orders = await _webApiCalls.GetOrdersAsync(id);
 
-            return View("OrderList", orders);
+            return View("ViewOrders", orders);
         }
 
         public async Task<IActionResult> UpdateToOrdered(int id)

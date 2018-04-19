@@ -40,8 +40,6 @@ namespace PurchaseReq.MVC.Controllers
 
         public async Task<IActionResult> OrderApproval(int id)
         {
-
-
             PRWithRequest req = await _webApiCalls.GetOrderAsync(id);
 
             return View(req);
@@ -63,9 +61,6 @@ namespace PurchaseReq.MVC.Controllers
             approval.UserRoleId = role.Id;
             var approvals = await _webApiCalls.GetApprovals();
             approval.ApprovalId = approvals.Where(x => x.ApprovalName == "Denied").FirstOrDefault().Id;
-
-
-
 
             return View(approval);
         }
@@ -90,6 +85,23 @@ namespace PurchaseReq.MVC.Controllers
             var result = await _webApiCalls.CreateAsync(app);
 
             return RedirectToAction("ViewSubmitted");
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> ApproveOrder(int id)
+        {
+            PRWithRequest req = await _webApiCalls.GetOrderAsync(id);
+
+            if(req.RequestsWithVendor.Any( x => x.EstimatedTotal > 3000) && req.StateContract == false)
+            {
+                PRWithRequest order = await _webApiCalls.MoveToCFOStatus(id);
+                return RedirectToAction("ViewSubmitted");
+            }
+            else
+            {
+                PRWithRequest order = await _webApiCalls.IncrementStatus(id);
+                return RedirectToAction("ViewSubmitted");
+            }
         }
     }
 }

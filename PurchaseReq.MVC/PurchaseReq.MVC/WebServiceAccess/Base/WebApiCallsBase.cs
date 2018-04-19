@@ -42,6 +42,7 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         protected readonly string GetOrderUri;
         protected readonly string GetOrdersUri;
         protected readonly string IncrementStatusUri;
+        protected readonly string CFOStatusUri;
         protected readonly string GetPendingUri;
 
 
@@ -106,6 +107,7 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
             GetOrderUri = $"{ServiceAddress}api/Order/Get/";
             GetOrdersUri = $"{ServiceAddress}api/Order/GetAll/";
             IncrementStatusUri = $"{ServiceAddress}api/Order/MoveOrderLifeCycleUp/";
+            CFOStatusUri = $"{ServiceAddress}api/Order/MoveToCFOStatus/";
             GetPendingUri = $"{ServiceAddress}api/Order/GetPending/";
 
 

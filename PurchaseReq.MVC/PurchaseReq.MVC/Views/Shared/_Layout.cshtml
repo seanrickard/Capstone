@@ -44,29 +44,29 @@
                     {
                         @await Component.InvokeAsync("AdminMenu")
                     }
-                    else if (SignInManager.IsSignedIn(User) && User.IsInRole("CFO"))
+                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("CFO"))
                     {
-                         @await Component.InvokeAsync("CFOMenu")
+                        @await Component.InvokeAsync("CFOMenu")
                     }
-                    else if (SignInManager.IsSignedIn(User) && User.IsInRole("Auditor"))
+                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Auditor"))
                     {
-                         @await Component.InvokeAsync("AuditorMenu") //needs created
+                        @await Component.InvokeAsync("AuditorMenu")
                     }
-                    else if (SignInManager.IsSignedIn(User) && User.IsInRole("Supervisor"))
+                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Supervisor"))
                     {
-                         @await Component.InvokeAsync("SupervisorMenu")
+                        @await Component.InvokeAsync("SupervisorMenu")
                     }
-                     else if (SignInManager.IsSignedIn(User) && User.IsInRole("Purchasing"))
+                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Purchasing"))
                     {
-                         @await Component.InvokeAsync("PurchasingDeptMenu")
+                        @await Component.InvokeAsync("PurchasingDeptMenu")
                     }
-                    else
+                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("User"))
                     {
                         @await Component.InvokeAsync("UserMenu")
                     }
-
+                 
                 </ul>
-               @await Html.PartialAsync("_LoginPartial")
+                @await Html.PartialAsync("_LoginPartial")
 
             </div>
         </div>

@@ -12,7 +12,20 @@ namespace PurchaseReq.MVC.Components
                     DisplayValue = "Pending Approval",
                     ActionValue = "ViewSubmitted",
                     ControllerValue = "Supervisor"
+                },
+                new SupervisorMenuItem()
+                {
+                    DisplayValue = "New Order",
+                    ActionValue = "Create",
+                    ControllerValue = "Order"
+                },
+                new SupervisorMenuItem()
+                {
+                    DisplayValue = "Order History",
+                    ActionValue = "Order",
+                     ControllerValue = "Order"
                 }};
+        
 
 
             return View(menuItems);

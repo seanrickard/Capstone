@@ -91,12 +91,8 @@
         </table>
 
         <form>
-            <div class="form-group">
-                <label asp-for="CategoryName" class="control-label">Category</label>
-                <input asp-for="CategoryName" class="form-control" readonly />
-            </div>
-
-            <a asp-controller="Supervisor" asp-action="ApproveOrder" asp-route-orderId="@Model.Id" class="btn btn-default">Approve</a>
+        
+            <a asp-controller="Supervisor" asp-action="ApproveOrder" asp-route-id="@Model.Id" class="btn btn-default">Approve</a>
             <a asp-controller="Supervisor" asp-action="DenyOrder" asp-route-id="@Model.Id" class="btn btn-default">Deny</a>
 
         </form>
