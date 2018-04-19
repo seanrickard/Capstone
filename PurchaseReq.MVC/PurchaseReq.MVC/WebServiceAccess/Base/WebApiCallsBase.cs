@@ -57,6 +57,9 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         protected readonly string GetSupervisorsBaseUri;
         protected readonly string BaseUri;
 
+        //Approval
+        protected readonly string GetApprovalBaseUri;
+
         protected WebApiCallsBase(IWebServiceLocator settings)
         {
             ServiceAddress = settings.ServiceAddress;
@@ -103,6 +106,9 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
             //Roles
             GetSupervisorsBaseUri = $"{ServiceAddress}api/Role/GetSupervisors";
             GetRolesBaseUri = $"{ServiceAddress}api/Role/Get/";
+
+            //Approval
+            GetApprovalBaseUri = $"{ServiceAddress}api/Approval/Get/";
         }
 
 

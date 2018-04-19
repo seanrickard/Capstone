@@ -55,6 +55,8 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         //Roles
         Task<IList<Employee>> GetSupervisors();
 
+        //Approval
+        Task<IList<Approval>> GetApprovals();
 
 
 

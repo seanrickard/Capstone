@@ -454,6 +454,7 @@ namespace PurchaseReq.DAL.Initializers
                 ApprovalId = 4,
                 OrderId = 1,
                 SupervisorId = Supervisors.Find(x => x.LastName.ToString().Equals("Gump")).Id,
+                UserRoleId = ""
             },
             new SupervisorApproval()
             {

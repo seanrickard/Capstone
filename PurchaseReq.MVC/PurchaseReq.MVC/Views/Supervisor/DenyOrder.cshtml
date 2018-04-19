@@ -1,28 +1,30 @@
 ﻿@model SupervisorApproval
 
-
 @{
     ViewData["Title"] = "DenyOrder";
 }
 
 <h2>DenyOrder</h2>
-<form asp-action="DenyOrder" method="post" asp-controller="Supervisor">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="form-group"
-        <label asp-for="DeniedJustification" class="control-label">Date</label>
-        <input asp-for="DeniedJustification" class="form-control" />
-        <span asp-validation-for="DeniedJustification" class="text-danger"></span>
-     </div>
+<div>
+    <form method="post" asp-action="DenyOrder">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-    <div class="form-group">
-        <input type="submit" value="Deny" class="btn btn-default" />
-    </div>
+        <div class="form-group"
+            <label asp-for="DeniedJustification" class="control-label"></label>
+            <input asp-for="DeniedJustification" class="form-control" />
+            <span asp-validation-for="DeniedJustification" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" asp-route-id="@Model.OrderId" class="btn btn-danger">Deny</button>
+        </div>
+        @Html.HiddenFor(x => x.Id)
+        @Html.HiddenFor(x => x.ApprovalId)
+        @Html.HiddenFor(x => x.OrderId)
+        @Html.HiddenFor(x => x.SupervisorId)
+        @Html.HiddenFor(x => x.UserRoleId)
+    </form>
+</div>
 
 
 
-</form>
-
-@Html.HiddenFor(x => x.ApprovalId)
-@Html.HiddenFor(x => x.OrderId)
-@Html.HiddenFor(x => x.SupervisorId)
-@Html.HiddenFor(x => x.UserRoleId)
