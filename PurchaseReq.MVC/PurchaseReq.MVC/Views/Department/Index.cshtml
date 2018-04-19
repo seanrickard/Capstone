@@ -1,14 +1,19 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.Identity.EntityFrameworkCore
 @model IEnumerable<DepartmentWithDivision>
-
 @{
     ViewData["Title"] = "Departments";
 }
-
 <h2>Departments</h2>
-
-
+@if (ViewBag.Active)
+{
+    <a class="btn btn-sm btn-primary" asp-action="InActive">View Inactive</a>
+}
+else
+{
+    <a class="btn btn-sm btn-primary" asp-action="Index">View Active</a>
+}
+<hr />
 @if (!Model.Any())
 {
     <tr><td colspan="3" class="text-center">No departments yet</td></tr>
@@ -21,7 +26,6 @@ else
             <th>Active</th>
             <th>Division</th>
         </tr>
-
         @foreach (DepartmentWithDivision department in Model)
         {
 
@@ -31,17 +35,18 @@ else
                 <td>@department.DivisonName</td>
 
 
-
-
                 <td>
                     <a class="btn btn-sm btn-primary" asp-action="EditDepartment" asp-route-id="@department.Id">Edit</a>
-                    <a class="btn btn-sm btn-primary" asp-action="Employees" asp-controller="Department" asp-route-Id="@department.Id">View Employees</a>
+                    @if (ViewBag.Active)
+                    {
+                        <a class="btn btn-sm btn-primary" asp-action="Employees" asp-controller="Department" asp-route-Id="@department.Id">View Employees</a>
+                    }
                 </td>
             </tr>
         }
     </table>
 
     <p>
-        <a anchor-style="primary" asp-action="AddDepartment">Add new department</a>
+        <a anchor-style="primary" asp-action="AddDepartment" >Add new department</a>
     </p>
 }

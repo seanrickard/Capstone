@@ -1,14 +1,19 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.Identity.EntityFrameworkCore
 @model IList<DivisionWithSupervisor>
-
 @{
     ViewData["Title"] = "Division";
 }
-
 <h2>Divisions</h2>
-
-
+@if (ViewBag.Active)
+{
+    <a class="btn btn-sm btn-primary" asp-action="InActive">View Inactive</a>
+}
+else
+{
+    <a class="btn btn-sm btn-primary" asp-action="Index">View Active</a>
+}
+<hr />
 @if (!Model.Any())
 {
     <tr><td colspan="3" class="text-center">No divisions yet</td></tr>
@@ -21,27 +26,25 @@ else
             <th>Active</th>
             <th>Supervisor</th>
         </tr>
-
         @foreach (DivisionWithSupervisor division in Model)
         {
 
-        <tr>
-            <td>@division.DivisionName</td>
-            <td>@division.Active</td>
-            <td>@division.SupervisorName</td>
-
-
-
-            <td>
-                <a class="btn btn-sm btn-primary" asp-action="EditDivision" asp-route-id="@division.Id">Edit</a>
-                <a class="btn btn-sm btn-primary" asp-action="Departments" asp-controller="Division" asp-route-Id="@division.Id">View Departments</a>
-            </td>
-        </tr>
+            <tr>
+                <td>@division.DivisionName</td>
+                <td>@division.Active</td>
+                <td>@division.SupervisorName</td>
+                <td>
+                    <a class="btn btn-sm btn-primary" asp-action="EditDivision" asp-route-id="@division.Id">Edit</a>
+                    @if (ViewBag.Active)
+                    {
+                        <a class="btn btn-sm btn-primary" asp-action="Departments" asp-controller="Division" asp-route-Id="@division.Id">View Departments</a>
+                    }
+                </td>
+            </tr>
         }
     </table>
 }
-
+<hr />
 <p>
     <a anchor-style="primary" asp-action="AddDivision">Add new division</a>
 </p>
-

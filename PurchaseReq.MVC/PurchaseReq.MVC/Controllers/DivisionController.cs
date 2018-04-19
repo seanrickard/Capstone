@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace PurchaseReq.MVC.Controllers
 {
+    [Route("[controller]/[action]")]
     public class DivisionController : Controller
     {
         private readonly IWebApiCalls _webApiCalls;
@@ -15,14 +16,29 @@ namespace PurchaseReq.MVC.Controllers
         {
             _webApiCalls = webApiCalls;
         }
+
+        //Display all Active Division
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
-            IList<DivisionWithSupervisor> divisions;
-            divisions = await _webApiCalls.GetDivisionsAsync();
+            var divisions = await _webApiCalls.GetDivisionsAsync();
+
+            ViewBag.Active = true;
 
             return View(divisions);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> InActive()
+        {
+            var divisions = await _webApiCalls.GetInActiveDivisionsAsync();
+
+            ViewBag.Active = false;
+
+            return View("Index", divisions);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> AddDivision()
         {
             DivisionWithSupervisor division = new DivisionWithSupervisor();
@@ -49,6 +65,7 @@ namespace PurchaseReq.MVC.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet("{id}")]
         public async Task<IActionResult> EditDivision(int id)
         {
             DivisionWithSupervisor div = await _webApiCalls.GetDivisionAsync(id);
@@ -58,8 +75,8 @@ namespace PurchaseReq.MVC.Controllers
             return View(div);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> EditDivision(DivisionWithSupervisor div)
+        [HttpPost("{id}")]
+        public async Task<IActionResult> EditDivision(int id, DivisionWithSupervisor div)
         {
             if (!ModelState.IsValid)
             {
@@ -82,6 +99,7 @@ namespace PurchaseReq.MVC.Controllers
 
         }
 
+        [HttpGet("{id}")]
         public async Task<IActionResult> Departments(int id)
         {
             IList<DepartmentWithDivision> departments;

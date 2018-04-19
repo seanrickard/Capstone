@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PurchaseReq.DAL.Repos.Interfaces;
 using PurchaseReq.Models.Entities;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PurchaseReq.Service.Controllers
@@ -24,33 +25,16 @@ namespace PurchaseReq.Service.Controllers
             Repo = repo;
         }
 
-        //[HttpPost]
-        //public async Task<object> Login([FromBody] LogInViewModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest("Bad Model");
-        //    }
-        //    var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
-
-        //    if (result.Succeeded)
-        //    {
-        //        return Ok("Signed in");
-        //    }
-
-        //    return BadRequest("Sign in Failure");
-        //}
-
-        //public async Task<IActionResult> Logout()
-        //{
-        //    await _signInManager.SignOutAsync();
-        //    return Ok();
-        //}
-
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(Repo.Get());
+            return Ok(Repo.Get().Where(x => x.Active));
+        }
+
+        [HttpGet]
+        public IActionResult GetInActive()
+        {
+            return Ok(Repo.Get().Where(x => !x.Active));
         }
 
         [HttpGet("{id}")]

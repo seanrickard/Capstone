@@ -19,7 +19,12 @@ namespace PurchaseReq.Service.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_repo.GetAllWithDivision());
+            return Ok(_repo.GetAllWithDivision().Where(x => x.Active));
+        }
+        [HttpGet]
+        public IActionResult GetInactive()
+        {
+            return Ok(_repo.GetAllWithDivision().Where(x => !x.Active));
         }
 
         [HttpGet("{id}")]

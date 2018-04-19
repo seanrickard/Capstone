@@ -447,38 +447,22 @@ namespace PurchaseReq.DAL.Initializers
         };
 
 
-        public static IEnumerable<SupervisorApproval> GetSupervisorApprovals(List<Employee> Supervisors) => new List<SupervisorApproval>
+        public static IEnumerable<SupervisorApproval> GetSupervisorApprovals(List<Employee> Supervisors, List<IdentityRole> roles) => new List<SupervisorApproval>
         {
-            new SupervisorApproval()
-            {
-                ApprovalId = 4,
-                OrderId = 1,
-                SupervisorId = Supervisors.Find(x => x.LastName.ToString().Equals("Gump")).Id,
-                UserRoleId = ""
-            },
-            new SupervisorApproval()
-            {
-                ApprovalId = 1,
-                OrderId = 2,
-                SupervisorId = Supervisors.Find(x => x.LastName.ToString().Equals("Gump")).Id,
-            },
+            //probably need to add supervisors approval before the CFO approvals
             new SupervisorApproval()
             {
                 ApprovalId = 1,
                 OrderId = 3,
-                SupervisorId = Supervisors.Find(x => x.LastName.ToString().Equals("CFO")).Id,
+                SupervisorId = Supervisors.Find(x => x.LastName.ToString().Equals("Harris")).Id,
+                UserRoleId = roles.Where(x => x.Name == "Supervisor").FirstOrDefault().Id
             },
             new SupervisorApproval()
             {
                 ApprovalId = 1,
                 OrderId = 4,
                 SupervisorId = Supervisors.Find(x => x.LastName.ToString().Equals("Frum")).Id,
-            },
-            new SupervisorApproval()
-            {
-                ApprovalId = 1,
-                OrderId = 5,
-                SupervisorId = Supervisors.Find(x => x.LastName.ToString().Equals("CFO")).Id,
+                UserRoleId = roles.Where(x => x.Name == "Supervisor").FirstOrDefault().Id
             }
         };
 
@@ -582,7 +566,8 @@ namespace PurchaseReq.DAL.Initializers
                 QuantityRequested = 1,
                 EstimatedCost = 1000.00m,
                 EstimatedTotal = 1000.00m,
-                Chosen = true
+                Chosen = true,
+
             },
             new Request()
             {
@@ -624,16 +609,6 @@ namespace PurchaseReq.DAL.Initializers
                 EstimatedTotal = 10.00m,
                 PaidCost = .75m,
                 PaidTotal = 7.50m,
-                Chosen = true
-            },
-            new Request()
-            {
-                OrderId = 1,
-                ItemId = 1,
-                VendorId = 1,
-                QuantityRequested = 1,
-                EstimatedCost = 1000.00m,
-                EstimatedTotal = 1000.00m,
                 Chosen = true
             },
             new Request()

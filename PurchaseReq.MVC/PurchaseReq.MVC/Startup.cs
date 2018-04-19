@@ -15,7 +15,7 @@ namespace PurchaseReq.MVC
     public class Startup
     {
 
-        public IConfiguration _configuration { get; }
+        private readonly IConfiguration _configuration;
 
         public Startup(IConfiguration configuration)
         {
@@ -38,6 +38,7 @@ namespace PurchaseReq.MVC
             services.AddIdentity<Employee, IdentityRole>()
                 .AddEntityFrameworkStores<PurchaseReqContext>()
                 .AddDefaultTokenProviders();
+
             services.AddMvc();
         }
 
