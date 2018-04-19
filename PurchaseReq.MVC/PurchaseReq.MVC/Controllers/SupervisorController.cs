@@ -56,8 +56,9 @@ namespace PurchaseReq.MVC.Controllers
             approval.OrderId = id;
 
             approval.SupervisorId = userId;
-            IList<string> roleId = await _userManager.GetRolesAsync(emp);
 
+            IList<string> roleId = await _userManager.GetRolesAsync(emp);
+            
             IdentityRole role = await _roleManager.FindByNameAsync(roleId[0]);
             approval.UserRoleId = role.Id;
             var approvals = await _webApiCalls.GetApprovals();
@@ -72,7 +73,7 @@ namespace PurchaseReq.MVC.Controllers
         [HttpPost("{id}")]
         public async Task<IActionResult> DenyOrder(int id, SupervisorApproval approval)
         {
-            if (!ModelState.IsValid)
+            if(!ModelState.IsValid)
             {
                 return View(approval);
             }

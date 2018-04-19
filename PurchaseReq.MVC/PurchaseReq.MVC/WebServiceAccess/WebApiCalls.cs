@@ -163,6 +163,12 @@ namespace PurchaseReq.MVC.WebServiceAccess
             return await GetItemListAsync<IdentityRole>($"{GetRolesBaseUri}");
         }
 
+        //Approval
+        public async Task<IList<Approval>> GetApprovals()
+        {
+            return await GetItemListAsync<Approval>($"{GetApprovalBaseUri}");
+        }
+
         // Dropdowns
         public async Task<List<SelectListItem>> GetRolesForDropdown()
         {

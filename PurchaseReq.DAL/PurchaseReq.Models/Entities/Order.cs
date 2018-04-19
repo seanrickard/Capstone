@@ -39,8 +39,8 @@ namespace PurchaseReq.Models.Entities
         public Category Category{ get; set; }
 
         //In case no work
-        //[InverseProperty(nameof(SupervisorApproval.Order))]
-        public SupervisorApproval SupervisorApproval { get; set; }
+        [InverseProperty(nameof(SupervisorApproval.Order))]
+        public List<SupervisorApproval> SupervisorApprovals { get; set; }
 
         [InverseProperty(nameof(Request.Order))]
         public List<Request> Requests { get; set; }
