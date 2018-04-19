@@ -16,7 +16,7 @@ namespace PurchaseReq.MVC.Components
                 new UserMenuItem()
                 {
                     DisplayValue = "Order History",
-                    ActionValue = "Order",
+                    ActionValue = "ViewOrders",
                      ControllerValue = "Order"
                 }};
 

@@ -1,0 +1,76 @@
+﻿@model IEnumerable<PRWithRequest>
+
+@{
+    ViewData["Title"] = "Pending";
+}
+
+<h2>Pending</h2>
+
+
+@if (!Model.Any())
+{
+    <tr><td colspan="3" class="text-center">No Orders yet</td></tr>
+}
+else
+{
+    <table class="table table-condensed table-bordered" header header-content="Orders">
+        <tr>
+
+            <th>Date Created</th>
+            <th>Employee</th>
+            <th>Supervisor</th>
+            <th>Status</th>
+            <th>Category</th>
+            <th>Budget Code</th>
+            <th>State Contract</th>
+            <th>Justification</th>
+
+        </tr>
+
+        @foreach (PRWithRequest pr in Model)
+        {
+
+            <tr>
+                <td>@pr.DateMade</td>
+                <td>@pr.EmployeeFullName</td>
+                <td>@pr.SupervisorFullName</td>
+                <td>@pr.StatusName</td>
+                <td>@pr.CategoryName</td>
+                <td>@pr.BudgetCodeName</td>
+                <td>@pr.StateContract</td>
+                <td>@pr.BusinessJustification</td>
+
+
+
+                <form asp-action="CancelOrder" asp-route-id="@pr.Id" method="post">
+                    <td>
+                        <a class="btn btn-sm btn-primary" asp-action="ViewOrder" asp-route-id="@pr.Id">Order Details</a>
+                    </td>
+                    <td>
+                        @if (pr.StatusName == "Waiting for Supervisor Approval" || pr.StatusName == "Created")
+                        {
+                            <a class="btn btn-sm btn-primary" asp-action="EditOrder" asp-route-id="@pr.Id">Edit</a>
+                        }
+                    </td>
+                    <td>
+                        @if (pr.StatusName == "Waiting for Supervisor Approval" || pr.StatusName == "Created")
+                        {
+                            <a class="btn btn-sm btn-primary" asp-controller="Request" asp-action="AddItem" asp-route-id="@pr.Id">Edit Items</a>
+                        }
+                    </td>
+                    <td>
+                        @if (pr.StatusName != "Approved")
+                        {
+                            <button type="submit" onclick="return confirm('Do you really want to cancel order?')" class="btn btn-sm btn-danger">
+                                Cancel Order
+                            </button>
+                        }
+                    </td>
+
+                    </form>
+
+                </tr>
+            }
+            </table>
+        }
+

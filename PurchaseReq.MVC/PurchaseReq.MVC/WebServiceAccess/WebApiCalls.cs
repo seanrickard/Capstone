@@ -20,14 +20,16 @@ namespace PurchaseReq.MVC.WebServiceAccess
         public async Task<string> CreateAsync<T>(T input)
         {
             var json = JsonConvert.SerializeObject(input);
-            string type = input.ToString().Remove(0, 28);
+            int idx = input.ToString().LastIndexOf('.');
+            string type = input.ToString().Remove(0, idx + 1);
             return await SubmitPostRequestAsync(BaseUri + type + "/Create/", json);
         }
 
         public async Task<string> UpdateAsync<T>(int id, T input)
         {
             var json = JsonConvert.SerializeObject(input);
-            string type = input.ToString().Remove(0, 28);
+            int idx = input.ToString().LastIndexOf('.');
+            string type = input.ToString().Remove(0, idx + 1);
             return await SubmitPutRequestAsync(BaseUri + type + "/Update/" + id + "/", json);
         }
 
@@ -126,6 +128,11 @@ namespace PurchaseReq.MVC.WebServiceAccess
         public async Task<PRWithRequest> IncrementStatus(int id)
         {
             return await GetItemAsync<PRWithRequest>($"{IncrementStatusUri}{id}");
+        }
+
+        public async Task<PRWithRequest> MoveToCFOStatus(int id)
+        {
+            return await GetItemAsync<PRWithRequest>($"{CFOStatusUri}{id}");
         }
 
 
