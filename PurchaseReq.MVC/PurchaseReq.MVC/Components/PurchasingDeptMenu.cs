@@ -10,15 +10,26 @@ namespace PurchaseReq.MVC.Components
             var menuItems = new List<PurchasingDeptMenuItem> { new PurchasingDeptMenuItem()
                 {
                     DisplayValue = "View Approved",
-                    ActionValue = "ViewApproved",
-                    ControllerValue = "Purchasing"
-
+                    ActionValue = "Approved",
+                    ControllerValue = "Order"
                 },
                 new PurchasingDeptMenuItem()
                 {
                     DisplayValue = "Budget Code Management",
                     ActionValue = "Index",
-                    ControllerValue = "Purchasing"
+                    ControllerValue = "Budget"
+                },
+                new PurchasingDeptMenuItem()
+                {
+                    DisplayValue = "View Completed",
+                    ActionValue = "Completed",
+                    ControllerValue = "Order"
+                },
+                new PurchasingDeptMenuItem()
+                {
+                    DisplayValue = "View Ordered",
+                    ActionValue = "Ordered",
+                    ControllerValue = "Order"
                 }};
 
 

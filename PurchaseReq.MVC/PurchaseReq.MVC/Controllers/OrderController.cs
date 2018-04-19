@@ -100,6 +100,28 @@ namespace PurchaseReq.MVC.Controllers
             return RedirectToAction("ViewOrders");
         }
 
+        [HttpPost("{id}")]
+        public async Task<IActionResult> CancelOrder(int id)
+        {
+            var order = await _webApiCalls.GetOrderAsync(id);
+
+            if(order.StatusName == "Ordered")
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var result = await _webApiCalls.CancelOrderAsync(order.Id);
+
+            string userId = _userManager.GetUserId(User);
+
+            IList<PRWithRequest> orders = await _webApiCalls.GetOrdersAsync(userId);
+
+            return RedirectToAction("ViewOrders", orders);
+          
+        }
+
+
+
         public async Task<IActionResult> ViewOrder(int id)
         {
             PRWithRequest order =  await _webApiCalls.GetOrderAsync(id);
@@ -142,11 +164,20 @@ namespace PurchaseReq.MVC.Controllers
             return RedirectToAction("Index", "Home" );
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Pending(string id)
+        [HttpGet]
+        public async Task<IActionResult> PendingByEmployee()
         {
+            string id = _userManager.GetUserId(User);
+            IList<PRWithRequest> orders = await _webApiCalls.GetEmployeeOrderByTypeAsync(id, "Pending");
 
-            IList<PRWithRequest> orders = await _webApiCalls.GetPendingOrdersAsync(id);
+            return View("ViewOrders", orders);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Pending()
+        {
+            IList<PRWithRequest> orders = await _webApiCalls.GetOrderByTypeAsync("Pending");
 
             return View("ViewOrders", orders);
         }
@@ -175,11 +206,19 @@ namespace PurchaseReq.MVC.Controllers
             return RedirectToAction("Approved", new { id = empId });
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Approved(string id)
+        [HttpGet]
+        public async Task<IActionResult> ApprovedByEmployee()
         {
+            string id = _userManager.GetUserId(User);
+            IList<PRWithRequest> orders = await _webApiCalls.GetEmployeeOrderByTypeAsync(id, "Approved");
 
-            IList<PRWithRequest> orders = await _webApiCalls.GetOrdersAsync(id);
+            return View("ViewOrders", orders);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Approved()
+        {
+            IList<PRWithRequest> orders = await _webApiCalls.GetOrderByTypeAsync("Approved");
 
             return View("ViewOrders", orders);
         }
@@ -192,14 +231,23 @@ namespace PurchaseReq.MVC.Controllers
             return RedirectToAction("Ordered", new { id = empId });
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Ordered(string id)
+        [HttpGet]
+        public async Task<IActionResult> OrderedByEmployee()
         {
+            string id = _userManager.GetUserId(User);
+            IList<PRWithRequest> orders = await _webApiCalls.GetEmployeeOrderByTypeAsync(id, "Ordered");
 
-            IList<PRWithRequest> orders = await _webApiCalls.GetOrdersAsync(id);
-
-            return View(orders);
+            return View("ViewOrders", orders);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Ordered()
+        {
+            IList<PRWithRequest> orders = await _webApiCalls.GetOrderByTypeAsync("Ordered");
+
+            return View("ViewOrders", orders);
+        }
+
 
         public async Task<IActionResult> UpdateToCompleted(int id)
         {
@@ -209,13 +257,47 @@ namespace PurchaseReq.MVC.Controllers
             return RedirectToAction("Completed", new { id = empId });
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Completed(string id)
+        [HttpGet]
+        public async Task<IActionResult> CompletedByEmployee()
         {
+            string id = _userManager.GetUserId(User);
+            IList<PRWithRequest> orders = await _webApiCalls.GetEmployeeOrderByTypeAsync(id, "Completed");
 
-            IList<PRWithRequest> orders = await _webApiCalls.GetOrdersAsync(id);
+            return View("ViewOrders", orders);
+        }
 
-            return View(orders);
+        [HttpGet]
+        public async Task<IActionResult> Completed()
+        {
+            IList<PRWithRequest> orders = await _webApiCalls.GetOrderByTypeAsync("Completed");
+
+            return View("ViewOrders", orders);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeniedByEmployee()
+        {
+            string id = _userManager.GetUserId(User);
+            IList<PRWithRequest> orders = await _webApiCalls.GetEmployeeOrderByTypeAsync(id, "Denied");
+
+            return View("ViewOrders", orders);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Denied()
+        {
+            IList<PRWithRequest> orders = await _webApiCalls.GetOrderByTypeAsync("Denied");
+
+            return View("ViewOrders", orders);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CreatedByEmployee()
+        {
+            string id = _userManager.GetUserId(User);
+            IList<PRWithRequest> orders = await _webApiCalls.GetEmployeeOrderByTypeAsync(id, "Created");
+
+            return View("ViewOrders", orders);
         }
     }
 }

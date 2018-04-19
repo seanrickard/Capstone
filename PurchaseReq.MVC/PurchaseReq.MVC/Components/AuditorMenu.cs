@@ -9,35 +9,16 @@ namespace PurchaseReq.MVC.Components
         {
             var menuItems = new List<AuditorMenuItem> { new AuditorMenuItem()
                 {
-                    DisplayValue = "User Management",
-                    ActionValue = "UserManagement",
-                    ControllerValue = "Admin"
+                    DisplayValue = "View Completed Orders",
+                    ActionValue = "Completed",
+                    ControllerValue = "Order"
 
                 },
                 new AuditorMenuItem()
                 {
-                    DisplayValue = "Budget Code Management",
-                    ActionValue = "Index",
-                    ControllerValue = "Budget"
-                },
-                new AuditorMenuItem()
-                {
-                    DisplayValue = "Campus Management",
-                    ActionValue = "Index",
-                    ControllerValue = "Campus"
-
-                },
-                new AuditorMenuItem()
-                {
-                    DisplayValue = "Division Management",
-                    ActionValue = "Index",
-                    ControllerValue = "Division"
-                },
-                new AuditorMenuItem()
-                {
-                    DisplayValue = "Department Management",
-                    ActionValue = "Index",
-                    ControllerValue = "Department"
+                    DisplayValue = "View Ordered",
+                    ActionValue = "Ordered",
+                    ControllerValue = "Order"
                 }};
 
 
