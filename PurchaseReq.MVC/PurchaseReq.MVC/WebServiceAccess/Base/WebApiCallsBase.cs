@@ -110,7 +110,7 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
 
             //Roles
             GetSupervisorsBaseUri = $"{ServiceAddress}api/Role/GetSupervisors";
-            GetRolesBaseUri = $"{ServiceAddress}api/Role/Get/";
+            GetRolesBaseUri = $"{ServiceAddress}api/Role/Get";
 
             //Approval
             GetApprovalBaseUri = $"{ServiceAddress}api/Approval/Get/";

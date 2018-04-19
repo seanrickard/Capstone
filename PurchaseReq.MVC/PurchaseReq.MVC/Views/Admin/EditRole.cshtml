@@ -1,0 +1,23 @@
+﻿@model EditRoleViewModel
+
+<h2>@Model.RoleName</h2>
+
+
+
+<h3>Users in this role</h3>
+<table class="table table-condensed table-bordered table-striped">
+
+    @foreach (var user in Model.Users)
+    {
+        <tr>
+            <td>
+                @user
+            </td>
+        </tr>
+    }
+</table>
+
+
+<a asp-action="AddUserToRole" asp-route-roleId="@Model.Id" class="btn btn-primary">Add users to role</a>
+
+<a asp-action="DeleteUserFromRole" asp-route-roleId="@Model.Id" class="btn btn-primary">Remove users from role</a>
