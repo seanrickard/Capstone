@@ -4,6 +4,7 @@ using PurchaseReq.Models.Entities;
 using PurchaseReq.Models.ViewModels;
 using PurchaseReq.MVC.WebServiceAccess.Base;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PurchaseReq.MVC.Controllers
@@ -55,25 +56,27 @@ namespace PurchaseReq.MVC.Controllers
             approval.OrderId = id;
 
             approval.SupervisorId = userId;
-            IList<string> roleId =  await _userManager.GetRolesAsync(emp);
-            
+            IList<string> roleId = await _userManager.GetRolesAsync(emp);
+
             IdentityRole role = await _roleManager.FindByNameAsync(roleId[0]);
             approval.UserRoleId = role.Id;
-            approval.ApprovalId = 2;    
-            
+            var approvals = await _webApiCalls.GetApprovals();
+            approval.ApprovalId = approvals.Where(x => x.ApprovalName == "Denied").FirstOrDefault().Id;
 
-           
+
+
+
             return View(approval);
         }
 
-        [HttpPost("{approval},  {UserRoleId}, {OrderId}, {ApprovalId},{SupervisorId} ")]
-        public async Task<IActionResult> DenyOrder(SupervisorApproval approval, string UserRoleId, int OrderId, int ApprovalId, string SupervisorId)
+        [HttpPost("{id}")]
+        public async Task<IActionResult> DenyOrder(int id, SupervisorApproval approval)
         {
-
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(approval);
             }
+
             SupervisorApproval app = new SupervisorApproval
             {
                 ApprovalId = approval.ApprovalId,
