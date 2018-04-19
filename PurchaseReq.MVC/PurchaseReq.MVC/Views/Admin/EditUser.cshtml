@@ -1,14 +1,14 @@
 ﻿@model PasswordEmployeeViewModel
 
 
-@{ 
+@{
     ViewData["Title"] = "Edit User";
 }
 
 <h2>Edit User</h2>
 
 <div class="row">
-    
+
     <form method="post" asp-controller="Admin" asp-action="EditUser">
         <div class="col-md-4">
             <h4 style="color: red">@ViewData["Successful"]</h4>
@@ -51,12 +51,16 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Room</label>
+
                 @Html.DropDownListFor(x => x.RoomId, new List<SelectListItem>(ViewBag.Rooms), new { @class = "form-control" })
+
                 <span asp-validation-for="RoomId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="control-label">Role</label>
+
                 @Html.DropDownListFor(x => x.RoleId, new List<SelectListItem>(ViewBag.Roles), new { @class = "form-control" })
+
                 <span asp-validation-for="RoleId" class="text-danger"></span>
             </div>
 

@@ -25,7 +25,14 @@
             </div>
             <div class="form-group">
                 <label asp-for="DivisionId" class="control-label">Division</label>
+<<<<<<< HEAD
+
                 @Html.DropDownListFor(x => x.DivisionId, new List<SelectListItem>(ViewBag.Divisions), new { @class = "form-control" })
+
+
+=======
+                @Html.DropDownListFor(x => x.DivisionId, new List<SelectListItem>(ViewBag.Divisions), new { @class = "form-control" })
+>>>>>>> dba6f6d9891f9b26028d9fdc11830fd06ea2a801
                 <span asp-validation-for="DivisionId" class="text-danger"></span>
             </div>
 

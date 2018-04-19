@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PurchaseReq.MVC.Components
 {
@@ -12,28 +9,9 @@ namespace PurchaseReq.MVC.Components
         {
             var menuItems = new List<SupervisorMenuItem> { new SupervisorMenuItem()
                 {
-                    DisplayValue = "Approve Forms",
-                    ActionValue = "UserManagement"
-                },
-                new SupervisorMenuItem()
-                {
-                    DisplayValue = "Budget Code Management",
-                    ActionValue = "BudgetCode"
-                },
-                new SupervisorMenuItem()
-                {
-                    DisplayValue = "Campus Management",
-                    ActionValue = "CampusManagement"
-                },
-                new SupervisorMenuItem()
-                {
-                    DisplayValue = "Division Management",
-                    ActionValue = "DivisionManagement"
-                },
-                new SupervisorMenuItem()
-                {
-                    DisplayValue = "Department Management",
-                    ActionValue = "DepartmentManagement"
+                    DisplayValue = "Pending Approval",
+                    ActionValue = "ViewSubmitted",
+                    ControllerValue = "Supervisor"
                 }};
 
 
@@ -45,5 +23,6 @@ namespace PurchaseReq.MVC.Components
     {
         public string DisplayValue { get; set; }
         public string ActionValue { get; set; }
+        public string ControllerValue { get; set; }
     }
 }

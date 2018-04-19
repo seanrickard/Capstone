@@ -38,13 +38,13 @@
 
                 <div class="form-group">
                     <label class="control-label">Budget Code</label>
-                    @Html.DropDownListFor(x => x.BudgetCodeId, new List<SelectListItem>(ViewBag.BudgetCodes))
+                    @Html.DropDownListFor(x => x.BudgetCodeId, new List<SelectListItem>(ViewBag.BudgetCodes), new { @class = "form-control" })
                     <span asp-validation-for="BudgetCodeId" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label">Category</label>
-                    @Html.DropDownListFor(x => x.CategoryId, new List<SelectListItem>(ViewBag.Categories))
+                    @Html.DropDownListFor(x => x.CategoryId, new List<SelectListItem>(ViewBag.Categories), new { @class = "form-control" })
                     <span asp-validation-for="CategoryId" class="text-danger"></span>
                 </div>
 

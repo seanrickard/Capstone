@@ -57,7 +57,6 @@ namespace PurchaseReq.MVC.Controllers
             {
                 return RedirectToAction("Pending", new { id = empId });
             }
-
             else if(order.StatusName == "Approved")
             {
                 return RedirectToAction("Approved", new { id = empId });
@@ -71,14 +70,14 @@ namespace PurchaseReq.MVC.Controllers
                 return RedirectToAction("Completed", new { id = empId });
             }
 
-            return RedirectToAction("Pending", new { id = empId});
+            return RedirectToAction("Index", "Home" );
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Pending(string id)
         {
 
-            IList<PRWithRequest> orders = await _webApiCalls.GetOrdersAsync(id);
+            IList<PRWithRequest> orders = await _webApiCalls.GetPendingOrdersAsync(id);
 
             return View("OrderList", orders);
         }

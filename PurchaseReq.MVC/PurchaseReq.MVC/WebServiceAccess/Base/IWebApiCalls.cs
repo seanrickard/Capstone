@@ -40,14 +40,22 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         Task<PRWithRequest> IncrementStatus(int id);
         Task<PRWithRequest> GetOrderAsync(int id);
         Task<IList<PRWithRequest>> GetOrdersAsync(string id);
+        Task<IList<PRWithRequest>> GetPendingOrdersAsync(string id);
+
 
         //Employee
         Task<IList<EmployeeWithDepartmentAndRoomAndRole>> GetEmployees();
         Task<IList<EmployeeWithDepartmentAndRoomAndRole>> GetEmployeeByDepartment(int id);
         Task<object> LoginEmployee(LogInViewModel logInViewModel);
 
-       //Roles
+        //Supervisor
+
+        Task<IList<PRWithRequest>> GetSubmittedAsync(string id);
+
+        //Roles
         Task<IList<Employee>> GetSupervisors();
+
+
 
 
         //Dropdowns

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<PRWithRequest>
+
+@{
+    ViewData["Title"] = "Pending Approval";
+}
+
+<h2>Pending Approval</h2>
+
+
+@if (!Model.Any())
+{
+    <tr><td colspan="3" class="text-center">No Orders yet</td></tr>
+}
+else
+{
+    <table class="table table-condensed table-bordered" header header-content="Orders">
+        <tr>
+
+            <th>Date Created</th>
+            <th>Employee</th>
+            <th>Supervisor</th>
+            <th>Status</th>
+            <th>Category</th>
+            <th>Budget Code</th>
+            <th>State Contract</th>
+            <th>Justification</th>
+
+        </tr>
+
+        @foreach (PRWithRequest pr in Model)
+        {
+
+            <tr>
+                <td>@pr.DateMade</td>
+                <td>@pr.EmployeeFullName</td>
+                <td>@pr.SupervisorFullName</td>
+                <td>@pr.StatusName</td>
+                <td>@pr.CategoryName</td>
+                <td>@pr.BudgetCodeName</td>
+                <td>@pr.StateContract</td>
+                <td>@pr.BusinessJustification</td>
+
+
+                <td>
+                    <a class="btn btn-sm btn-primary" asp-action="EditOrder" asp-route-id="@pr.Id">Order Details</a>                
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+<p>
+    <a anchor-style="primary" asp-action="AddOrder">Add new order</a>
+</p>
+
+
