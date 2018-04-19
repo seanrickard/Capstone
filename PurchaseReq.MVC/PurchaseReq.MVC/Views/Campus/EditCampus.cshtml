@@ -1,12 +1,14 @@
 ﻿@model CampusWithAddress
 
+@{
+    ViewData["Title"] = "Edit Campus";
+}
 
-<h2>Add New Campus</h2>
+<h2>Edit Campus</h2>
 
-<form asp-controller="Campus" asp-action="AddCampus" method="post" class="form-horizontal" role="form">
+<form asp-controller="Campus" asp-action="EditCampus" method="post" class="form-horizontal" role="form">
     <hr />
     <div asp-validation-summary="All" class="text-danger"></div>
-
     <div class="form-group">
         <label asp-for="CampusName" class="col-md-2 control-label"></label>
         <div class="col-md-10">
@@ -14,7 +16,13 @@
             <span asp-validation-for="CampusName" class="text-danger"></span>
         </div>
     </div>
-
+    <div class="form-group">
+        <label asp-for="Active" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Active" class="form-control" />
+            <span asp-validation-for="Active" class="text-danger"></span>
+        </div>
+    </div>
     <div class="form-group">
         <label asp-for="StreetAddress" class="col-md-2 control-label"></label>
         <div class="col-md-10">
@@ -22,7 +30,6 @@
             <span asp-validation-for="StreetAddress" class="text-danger"></span>
         </div>
     </div>
-
     <div class="form-group">
         <label asp-for="City" class="col-md-2 control-label"></label>
         <div class="col-md-10">
@@ -30,7 +37,6 @@
             <span asp-validation-for="City" class="text-danger"></span>
         </div>
     </div>
-
     <div class="form-group">
         <label asp-for="State" class="col-md-2 control-label"></label>
         <div class="col-md-10">
@@ -38,7 +44,6 @@
             <span asp-validation-for="State" class="text-danger"></span>
         </div>
     </div>
-
     <div class="form-group">
         <label asp-for="Zip" class="col-md-2 control-label"></label>
         <div class="col-md-10">
@@ -46,14 +51,12 @@
             <span asp-validation-for="Zip" class="text-danger"></span>
         </div>
     </div>
-
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-primary" value="Create campus"  asp-controller="Campus" asp-action="AddCampus"/>
+            <input type="submit" class="btn btn-primary" value="Update Campus" asp-controller="Campus" asp-action="EditCampus" />
         </div>
     </div>
 </form>
-
 <div>
     <a asp-action="Index">Back to List</a>
 </div>

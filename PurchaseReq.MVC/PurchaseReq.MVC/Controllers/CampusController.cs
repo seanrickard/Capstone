@@ -53,6 +53,25 @@ namespace PurchaseReq.MVC.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet("{campusId}")]
+        public async Task<IActionResult> EditCampus(int campusId)
+        {
+            var campus = await _webApiCalls.GetCampusAsync(campusId);
+            return View(campus);
+        }
+
+        public async Task<IActionResult> EditCampus(CampusWithAddress model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+
+
+            return RedirectToAction("Index");
+        }
+
         public async Task<IActionResult> Rooms(int id)
         {
             IList<RoomWithCampus> rooms;
