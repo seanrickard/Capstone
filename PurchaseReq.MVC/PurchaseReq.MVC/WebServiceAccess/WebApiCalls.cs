@@ -77,6 +77,11 @@ namespace PurchaseReq.MVC.WebServiceAccess
             return await GetItemAsync<DivisionWithSupervisor>($"{DivisionWithSupervisorBaseUri}{id}");
         }
 
+        public async Task<IList<DivisionWithSupervisor>> GetInActiveDivisionsAsync()
+        {
+            return await GetItemListAsync<DivisionWithSupervisor>(InActiveDivisionWithSupervisorBaseUri);
+        }
+
         //Department
         public async Task<IList<DepartmentWithDivision>> GetDepartmentsAsync()
         {
@@ -91,6 +96,11 @@ namespace PurchaseReq.MVC.WebServiceAccess
         public async Task<IList<DepartmentWithDivision>> GetDepartmentsByDivison(int id)
         {
             return await GetItemListAsync<DepartmentWithDivision>($"{DepartmentByDivisionBaseUri}{id}");
+        }
+
+        public async Task<IList<DepartmentWithDivision>> GetInactiveDepartmentsAsync()
+        {
+            return await GetItemListAsync<DepartmentWithDivision>(InactiveDepartmentWithDivisionUri);
         }
 
         //Request
@@ -175,6 +185,16 @@ namespace PurchaseReq.MVC.WebServiceAccess
         public async Task<IList<Employee>> GetSupervisors()
         {
             return await GetItemListAsync<Employee>($"{GetSupervisorsBaseUri}");
+        }
+
+        public async Task<IList<EmployeeWithDepartmentAndRoomAndRole>> GetInActiveEmployees()
+        {
+            return await GetItemListAsync<EmployeeWithDepartmentAndRoomAndRole>($"{GetInactiveEmployeesBaseUri}");
+        }
+
+        public async Task<EmployeeWithDepartmentAndRoomAndRole> GetEmployeeAsync(string id)
+        {
+            return await GetItemAsync<EmployeeWithDepartmentAndRoomAndRole>($"{GetEmployeeUri}{id}");
         }
 
         //Supervisor

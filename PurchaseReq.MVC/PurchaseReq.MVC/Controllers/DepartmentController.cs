@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace PurchaseReq.MVC.Controllers
 {
+    [Route("[controller]/[action]")]
     public class DepartmentController : Controller
     {
         private readonly IWebApiCalls _webApiCalls;
@@ -16,14 +17,29 @@ namespace PurchaseReq.MVC.Controllers
             _webApiCalls = webApiCalls;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
+            //Show active
             IList<DepartmentWithDivision> departments;
             departments = await _webApiCalls.GetDepartmentsAsync();
+            ViewBag.Active = true;
 
             return View(departments);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> InActive()
+        {
+            //Need to go make that api call at service
+            var departments = await _webApiCalls.GetInactiveDepartmentsAsync();
+
+            ViewBag.Active = false;
+
+            return View("Index", departments);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> AddDepartment()
         {
             DepartmentWithDivision dp = new DepartmentWithDivision();
@@ -53,6 +69,7 @@ namespace PurchaseReq.MVC.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
         public async Task<IActionResult> EditDepartment(int id)
         {
             DepartmentWithDivision dp = await _webApiCalls.GetDepartmentAsync(id);
@@ -86,6 +103,7 @@ namespace PurchaseReq.MVC.Controllers
 
         }
 
+        [HttpGet]
         public async Task<IActionResult> Employees(int id)
         {
             IList<EmployeeWithDepartmentAndRoomAndRole> employees;

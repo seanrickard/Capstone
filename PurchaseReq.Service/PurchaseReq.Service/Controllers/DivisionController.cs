@@ -19,7 +19,7 @@ namespace PurchaseReq.Service.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_repo.GetAllWithDepartments());
+            return Ok(_repo.GetAllWithDepartments()); 
         }
 
         [HttpGet("{id}")]
@@ -35,9 +35,9 @@ namespace PurchaseReq.Service.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetActive()
+        public IActionResult GetInActive()
         {
-            return Ok(_repo.GetAllWithDepartments().Where(x => x.Active));
+            return Ok(_repo.GetAllWithSupervisor().Where(x => !x.Active));
         }
 
         [HttpPost]
@@ -67,7 +67,7 @@ namespace PurchaseReq.Service.Controllers
         [HttpGet]
         public IActionResult GetWithSupervisor()
         {
-            return Ok(_repo.GetAllWithSupervisor());
+            return Ok(_repo.GetAllWithSupervisor().Where(x => x.Active));
         }
 
         [HttpGet("{id}")]

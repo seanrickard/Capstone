@@ -27,6 +27,7 @@ namespace PurchaseReq.DAL.Initializers
         {
             string[] dboTables = { "AspNetRoles", "AspNetRoleClaims", "AspNetUserClaims", "AspNetUserLogins", "AspNetUserRoles", "AspNetUserTokens" };
             SetEmployeesToNull(appDbContext);
+            ExecuteDeleteSQL(appDbContext, Schema[1], "SupervisorApprovals");
             ExecuteDeleteSQL(appDbContext, Schema[0], "Departments");
             ExecuteDeleteSQL(appDbContext, Schema[0], "Divisions");
             ExecuteDeleteSQL(appDbContext, Schema[0], "EmployeesBudgetCodes");
@@ -161,8 +162,13 @@ namespace PurchaseReq.DAL.Initializers
                 context.UserRoles.AddRange(SampleData.GetUserWithRole(context.Employees.ToList(), context.Roles.ToList()));
                 context.SaveChanges();
             }
+            if (!context.SupervisorApprovals.Any())
+            {
+                context.SupervisorApprovals.AddRange(SampleData.GetSupervisorApprovals(context.Employees.ToList(), context.Roles.ToList()));
+                context.SaveChanges();
+            }
 
-            
+
 
             context.SaveChanges();
         }

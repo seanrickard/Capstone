@@ -24,12 +24,14 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         //Division
         protected readonly string DivisionBaseUri;
         protected readonly string DivisionWithSupervisorBaseUri;
+        protected readonly string InActiveDivisionWithSupervisorBaseUri;
 
         //Department
         protected readonly string DepartmentWithDivisionBaseUri;
         protected readonly string DepartmentByDivisionBaseUri;
         protected readonly string CreateDepartmentWithBaseUri;
         protected readonly string UpdateDepartmentBaseUri;
+        protected readonly string InactiveDepartmentWithDivisionUri;
 
         //Request
         protected readonly string RequestWithVendorBaseUri;
@@ -51,6 +53,8 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         protected readonly string GetEmployeeByDepartmentBaseUri;
         protected readonly string GetEmployeeLoginBaseUri;        
         protected readonly string GetEmployeeBaseUri;
+        protected readonly string GetInactiveEmployeesBaseUri;
+        protected readonly string GetEmployeeUri;
 
         //Supervisor
         protected readonly string GetSubmittedUri;
@@ -77,14 +81,19 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
 
             //Division
             DivisionWithSupervisorBaseUri = $"{ServiceAddress}api/Division/GetWithSupervisor/";
+            InActiveDivisionWithSupervisorBaseUri = $"{BaseUri}Division/GetInActive/";
 
             //Department
             DepartmentByDivisionBaseUri = $"{ServiceAddress}api/Department/GetByDivision/";
             DepartmentWithDivisionBaseUri = $"{ServiceAddress}api/Department/Get/";
+            InactiveDepartmentWithDivisionUri = $"{ServiceAddress}api/Department/GetInActive";
 
+            //Employees
             GetEmployeeByDepartmentBaseUri = $"{ServiceAddress}api/Employee/GetByDepartment/";
             GetEmployeeBaseUri= $"{ServiceAddress}api/Employee/Get/";
-            GetEmployeeLoginBaseUri = $"{ServiceAddress}api/Employee/Login";
+            GetEmployeeLoginBaseUri = $"{ServiceAddress}api/Employee/Login/";
+            GetInactiveEmployeesBaseUri = $"{BaseUri}Employee/GetInactive/";
+            GetEmployeeUri = $"{BaseUri}Employee/Get/";
 
             //Budget
 

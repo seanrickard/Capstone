@@ -25,11 +25,13 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         //Division
         Task<IList<DivisionWithSupervisor>> GetDivisionsAsync();
         Task<DivisionWithSupervisor> GetDivisionAsync(int id);
+        Task<IList<DivisionWithSupervisor>> GetInActiveDivisionsAsync();
 
         //Department
         Task<IList<DepartmentWithDivision>> GetDepartmentsAsync();
         Task<DepartmentWithDivision> GetDepartmentAsync(int id);
         Task<IList<DepartmentWithDivision>> GetDepartmentsByDivison(int id);
+        Task<IList<DepartmentWithDivision>> GetInactiveDepartmentsAsync();
 
         //Request
         Task<IList<RequestWithVendor>> GetRequestWithVendors();
@@ -52,6 +54,8 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         Task<IList<EmployeeWithDepartmentAndRoomAndRole>> GetEmployees();
         Task<IList<EmployeeWithDepartmentAndRoomAndRole>> GetEmployeeByDepartment(int id);
         Task<object> LoginEmployee(LogInViewModel logInViewModel);
+        Task<IList<EmployeeWithDepartmentAndRoomAndRole>> GetInActiveEmployees();
+        Task<EmployeeWithDepartmentAndRoomAndRole> GetEmployeeAsync(string id);
 
         //Supervisor
 

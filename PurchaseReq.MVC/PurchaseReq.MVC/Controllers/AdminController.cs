@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PurchaseReq.Models.Entities;
 using PurchaseReq.Models.ViewModels;
@@ -10,6 +11,8 @@ using System.Threading.Tasks;
 
 namespace PurchaseReq.MVC.Controllers
 {
+    [Route("[controller]/[action]")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly IWebApiCalls _webApiCalls;
@@ -24,23 +27,71 @@ namespace PurchaseReq.MVC.Controllers
             _roleManager = roleManager;
         }
 
-        public IActionResult Index()
-        {
-            return View();  
-        }
-
+        //Shows the active employees
+        [HttpGet]
         public async Task<IActionResult> UserManagement()
         {
             IList<EmployeeWithDepartmentAndRoomAndRole> employees;
             employees = await _webApiCalls.GetEmployees();
+            //For which button to render
+            ViewBag.Active = true;
 
             return View(employees);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> InActiveEmployees()
+        {
+            //get inactive employees
+            var model = await _webApiCalls.GetInActiveEmployees();
+            //For which button to render
+            ViewBag.Active = false;
+
+            return View("UserManagement", model);
+        }
+
+        [HttpGet("{employeeId}")]
+        public async Task<IActionResult> ChangePassword(string employeeId)
+        {
+            var user = await _userManager.FindByIdAsync(employeeId);
+
+            if (user == null)
+            {
+                return RedirectToAction("UserManagement", _userManager.Users);
+            }
+
+            var model = new PasswordEmployeeViewModel() { Id = user.Id, FirstName = user.FirstName, LastName = user.LastName, Email = user.Email, Active = user.Active };
+
+            return View(model);
+        }
+
+        [HttpPost("{employeeId}")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePassword(string employeeId, PasswordEmployeeViewModel model)
+        {
+            if (!ModelState.IsValid && model.Password != model.ConfirmPassword)
+            {
+                return View(model);
+            }
+
+            var user = await _userManager.FindByIdAsync(model.Id);
+
+            await _userManager.RemovePasswordAsync(user);
+
+            var change = await _userManager.AddPasswordAsync(user, model.ConfirmPassword);
+            if (!change.Succeeded)
+            {
+                return View(model);
+            }
+
+            return RedirectToAction("UserManagement");
+        }
+
+        [HttpGet]
         public async Task<IActionResult> AddUser()
         {
             PasswordEmployeeViewModel emp = new PasswordEmployeeViewModel();
-            
+
             ViewBag.Departments = await _webApiCalls.GetDepartmentsForDropDown();
             ViewBag.Roles = await _webApiCalls.GetRolesForDropdown();
             ViewBag.Rooms = await _webApiCalls.GetRoomsForDropdown();
@@ -57,8 +108,8 @@ namespace PurchaseReq.MVC.Controllers
             }
 
             var e = new Employee()
-            { 
-                UserName =emp.Email,
+            {
+                UserName = emp.Email,
                 Email = emp.Email,
                 FirstName = emp.FirstName,
                 LastName = emp.LastName,
@@ -86,6 +137,7 @@ namespace PurchaseReq.MVC.Controllers
             return View(emp);
         }
 
+        [HttpGet]
         public async Task<IActionResult> EditUser(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
@@ -95,18 +147,18 @@ namespace PurchaseReq.MVC.Controllers
                 return RedirectToAction("UserManagement", _userManager.Users);
             }
 
-            var vm = new PasswordEmployeeViewModel() { Id = user.Id, FirstName = user.FirstName, LastName = user.LastName, Email = user.Email, Active = user.Active };
-
+            //Get view model
+            var userViewModel = await _webApiCalls.GetEmployeeAsync(user.Id);
 
             ViewBag.Departments = await _webApiCalls.GetDepartmentsForDropDown();
             ViewBag.Roles = await _webApiCalls.GetRolesForDropdown();
             ViewBag.Rooms = await _webApiCalls.GetRoomsForDropdown();
 
-            return View(vm);
+            return View(userViewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditUser(PasswordEmployeeViewModel emp)
+        public async Task<IActionResult> EditUser(EmployeeWithDepartmentAndRoomAndRole emp)
         {
             var user = await _userManager.FindByIdAsync(emp.Id);
 
@@ -118,7 +170,6 @@ namespace PurchaseReq.MVC.Controllers
                 user.RoomId = emp.RoomId;
                 user.Active = emp.Active;
                 user.Email = emp.Email;
-
             }
 
             var result = await _userManager.UpdateAsync(user);
