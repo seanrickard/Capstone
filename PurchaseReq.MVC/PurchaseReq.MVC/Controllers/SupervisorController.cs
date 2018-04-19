@@ -57,7 +57,7 @@ namespace PurchaseReq.MVC.Controllers
             approval.SupervisorId = userId;
             IList<string> roleId =  await _userManager.GetRolesAsync(emp);
             
-                IdentityRole role = await _roleManager.FindByNameAsync(roleId[0]);
+            IdentityRole role = await _roleManager.FindByNameAsync(roleId[0]);
             approval.UserRoleId = role.Id;
             approval.ApprovalId = 2;    
             
@@ -66,9 +66,14 @@ namespace PurchaseReq.MVC.Controllers
             return View(approval);
         }
 
-        [HttpPost("{approval}")]
-        public async Task<IActionResult> DenyOrder(SupervisorApproval approval)
+        [HttpPost("{approval},  {UserRoleId}, {OrderId}, {ApprovalId},{SupervisorId} ")]
+        public async Task<IActionResult> DenyOrder(SupervisorApproval approval, string UserRoleId, int OrderId, int ApprovalId, string SupervisorId)
         {
+
+            if(!ModelState.IsValid)
+            {
+                return View(approval);
+            }
             SupervisorApproval app = new SupervisorApproval
             {
                 ApprovalId = approval.ApprovalId,
