@@ -40,17 +40,13 @@ else
                 <td>@pr.StateContract</td>
                 <td>@pr.BusinessJustification</td>
 
-
                 <td>
-                    <a class="btn btn-sm btn-primary" asp-action="EditOrder" asp-route-id="@pr.Id">Order Details</a>                
+                    <a class="btn btn-sm btn-primary" asp-action="OrderApproval" asp-route-id="@pr.Id">Order Details</a>                
                 </td>
             </tr>
         }
     </table>
 }
 
-<p>
-    <a anchor-style="primary" asp-action="AddOrder">Add new order</a>
-</p>
 
 

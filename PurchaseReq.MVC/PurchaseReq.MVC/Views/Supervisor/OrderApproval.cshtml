@@ -4,7 +4,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="EmployeeFullName" class="control-label">Name</label>
@@ -48,11 +48,12 @@
                         <label asp-for="DateMade" class="control-label">Date</label>
                         <input asp-for="DateMade" class="form-control" readonly />
                         <span asp-validation-for="DateMade" class="text-danger"></span>
-                    </div>
+                </div>
+         
 
 
             </div>
-        </form>
+        
     </div>
     @if (Model.RequestsWithVendor.Any())
     {
@@ -63,25 +64,43 @@
                 <th>Description</th>
                 <th>Estimated Cost</th>
                 <th>Estimated Total</th>
+                @if (Model.RequestsWithVendor.Any(x => x.EstimatedTotal > 3000))
+                {
+
+                    <th>Chosen</th>
+                    <th>Reason Chosen</th>
+                }
             </tr>
 
             @foreach (RequestWithVendor req in Model.RequestsWithVendor)
             {
-            <tr>
-                <td>@req.QuantityRequested</td>
-                <td>@req.ItemName</td>
-                <td>@req.Description</td>
-                <td>@req.EstimatedCost</td>
-                <td>@req.EstimatedTotal</td>
-                
-            </tr>
-
+                <tr>
+                    <td>@req.QuantityRequested</td>
+                    <td>@req.ItemName</td>
+                    <td>@req.Description</td>
+                    <td>@req.EstimatedCost</td>
+                    <td>@req.EstimatedTotal</td>
+                   @if(req.EstimatedTotal > 3000)
+                   {
+                        <th>@req.Chosen</th>
+                        <th>@req.ReasonChosen</th>
+                   }
+                </tr>
             }
 
         </table>
 
-        <a asp-controller="Request" asp-action="AddItem" asp-route-orderId="@Model.Id" class="btn btn-default">Add New Item</a>
-        <a asp-controller="Order" asp-action="UpdateStatus" asp-route-id="@Model.Id" class="btn btn-default">Submit</a>
+        <form>
+            <div class="form-group">
+                <label asp-for="CategoryName" class="control-label">Category</label>
+                <input asp-for="CategoryName" class="form-control" readonly />
+            </div>
+
+            <a asp-controller="Supervisor" asp-action="ApproveOrder" asp-route-orderId="@Model.Id" class="btn btn-default">Approve</a>
+            <a asp-controller="Supervisor" asp-action="DenyOrder" asp-route-id="@Model.Id" class="btn btn-default">Deny</a>
+
+        </form>
+
 
     }
 
