@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<PRWithRequest>
 
 @{
-    ViewData["Title"] = "Pending";
+    ViewData["Title"] = "Orders";
 }
 
-<h2>Pending</h2>
+<h2>Orders</h2>
 
 
 @if (!Model.Any())
@@ -46,31 +46,37 @@ else
                     <td>
                         <a class="btn btn-sm btn-primary" asp-action="ViewOrder" asp-route-id="@pr.Id">Order Details</a>
                     </td>
-                    <td>
-                        @if (pr.StatusName == "Waiting for Supervisor Approval" || pr.StatusName == "Created")
-                        {
+
+                    @if (pr.StatusName == "Waiting for Supervisor Approval" || pr.StatusName == "Created")
+                    {
+                        <td>
                             <a class="btn btn-sm btn-primary" asp-action="EditOrder" asp-route-id="@pr.Id">Edit</a>
-                        }
-                    </td>
-                    <td>
-                        @if (pr.StatusName == "Waiting for Supervisor Approval" || pr.StatusName == "Created")
-                        {
-                            <a class="btn btn-sm btn-primary" asp-controller="Request" asp-action="AddItem" asp-route-id="@pr.Id">Edit Items</a>
-                        }
-                    </td>
-                    <td>
-                        @if (pr.StatusName != "Approved")
-                        {
-                            <button type="submit" onclick="return confirm('Do you really want to cancel order?')" class="btn btn-sm btn-danger">
+                        </td>
+                    }
+
+
+                    @if (pr.StatusName == "Waiting for Supervisor Approval" || pr.StatusName == "Created")
+                    {
+                        <td>
+                            <a class="btn btn-sm btn-primary" asp-controller="Request" asp-action="EditItems" asp-route-id="@pr.Id">Edit Items</a>
+                        </td>
+                    }
+
+
+                    @if (pr.StatusName != "Completed" && pr.StatusName != "Ordered" && pr.StatusName != "Completed")
+                    {
+                        <td>
+                            <button type="submit" asp-action="CancelOrder" asp-route-id="@pr.Id" onclick="return confirm('Do you really want to cancel order?')" class="btn btn-sm btn-danger">
                                 Cancel Order
                             </button>
-                        }
-                    </td>
+                        </td>
+                    }
 
-                    </form>
 
-                </tr>
-            }
-            </table>
+                </form>
+
+            </tr>
         }
+    </table>
+}
 

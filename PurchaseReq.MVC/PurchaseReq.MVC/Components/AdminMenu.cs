@@ -16,6 +16,12 @@ namespace PurchaseReq.MVC.Components
                 },
                 new AdminMenuItem()
                 {
+                    DisplayValue = "Role Management",
+                    ActionValue = "RoleManagement",
+                    ControllerValue = "Admin"
+                },
+                new AdminMenuItem()
+                {
                     DisplayValue = "Budget Code Management",
                     ActionValue = "Index",
                     ControllerValue = "Budget"

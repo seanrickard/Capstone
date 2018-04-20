@@ -36,15 +36,19 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
 
         //Request
         Task<IList<RequestWithVendor>> GetRequestWithVendors();
+        Task<RequestWithVendor> GetOneRequest(int id);
 
         //Order
         Task<PRWithRequest> GetNewOrder(string id);
         Task<IList<Category>> GetCategoriesAsync();
         Task<PRWithRequest> IncrementStatus(int id);
+        Task<IList<PRWithRequest>> GetEmployeeOrderByTypeAsync(string id, string type);
+        Task<IList<PRWithRequest>> GetOrderByTypeAsync(string type);
         Task<PRWithRequest> GetOrderAsync(int id);
         Task<IList<PRWithRequest>> GetOrdersAsync(string id);
         Task<IList<PRWithRequest>> GetPendingOrdersAsync(string id);
         Task<PRWithRequest> MoveToCFOStatus(int id);
+        Task<PRWithRequest> CancelOrderAsync(int id);
 
 
         //Employee
@@ -60,6 +64,7 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
 
         //Roles
         Task<IList<Employee>> GetSupervisors();
+        
 
         //Approval
         Task<IList<Approval>> GetApprovals();

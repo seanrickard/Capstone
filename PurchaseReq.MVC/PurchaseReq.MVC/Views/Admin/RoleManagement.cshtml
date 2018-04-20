@@ -1,0 +1,39 @@
+﻿@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
+@using Microsoft.AspNetCore.Identity
+
+
+
+@model IEnumerable<IdentityRole>
+
+<h2>Role Management</h2>
+
+@if (!Model.Any())
+{
+    <tr><td colspan="3" class="text-center">No roles defined yet. Please create the first role.</td></tr>
+}
+else
+{
+    <div class="row">
+        <div class="col-sm-5">
+            <table class="table table-condensed table-bordered">
+                <tr>
+                    <th>Role name</th>
+                    <th>Users</th>
+                </tr>
+                @foreach (var role in Model)
+                {
+
+                    <tr>
+                        <td>@role.Name</td>
+                        <td>
+                            <form>
+                                <a class="btn btn-sm btn-primary" asp-action="EditRole" asp-route-id="@role.Id">View Users</a>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+}
+

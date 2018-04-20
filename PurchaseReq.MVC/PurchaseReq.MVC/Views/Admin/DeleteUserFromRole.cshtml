@@ -1,0 +1,15 @@
+﻿@model UserRoleViewModel
+
+<h2>Delete User From Role</h2>
+
+<form asp-controller="Admin" asp-action="DeleteUserFromRole">
+    <input type="hidden" name="roleId" value="@Model.RoleId" />
+
+    @Html.DropDownListFor(x => x.UserId, new SelectList(Model.Users, "Id", "FullName"), new { @class = "form-control" })
+    <br />
+    <input class="btn btn-primary" value="Remove from role" type="submit" />
+    <a asp-action="RoleManagement" class="btn btn-primary">Cancel</a>
+</form>
+
+
+

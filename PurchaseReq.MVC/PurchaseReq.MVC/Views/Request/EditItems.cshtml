@@ -1,0 +1,44 @@
+﻿@model PRWithRequest
+
+@{
+    ViewData["Title"] = "Edit Items";
+}
+
+<h2>Edit Items</h2>
+
+
+
+<table class="table">
+    <tr>
+        <th>Quantity Requested</th>
+        <th>Item Name</th>
+        <th>Description</th>
+        <th>Estimated Cost</th>
+        <th>Estimated Total</th>
+    </tr>
+
+    @foreach (RequestWithVendor req in Model.RequestsWithVendor)
+    {
+    <tr>
+        <td>@req.QuantityRequested</td>
+        <td>@req.ItemName</td>
+        <td>@req.Description</td>
+        <td>@req.EstimatedCost</td>
+        <td>@req.EstimatedTotal</td>
+
+
+
+        <td>
+            <form asp-action="EditItems" asp-route-id="@req.Id" asp-route-itemId="@req.ItemId" method="post">
+                <button type="submit" onclick="return confirm('Do you really want to remove item?')" class="btn btn-sm btn-danger">
+                    Remove Item
+                </button>
+            </form>
+        </td>
+    </tr>
+
+
+    }
+
+</table>
+

@@ -19,13 +19,37 @@ namespace PurchaseReq.MVC.Components
                     ActionValue = "Create",
                     ControllerValue = "Order"
                 },
+                 new SupervisorMenuItem()
+                {
+                    DisplayValue = "View Pending Orders",
+                    ActionValue = "PendingByEmployee",
+                     ControllerValue = "Order"
+                },
                 new SupervisorMenuItem()
                 {
-                    DisplayValue = "Order History",
-                    ActionValue = "Order",
+                    DisplayValue = "View Approved Orders",
+                    ActionValue = "ApprovedByEmployee",
                      ControllerValue = "Order"
+                },
+                new SupervisorMenuItem()
+                {
+                    DisplayValue = "View Completed Orders",
+                    ActionValue = "CompletedByEmployee",
+                     ControllerValue = "Order"
+                },
+                new SupervisorMenuItem()
+                {
+                    DisplayValue = "View Ordered",
+                    ActionValue = "OrderedByEmployee",
+                     ControllerValue = "Order"
+                },
+                new SupervisorMenuItem()
+                {
+                    DisplayValue = "View Denied Orders",
+                    ActionValue = "DeniedByEmployee",
+                    ControllerValue = "Order"
                 }};
-        
+
 
 
             return View(menuItems);

@@ -19,18 +19,24 @@ namespace PurchaseReq.MVC.Components
                     ActionValue = "Index",
                     ControllerValue = "Budget"
                 },
-                 new CFOMenuItem()
+                new CFOMenuItem()
                 {
-                    DisplayValue = "New Order",
-                    ActionValue = "Create",
+                    DisplayValue = "View Ordered",
+                    ActionValue = "Ordered",
+                     ControllerValue = "Order"
+                },
+                new CFOMenuItem()
+                {
+                    DisplayValue = "View Completed",
+                    ActionValue = "Completed",
                     ControllerValue = "Order"
                 },
                 new CFOMenuItem()
                 {
-                    DisplayValue = "Order History",
-                    ActionValue = "Order",
+                    DisplayValue = "View Denied",
+                    ActionValue = "Denied",
                      ControllerValue = "Order"
-                }};
+                },};
 
 
             return View(menuItems);

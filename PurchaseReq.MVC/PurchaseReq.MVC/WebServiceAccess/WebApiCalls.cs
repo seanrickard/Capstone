@@ -115,6 +115,12 @@ namespace PurchaseReq.MVC.WebServiceAccess
         {
             return await GetItemListAsync<RequestWithVendor>(RequestWithVendorBaseUri);
         }
+        public async Task<RequestWithVendor> GetOneRequest(int id)
+        {
+            return await GetItemAsync<RequestWithVendor>($"{RequestWithVendorBaseUri}{id}");
+        }
+
+        
 
         //Order
         public async Task<PRWithRequest> GetNewOrder(string id)
@@ -136,6 +142,14 @@ namespace PurchaseReq.MVC.WebServiceAccess
         {
             return await GetItemListAsync<PRWithRequest>($"{GetOrdersUri}{id}");
         }
+        public async Task<IList<PRWithRequest>> GetEmployeeOrderByTypeAsync(string id, string type)
+        {
+            return await GetItemListAsync<PRWithRequest>($"{GetOrderByTypeUriBase}{type}/{id}");
+        }
+        public async Task<IList<PRWithRequest>> GetOrderByTypeAsync( string type)
+        {
+            return await GetItemListAsync<PRWithRequest>($"{GetOrderByTypeUriBase}{type}");
+        }
 
         public async Task<IList<PRWithRequest>> GetPendingOrdersAsync(string id)
         {
@@ -150,6 +164,11 @@ namespace PurchaseReq.MVC.WebServiceAccess
         public async Task<PRWithRequest> MoveToCFOStatus(int id)
         {
             return await GetItemAsync<PRWithRequest>($"{CFOStatusUri}{id}");
+        }
+
+        public async Task<PRWithRequest> CancelOrderAsync(int id)
+        {
+            return await GetItemAsync<PRWithRequest>($"{CancelOrderUri}{id}");
         }
 
 

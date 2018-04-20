@@ -15,9 +15,33 @@ namespace PurchaseReq.MVC.Components
                 },
                 new UserMenuItem()
                 {
-                    DisplayValue = "Order History",
-                    ActionValue = "ViewOrders",
+                    DisplayValue = "View Pending Orders",
+                    ActionValue = "PendingByEmployee",
                      ControllerValue = "Order"
+                },
+                new UserMenuItem()
+                {
+                    DisplayValue = "View Approved Orders",
+                    ActionValue = "ApprovedByEmployee",
+                     ControllerValue = "Order"
+                },
+                new UserMenuItem()
+                {
+                    DisplayValue = "View Completed Orders",
+                    ActionValue = "CompletedByEmployee",
+                     ControllerValue = "Order"
+                },
+                new UserMenuItem()
+                {
+                    DisplayValue = "View Ordered",
+                    ActionValue = "OrderedByEmployee",
+                     ControllerValue = "Order"
+                },
+                new UserMenuItem()
+                {
+                    DisplayValue = "View Denied Orders",
+                    ActionValue = "DeniedByEmployee",
+                    ControllerValue = "Order"
                 }};
 
 
@@ -31,5 +55,5 @@ namespace PurchaseReq.MVC.Components
         public string ActionValue { get; set; }
         public string ControllerValue { get; set; }
     }
-   
+
 }

@@ -63,6 +63,7 @@
                 <th>Description</th>
                 <th>Estimated Cost</th>
                 <th>Estimated Total</th>
+                <th>Chosen</th>
             </tr>
 
             @foreach (RequestWithVendor req in Model.RequestsWithVendor)
@@ -73,6 +74,7 @@
                     <td>@req.Description</td>
                     <td>@req.EstimatedCost</td>
                     <td>@req.EstimatedTotal</td>
+                    <td>@req.Chosen</td>
 
                 </tr>
 
@@ -86,6 +88,10 @@
             <a asp-controller="Order" asp-action="UpdateStatus" asp-route-id="@Model.Id" class="btn btn-primary">Submit</a>
         }
 
+        @if (User.IsInRole("Purchasing") && Model.StatusName == "Approved")
+        {
+            <a asp-controller="Order" asp-action="UpdateStatus" asp-route-id="@Model.Id" class="btn btn-primary">Mark As Approved</a>
+        }
 
     }
 
