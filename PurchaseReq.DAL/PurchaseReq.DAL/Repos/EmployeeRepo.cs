@@ -101,5 +101,58 @@ namespace PurchaseReq.DAL.Repos
             }
             return returnList;
         }
+
+        //Will return null if there is no Notification for that user role
+        public NotificationViewModel GetNotification(string userId)
+        {
+            var statuses = Context.Statuses;
+            var user = Table.FirstOrDefault(x => x.Id == userId);
+
+            if(UserManager.IsInRoleAsync(user, "Supervisor").Result)
+            {
+                return new NotificationViewModel
+                {
+                    FullName = user.FullName,
+                    WaitingForSupervisor = Context.Orders.Count(x => x.EmployeeId == user.Id && x.StatusId == statuses.Where(s => s.StatusName == "Waiting for Supervisor Approval").First().Id),
+                    WaitingForCFO = Context.Orders.Count(x => x.EmployeeId == user.Id && x.StatusId == statuses.Where(s => s.StatusName == "Waiting for CFO approval").First().Id),
+                    WaitingToBeOrdered = Context.Orders.Count(x => x.EmployeeId == user.Id && x.StatusId == statuses.Where(s => s.StatusName == "Approved").First().Id),
+                    BeingDeliverd = Context.Orders.Count(x => x.EmployeeId == user.Id && x.StatusId == statuses.Where(s => s.StatusName == "Ordered").First().Id),
+                    NumberNeedingToBeApproved = Context.Orders.Count(x => x.Employee.Department.Division.SupervisorId == userId && x.StatusId == statuses.Where(s => s.StatusName == "Waiting for Supervisor Approval").First().Id)
+                };
+            }
+            else if (UserManager.IsInRoleAsync(user, "User").Result)
+            {
+
+                return new NotificationViewModel
+                {
+                    FullName = user.FullName,
+                    WaitingForSupervisor = Context.Orders.Count(x => x.EmployeeId == user.Id && x.StatusId == statuses.Where(s => s.StatusName == "Waiting for Supervisor Approval").First().Id),
+                    WaitingForCFO = Context.Orders.Count(x => x.EmployeeId == user.Id && x.StatusId == statuses.Where(s => s.StatusName == "Waiting for CFO approval").First().Id),
+                    WaitingToBeOrdered = Context.Orders.Count(x => x.EmployeeId == user.Id && x.StatusId == statuses.Where(s => s.StatusName == "Approved").First().Id),
+                    BeingDeliverd = Context.Orders.Count(x => x.EmployeeId == user.Id && x.StatusId == statuses.Where(s => s.StatusName == "Ordered").First().Id),
+                };
+            }
+            else if (UserManager.IsInRoleAsync(user, "CFO").Result)
+            {
+                return new NotificationViewModel
+                {
+                    FullName = user.FullName,
+                    NumberNeedingToBeApproved = Context.Orders.Count(x => x.StatusId == statuses.Where(s => s.StatusName == "Waiting for CFO approval").First().Id),
+                    NumberNeedingToBePurchased = Context.Orders.Count(x => x.StatusId == statuses.Where(s => s.StatusName == "Approved").First().Id)
+                };
+            }
+            else if (UserManager.IsInRoleAsync(user, "Purchasing").Result)
+            {
+                return new NotificationViewModel
+                {
+                    FullName = user.FullName,
+                    NumberNeedingToBePurchased = Context.Orders.Count(x => x.StatusId == statuses.Where(s => s.StatusName == "Approved").First().Id)
+                };
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }

@@ -58,6 +58,7 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         Task<object> LoginEmployee(LogInViewModel logInViewModel);
         Task<IList<EmployeeWithDepartmentAndRoomAndRole>> GetInActiveEmployees();
         Task<EmployeeWithDepartmentAndRoomAndRole> GetEmployeeAsync(string id);
+        Task<NotificationViewModel> GetNotification(string userId);
 
         //Supervisor
 

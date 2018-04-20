@@ -31,6 +31,12 @@ namespace PurchaseReq.Service.Controllers
             return Ok(Repo.Get().Where(x => x.Active));
         }
 
+        [HttpGet("{userId}")]
+        public IActionResult GetNotification(string userId)
+        {
+            return Ok(Repo.GetNotification(userId));
+        }
+
         [HttpGet]
         public IActionResult GetInActive()
         {

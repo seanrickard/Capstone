@@ -57,6 +57,7 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         protected readonly string GetEmployeeBaseUri;
         protected readonly string GetInactiveEmployeesBaseUri;
         protected readonly string GetEmployeeUri;
+        protected readonly string GetNotificationUri;
 
         //Supervisor
         protected readonly string GetSubmittedUri;
@@ -97,6 +98,7 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
             GetEmployeeLoginBaseUri = $"{ServiceAddress}api/Employee/Login/";
             GetInactiveEmployeesBaseUri = $"{BaseUri}Employee/GetInactive/";
             GetEmployeeUri = $"{BaseUri}Employee/Get/";
+            GetNotificationUri = $"{BaseUri}Employee/GetNotification/";
 
             //Budget
 

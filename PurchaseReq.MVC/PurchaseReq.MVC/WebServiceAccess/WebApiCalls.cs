@@ -209,6 +209,11 @@ namespace PurchaseReq.MVC.WebServiceAccess
             return await GetItemAsync<EmployeeWithDepartmentAndRoomAndRole>($"{GetEmployeeUri}{id}");
         }
 
+        public async Task<NotificationViewModel> GetNotification(string userId)
+        {
+            return await GetItemAsync<NotificationViewModel>($"{GetNotificationUri}{userId}");
+        }
+
         //Supervisor
         public async Task<IList<PRWithRequest>> GetSubmittedAsync(string id)
         {

@@ -1,18 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using PurchaseReq.Models.Entities;
 using PurchaseReq.MVC.Models;
+using PurchaseReq.MVC.WebServiceAccess.Base;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace PurchaseReq.MVC.Controllers
 {
+    [Route("[controller]/[action]")]
     public class HomeController : Controller
     {
-        public IActionResult Index()
+
+        private readonly IWebApiCalls _webApiCalls;
+
+        private UserManager<Employee> _userManager { get; }
+
+        public HomeController(IWebApiCalls webApiCalls, UserManager<Employee> userManager)
         {
-            return View();
+            _webApiCalls = webApiCalls;
+            _userManager = userManager;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            string userId = _userManager.GetUserId(User);
+
+            var model = await _webApiCalls.GetNotification(userId);
+            return View(model);
         }
 
         public IActionResult About()

@@ -1,5 +1,36 @@
-﻿@{
+﻿@model NotificationViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<h1>Welcome, User</h1>
+
+@if (Model != null)
+{
+    <h1 class="text-center">Welcome, @Model.FullName</h1>
+    <hr />
+
+    <h2>You Have:</h2>
+    @if (User.IsInRole("User") || User.IsInRole("Supervisor"))
+    {
+        <h3>@Model.WaitingForSupervisor : waiting to be approved by your supervisor</h3>
+        <h3>@Model.WaitingForCFO : waiting to be approved by the CFO</h3>
+        <h3>@Model.WaitingToBeOrdered : waiting to be ordered by Purchasing</h3>
+        <h3>@Model.BeingDeliverd : being delivered</h3>
+    }
+    @if (User.IsInRole("CFO") || User.IsInRole("Supervisor"))
+    {
+        <h3>@Model.NumberNeedingToBeApproved : waiting for your approval</h3>
+    }
+    @if (User.IsInRole("CFO") || User.IsInRole("Purchasing"))
+    {
+        <h3>@Model.NumberNeedingToBePurchased : needing to be ordered</h3>
+    }
+}
+else
+{
+    <h1>Welcome</h1> 
+
+}
+
+
+

@@ -12,5 +12,7 @@ namespace PurchaseReq.DAL.Repos.Interfaces
         IEnumerable<EmployeeWithDepartmentAndRoomAndRole> GetByDepartment(int departmentId);
 
         IEnumerable<EmployeeWithDepartmentAndRoomAndRole> GetByDivision(int divisionId);
+
+        NotificationViewModel GetNotification(string userId);
     }
 }
