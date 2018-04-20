@@ -66,6 +66,11 @@ namespace PurchaseReq.MVC.WebServiceAccess
             return await GetItemAsync<BudgetCodeWithAmount>($"{BudgetCodeWithAmountBaseUri}{id}");
         }
 
+        public async Task<IList<EmployeeBudgetCodeViewModel>> GetEmployeesInBudgetCodeAsync(int id)
+        {
+            return await GetItemListAsync<EmployeeBudgetCodeViewModel>($"{BudgetCodeWithEmployeesUri}{id}");
+        }
+
         //Division
         public async Task<IList<DivisionWithSupervisor>> GetDivisionsAsync()
         {

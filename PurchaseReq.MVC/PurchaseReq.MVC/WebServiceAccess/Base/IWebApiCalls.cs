@@ -21,6 +21,7 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         //Budget
         Task<IList<BudgetCodeWithAmount>> GetBudgetsAsync();
         Task<BudgetCodeWithAmount> GetBudgetAsync(int id);
+        Task<IList<EmployeeBudgetCodeViewModel>> GetEmployeesInBudgetCodeAsync(int id);
 
         //Division
         Task<IList<DivisionWithSupervisor>> GetDivisionsAsync();

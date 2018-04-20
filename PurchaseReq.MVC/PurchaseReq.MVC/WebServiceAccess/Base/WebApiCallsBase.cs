@@ -20,6 +20,7 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
 
         //Budget Codes
         protected readonly string BudgetCodeWithAmountBaseUri;
+        protected readonly string BudgetCodeWithEmployeesUri;
 
         //Division
         protected readonly string DivisionBaseUri;
@@ -98,6 +99,7 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
             //Budget
 
             BudgetCodeWithAmountBaseUri = $"{ServiceAddress}api/BudgetCode/Get/";
+            BudgetCodeWithEmployeesUri = $"{ServiceAddress}api/EmployeeBudgetCode/GetEmployeesInBudgetCode/";
 
             //Request
 

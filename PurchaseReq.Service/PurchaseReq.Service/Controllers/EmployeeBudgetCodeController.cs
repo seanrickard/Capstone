@@ -1,9 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PurchaseReq.DAL.Repos.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PurchaseReq.Service.Controllers
 {
@@ -34,6 +30,12 @@ namespace PurchaseReq.Service.Controllers
         public IActionResult GetAllForEmployee(string employeeId)
         {
             return Ok(Repo.GetAllEmployeesBudgetCodes(employeeId));
+        }
+
+        [HttpGet("{budgetCodeId}")]
+        public IActionResult GetEmployeesInBudgetCode(int budgetCodeId)
+        {
+            return Ok(Repo.GetAllEmployeesInBudgetCode(budgetCodeId));
         }
     }
 }

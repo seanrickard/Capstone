@@ -19,9 +19,15 @@ namespace PurchaseReq.DAL.Repos
             => Table.Include(x => x.BudgetCode).Where(x => x.EmployeeId == id)
                 .Select(item => GetRecord(item, item.Employee, item.BudgetCode));
 
+        public IEnumerable<EmployeeBudgetCodeViewModel> GetAllEmployeesInBudgetCode(int id)
+            => Table.Include(x => x.BudgetCode).Where(x => x.BudgetCodeId == id)
+                .Select(item => GetRecord(item, item.Employee, item.BudgetCode));
+
         public IEnumerable<EmployeeBudgetCodeViewModel> GetAllWithEmployeeAndBudgetCodes()
             => Table.Include(x => x.BudgetCode).Include(x => x.Employee)
                 .Select(item => GetRecord(item, item.Employee, item.BudgetCode));
+
+        
 
         //not use for now.
         internal EmployeeBudgetCodeViewModel GetRecord(EmployeesBudgetCodes eb, Employee e, BudgetCode b)
