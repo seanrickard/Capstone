@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using PurchaseReq.Models.Entities;
@@ -31,6 +32,14 @@ namespace PurchaseReq.MVC.WebServiceAccess
             int idx = input.ToString().LastIndexOf('.');
             string type = input.ToString().Remove(0, idx + 1);
             return await SubmitPutRequestAsync(BaseUri + type + "/Update/" + id + "/", json);
+        }
+
+        //EmployeeBudgetCodes
+        public async Task<string> CreateBudgetCode(EmployeesBudgetCodes ebc)
+        {
+            var json = JsonConvert.SerializeObject(ebc);
+            return await SubmitPostRequestAsync(CreateEmployeeBudgetCodeUri, json);
+
         }
 
 

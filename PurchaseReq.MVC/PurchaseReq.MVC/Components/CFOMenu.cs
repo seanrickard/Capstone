@@ -11,7 +11,7 @@ namespace PurchaseReq.MVC.Components
                 {
                     DisplayValue = "Pending Approval",
                     ActionValue = "ViewSubmitted",
-                    ControllerValue = "CFO"
+                    ControllerValue = "Supervisor"
                 },
                 new CFOMenuItem()
                 {

@@ -63,7 +63,7 @@ else
                     }
 
 
-                    @if (pr.StatusName != "Completed" && pr.StatusName != "Ordered" && pr.StatusName != "Completed")
+                    @if (pr.StatusName != "Approved" && pr.StatusName != "Ordered" && pr.StatusName != "Completed")
                     {
                         <td>
                             <button type="submit" asp-action="CancelOrder" asp-route-id="@pr.Id" onclick="return confirm('Do you really want to cancel order?')" class="btn btn-sm btn-danger">

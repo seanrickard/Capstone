@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PurchaseReq.Models.Entities;
 using PurchaseReq.Models.ViewModels;
+using PurchaseReq.MVC.ViewModels;
 using PurchaseReq.MVC.WebServiceAccess.Base;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -126,57 +127,59 @@ namespace PurchaseReq.MVC.Controllers
             return View(budgets);
         }
 
+        [HttpGet]
         public async Task<IActionResult> AddUserToBudgetCode(int id)
         {
-            ViewBag.Employees = await _webApiCalls.GetEmployeesAsEmployees();
-            
+            var employees = await _webApiCalls.GetEmployeesAsEmployees();
+            var budgets = await _webApiCalls.GetEmployeesInBudgetCodeAsync(id);
 
-            EmployeeBudgetCodeViewModel ebc = new EmployeeBudgetCodeViewModel();
 
-            
-            return View(ebc);
+            var employeeBudgetViewModel = new EmployeeBudgetViewModel();
+
+            foreach(var emp in employees)
+            {
+                employeeBudgetViewModel.Users.Add(emp);
+
+                foreach( var employee in budgets)
+                {
+                    if(employee.EmployeeId == emp.Id)
+                    {
+                        employeeBudgetViewModel.Users.Remove(emp);
+                    }
+                }
+            }
+          
+            employeeBudgetViewModel.BudgetCodeId = id;
+
+            return View(employeeBudgetViewModel);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> AddUserToRole(UserRoleViewModel userRoleViewModel)
-        //{
-        //    var user = await _userManager.FindByIdAsync(userRoleViewModel.UserId);
-        //    var role = await _roleManager.FindByIdAsync(userRoleViewModel.RoleId);
+        [HttpPost]
+        public async Task<IActionResult> AddUserToBudgetCode( EmployeeBudgetViewModel employees)
+        {
+            EmployeesBudgetCodes ebc = new EmployeesBudgetCodes()
+            {
+                BudgetCodeId = employees.BudgetCodeId,
+                EmployeeId = employees.UserId
+            };
 
-        //    var result = await _userManager.AddToRoleAsync(user, role.Name);
+            var result = await _webApiCalls.CreateBudgetCode(ebc);
 
-        //    if (result.Succeeded)
-        //    {
-        //        return RedirectToAction("RoleManagement", _roleManager.Roles);
-        //    }
+            return RedirectToAction("Index");
 
-        //    foreach (IdentityError error in result.Errors)
-        //    {
-        //        ModelState.AddModelError("", error.Description);
-        //    }
+        }
 
-        //    return View(userRoleViewModel);
-        //}
+        public async Task<IActionResult> DeleteUserFromBudgetCode(int id)
+        {
+            var employeesInCode = await _webApiCalls.GetEmployeesInBudgetCodeAsync(id);
 
-        //public async Task<IActionResult> DeleteUserFromRole(string roleId)
-        //{
-        //    var role = await _roleManager.FindByIdAsync(roleId);
 
-        //    if (role == null)
-        //        return RedirectToAction("RoleManagement", _roleManager.Roles);
 
-        //    var addUserToRoleViewModel = new UserRoleViewModel { RoleId = role.Id };
+            EmployeeBudgetCodeViewModel ebc = new EmployeeBudgetCodeViewModel();
+            ebc.BudgetCodeId = id;
 
-        //    foreach (var user in _userManager.Users)
-        //    {
-        //        if (await _userManager.IsInRoleAsync(user, role.Name))
-        //        {
-        //            addUserToRoleViewModel.Users.Add(user);
-        //        }
-        //    }
-
-        //    return View(addUserToRoleViewModel);
-        //}
+            return View(ebc);
+        }
 
         //[HttpPost]
         //public async Task<IActionResult> DeleteUserFromRole(UserRoleViewModel userRoleViewModel)

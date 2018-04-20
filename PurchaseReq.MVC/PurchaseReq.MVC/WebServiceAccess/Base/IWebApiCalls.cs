@@ -11,6 +11,9 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         Task<string> CreateAsync<T>(T input);
         Task<string> UpdateAsync<T>(int id, T input);
 
+        //EmployeeBudgetCodes
+        Task<string> CreateBudgetCode(EmployeesBudgetCodes ebc);
+
         //Campus
         Task<IList<CampusWithAddress>> GetCampusesAsync();
         Task<CampusWithAddress> GetCampusAsync(int id);

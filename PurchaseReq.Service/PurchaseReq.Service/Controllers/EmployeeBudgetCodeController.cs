@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PurchaseReq.DAL.Repos.Interfaces;
+using PurchaseReq.Models.Entities;
 
 namespace PurchaseReq.Service.Controllers
 {
@@ -36,6 +37,18 @@ namespace PurchaseReq.Service.Controllers
         public IActionResult GetEmployeesInBudgetCode(int budgetCodeId)
         {
             return Ok(Repo.GetAllEmployeesInBudgetCode(budgetCodeId));
+        }
+
+        [HttpPost]
+        public IActionResult Create([FromBody] EmployeesBudgetCodes model)
+        {
+            if (model == null || !ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            Repo.Add(model);
+            return CreatedAtAction("Create", model);
         }
     }
 }
