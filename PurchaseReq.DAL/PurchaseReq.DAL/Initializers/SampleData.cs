@@ -470,27 +470,27 @@ namespace PurchaseReq.DAL.Initializers
         {
             new EmployeesBudgetCodes()
             {
-                Employee = employees.First(),
+                Employee = employees.Where(x =>x.LastName == "Almond").First(),
                 BudgetCode = codes.First()
             },
             new EmployeesBudgetCodes()
             {
-                Employee = employees[1],
+                Employee = employees.Where(x =>x.LastName == "Thompson").First(),
                 BudgetCode = codes.First()
             },
             new EmployeesBudgetCodes()
             {
-                Employee = employees[3],
+                Employee = employees.Where(x =>x.LastName == "Frum").First(),
                 BudgetCode = codes[1]
             },
             new EmployeesBudgetCodes()
             {
-                Employee = employees[4],
+                Employee = employees.Where(x =>x.LastName == "Heller").First(),
                 BudgetCode = codes[1]
             },
             new EmployeesBudgetCodes()
             {
-                Employee = employees[2],
+                Employee = employees.Where(x =>x.LastName == "Gump").First(),
                 BudgetCode = codes[2]
             },
 
