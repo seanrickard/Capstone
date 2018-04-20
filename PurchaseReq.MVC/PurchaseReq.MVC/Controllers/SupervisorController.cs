@@ -34,8 +34,15 @@ namespace PurchaseReq.MVC.Controllers
         {
             string id = _userManager.GetUserId(User);
             var orders = await _webApiCalls.GetSubmittedAsync(id);
+            Employee user = await _userManager.GetUserAsync(User);
+            var isCfo = await _userManager.IsInRoleAsync(user, "CFO");
+            if(isCfo)
+            {
+                orders = await _webApiCalls.GetWaitingOnCFO();
+                return View(orders);
+            }
 
-            return View(orders);
+             return View(orders);
         }
 
         public async Task<IActionResult> OrderApproval(int id)
@@ -92,7 +99,7 @@ namespace PurchaseReq.MVC.Controllers
         {
             PRWithRequest req = await _webApiCalls.GetOrderAsync(id);
 
-            if(req.RequestsWithVendor.Any( x => x.EstimatedTotal > 3000) && req.StateContract == false)
+            if(req.RequestsWithVendor.Any( x => x.EstimatedTotal > 3000) && req.StateContract == false && req.StatusName != "Waiting for CFO approval")
             {
                 PRWithRequest order = await _webApiCalls.MoveToCFOStatus(id);
                 return RedirectToAction("ViewSubmitted");

@@ -208,5 +208,11 @@ namespace PurchaseReq.Service.Controllers
         {
             return Ok(Repo.GetPendingForUser(employeeId));
         }
+
+        [HttpGet("{employeeId}")]
+        public IActionResult GetOrdered(string employeeId)
+        {
+            return Ok(Repo.GetAllOrderedForUser(employeeId));
+        }
     }
 }

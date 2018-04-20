@@ -90,7 +90,7 @@
 
         @if (User.IsInRole("Purchasing") && Model.StatusName == "Approved")
         {
-            <a asp-controller="Order" asp-action="UpdateStatus" asp-route-id="@Model.Id" class="btn btn-primary">Mark As Approved</a>
+            <a asp-controller="Order" asp-action="UpdateStatus" asp-route-id="@Model.Id" class="btn btn-primary">Mark As Ordered</a>
         }
 
     }

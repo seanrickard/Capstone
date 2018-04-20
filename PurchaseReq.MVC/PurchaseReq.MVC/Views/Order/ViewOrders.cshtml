@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<PRWithRequest>
 
 @{
-    ViewData["Title"] = "Orders";
+    ViewData["Title"] = "OrderNames";
 }
 
-<h2>Orders</h2>
+<h2>@ViewData["OrderNames"]</h2>
 
 
 @if (!Model.Any())
@@ -68,6 +68,16 @@ else
                         <td>
                             <button type="submit" asp-action="CancelOrder" asp-route-id="@pr.Id" onclick="return confirm('Do you really want to cancel order?')" class="btn btn-sm btn-danger">
                                 Cancel Order
+                            </button>
+                        </td>
+                    }
+
+
+                    @if (pr.StatusName == "Ordered" )
+                    {
+                        <td>
+                            <button type="submit" asp-action="UpdateStatus" asp-route-id="@pr.Id"  class="btn btn-sm btn-primary">
+                                Mark As Completed
                             </button>
                         </td>
                     }

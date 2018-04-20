@@ -252,6 +252,12 @@ namespace PurchaseReq.MVC.WebServiceAccess
             return await GetItemListAsync<PRWithRequest>($"{GetSubmittedUri}{id}");
         }
 
+        //CFO
+        public async Task<IList<PRWithRequest>> GetWaitingOnCFO()
+        {
+            return await GetItemListAsync<PRWithRequest>($"{GetWaitingForCFOUri}");
+        }
+
         //Roles
         public async Task<IList<IdentityRole>> GetRoles()
         {
@@ -333,13 +339,13 @@ namespace PurchaseReq.MVC.WebServiceAccess
             return ls;
         }
 
-        public async Task<List<SelectListItem>> GetBudgetCodesForDropDown()
+        public async Task<List<SelectListItem>> GetBudgetCodesForDropDown(string id)
         {
-            var groups = await GetBudgetsAsync();
+            var groups = await GetAllEmployeesBudgetCodes(id);
 
             var ls = new List<SelectListItem>();
 
-            foreach (BudgetCodeWithAmount d in groups)
+            foreach (EmployeeBudgetCodeViewModel d in groups)
             {
                 ls.Add(new SelectListItem
                 {

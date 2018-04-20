@@ -72,6 +72,9 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
 
         Task<IList<PRWithRequest>> GetSubmittedAsync(string id);
 
+        //CFO
+        Task<IList<PRWithRequest>> GetWaitingOnCFO();
+
         //Roles
         Task<IList<Employee>> GetSupervisors();
         
@@ -87,7 +90,7 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         Task<List<SelectListItem>> GetDepartmentsForDropDown();
         Task<List<SelectListItem>> GetRolesForDropdown();
         Task<List<SelectListItem>> GetRoomsForDropdown();
-        Task<List<SelectListItem>> GetBudgetCodesForDropDown();
+        Task<List<SelectListItem>> GetBudgetCodesForDropDown(string id);
         Task<List<SelectListItem>> GetCategoriesForDropDown();
         Task<List<SelectListItem>> GetEmployeesForDropDown();
 

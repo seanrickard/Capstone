@@ -20,16 +20,18 @@ namespace PurchaseReq.MVC.Controllers
             _userManager = userManager;
         }
 
+        // When user presses new order, order is automatically created and user is presented with a view to choose category and budgetcode
         [HttpGet]
         public async Task<IActionResult> Create()
         {
             string id = _userManager.GetUserId(User);
             var request = await _webApiCalls.GetNewOrder(id);
-            ViewBag.BudgetCodes = await _webApiCalls.GetBudgetCodesForDropDown();
+            ViewBag.BudgetCodes = await _webApiCalls.GetBudgetCodesForDropDown(id);
             ViewBag.Categories = await _webApiCalls.GetCategoriesForDropDown();
             return View(request);
         }
 
+        // When user 
         [HttpPost("{id}")]
         public async Task<IActionResult> Create(int id, PRWithRequest request)
         {
@@ -37,7 +39,8 @@ namespace PurchaseReq.MVC.Controllers
 
             if (!ModelState.IsValid)
             {
-                ViewBag.BudgetCodes = await _webApiCalls.GetBudgetCodesForDropDown();
+                string userId = _userManager.GetUserId(User);
+                ViewBag.BudgetCodes = await _webApiCalls.GetBudgetCodesForDropDown(userId);
                 ViewBag.Categories = await _webApiCalls.GetCategoriesForDropDown();
                 return View(request);
             }
@@ -72,7 +75,8 @@ namespace PurchaseReq.MVC.Controllers
         public async Task<IActionResult> EditOrder(int id)
         {
             var request = await _webApiCalls.GetOrderAsync(id);
-            ViewBag.BudgetCodes = await _webApiCalls.GetBudgetCodesForDropDown();
+            string userId = _userManager.GetUserId(User);
+            ViewBag.BudgetCodes = await _webApiCalls.GetBudgetCodesForDropDown(userId);
             ViewBag.Categories = await _webApiCalls.GetCategoriesForDropDown();
 
             return View(request);
@@ -146,7 +150,7 @@ namespace PurchaseReq.MVC.Controllers
 
             if(order.StatusName == "Waiting for Supervisor Approval")
             {
-                return RedirectToAction("Pending", new { id = empId });
+                return RedirectToAction("PendingByEmployee", new { id = empId });
             }
             else if(order.StatusName == "Approved")
             {
@@ -167,6 +171,7 @@ namespace PurchaseReq.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> PendingByEmployee()
         {
+            ViewData["OrderNames"] = "Pending Orders";
             string id = _userManager.GetUserId(User);
             IList<PRWithRequest> orders = await _webApiCalls.GetEmployeeOrderByTypeAsync(id, "Pending");
 
@@ -209,6 +214,7 @@ namespace PurchaseReq.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> ApprovedByEmployee()
         {
+            ViewData["OrderNames"] = "Approved Orders";
             string id = _userManager.GetUserId(User);
             IList<PRWithRequest> orders = await _webApiCalls.GetEmployeeOrderByTypeAsync(id, "Approved");
 
@@ -218,6 +224,7 @@ namespace PurchaseReq.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Approved()
         {
+            ViewData["OrderNames"] = "Approved Orders";
             IList<PRWithRequest> orders = await _webApiCalls.GetOrderByTypeAsync("Approved");
 
             return View("ViewOrders", orders);
@@ -234,6 +241,7 @@ namespace PurchaseReq.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> OrderedByEmployee()
         {
+            ViewData["OrderNames"] = "Ordered";
             string id = _userManager.GetUserId(User);
             IList<PRWithRequest> orders = await _webApiCalls.GetEmployeeOrderByTypeAsync(id, "Ordered");
 
@@ -243,6 +251,20 @@ namespace PurchaseReq.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Ordered()
         {
+            
+            Employee user = await _userManager.GetUserAsync(User);
+            var isCfo = await _userManager.IsInRoleAsync(user, "Purchasing");
+            if(isCfo)
+            {
+                ViewData["OrderNames"] = "Approved";
+                IList<PRWithRequest> approvedOrders = await _webApiCalls.GetOrderByTypeAsync("Approved");
+                //if(createdOrders.Count == 1)
+                //{
+                //    return RedirectToAction("Index", "Home");           //probably don't need
+                //}
+                return View("ViewOrders", approvedOrders);
+            }
+            ViewData["OrderNames"] = "Ordered";
             IList<PRWithRequest> orders = await _webApiCalls.GetOrderByTypeAsync("Ordered");
 
             return View("ViewOrders", orders);
@@ -260,6 +282,7 @@ namespace PurchaseReq.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> CompletedByEmployee()
         {
+            ViewData["OrderNames"] = "Completed Orders";
             string id = _userManager.GetUserId(User);
             IList<PRWithRequest> orders = await _webApiCalls.GetEmployeeOrderByTypeAsync(id, "Completed");
 
@@ -269,6 +292,7 @@ namespace PurchaseReq.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Completed()
         {
+            ViewData["OrderNames"] = "Completed Orders";
             IList<PRWithRequest> orders = await _webApiCalls.GetOrderByTypeAsync("Completed");
 
             return View("ViewOrders", orders);
@@ -277,6 +301,7 @@ namespace PurchaseReq.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> DeniedByEmployee()
         {
+            ViewData["OrderNames"] = "Denied Orders";
             string id = _userManager.GetUserId(User);
             IList<PRWithRequest> orders = await _webApiCalls.GetEmployeeOrderByTypeAsync(id, "Denied");
 
@@ -286,6 +311,7 @@ namespace PurchaseReq.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Denied()
         {
+            ViewData["OrderNames"] = "Denied Orders";
             IList<PRWithRequest> orders = await _webApiCalls.GetOrderByTypeAsync("Denied");
 
             return View("ViewOrders", orders);
@@ -294,6 +320,7 @@ namespace PurchaseReq.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> CreatedByEmployee()
         {
+            ViewData["OrderNames"] = "Drafts";
             string id = _userManager.GetUserId(User);
             IList<PRWithRequest> orders = await _webApiCalls.GetEmployeeOrderByTypeAsync(id, "Created");
 

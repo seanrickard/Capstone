@@ -63,10 +63,12 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
 
         //Supervisor
         protected readonly string GetSubmittedUri;
+        protected readonly string GetWaitingForCFOUri;
 
         //Roles
         protected readonly string GetRolesBaseUri;
         protected readonly string GetSupervisorsBaseUri;
+
         protected readonly string BaseUri;
 
         //Approval
@@ -133,6 +135,7 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
 
             //Supervisor
             GetSubmittedUri = $"{ServiceAddress}api/Order/GetWaitingSupervisor/";
+            GetWaitingForCFOUri = $"{ServiceAddress}api/Order/GetWaitingCFO/";
 
             //Roles
             GetSupervisorsBaseUri = $"{ServiceAddress}api/Role/GetSupervisors";
