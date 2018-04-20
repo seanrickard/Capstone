@@ -13,6 +13,10 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
 
         //EmployeeBudgetCodes
         Task<string> CreateBudgetCode(EmployeesBudgetCodes ebc);
+        Task<string> UpdateBudgetCode(int id, EmployeesBudgetCodes ebc);
+        Task<IList<EmployeeBudgetCodeViewModel>> GetEmployeesInBudgetCodeAsync(int id);
+        Task<IList<EmployeeBudgetCodeViewModel>> GetAllEmployeesBudgetCodes(string id);
+        Task<IList<EmployeeBudgetCodeViewModel>> GetEmployeesCurrentlyInBudgetCodeAsync(int id);
 
         //Campus
         Task<IList<CampusWithAddress>> GetCampusesAsync();
@@ -25,7 +29,7 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         //Budget
         Task<IList<BudgetCodeWithAmount>> GetBudgetsAsync();
         Task<BudgetCodeWithAmount> GetBudgetAsync(int id);
-        Task<IList<EmployeeBudgetCodeViewModel>> GetEmployeesInBudgetCodeAsync(int id);
+        
 
         //Division
         Task<IList<DivisionWithSupervisor>> GetDivisionsAsync();

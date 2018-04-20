@@ -22,7 +22,8 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         //Budget Codes
         protected readonly string BudgetCodeWithAmountBaseUri;
         protected readonly string BudgetCodeWithEmployeesUri;
-        
+        protected readonly string BudgetCodesForEmployeesUri;
+
 
         //Division
         protected readonly string DivisionBaseUri;
@@ -73,6 +74,8 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
 
         //EmployeeBudgetCodes
         protected readonly string CreateEmployeeBudgetCodeUri;
+        protected readonly string UpdateEmployeeBudgetCodeUri;
+        protected readonly string ActiveBudgetCodesForEmployeesUri;
 
         protected WebApiCallsBase(IWebServiceLocator settings)
         {
@@ -108,7 +111,11 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
 
             BudgetCodeWithAmountBaseUri = $"{ServiceAddress}api/BudgetCode/Get/";
             BudgetCodeWithEmployeesUri = $"{ServiceAddress}api/EmployeeBudgetCode/GetEmployeesInBudgetCode/";
+            BudgetCodesForEmployeesUri = $"{ServiceAddress}api/EmployeeBudgetCode/GetAllForEmployee/";
             CreateEmployeeBudgetCodeUri = $"{ServiceAddress}api/EmployeeBudgetCode/Create/";
+            UpdateEmployeeBudgetCodeUri = $"{ServiceAddress}api/EmployeeBudgetCode/Update/";
+            ActiveBudgetCodesForEmployeesUri = $"{ServiceAddress}api/EmployeeBudgetCode/GetActiveEmployeesInBudgetCode/";
+
             //Request
 
             RequestWithVendorBaseUri = $"{ServiceAddress}api/Request/Get/";

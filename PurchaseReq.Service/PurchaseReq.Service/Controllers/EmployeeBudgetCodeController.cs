@@ -39,6 +39,12 @@ namespace PurchaseReq.Service.Controllers
             return Ok(Repo.GetAllEmployeesInBudgetCode(budgetCodeId));
         }
 
+        [HttpGet("{budgetCodeId}")]
+        public IActionResult GetActiveEmployeesInBudgetCode(int budgetCodeId)
+        {
+            return Ok(Repo.GetAllActiveEmployeesInBudgetCode(budgetCodeId));
+        }
+
         [HttpPost]
         public IActionResult Create([FromBody] EmployeesBudgetCodes model)
         {
@@ -49,6 +55,18 @@ namespace PurchaseReq.Service.Controllers
 
             Repo.Add(model);
             return CreatedAtAction("Create", model);
+        }
+
+        [HttpPut("{employeeBudgetCodeId}")]
+        public IActionResult Update(int employeeBudgetCodeId, [FromBody] EmployeesBudgetCodes model)
+        {
+            if (model == null || employeeBudgetCodeId != model.Id || !ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            Repo.Update(model);
+            return CreatedAtAction("Update", model);
         }
     }
 }

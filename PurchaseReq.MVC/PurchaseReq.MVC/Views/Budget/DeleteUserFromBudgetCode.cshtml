@@ -1,12 +1,12 @@
-﻿@model EmployeeBudgetCodeViewModel
+﻿@model EmployeeBudgetViewModel
 
 <h2>Delete User From Role</h2>
 
 <form asp-controller="Budget" asp-action="DeleteUserFromBudgetCode">
-    <input type="hidden" name="@Model.EmployeeId" value="@Model.EmployeeName" />
+    <input type="hidden" name="@Model.UserId" value="@Model.UserId" />
 
 
-    @Html.DropDownListFor(x => x.EmployeeId, new SelectList(ViewBag.Employees, "Id", "FullName"), new { @class = "form-control" })
+    @Html.DropDownListFor(x => x.UserId, new SelectList(Model.Users, "Id", "FullName"), new { @class = "form-control" })
     <br />
     <input class="btn btn-primary" value="Remove from Budget Code" type="submit" />
     <a asp-action="Index" class="btn btn-primary">Cancel</a>

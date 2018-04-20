@@ -122,7 +122,7 @@ namespace PurchaseReq.MVC.Controllers
         public async Task<IActionResult> ViewUsers(int id)
         {
             IList<EmployeeBudgetCodeViewModel> budgets;
-            budgets = await _webApiCalls.GetEmployeesInBudgetCodeAsync(id);
+            budgets = await _webApiCalls.GetEmployeesCurrentlyInBudgetCodeAsync(id);
             ViewBag.BudgetId = id;
             return View(budgets);
         }
@@ -131,7 +131,7 @@ namespace PurchaseReq.MVC.Controllers
         public async Task<IActionResult> AddUserToBudgetCode(int id)
         {
             var employees = await _webApiCalls.GetEmployeesAsEmployees();
-            var budgets = await _webApiCalls.GetEmployeesInBudgetCodeAsync(id);
+            var budgets = await _webApiCalls.GetEmployeesCurrentlyInBudgetCodeAsync(id);
 
 
             var employeeBudgetViewModel = new EmployeeBudgetViewModel();
@@ -171,36 +171,68 @@ namespace PurchaseReq.MVC.Controllers
 
         public async Task<IActionResult> DeleteUserFromBudgetCode(int id)
         {
-            var employeesInCode = await _webApiCalls.GetEmployeesInBudgetCodeAsync(id);
+            var employeesInCode = await _webApiCalls.GetEmployeesCurrentlyInBudgetCodeAsync(id);
+            var employees = await _webApiCalls.GetEmployeesAsEmployees();
 
+            var employeeBudgetViewModel = new EmployeeBudgetViewModel();
 
+            foreach(var employee in employeesInCode)
+            {
+                foreach(var emp in employees)
+                {
+                    if(employee.EmployeeId == emp.Id)
+                    {
+                        employeeBudgetViewModel.Users.Add(emp);
+                    }
+                }
+            }
 
-            EmployeeBudgetCodeViewModel ebc = new EmployeeBudgetCodeViewModel();
-            ebc.BudgetCodeId = id;
+            employeeBudgetViewModel.BudgetCodeId = id;
 
-            return View(ebc);
+            return View(employeeBudgetViewModel);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> DeleteUserFromRole(UserRoleViewModel userRoleViewModel)
-        //{
-        //    var user = await _userManager.FindByIdAsync(userRoleViewModel.UserId);
-        //    var role = await _roleManager.FindByIdAsync(userRoleViewModel.RoleId);
+        [HttpPost]
+        public async Task<IActionResult> DeleteUserFromBudgetCode(EmployeeBudgetViewModel employees)
+        {
+            var employeesInCode = await _webApiCalls.GetEmployeesInBudgetCodeAsync(employees.BudgetCodeId);
+            var budgetsForEmployee = await _webApiCalls.GetAllEmployeesBudgetCodes(employees.UserId);
+            
 
-        //    var result = await _userManager.RemoveFromRoleAsync(user, role.Name);
+            foreach(var emp in employeesInCode)
+            {
+                foreach(var empl in budgetsForEmployee)
+                {
+                    if(emp.Id == empl.Id)
+                    {
+                        EmployeesBudgetCodes ebc = new EmployeesBudgetCodes()
+                        {
+                            BudgetCodeId = employees.BudgetCodeId,
+                            EmployeeId = employees.UserId,
+                            Id = emp.Id,
+                            TimeStamp = emp.TimeStamp,
+                            Active = false
+                        };
 
-        //    if (result.Succeeded)
-        //    {
-        //        return RedirectToAction("RoleManagement", _roleManager.Roles);
-        //    }
+                        var result = await _webApiCalls.UpdateBudgetCode(ebc.Id, ebc);
 
-        //    foreach (IdentityError error in result.Errors)
-        //    {
-        //        ModelState.AddModelError("", error.Description);
-        //    }
+                        return RedirectToAction("Index");
+                    }
+                }
+            }
 
-        //    return View(userRoleViewModel);
-        //}
+            //EmployeesBudgetCodes ebc = new EmployeesBudgetCodes()
+            //{
+            //    BudgetCodeId = employees.BudgetCodeId,
+            //    EmployeeId = employees.UserId,
+            //    Id = ebcId,
+            //    Active = false                
+            //}
+
+            //var result = await _webApiCalls.UpdateBudgetCode(ebc.Id, ebc);
+
+            return View(employees);
+        }
 
     }
 }

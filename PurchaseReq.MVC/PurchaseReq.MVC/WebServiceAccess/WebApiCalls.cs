@@ -42,6 +42,27 @@ namespace PurchaseReq.MVC.WebServiceAccess
 
         }
 
+        public async Task<string> UpdateBudgetCode(int id, EmployeesBudgetCodes ebc)
+        {
+            var json = JsonConvert.SerializeObject(ebc);
+            return await SubmitPutRequestAsync(UpdateEmployeeBudgetCodeUri + id, json);
+        }
+
+        public async Task<IList<EmployeeBudgetCodeViewModel>> GetEmployeesInBudgetCodeAsync(int id)
+        {
+            return await GetItemListAsync<EmployeeBudgetCodeViewModel>($"{BudgetCodeWithEmployeesUri}{id}");
+        }
+
+        public async Task<IList<EmployeeBudgetCodeViewModel>> GetAllEmployeesBudgetCodes(string id)
+        {
+            return await GetItemListAsync<EmployeeBudgetCodeViewModel>($"{BudgetCodesForEmployeesUri}{id}");
+        }
+
+        public async Task<IList<EmployeeBudgetCodeViewModel>> GetEmployeesCurrentlyInBudgetCodeAsync(int id)
+        {
+            return await GetItemListAsync<EmployeeBudgetCodeViewModel>($"{ActiveBudgetCodesForEmployeesUri}{id}");
+        }
+
 
         //Campus
         public async Task<IList<CampusWithAddress>> GetCampusesAsync()
@@ -80,10 +101,7 @@ namespace PurchaseReq.MVC.WebServiceAccess
             return await GetItemAsync<BudgetCodeWithAmount>($"{BudgetCodeWithAmountBaseUri}{id}");
         }
 
-        public async Task<IList<EmployeeBudgetCodeViewModel>> GetEmployeesInBudgetCodeAsync(int id)
-        {
-            return await GetItemListAsync<EmployeeBudgetCodeViewModel>($"{BudgetCodeWithEmployeesUri}{id}");
-        }
+      
 
         //Division
         public async Task<IList<DivisionWithSupervisor>> GetDivisionsAsync()

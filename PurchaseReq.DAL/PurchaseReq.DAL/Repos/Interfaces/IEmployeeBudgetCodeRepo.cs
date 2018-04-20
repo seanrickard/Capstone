@@ -14,5 +14,8 @@ namespace PurchaseReq.DAL.Repos.Interfaces
         IEnumerable<EmployeeBudgetCodeViewModel> GetAllWithEmployeeAndBudgetCodes();
 
         IEnumerable<EmployeeBudgetCodeViewModel> GetAllEmployeesInBudgetCode(int id);
+
+        IEnumerable<EmployeeBudgetCodeViewModel> GetAllActiveEmployeesInBudgetCode(int id);
+
     }
 }
