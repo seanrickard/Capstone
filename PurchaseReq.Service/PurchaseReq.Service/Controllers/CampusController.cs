@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PurchaseReq.DAL.Repos.Interfaces;
 using PurchaseReq.Models.Entities;
+using System.Linq;
 
 namespace PurchaseReq.Service.Controllers
 {
@@ -36,7 +37,13 @@ namespace PurchaseReq.Service.Controllers
         [HttpGet]
         public IActionResult GetWithAddress()
         {
-            return Ok(_repo.GetAllWithAddress());
+            return Ok(_repo.GetAllWithAddress().Where(x => x.Active));
+        }
+
+        [HttpGet]
+        public IActionResult GetInActive()
+        {
+            return Ok(_repo.GetAllWithAddress().Where(x => !x.Active));
         }
 
         [HttpGet("{id}")]

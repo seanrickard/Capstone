@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace PurchaseReq.MVC.Controllers
 {
+    [Route("[controller]/[action]")]
     public class CampusController : Controller
     {
         private readonly IWebApiCalls _webApiCalls;
@@ -16,11 +17,23 @@ namespace PurchaseReq.MVC.Controllers
             _webApiCalls = webApiCalls;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             IList<CampusWithAddress> campuses = await _webApiCalls.GetCampusesAsync();
+            ViewBag.Active = true;
 
             return View(campuses);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> InActive()
+        {
+            //GetInactive Campuses
+            IList<CampusWithAddress> campuses = await _webApiCalls.GetInactiveCampusesAsync();
+            ViewBag.Active = false;
+
+            return View("Index", campuses);
         }
 
         public IActionResult AddCampus()
@@ -53,13 +66,14 @@ namespace PurchaseReq.MVC.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet("{campusId}")]
+        [HttpGet]
         public async Task<IActionResult> EditCampus(int campusId)
         {
             var campus = await _webApiCalls.GetCampusAsync(campusId);
             return View(campus);
         }
 
+        [HttpPost]
         public async Task<IActionResult> EditCampus(CampusWithAddress model)
         {
             if (!ModelState.IsValid)
@@ -67,7 +81,16 @@ namespace PurchaseReq.MVC.Controllers
                 return View(model);
             }
 
+            var Campus = new Campus
+            {
+                Id = model.Id,
+                Active = model.Active,
+                Address = new Address { Zip = model.Zip, City = model.City, StreetAddress = model.StreetAddress, State = model.State },
+                CampusName = model.CampusName,
+                TimeStamp = model.TimeStamp
+            };
 
+            var result = await _webApiCalls.UpdateAsync(Campus.Id, Campus);
 
             return RedirectToAction("Index");
         }

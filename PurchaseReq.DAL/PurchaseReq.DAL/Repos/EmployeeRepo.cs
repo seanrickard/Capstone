@@ -63,8 +63,8 @@ namespace PurchaseReq.DAL.Repos
 
             if(d != null)
             {
-                employee.DepartmentId = d.Id;
-                employee.DepartmentName = d.DepartmentName;
+                employee.DepartmentId = d?.Id;
+                employee.DepartmentName = d?.DepartmentName;
             }
 
             if(r != null)

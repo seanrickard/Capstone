@@ -17,6 +17,7 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         protected readonly string CreateCampusWithBaseUri;
         protected readonly string RoomsByCampusBaseUri;
         protected readonly string GetRoomsBaseUri;
+        protected readonly string GetInactiveCampusesUri;
 
         //Budget Codes
         protected readonly string BudgetCodeWithAmountBaseUri;
@@ -76,6 +77,7 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
             CampusWithAddressBaseUri = $"{ServiceAddress}api/Campus/GetWithAddress/";
             RoomsByCampusBaseUri = $"{ServiceAddress}api/Room/GetByCampus/";
             GetRoomsBaseUri = $"{ServiceAddress}api/Room/Get/";
+            GetInactiveCampusesUri = $"{ServiceAddress}api/Campus/GetInActive/";
 
             //Division
             DivisionWithSupervisorBaseUri = $"{ServiceAddress}api/Division/GetWithSupervisor/";
