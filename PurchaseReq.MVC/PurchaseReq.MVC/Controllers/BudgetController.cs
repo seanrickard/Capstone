@@ -122,29 +122,20 @@ namespace PurchaseReq.MVC.Controllers
         {
             IList<EmployeeBudgetCodeViewModel> budgets;
             budgets = await _webApiCalls.GetEmployeesInBudgetCodeAsync(id);
-
+            ViewBag.BudgetId = id;
             return View(budgets);
         }
 
-        //public async Task<IActionResult> AddUserToRole(string roleId)
-        //{
-        //    var role = await _roleManager.FindByIdAsync(roleId);
+        public async Task<IActionResult> AddUserToBudgetCode(int id)
+        {
+            ViewBag.Employees = await _webApiCalls.GetEmployeesAsEmployees();
+            
 
-        //    if (role == null)
-        //        return RedirectToAction("RoleManagement", _roleManager.Roles);
+            EmployeeBudgetCodeViewModel ebc = new EmployeeBudgetCodeViewModel();
 
-        //    var addUserToRoleViewModel = new UserRoleViewModel { RoleId = role.Id };
-
-        //    foreach (var user in _userManager.Users)
-        //    {
-        //        if (!await _userManager.IsInRoleAsync(user, role.Name))
-        //        {
-        //            addUserToRoleViewModel.Users.Add(user);
-        //        }
-        //    }
-
-        //    return View(addUserToRoleViewModel);
-        //}
+            
+            return View(ebc);
+        }
 
         //[HttpPost]
         //public async Task<IActionResult> AddUserToRole(UserRoleViewModel userRoleViewModel)

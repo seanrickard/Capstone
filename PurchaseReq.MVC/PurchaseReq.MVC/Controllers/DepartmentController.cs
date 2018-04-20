@@ -31,7 +31,6 @@ namespace PurchaseReq.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> InActive()
         {
-            //Need to go make that api call at service
             var departments = await _webApiCalls.GetInactiveDepartmentsAsync();
 
             ViewBag.Active = false;

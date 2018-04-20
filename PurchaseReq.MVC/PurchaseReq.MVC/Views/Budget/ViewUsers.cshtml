@@ -1,0 +1,26 @@
+﻿@model IList<EmployeeBudgetCodeViewModel>
+@{
+    ViewData["Title"] = "ViewUsers";
+}
+
+<h2>ViewUsers</h2>
+
+
+
+<h3>Users in Budget Code</h3>
+<table class="table table-condensed table-bordered table-striped">
+
+    @foreach (EmployeeBudgetCodeViewModel emp in Model)
+    {
+        <tr>
+            <td>
+                @emp.EmployeeName
+            </td>
+        </tr>
+    }
+</table>
+
+
+<a asp-action="AddUserToBudgetCode" asp-route-id="@ViewBag.BudgetId" class="btn btn-primary">Add users to role</a>
+
+<a asp-action="DeleteUserFromBudgetCode" asp-route-id="@ViewBag.BudgetId" class="btn btn-primary">Remove users from role</a>

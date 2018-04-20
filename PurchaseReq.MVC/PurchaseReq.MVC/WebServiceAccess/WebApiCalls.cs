@@ -183,6 +183,11 @@ namespace PurchaseReq.MVC.WebServiceAccess
            return await GetItemListAsync<EmployeeWithDepartmentAndRoomAndRole>($"{GetEmployeeBaseUri}");
         }
 
+        public async Task<IList<Employee>> GetEmployeesAsEmployees()
+        {
+            return await GetItemListAsync<Employee>($"{GetEmployeeBaseUri}");
+        }
+
         public async Task<IList<EmployeeWithDepartmentAndRoomAndRole>> GetEmployeeByDepartment(int id)
         {
             return await GetItemListAsync<EmployeeWithDepartmentAndRoomAndRole>($"{GetEmployeeByDepartmentBaseUri}{id}");
@@ -349,6 +354,24 @@ namespace PurchaseReq.MVC.WebServiceAccess
                     Text = cat.CategoryName
                 });
             }
+            return ls;
+        }
+
+        public async Task<List<SelectListItem>> GetEmployeesForDropDown()
+        {
+            var groups = await GetEmployeesAsEmployees();
+
+            var ls = new List<SelectListItem>();
+
+            foreach ( Employee emp in groups)
+            {
+                ls.Add(new SelectListItem
+                {
+                    Value = emp.Id,
+                    Text = emp.FullName
+                });
+            }
+
             return ls;
         }
 

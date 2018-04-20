@@ -1,0 +1,20 @@
+﻿@model EmployeeBudgetCodeViewModel
+
+
+@{
+    ViewData["Title"] = "AddUserToBudgetCode";
+}
+
+<h2>Add User ToBudgetCode</h2>
+
+
+<form asp-controller="BudgetCode" asp-action="AddUserToBudgetCode">
+    <input type="hidden" name="@Model.EmployeeId" value="@Model.EmployeeName" />
+
+
+    @Html.DropDownListFor(x => x.EmployeeId, new SelectList(ViewBag.Employees, "Id", "FullName"), new { @class = "form-control" })
+    <br />
+    <input class="btn btn-primary" value="Add to role" type="submit" />
+    <a asp-action="RoleManagement" class="btn btn-primary">Cancel</a>
+</form>
+
