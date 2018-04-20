@@ -16,7 +16,11 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" />
     <PackageReference Include="PurchaseReq.DAL" Version="1.0.56" />
+<<<<<<< HEAD
     <PackageReference Include="PurchaseReq.Models" Version="1.0.14" />
+=======
+    <PackageReference Include="PurchaseReq.Models" Version="1.0.15" />
+>>>>>>> d18d33d06b48f717706a279081b71efa9b72df88
   </ItemGroup>
 
   <ItemGroup>

@@ -55,6 +55,11 @@ namespace PurchaseReq.MVC.WebServiceAccess
             return await GetItemListAsync<Room>($"{GetRoomsBaseUri}");
         }
 
+        public async Task<IList<CampusWithAddress>> GetInactiveCampusesAsync()
+        {
+            return await GetItemListAsync<CampusWithAddress>($"{GetInactiveCampusesUri}");
+        }
+
         //Budget
         public async Task<IList<BudgetCodeWithAmount>> GetBudgetsAsync()
         {
@@ -86,6 +91,8 @@ namespace PurchaseReq.MVC.WebServiceAccess
         {
             return await GetItemListAsync<DivisionWithSupervisor>(InActiveDivisionWithSupervisorBaseUri);
         }
+
+       
 
         //Department
         public async Task<IList<DepartmentWithDivision>> GetDepartmentsAsync()

@@ -71,6 +71,7 @@ namespace PurchaseReq.MVC.Controllers
         {
             if (!ModelState.IsValid && model.Password != model.ConfirmPassword)
             {
+                ModelState.AddModelError("", "Passwords Must Match");
                 return View(model);
             }
 

@@ -16,6 +16,7 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         Task<CampusWithAddress> GetCampusAsync(int id);
         Task<IList<RoomWithCampus>> GetRoomsByCampusAsync(int id);
         Task<IList<Room>> GetRoomsAsync();
+        Task<IList<CampusWithAddress>> GetInactiveCampusesAsync();
         //Task<IList<PRWithRequest>> GetOrdersAsync();
 
         //Budget

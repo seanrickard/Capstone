@@ -123,7 +123,6 @@ namespace PurchaseReq.MVC.Controllers
             IList<EmployeeBudgetCodeViewModel> budgets;
             budgets = await _webApiCalls.GetEmployeesInBudgetCodeAsync(id);
 
-
             return View(budgets);
         }
 

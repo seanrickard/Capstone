@@ -2,14 +2,20 @@
 @using Microsoft.AspNetCore.Identity.EntityFrameworkCore
 @model IList<CampusWithAddress>
 
-
 @{
     ViewData["Title"] = "Campus";
 }
-
 <h2>Campus</h2>
 
-
+@if (ViewBag.Active)
+{
+    <a class="btn btn-sm btn-primary" asp-action="InActive">View Inactive</a>
+}
+else
+{
+    <a class="btn btn-sm btn-primary" asp-action="Index">View Active</a>
+}
+    <hr />
 @if (!Model.Any())
 {
     <tr><td colspan="3" class="text-center">No campuses yet</td></tr>
@@ -24,9 +30,7 @@ else
             <th>City</th>
             <th>State</th>
             <th>Zip</th>
-
         </tr>
-
         @foreach (CampusWithAddress campus in Model)
         {
 
@@ -38,15 +42,16 @@ else
                 <td>@campus.State</td>
                 <td>@campus.Zip</td>
                 <td>
-                    <a class="btn btn-sm btn-primary" asp-action="EditCampus" asp-route-id="@campus.Id">Edit</a>
-                    <a class="btn btn-sm btn-primary" asp-action="Rooms" asp-controller="Campus" asp-route-id="@campus.Id">View Rooms</a>
+                    <a class="btn btn-sm btn-primary" asp-action="EditCampus" asp-route-campusId="@campus.Id">Edit</a>
+                    @if (ViewBag.Active)
+                    {
+                        <a class="btn btn-sm btn-primary" asp-action="Rooms" asp-controller="Campus" asp-route-id="@campus.Id">View Rooms</a>
+                    }
                 </td>
             </tr>
         }
     </table>
 }
-
 <p>
     <a anchor-style="primary" asp-action="AddCampus">Add new campus</a>
 </p>
-
