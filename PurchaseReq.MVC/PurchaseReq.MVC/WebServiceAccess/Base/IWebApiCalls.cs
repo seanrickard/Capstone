@@ -58,6 +58,7 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         Task<object> LoginEmployee(LogInViewModel logInViewModel);
         Task<IList<EmployeeWithDepartmentAndRoomAndRole>> GetInActiveEmployees();
         Task<EmployeeWithDepartmentAndRoomAndRole> GetEmployeeAsync(string id);
+        Task<IList<Employee>> GetEmployeesAsEmployees();
 
         //Supervisor
 
@@ -80,6 +81,7 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         Task<List<SelectListItem>> GetRoomsForDropdown();
         Task<List<SelectListItem>> GetBudgetCodesForDropDown();
         Task<List<SelectListItem>> GetCategoriesForDropDown();
+        Task<List<SelectListItem>> GetEmployeesForDropDown();
 
 
     }
