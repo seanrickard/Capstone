@@ -1,11 +1,8 @@
 ﻿@model IEnumerable<PRWithRequest>
-
 @{
     ViewData["Title"] = "OrderNames";
 }
-
 <h2>@ViewData["OrderNames"]</h2>
-
 
 @if (!Model.Any())
 {
@@ -15,7 +12,6 @@ else
 {
     <table class="table table-condensed table-bordered" header header-content="Orders">
         <tr>
-
             <th>Date Created</th>
             <th>Employee</th>
             <th>Supervisor</th>
@@ -24,9 +20,7 @@ else
             <th>Budget Code</th>
             <th>State Contract</th>
             <th>Justification</th>
-
         </tr>
-
         @foreach (PRWithRequest pr in Model)
         {
 
@@ -40,13 +34,10 @@ else
                 <td>@pr.StateContract</td>
                 <td>@pr.BusinessJustification</td>
 
-
-
                 <form asp-action="CancelOrder" asp-route-id="@pr.Id" method="post">
                     <td>
                         <a class="btn btn-sm btn-primary" asp-action="ViewOrder" asp-route-id="@pr.Id">Order Details</a>
                     </td>
-
                     @if (pr.StatusName == "Waiting for Supervisor Approval" || pr.StatusName == "Created")
                     {
                         <td>
@@ -54,14 +45,12 @@ else
                         </td>
                     }
 
-
                     @if (pr.StatusName == "Waiting for Supervisor Approval" || pr.StatusName == "Created")
                     {
                         <td>
                             <a class="btn btn-sm btn-primary" asp-controller="Request" asp-action="EditItems" asp-route-id="@pr.Id">Edit Items</a>
                         </td>
                     }
-
 
                     @if (pr.StatusName != "Approved" && pr.StatusName != "Ordered" && pr.StatusName != "Completed")
                     {
@@ -72,21 +61,21 @@ else
                         </td>
                     }
 
-
-                    @if (pr.StatusName == "Ordered" )
+                    @if (pr.StatusName == "Ordered")
                     {
-                        <td>
-                            <button type="submit" asp-action="UpdateStatus" asp-route-id="@pr.Id"  class="btn btn-sm btn-primary">
-                                Mark As Completed
-                            </button>
-                        </td>
+                        if (!User.IsInRole("Auditor"))
+                        {
+                            <td>
+                                <button type="submit" asp-action="UpdateStatus" asp-route-id="@pr.Id" class="btn btn-sm btn-primary">
+                                    Mark As Completed
+                                </button>
+                            </td>
+                        }
+
                     }
 
-
                 </form>
-
             </tr>
         }
     </table>
 }
-

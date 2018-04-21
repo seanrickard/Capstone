@@ -349,7 +349,7 @@ namespace PurchaseReq.MVC.WebServiceAccess
             {
                 ls.Add(new SelectListItem
                 {
-                    Value = d.Id.ToString(),
+                    Value = d.BudgetCodeId.ToString(),
                     Text = d.BudgetCodeName
                 });
             }

@@ -39,7 +39,7 @@
 
                 <div class="form-group">
                     <label class="control-label">Budget Code</label>
-                    @Html.DropDownListFor(x => x.BudgetCodeId, new List<SelectListItem>(ViewBag.BudgetCodes), new { @class = "form-control" })
+                    @Html.DropDownListFor(x => x.BudgetCodeId, new List<SelectListItem>(ViewBag.BudgetCodes), "Pick a Budget Code", new { @class = "form-control" })
                     <span asp-validation-for="BudgetCodeId" class="text-danger"></span>
                 </div>
 
