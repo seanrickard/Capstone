@@ -283,9 +283,15 @@ namespace PurchaseReq.MVC.WebServiceAccess
             await SubmitPostRequestAsync($"{AddAttachmentsUri}{requestId}", json);
         }
 
-        public async Task<object> Download(int attachmentId)
+        public async Task<Attachment> Download(int attachmentId)
         {
-            return await GetItemAsync<object>($"{DownloadAttachmentsUri}{attachmentId}");
+            return await GetItemAsync<Attachment>($"{DownloadAttachmentsUri}{attachmentId}");
+        }
+
+        public async Task Delete(int attachmentId, Attachment attachment)
+        {
+            var json = JsonConvert.SerializeObject(attachment);
+            await SubmitPutRequestAsync($"{DeleteAttachmentUri}{attachmentId}", json);
         }
 
         // Dropdowns

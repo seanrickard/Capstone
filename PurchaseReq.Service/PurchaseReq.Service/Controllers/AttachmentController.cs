@@ -76,13 +76,18 @@ namespace PurchaseReq.Service.Controllers
         [HttpGet("{attachmentId}")]
         public IActionResult Get(int attachmentId)
         {
-            var attachment = _repo.Find(attachmentId);
+            var item = _repo.Find(attachmentId);
 
-            return File(attachment.Content, attachment.ContentType, attachment.FileName);
+            if (item == null)
+            {
+                return BadRequest();
+            }
+
+            return Json(item);
         }
 
-        [HttpPut]
-        public IActionResult Delete(int attachmentId)
+        [HttpPut("{attachmentId}")]
+        public IActionResult Delete(int attachmentId, [FromBody] Attachment attachment)
         {
             var item = _repo.Find(attachmentId);
 

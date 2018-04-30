@@ -84,6 +84,7 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         protected readonly string CreateEmployeeBudgetCodeUri;
         protected readonly string UpdateEmployeeBudgetCodeUri;
         protected readonly string ActiveBudgetCodesForEmployeesUri;
+        protected readonly string DeleteAttachmentUri;
 
         protected WebApiCallsBase(IWebServiceLocator settings)
         {
@@ -156,6 +157,7 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
             GetAttachmentsUri = $"{GetAttachmentsBaseUri}GetAll/";
             AddAttachmentsUri = $"{GetAttachmentsBaseUri}Create/";
             DownloadAttachmentsUri = $"{GetAttachmentsBaseUri}Get/";
+            DeleteAttachmentUri = $"{GetAttachmentsBaseUri}Delete/";
     }
 
 

@@ -86,7 +86,8 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         //Attachment
         Task<RequestWithAttachmentsViewModel> GetAttachments(int requestId);
         Task AddAttachments(int requestId, IEnumerable<IFormFile> files);
-        Task<object> Download(int attachmentId);
+        Task<Attachment> Download(int attachmentId);
+        Task Delete(int attachmentId, Attachment attachment);
 
 
         //Dropdowns

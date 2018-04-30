@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PurchaseReq.Models.ViewModels;
 using PurchaseReq.MVC.Configuration;
 using PurchaseReq.MVC.WebServiceAccess.Base;
 using System.Collections.Generic;
@@ -61,21 +62,19 @@ namespace PurchaseReq.MVC.Controllers
             return RedirectToAction("Index", new { requestId });
         }
 
-        [HttpPost("{attachmentId}")]
-        public IActionResult Delete(int attachmentId)
+        [HttpGet("{attachmentId}")]
+        public async Task<IActionResult> Delete(int attachmentId, AttachmentViewModel attachment)
         {
-            return View();
+            var model = await _webApiCalls.Download(attachmentId);
+            await _webApiCalls.Delete(attachmentId, model);
+            return RedirectToAction("Index", new { model.RequestId });
         }
 
         [HttpGet("{attachmentId}")]
         public async Task<IActionResult> Download(int attachmentId)
         {
-            using (var client = new HttpClient())
-            {
-                var ServiceAddress = Settings.ServiceAddress;
-
-                return Ok(await client.GetAsync($"{ServiceAddress}api/Attachment/Get/{attachmentId}"));
-            }
+            var attachment = await _webApiCalls.Download(attachmentId);
+            return File(attachment.Content, attachment.ContentType, attachment.FileName);
         }
     }
 }

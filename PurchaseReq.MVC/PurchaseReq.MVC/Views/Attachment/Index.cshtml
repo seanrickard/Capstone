@@ -4,8 +4,11 @@
 }
 
 <h1>Attachments</h1>
+<a class="btn btn-primary">Go Back</a>
 <h2>@Model.ItemName</h2>
 <h3>@Model.Description</h3>
+
+<hr />
 
 @{
 
@@ -13,8 +16,10 @@
     {
         foreach (var attachment in Model.Attachments)
         {
-            <p>@attachment.FileName</p>
-            <button asp-action="Download" asp-controller="Attachment" asp-route-attachmentId=@attachment.Id type="button">Download</button>
+            <div class="form-group">
+                <a asp-action="Download" asp-controller="Attachment" asp-route-attachmentId=@attachment.Id class="form-control">@attachment.FileName</a>
+                <input type="button" value="Delete" asp-route-attachmentId=@attachment.Id onclick="location.href='@Url.Action("Delete","Attachment", new {attachmentId = attachment.Id, attachment = attachment})'" class="btn btn-danger"/>
+            </div>
         }
     }
     else
@@ -23,7 +28,11 @@
     }
 }
 
+<hr />
+<h4>Add Attachments</h4>
 <form method="post" asp-action="AddAttachments" asp-controller="Attachment" enctype="multipart/form-data">
-    <input type="file" name="files" multiple/>
-    <button type="submit" asp-action="AddAttachments" asp-route-requestId="@Model.Id">Submit</button>
+    <div class="form-group">
+        <input type="file" name="files" multiple class="form-control" />
+        <button type="submit" asp-action="AddAttachments" asp-route-requestId="@Model.Id" class="btn btn-primary">Submit</button>
+    </div>
 </form>
