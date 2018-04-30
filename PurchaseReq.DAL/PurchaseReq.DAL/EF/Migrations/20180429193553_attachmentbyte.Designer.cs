@@ -12,9 +12,10 @@ using System;
 namespace PurchaseReq.DAL.EF.Migrations
 {
     [DbContext(typeof(PurchaseReqContext))]
-    partial class PurchaseReqContextModelSnapshot : ModelSnapshot
+    [Migration("20180429193553_attachmentbyte")]
+    partial class attachmentbyte
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -234,12 +235,8 @@ namespace PurchaseReq.DAL.EF.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<byte[]>("Content")
+                    b.Property<byte[]>("File")
                         .IsRequired();
-
-                    b.Property<string>("ContentType");
-
-                    b.Property<string>("FileName");
 
                     b.Property<int>("RequestId");
 

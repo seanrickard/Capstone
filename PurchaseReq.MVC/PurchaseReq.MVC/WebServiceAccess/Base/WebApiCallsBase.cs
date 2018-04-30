@@ -74,6 +74,12 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         //Approval
         protected readonly string GetApprovalBaseUri;
 
+        //Attachment 
+        protected readonly string GetAttachmentsBaseUri;
+        protected readonly string GetAttachmentsUri;
+        protected readonly string AddAttachmentsUri;
+        protected readonly string DownloadAttachmentsUri;
+
         //EmployeeBudgetCodes
         protected readonly string CreateEmployeeBudgetCodeUri;
         protected readonly string UpdateEmployeeBudgetCodeUri;
@@ -143,7 +149,14 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
 
             //Approval
             GetApprovalBaseUri = $"{ServiceAddress}api/Approval/Get/";
-        }
+
+            //Attachment
+
+            GetAttachmentsBaseUri = $"{ServiceAddress}api/Attachment/";
+            GetAttachmentsUri = $"{GetAttachmentsBaseUri}GetAll/";
+            AddAttachmentsUri = $"{GetAttachmentsBaseUri}Create/";
+            DownloadAttachmentsUri = $"{GetAttachmentsBaseUri}Get/";
+    }
 
 
 

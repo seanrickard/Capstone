@@ -1,0 +1,29 @@
+﻿@model RequestWithAttachmentsViewModel
+@{
+    ViewData["Title"] = "Attachment";
+}
+
+<h1>Attachments</h1>
+<h2>@Model.ItemName</h2>
+<h3>@Model.Description</h3>
+
+@{
+
+    if (Model.Attachments.Count > 0)
+    {
+        foreach (var attachment in Model.Attachments)
+        {
+            <p>@attachment.FileName</p>
+            <button asp-action="Download" asp-controller="Attachment" asp-route-attachmentId=@attachment.Id type="button">Download</button>
+        }
+    }
+    else
+    {
+        <h5>No Attachments</h5>
+    }
+}
+
+<form method="post" asp-action="AddAttachments" asp-controller="Attachment" enctype="multipart/form-data">
+    <input type="file" name="files" multiple/>
+    <button type="submit" asp-action="AddAttachments" asp-route-requestId="@Model.Id">Submit</button>
+</form>

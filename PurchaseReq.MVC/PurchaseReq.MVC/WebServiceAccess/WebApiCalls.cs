@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
@@ -268,6 +269,23 @@ namespace PurchaseReq.MVC.WebServiceAccess
         public async Task<IList<Approval>> GetApprovals()
         {
             return await GetItemListAsync<Approval>($"{GetApprovalBaseUri}");
+        }
+
+        //Attachments
+        public async Task<RequestWithAttachmentsViewModel> GetAttachments(int requestId)
+        {
+            return await GetItemAsync<RequestWithAttachmentsViewModel>($"{GetAttachmentsUri}{requestId}");
+        }
+
+        public async Task AddAttachments(int requestId, IEnumerable<IFormFile> files)
+        {
+            var json = JsonConvert.SerializeObject(files);
+            await SubmitPostRequestAsync($"{AddAttachmentsUri}{requestId}", json);
+        }
+
+        public async Task<object> Download(int attachmentId)
+        {
+            return await GetItemAsync<object>($"{DownloadAttachmentsUri}{attachmentId}");
         }
 
         // Dropdowns

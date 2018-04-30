@@ -1,9 +1,6 @@
 ﻿using PurchaseReq.Models.Entities.Base;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace PurchaseReq.Models.Entities
 {
@@ -16,6 +13,10 @@ namespace PurchaseReq.Models.Entities
         public Request Request { get; set; }
 
         [Required]
-        public string AttachmentPath { get; set; }
+        public byte[] Content { get; set; }
+
+        public string ContentType { get; set; }
+
+        public string FileName { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using PurchaseReq.Models.Entities;
 using PurchaseReq.Models.ViewModels;
 using System.Collections.Generic;
@@ -82,6 +83,10 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         //Approval
         Task<IList<Approval>> GetApprovals();
 
+        //Attachment
+        Task<RequestWithAttachmentsViewModel> GetAttachments(int requestId);
+        Task AddAttachments(int requestId, IEnumerable<IFormFile> files);
+        Task<object> Download(int attachmentId);
 
 
         //Dropdowns
