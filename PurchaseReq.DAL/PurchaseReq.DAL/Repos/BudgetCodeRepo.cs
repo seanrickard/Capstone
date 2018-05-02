@@ -1,6 +1,4 @@
-﻿
-
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PurchaseReq.DAL.Repos.Base;
 using PurchaseReq.DAL.Repos.Interfaces;
 using PurchaseReq.Models.Entities;
@@ -8,16 +6,12 @@ using PurchaseReq.Models.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 
-
 namespace PurchaseReq.DAL.Repos
 {
     public class BudgetCodeRepo : RepoBase<BudgetCode>, IBudgetCodeRepo
     {
-
         public BudgetCodeWithAmount GetBudgetCodeWithBudgetAmount(int? id)
-            => Table.Include(x => x.BudgetAmounts)
-            .Select(item => GetRecord(item, item.BudgetAmounts.Last()))
-            .SingleOrDefault();
+            => Context.Set<BudgetCodeWithAmount>().FromSql($"exec spBudgetCodeWithCurrentAmount {id}").FirstOrDefault();
 
         public IEnumerable<BudgetCodeWithAmount> GetAllWithBudgetAmount()
             => Table.Include(x => x.BudgetAmounts).Select(item => GetRecord(item, item.BudgetAmounts.Last()));
