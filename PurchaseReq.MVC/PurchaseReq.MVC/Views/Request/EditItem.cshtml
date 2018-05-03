@@ -29,11 +29,6 @@
                 <span asp-validation-for="EstimatedCost" class="text-danger"></span>
             </div>
 
-            @*<div class="form-group">
-            <label class="control-label">Vendor</label>
-            <input asp-for="VendorId" class="form-control" />
-            <span asp-validation-for="VendorId" class="text-danger"></span>
-        </div>*@
 
             <div class="form-group">
                 <label class="control-label">Item Description</label>
@@ -47,6 +42,22 @@
                 <input asp-for="Chosen" class="btn-info" checked />
                 <span asp-validation-for="Chosen" class="text-danger"></span>
             </div>
+            @if (User.IsInRole("Purchasing"))
+            {
+
+                <div class="form-group">
+                    <label class="control-label">Estimated Cost</label>
+                    <input asp-for="PaidCost" class="form-control" />
+                    <span asp-validation-for="PaidCost" class="text-danger"></span>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="control-label">Estimated Cost</label>
+                    <input asp-for="PaidTotal" class="form-control" />
+                    <span asp-validation-for="PaidTotal" class="text-danger"></span>
+                </div>
+            }
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">

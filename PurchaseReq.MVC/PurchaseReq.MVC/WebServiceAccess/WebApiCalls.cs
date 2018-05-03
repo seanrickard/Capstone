@@ -381,6 +381,7 @@ namespace PurchaseReq.MVC.WebServiceAccess
         public async Task<List<SelectListItem>> GetBudgetCodesForDropDown(string id)
         {
             var groups = await GetAllEmployeesBudgetCodes(id);
+            var budgets = await GetBudgetsAsync();
 
             var ls = new List<SelectListItem>();
 

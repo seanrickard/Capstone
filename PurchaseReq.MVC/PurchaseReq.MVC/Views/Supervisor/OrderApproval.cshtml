@@ -87,7 +87,9 @@
                         <td>@req.Chosen</td>
                         <td>@req.ReasonChosen</td>
                     }
-                  
+                    <td>
+                        <a asp-action="Index" asp-controller="Attachment" asp-route-requestId=@req.Id class="form-control">Attachments</a>
+                    </td>
                 </tr>
             }
 
