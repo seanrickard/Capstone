@@ -30,10 +30,10 @@
             </div>
 
             @*<div class="form-group">
-                <label class="control-label">Vendor</label>
-                <input asp-for="VendorId" class="form-control" />
-                <span asp-validation-for="VendorId" class="text-danger"></span>
-            </div>*@
+            <label class="control-label">Vendor</label>
+            <input asp-for="VendorId" class="form-control" />
+            <span asp-validation-for="VendorId" class="text-danger"></span>
+        </div>*@
 
             <div class="form-group">
                 <label class="control-label">Item Description</label>
@@ -42,7 +42,14 @@
             </div>
 
             <div class="form-group">
-                
+                <h5>Deselect chosen for unwanted competetive items</h5>
+                <label class="control-label">Chosen</label>
+                <input asp-for="Chosen" class="btn-info" checked/>
+                <span asp-validation-for="Chosen" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+
                 <input type="submit" asp-route-orderId="@Model.OrderId" class="btn btn-primary" />
             </div>
         </form>

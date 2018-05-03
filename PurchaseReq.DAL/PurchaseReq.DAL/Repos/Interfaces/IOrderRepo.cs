@@ -27,6 +27,8 @@ namespace PurchaseReq.DAL.Repos.Interfaces
 
         IEnumerable<PRWithRequest> GetAllWaitingForSupervisor(string supervisorId);
 
+        IEnumerable<PRWithRequest> GetAllDeniedBySupervisor(string supervisorId);
+
         IEnumerable<PRWithRequest> GetAllWaitingForCFO();
 
         IEnumerable<PRWithRequest> GetAllOrdered();

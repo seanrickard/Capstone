@@ -42,7 +42,8 @@ namespace PurchaseReq.MVC.Controllers
                 },
                 EstimatedCost = vm.EstimatedCost,
                 QuantityRequested = vm.QuantityRequested,
-                OrderId = orderId
+                OrderId = orderId,
+                Chosen = vm.Chosen
             };
 
             var result = await _webApiCalls.CreateAsync(req);

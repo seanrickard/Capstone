@@ -48,8 +48,10 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         protected readonly string GetOrderByTypeUriBase;
         protected readonly string IncrementStatusUri;
         protected readonly string CFOStatusUri;
+        protected readonly string DenyOrderUri;
         protected readonly string GetPendingUri;
         protected readonly string CancelOrderUri;
+        protected readonly string GetDeniedBySupervisorUri;
 
 
 
@@ -133,10 +135,14 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
             GetNewOrderUri = $"{ServiceAddress}api/Order/GetNewOrder/";
             GetCategoriesUri = $"{ServiceAddress}api/Category/Get/";
             GetOrderByTypeUriBase = $"{ServiceAddress}api/Order/Get";
+            GetDeniedBySupervisorUri = $"{ServiceAddress}api/Order/GetDeniedBySupervisor/";
             GetOrderUri = $"{ServiceAddress}api/Order/Get/";
             GetOrdersUri = $"{ServiceAddress}api/Order/GetAll/";
             IncrementStatusUri = $"{ServiceAddress}api/Order/MoveOrderLifeCycleUp/";
             CFOStatusUri = $"{ServiceAddress}api/Order/MoveToCFOStatus/";
+            DenyOrderUri = $"{ServiceAddress}api/Order/DenyOrder/";
+
+
             GetPendingUri = $"{ServiceAddress}api/Order/GetPending/";
             CancelOrderUri = $"{ServiceAddress}api/Order/CancellOrder/";
 

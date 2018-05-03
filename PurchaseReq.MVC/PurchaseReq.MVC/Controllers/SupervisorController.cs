@@ -89,9 +89,11 @@ namespace PurchaseReq.MVC.Controllers
                 DeniedJustification = approval.DeniedJustification
             };
 
-            var result = await _webApiCalls.CreateAsync(app);
-
+            var result = await _webApiCalls.UpdateAsync(app.Id, app);
+            PRWithRequest order = await _webApiCalls.MoveToDeniedStatus(id);
             return RedirectToAction("ViewSubmitted");
+
+           
         }
 
         [HttpGet("{id}")]
@@ -99,13 +101,13 @@ namespace PurchaseReq.MVC.Controllers
         {
             PRWithRequest req = await _webApiCalls.GetOrderAsync(id);
 
-            if(req.RequestsWithVendor.Any( x => x.EstimatedTotal > 3000) && req.StateContract == false && req.StatusName != "Waiting for CFO approval")
+            if (req.RequestsWithVendor.Any(x => x.EstimatedTotal > 3000) && req.StateContract == false && req.StatusName != "Waiting for CFO approval")
             {
                 PRWithRequest order = await _webApiCalls.MoveToCFOStatus(id);
                 return RedirectToAction("ViewSubmitted");
             }
             else
-            {
+            { 
                 PRWithRequest order = await _webApiCalls.IncrementStatus(id);
                 return RedirectToAction("ViewSubmitted");
             }

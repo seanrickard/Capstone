@@ -72,6 +72,12 @@ namespace PurchaseReq.Service.Controllers
             return Ok(Repo.GetAllWaitingForSupervisor(supervisorId));
         }
 
+        [HttpGet("{supervisorId}")]
+        public IActionResult GetDeniedBySupervisor(string supervisorId)
+        {
+            return Ok(Repo.GetAllDeniedBySupervisor(supervisorId));
+        }
+
         [HttpGet]
         public IActionResult GetWaitingCFO()
         {

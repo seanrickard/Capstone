@@ -309,6 +309,16 @@ namespace PurchaseReq.MVC.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> DeniedBySupervisor()
+        {
+            ViewData["OrderNames"] = "Denied Orders";
+            string id = _userManager.GetUserId(User);
+            IList<PRWithRequest> orders = await _webApiCalls.GetDeniedBySupervisorAsync(id);
+
+            return View("ViewOrders", orders);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Denied()
         {
             ViewData["OrderNames"] = "Denied Orders";
