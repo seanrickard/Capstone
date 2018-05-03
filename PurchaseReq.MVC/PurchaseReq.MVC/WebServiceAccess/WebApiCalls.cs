@@ -153,7 +153,12 @@ namespace PurchaseReq.MVC.WebServiceAccess
             return await GetItemAsync<RequestWithVendor>($"{RequestWithVendorBaseUri}{id}");
         }
 
-        
+        public async Task<Item> GetOneItem(int id)
+        {
+            return await GetItemAsync<Item>($"{GetItemUri}{id}");
+        }
+
+
 
         //Order
         public async Task<PRWithRequest> GetNewOrder(string id)

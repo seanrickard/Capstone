@@ -29,19 +29,15 @@
 
 
         <td>
+
             <form asp-action="EditItems" asp-route-id="@req.Id" asp-route-itemId="@req.ItemId" method="post">
+                <input type="button" value="Edit Item" asp-route-id=@req.Id onclick="location.href='@Url.Action("EditItem","Request", new {id= req.Id, itemId = req.ItemId})'" class="btn btn-default" />
                 <button type="submit" onclick="return confirm('Do you really want to remove item?')" class="btn btn-sm btn-danger">
                     Remove Item
                 </button>
             </form>
         </td>
-        <td>
-            <form asp-action="EditItem" asp-route-id="@req.Id" asp-route-itemId="@req.ItemId" method="get">
-                <button type="submit" class="btn btn-sm btn-danger">
-                   Edit Item
-                </button>
-            </form>
-        </td>
+     
     </tr>
 
 

@@ -42,10 +42,14 @@
             </div>
 
             <div class="form-group">
-                <h5>Deselect chosen for unwanted competetive items</h5>
+                <h5>Deselect chosen for unwanted competetive items, otherwise specify reason chosen</h5>
                 <label class="control-label">Chosen</label>
-                <input asp-for="Chosen" class="btn-info" checked/>
+                <input asp-for="Chosen" class="btn-info" checked />
                 <span asp-validation-for="Chosen" class="text-danger"></span>
+                <br />
+                <label class="control-label">Reason Chosen</label>
+                <input asp-for="ReasonChosen" class="form-control"  />
+                <span asp-validation-for="ReasonChosen" class="text-danger"></span>
             </div>
 
             <div class="form-group">

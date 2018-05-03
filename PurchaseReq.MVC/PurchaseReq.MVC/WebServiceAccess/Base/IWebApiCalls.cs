@@ -46,6 +46,7 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         //Request
         Task<IList<RequestWithVendor>> GetRequestWithVendors();
         Task<RequestWithVendor> GetOneRequest(int id);
+        Task<Item> GetOneItem(int id);
 
         //Order
         Task<PRWithRequest> GetNewOrder(string id);

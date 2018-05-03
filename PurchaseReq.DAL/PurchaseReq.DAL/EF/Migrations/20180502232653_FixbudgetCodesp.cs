@@ -6,6 +6,7 @@ namespace PurchaseReq.DAL.EF.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.Sql("drop proc spAddBudgetCode");
             var sql = "create proc spAddBudgetCode(@Active as Bit, @BudgetCodeName as NVARCHAR(MAX), @DA as Int, @Type as Bit, @BudgetAmount as Decimal) " +
                 " as " +
                 " begin " +

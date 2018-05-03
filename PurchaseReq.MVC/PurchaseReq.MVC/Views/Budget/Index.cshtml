@@ -34,13 +34,19 @@ else
                 <td>@budgetCode.Active</td>
                 <td>@budgetCode.TotalAmount</td>
                 <td>
-                    <a class="btn btn-sm btn-primary" asp-action="EditBudgetCode" asp-route-id="@budgetCode.Id">Edit</a>
                     <a class="btn btn-sm btn-primary" asp-action="ViewUsers" asp-route-id="@budgetCode.Id">View Users</a>
-
-                    @if (budgetCode.Type)
+                    @if (!User.IsInRole("Auditor"))
                     {
-                        <a class="btn btn-sm btn-primary" asp-action="UpdateTotal" asp-route-id="@budgetCode.Id">Add New Budget Amount</a>
+                        <a class="btn btn-sm btn-primary" asp-action="EditBudgetCode" asp-route-id="@budgetCode.Id">Edit</a>
+
+
+                        @if (budgetCode.Type)
+                        {
+                            <a class="btn btn-sm btn-primary" asp-action="UpdateTotal" asp-route-id="@budgetCode.Id">Add New Budget Amount</a>
+                        }
+
                     }
+
 
 
                 </td>
@@ -49,7 +55,10 @@ else
     </table>
 }
 
-<p>
-    <a anchor-style="primary" asp-action="AddBudgetCode">Add new Budget Code</a>
-</p>
+@if (!User.IsInRole("Auditor"))
+{
+    <p>
+        <a anchor-style="primary" asp-action="AddBudgetCode">Add new Budget Code</a>
+    </p>
+}
 

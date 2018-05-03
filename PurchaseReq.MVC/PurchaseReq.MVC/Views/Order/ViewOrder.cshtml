@@ -63,11 +63,12 @@
                 <th>Description</th>
                 <th>Estimated Cost</th>
                 <th>Estimated Total</th>
-                
+
                 @if (Model.RequestsWithVendor.Where(x => x.EstimatedTotal > 3000).Any())
                 {
+
                     <th>Chosen</th>
-                    <td>ReasonChosen</td>
+                    <th>Reason Chosen</th>
                 }
 
 
@@ -76,54 +77,79 @@
             @foreach (RequestWithVendor req in Model.RequestsWithVendor)
             {
                 <tr>
-                    <td>@req.QuantityRequested</td>
-                    <td>@req.ItemName</td>
-                    <td>@req.Description</td>
-                    <td>@req.EstimatedCost</td>
-                    <td>@req.EstimatedTotal</td>
-
-                    @if (Model.RequestsWithVendor.Where(x => x.EstimatedTotal > 3000).Any())
+                    @if (User.IsInRole("Purchasing") && req.Chosen == true)
                     {
+                        <td>@req.QuantityRequested</td>
+                        <td>@req.ItemName</td>
+                        <td>@req.Description</td>
+                        <td>@req.EstimatedCost</td>
+                        <td>@req.EstimatedTotal</td>
 
-                        <td>@req.Chosen</td>
-                        <td>@req.ReasonChosen</td>
+                        @if (Model.RequestsWithVendor.Where(x => x.EstimatedTotal > 3000).Any())
+                        {
+
+                            <td>@req.Chosen</td>
+                            <td>@req.ReasonChosen</td>
+                        }
+                        <td>
+                            <a asp-action="Index" asp-controller="Attachment" asp-route-requestId=@req.Id class="form-control">View Attachments</a>
+                        </td>
+                            }
+                            @if (!User.IsInRole("Purchasing"))
+                            {
+                                <td>@req.QuantityRequested</td>
+                                <td>@req.ItemName</td>
+                                <td>@req.Description</td>
+                                <td>@req.EstimatedCost</td>
+                                <td>@req.EstimatedTotal</td>
+
+                                    @if (Model.RequestsWithVendor.Where(x => x.EstimatedTotal > 3000).Any())
+                                    {
+
+                                        <td>@req.Chosen</td>
+                                        <td>@req.ReasonChosen</td>
+
+                                    }
+
+                                    <td>
+                                        <a asp-action="Index" asp-controller="Attachment" asp-route-requestId=@req.Id class="form-control">View Attachments</a>
+                                    </td>
+                             }
+
+                          
+
+                        </tr>
 
                     }
 
-                    <td><a asp-action="Index" asp-controller="Attachment" asp-route-requestId=@req.Id class="form-control">View Attachments</a>
-                    <td>
-                </tr>
+                </table>
+
+
+
+                @if (Model.StatusId == 1)
+                {
+                    <a asp-controller="Request" asp-action="AddItem" asp-route-orderId="@Model.Id" class="btn btn-primary">Add New Item</a>
+
+                    if (Model.RequestsWithVendor.Where(x => x.EstimatedTotal > 3000).Any() && Model.RequestsWithVendor.Count() < 3 && Model.StateContract == false)
+                    {
+                        <h4>You must add three competing items for orders over 3000</h4>
+
+                    }
+                    else
+                    {
+
+                        <a asp-controller="Order" asp-action="UpdateStatus" asp-route-id="@Model.Id" class="btn btn-primary">Submit</a>
+                    }
+
+                }
+
+                @if (User.IsInRole("Purchasing") && Model.StatusName == "Approved")
+                {
+                    <a asp-controller="Order" asp-action="UpdateStatus" asp-route-id="@Model.Id" class="btn btn-primary">Mark As Ordered</a>
+                }
 
             }
 
-        </table>
 
 
-
-        @if (Model.StatusId == 1)
-        {
-            <a asp-controller="Request" asp-action="AddItem" asp-route-orderId="@Model.Id" class="btn btn-primary">Add New Item</a>
-
-            if (Model.RequestsWithVendor.Where(x => x.EstimatedTotal > 3000).Any() && Model.RequestsWithVendor.Count() < 3 && Model.StateContract == false)
-            {
-                <h4>You must add three competing items for orders over 3000</h4>
-
-            }
-            else
-            {
-
-                <a asp-controller="Order" asp-action="UpdateStatus" asp-route-id="@Model.Id" class="btn btn-primary">Submit</a>
-            }
-
-        }
-
-        @if (User.IsInRole("Purchasing") && Model.StatusName == "Approved")
-        {
-            <a asp-controller="Order" asp-action="UpdateStatus" asp-route-id="@Model.Id" class="btn btn-primary">Mark As Ordered</a>
-        }
-
-    }
-
-
-
-</div>
+        </div>

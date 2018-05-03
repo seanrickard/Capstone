@@ -19,6 +19,12 @@ namespace PurchaseReq.MVC.Components
                     DisplayValue = "View Ordered",
                     ActionValue = "Ordered",
                     ControllerValue = "Order"
+                },
+                new AuditorMenuItem()
+                {
+                    DisplayValue = "View Budget Codes",
+                    ActionValue = "Index",
+                    ControllerValue = "Budget"
                 }};
 
 

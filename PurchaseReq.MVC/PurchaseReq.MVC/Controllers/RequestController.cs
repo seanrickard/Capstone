@@ -2,6 +2,7 @@
 using PurchaseReq.Models.Entities;
 using PurchaseReq.Models.ViewModels;
 using PurchaseReq.MVC.WebServiceAccess.Base;
+using System;
 using System.Threading.Tasks;
 
 namespace PurchaseReq.MVC.Controllers
@@ -43,7 +44,8 @@ namespace PurchaseReq.MVC.Controllers
                 EstimatedCost = vm.EstimatedCost,
                 QuantityRequested = vm.QuantityRequested,
                 OrderId = orderId,
-                Chosen = vm.Chosen
+                Chosen = vm.Chosen,
+                ReasonChosen = vm.ReasonChosen
             };
 
             var result = await _webApiCalls.CreateAsync(req);
@@ -60,12 +62,38 @@ namespace PurchaseReq.MVC.Controllers
             return View(order);
         }
 
-        [HttpGet("{id}/{ itemId}")]
+        [HttpGet("{id}/{itemId}")]
         public async Task<IActionResult> EditItem(int id, int itemId)
         {
             var order = await _webApiCalls.GetOneRequest(id);
 
             return View(order);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditItem( int itemId, RequestWithVendor request)
+        {
+            var item = await _webApiCalls.GetOneItem(itemId);
+
+            
+
+            foreach(Request asdf in item.Requests)
+            {
+                if(asdf.ItemId == itemId)
+                {
+                    asdf.EstimatedCost = request.EstimatedCost;
+                    asdf.EstimatedTotal = request.EstimatedTotal;
+                    asdf.QuantityRequested = request.QuantityRequested;
+                    item.ItemName = request.ItemName;
+                    item.Description = request.Description;
+                }
+                var req = await _webApiCalls.GetOneRequest(request.Id);
+                var r = await _webApiCalls.UpdateAsync(item.Id, item);
+                var result = await _webApiCalls.UpdateAsync(request.Id, req);
+            }
+          
+            Console.WriteLine("itemId is " + itemId);
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost("{id}, {itemId}")]

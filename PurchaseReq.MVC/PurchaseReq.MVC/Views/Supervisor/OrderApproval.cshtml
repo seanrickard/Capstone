@@ -5,7 +5,7 @@
 <div class="row">
     <div class="col-md-4">
 
-      
+
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
             <label asp-for="EmployeeFullName" class="control-label">Name</label>
@@ -81,20 +81,22 @@
                     <td>@req.Description</td>
                     <td>@req.EstimatedCost</td>
                     <td>@req.EstimatedTotal</td>
-                   @if(req.EstimatedTotal > 3000)
-                   {
+                    @if (Model.RequestsWithVendor.Any(x => x.EstimatedTotal > 3000))
+                    {
+
                         <td>@req.Chosen</td>
                         <td>@req.ReasonChosen</td>
-                   }
+                    }
+                  
                 </tr>
             }
 
         </table>
-    
+
 
         <form>
-        
-            <a asp-controller="Supervisor" asp-action="ApproveOrder"  asp-route-id="@Model.Id"  class="btn btn-primary">Approve</a>
+
+            <a asp-controller="Supervisor" asp-action="ApproveOrder" asp-route-id="@Model.Id" class="btn btn-primary">Approve</a>
             <a asp-controller="Supervisor" asp-action="DenyOrder" asp-route-id="@Model.Id" class="btn btn-danger">Deny</a>
 
         </form>

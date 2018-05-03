@@ -39,6 +39,7 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
 
         //Request
         protected readonly string RequestWithVendorBaseUri;
+        protected readonly string GetItemUri;
 
         //Order
         protected readonly string GetNewOrderUri;
@@ -130,6 +131,7 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
             //Request
 
             RequestWithVendorBaseUri = $"{ServiceAddress}api/Request/Get/";
+            GetItemUri = $"{ServiceAddress}api/Item/Get/";
 
             //Order
             GetNewOrderUri = $"{ServiceAddress}api/Order/GetNewOrder/";

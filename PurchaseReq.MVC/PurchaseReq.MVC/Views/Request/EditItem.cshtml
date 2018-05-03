@@ -9,7 +9,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="EditItem" method="post">
+        <form asp-controller="Request" asp-action="EditItem" method="post" class="form-horizontal" role="form">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label class="control-label">Item Name</label>
@@ -30,10 +30,10 @@
             </div>
 
             @*<div class="form-group">
-                    <label class="control-label">Vendor</label>
-                    <input asp-for="VendorId" class="form-control" />
-                    <span asp-validation-for="VendorId" class="text-danger"></span>
-                </div>*@
+            <label class="control-label">Vendor</label>
+            <input asp-for="VendorId" class="form-control" />
+            <span asp-validation-for="VendorId" class="text-danger"></span>
+        </div>*@
 
             <div class="form-group">
                 <label class="control-label">Item Description</label>
@@ -49,9 +49,20 @@
             </div>
 
             <div class="form-group">
-
-                <input type="submit" asp-route-orderId="@Model.OrderId" class="btn btn-primary" />
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" asp-route-itemId=@Model.ItemId class="btn btn-primary" value="Update Item" />
+                </div>
             </div>
+
+            @Html.HiddenFor(x => x.Id)
+            @Html.HiddenFor(x => x.TimeStamp)
+
+
+            <input type="button" value="Submit" asp-route-itemId=@Model.ItemId class="btn btn-primary" />
+            <button type="submit" onclick="return confirm('Do you really want to remove item?')" class="btn btn-sm btn-danger">
+                Remove Item
+            </button>
+
         </form>
     </div>
 </div>
