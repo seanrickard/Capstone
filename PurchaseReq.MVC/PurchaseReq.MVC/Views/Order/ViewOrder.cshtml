@@ -64,6 +64,13 @@
                 <th>Estimated Cost</th>
                 <th>Estimated Total</th>
 
+                @if (User.IsInRole("Purchasing"))
+                {
+                    <th>Paid Cost</th>
+                    <th>Paid Total</th>
+                }
+
+
                 @if (Model.RequestsWithVendor.Where(x => x.EstimatedTotal > 3000).Any())
                 {
 
@@ -85,6 +92,12 @@
                         <td>@req.EstimatedCost</td>
                         <td>@req.EstimatedTotal</td>
 
+                        @if (User.IsInRole("Purchasing"))
+                        {
+                            <td>@req.PaidCost</td>
+                            <td>@req.PaidTotal</td>
+                        }
+
                         @if (Model.RequestsWithVendor.Where(x => x.EstimatedTotal > 3000).Any())
                         {
 
@@ -102,6 +115,12 @@
                         <td>@req.Description</td>
                         <td>@req.EstimatedCost</td>
                         <td>@req.EstimatedTotal</td>
+
+                        @if (User.IsInRole("Purchasing"))
+                        {
+                            <td>@req.PaidCost</td>
+                            <td>@req.PaidTotal</td>
+                        }
 
 
                         @if (Model.RequestsWithVendor.Where(x => x.EstimatedTotal > 3000).Any())
