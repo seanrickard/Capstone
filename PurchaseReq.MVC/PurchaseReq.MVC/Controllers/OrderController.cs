@@ -101,7 +101,7 @@ namespace PurchaseReq.MVC.Controllers
 
             var result = await _webApiCalls.UpdateAsync(order.Id, order);
 
-            return RedirectToAction("ViewOrders");
+            return RedirectToAction("PendingByEmployee");
         }
 
         [HttpPost("{id}")]
@@ -146,6 +146,8 @@ namespace PurchaseReq.MVC.Controllers
         public async Task<IActionResult> UpdateStatus(int id)
         {
             PRWithRequest order = await _webApiCalls.IncrementStatus(id);
+
+           
             var empId = order.EmployeeId;
 
             if(order.StatusName == "Waiting for Supervisor Approval")

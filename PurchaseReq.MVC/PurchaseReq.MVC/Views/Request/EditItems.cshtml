@@ -35,6 +35,13 @@
                 </button>
             </form>
         </td>
+        <td>
+            <form asp-action="EditItem" asp-route-id="@req.Id" asp-route-itemId="@req.ItemId" method="get">
+                <button type="submit" class="btn btn-sm btn-danger">
+                   Edit Item
+                </button>
+            </form>
+        </td>
     </tr>
 
 
