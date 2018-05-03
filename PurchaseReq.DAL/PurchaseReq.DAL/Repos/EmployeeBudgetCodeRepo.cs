@@ -16,7 +16,7 @@ namespace PurchaseReq.DAL.Repos
                 .Select(item => GetRecord(item, item.Employee, item.BudgetCode));
 
         public IEnumerable<EmployeeBudgetCodeViewModel> GetAllEmployeesBudgetCodes(string id)
-            => Table.Include(x => x.BudgetCode).Where(x => x.EmployeeId == id)
+            => Table.Include(x => x.BudgetCode).Where(x => x.EmployeeId == id && x.BudgetCode.Active)
                 .Select(item => GetRecord(item, item.Employee, item.BudgetCode));
 
         public IEnumerable<EmployeeBudgetCodeViewModel> GetAllEmployeesInBudgetCode(int id)
