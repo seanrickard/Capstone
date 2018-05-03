@@ -11,10 +11,13 @@ namespace PurchaseReq.DAL.Repos
     public class BudgetCodeRepo : RepoBase<BudgetCode>, IBudgetCodeRepo
     {
         public BudgetCodeWithAmount GetBudgetCodeWithBudgetAmount(int? id)
-            => Context.Set<BudgetCodeWithAmount>().FromSql($"exec spBudgetCodeWithCurrentAmount {id}").FirstOrDefault();
+            => Table.Where(x => x.Id == id).Include(x => x.BudgetAmounts)
+                    .Select(item => GetRecord(item, item.BudgetAmounts.Last())).SingleOrDefault();
 
         public IEnumerable<BudgetCodeWithAmount> GetAllWithBudgetAmount()
             => Table.Include(x => x.BudgetAmounts).Select(item => GetRecord(item, item.BudgetAmounts.Last()));
+
+        /*Context.Set<BudgetCodeWithAmount>().FromSql($"exec spAllBudgetCodeWithCurrentAmount ").OrderBy(x => x.BudgetCodeName);*/
 
         public IEnumerable<BudgetCodeWithAmount> GetAllActiveBudgetCodes()
             => Table.Include(x => x.BudgetAmounts).Where(x => x.Active == true)
@@ -46,5 +49,10 @@ namespace PurchaseReq.DAL.Repos
 
         public IEnumerable<BudgetCodeWithAmount> GetActive(int skip, int take)
             => GetAllActiveBudgetCodes().Skip(skip).Take(take);
+
+        public override int Add(BudgetCode entity, bool persist = true)
+        {
+            return Context.Database.ExecuteSqlCommand($"exec spAddBudgetCode {entity.Active}, {entity.BudgetCodeName}, {entity.DA}, {entity.Type}, {entity.BudgetAmounts.First().TotalAmount}");
+        }
     }
 }

@@ -70,30 +70,30 @@ namespace PurchaseReq.DAL.Repos
 
         public IEnumerable<PRWithRequest> GetAllApproved()
         {
-            return QueryAll()
+            return QueryForSupervisorHistory()
                 .Where(x => x.Status.StatusName == "Approved")
-                .Select(item => GetRecord(item.Employee, item.Employee.Department.Division.Supervisor, item.Status, item.Category, item.BudgetCode, item));
+                .Select(item => GetRecord(item.Employee, item.SupervisorApprovals.First().Employee, item.Status, item.Category, item.BudgetCode, item));
         }
 
         public IEnumerable<PRWithRequest> GetAllApprovedForUser(string EmployeeId)
         {
-            return QueryAll()
+            return QueryForSupervisorHistory()
                 .Where(x => x.Status.StatusName == "Approved" && x.EmployeeId == EmployeeId)
-                .Select(item => GetRecord(item.Employee, item.Employee.Department.Division.Supervisor, item.Status, item.Category, item.BudgetCode, item));
+                .Select(item => GetRecord(item.Employee, item.SupervisorApprovals.First().Employee, item.Status, item.Category, item.BudgetCode, item));
         }
 
         public IEnumerable<PRWithRequest> GetAllCompleted()
         {
-            return QueryAll()
+            return QueryForSupervisorHistory()
                 .Where(x => x.Status.StatusName == "Completed")
-                .Select(item => GetRecord(item.Employee, item.Employee.Department.Division.Supervisor, item.Status, item.Category, item.BudgetCode, item));
+                .Select(item => GetRecord(item.Employee, item.SupervisorApprovals.First().Employee, item.Status, item.Category, item.BudgetCode, item));
         }
 
         public IEnumerable<PRWithRequest> GetAllCompletedForUser(string EmployeeId)
         {
-            return QueryAll()
+            return QueryForSupervisorHistory()
                 .Where(x => x.Status.StatusName == "Completed" && x.EmployeeId == EmployeeId)
-                .Select(item => GetRecord(item.Employee, item.Employee.Department.Division.Supervisor, item.Status, item.Category, item.BudgetCode, item));
+                .Select(item => GetRecord(item.Employee, item.SupervisorApprovals.First().Employee, item.Status, item.Category, item.BudgetCode, item));
         }
 
         public IEnumerable<PRWithRequest> GetAllCreatedForUser(string EmployeeId)
@@ -112,23 +112,23 @@ namespace PurchaseReq.DAL.Repos
 
         public IEnumerable<PRWithRequest> GetAllOrderedForUser(string EmployeeId)
         {
-            return QueryAll()
+            return QueryForSupervisorHistory()
                 .Where(x => x.Status.StatusName == "Ordered" && x.EmployeeId == EmployeeId)
-                .Select(item => GetRecord(item.Employee, item.Employee.Department.Division.Supervisor, item.Status, item.Category, item.BudgetCode, item));
+                .Select(item => GetRecord(item.Employee, item.SupervisorApprovals.First().Employee, item.Status, item.Category, item.BudgetCode, item));
         }
 
         public IEnumerable<PRWithRequest> GetAllWaitingForCFO()
         {
-            return QueryAll()
+            return QueryForSupervisorHistory()
                 .Where(x => x.Status.StatusName == "Waiting for CFO approval")
-                .Select(item => GetRecord(item.Employee, item.Employee.Department.Division.Supervisor, item.Status, item.Category, item.BudgetCode, item));
+                .Select(item => GetRecord(item.Employee, item.SupervisorApprovals.First().Employee, item.Status, item.Category, item.BudgetCode, item));
         }
 
         public IEnumerable<PRWithRequest> GetAllWaitingForCFOForUser(string EmployeeId)
         {
-            return QueryAll()
+            return QueryForSupervisorHistory()
                 .Where(x => x.Status.StatusName == "Waiting for CFO approval" && x.EmployeeId == EmployeeId)
-                .Select(item => GetRecord(item.Employee, item.Employee.Department.Division.Supervisor, item.Status, item.Category, item.BudgetCode, item));
+                .Select(item => GetRecord(item.Employee, item.SupervisorApprovals.First().Employee, item.Status, item.Category, item.BudgetCode, item));
         }
 
         public IEnumerable<PRWithRequest> GetAllWaitingForSupervisor()
@@ -160,6 +160,11 @@ namespace PurchaseReq.DAL.Repos
                 .Include(x => x.Employee).ThenInclude(x => x.Department)
                 .ThenInclude(x => x.Division)
                 .ThenInclude(x => x.Supervisor);
+
+        internal IEnumerable<Order> QueryForSupervisorHistory() => Table.Include(x => x.Status)
+                .Include(x => x.Category).Include(x => x.BudgetCode)
+                .Include(x => x.SupervisorApprovals).ThenInclude(x => x.Employee)
+                .Include(x => x.Employee);
 
 
         public PRWithRequest GetOrder(int? id)
@@ -242,16 +247,16 @@ namespace PurchaseReq.DAL.Repos
 
         public IEnumerable<PRWithRequest> GetDenied()
         {
-            return QueryAll()
+            return QueryForSupervisorHistory()
                 .Where(x => x.Status.StatusName == "Denied")
-                .Select(item => GetRecord(item.Employee, item.Employee.Department.Division.Supervisor, item.Status, item.Category, item.BudgetCode, item));
+                .Select(item => GetRecord(item.Employee, item.SupervisorApprovals.First().Employee, item.Status, item.Category, item.BudgetCode, item));
         }
 
         public IEnumerable<PRWithRequest> GetDenied(string employeeId)
         {
-            return QueryAll()
+            return QueryForSupervisorHistory()
                 .Where(x => x.Status.StatusName == "Denied" && x.EmployeeId == employeeId)
-                .Select(item => GetRecord(item.Employee, item.Employee.Department.Division.Supervisor, item.Status, item.Category, item.BudgetCode, item));
+                .Select(item => GetRecord(item.Employee, item.SupervisorApprovals.First().Employee, item.Status, item.Category, item.BudgetCode, item));
         }
 
         public IEnumerable<PRWithRequest> GetAllCancelled(string employeeId)

@@ -1,8 +1,9 @@
-﻿using System;
-using System.Linq;
-using PurchaseReq.DAL.EF;
+﻿using PurchaseReq.DAL.EF;
 using PurchaseReq.DAL.Initializers;
+using PurchaseReq.DAL.Repos;
 using PurchaseReq.Models.Entities;
+using System;
+using System.Linq;
 using Xunit;
 
 namespace PurchaseReq.DAL.Tests.ContextTests.OrdersTests
@@ -30,6 +31,8 @@ namespace PurchaseReq.DAL.Tests.ContextTests.OrdersTests
         [Fact]
         public void FirstTest()
         {
+            OrderRepo repo = new OrderRepo(new RequestRepo());
+            var model = repo.GetAllWaitingForCFO();
             Assert.True(true);
         }
 
