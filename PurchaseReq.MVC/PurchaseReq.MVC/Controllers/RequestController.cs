@@ -70,29 +70,56 @@ namespace PurchaseReq.MVC.Controllers
             return View(order);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> EditItem( int itemId, RequestWithVendor request)
+        [HttpPost("{id}/{itemId}")]
+        public async Task<IActionResult> EditItem(RequestWithVendor request)
         {
-            var item = await _webApiCalls.GetOneItem(itemId);
+            var item = await _webApiCalls.GetOneItem(request.ItemId);
 
-            
-
-            foreach(Request asdf in item.Requests)
+            if (!ModelState.IsValid)
             {
-                if(asdf.ItemId == itemId)
-                {
-                    asdf.EstimatedCost = request.EstimatedCost;
-                    asdf.EstimatedTotal = request.EstimatedTotal;
-                    asdf.QuantityRequested = request.QuantityRequested;
-                    item.ItemName = request.ItemName;
-                    item.Description = request.Description;
-                }
-                var req = await _webApiCalls.GetOneRequest(request.Id);
-                var r = await _webApiCalls.UpdateAsync(item.Id, item);
-                var result = await _webApiCalls.UpdateAsync(request.Id, req);
+                return View(request);
             }
-          
-            Console.WriteLine("itemId is " + itemId);
+
+            Request updateRequest = new Request {
+                Id = request.Id,
+                Chosen = request.Chosen,
+                EstimatedCost = request.EstimatedCost,
+                EstimatedTotal = request.EstimatedTotal,
+                OrderId = request.OrderId,
+                PaidCost = request.PaidCost,
+                PaidTotal = request.PaidTotal,
+                QuantityRequested = request.QuantityRequested,
+                ReasonChosen = request.ReasonChosen,
+                TimeStamp = request.TimeStamp,
+                ItemId = request.ItemId,
+            };
+
+            Item updateItem = new Item
+            {
+                Id = request.ItemId,
+                ItemName = request.ItemName,
+                Description = request.Description,
+                TimeStamp = item.TimeStamp,
+            };
+
+            var itemResult = await _webApiCalls.UpdateAsync(updateItem.Id, updateItem);
+            var requestResult = await _webApiCalls.UpdateAsync(updateRequest.Id, updateRequest);
+
+            //foreach(Request asdf in item.Requests)
+            //{
+            //    if(asdf.ItemId == request.ItemId)
+            //    {
+            //        asdf.EstimatedCost = request.EstimatedCost;
+            //        asdf.EstimatedTotal = request.EstimatedTotal;
+            //        asdf.QuantityRequested = request.QuantityRequested;
+            //        item.ItemName = request.ItemName;
+            //        item.Description = request.Description;
+            //    }
+            //    var req = await _webApiCalls.GetOneRequest(request.Id);
+            //    var r = await _webApiCalls.UpdateAsync(item.Id, item);
+            //    var result = await _webApiCalls.UpdateAsync(request.Id, req);
+            //}
+
             return RedirectToAction("Index", "Home");
         }
 

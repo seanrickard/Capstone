@@ -50,18 +50,12 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" asp-route-itemId=@Model.ItemId class="btn btn-primary" value="Update Item" />
+                    <input type="submit" class="btn btn-primary" value="Update Item" />
                 </div>
             </div>
-
+            @Html.HiddenFor(x => x.OrderId)
             @Html.HiddenFor(x => x.Id)
             @Html.HiddenFor(x => x.TimeStamp)
-
-
-            <input type="button" value="Submit" asp-route-itemId=@Model.ItemId class="btn btn-primary" />
-            <button type="submit" onclick="return confirm('Do you really want to remove item?')" class="btn btn-sm btn-danger">
-                Remove Item
-            </button>
 
         </form>
     </div>
