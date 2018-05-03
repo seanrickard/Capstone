@@ -103,6 +103,7 @@
                         <td>@req.EstimatedCost</td>
                         <td>@req.EstimatedTotal</td>
 
+
                         @if (Model.RequestsWithVendor.Where(x => x.EstimatedTotal > 3000).Any())
                         {
 
