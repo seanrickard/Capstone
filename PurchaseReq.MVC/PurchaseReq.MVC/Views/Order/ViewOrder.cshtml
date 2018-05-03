@@ -63,7 +63,13 @@
                 <th>Description</th>
                 <th>Estimated Cost</th>
                 <th>Estimated Total</th>
-                <th>Chosen</th>
+                
+                @if (Model.RequestsWithVendor.Where(x => x.EstimatedTotal > 3000).Any())
+                {
+                    <th>Chosen</th>
+                    <td>ReasonChosen</td>
+                }
+
 
             </tr>
 
@@ -75,13 +81,24 @@
                     <td>@req.Description</td>
                     <td>@req.EstimatedCost</td>
                     <td>@req.EstimatedTotal</td>
-                    <td>@req.Chosen</td>
-                    <td><a asp-action="Index" asp-controller="Attachment" asp-route-requestId=@req.Id class="form-control">View Attachments</a><td>
+
+                    @if (Model.RequestsWithVendor.Where(x => x.EstimatedTotal > 3000).Any())
+                    {
+
+                        <td>@req.Chosen</td>
+                        <td>@req.ReasonChosen</td>
+
+                    }
+
+                    <td><a asp-action="Index" asp-controller="Attachment" asp-route-requestId=@req.Id class="form-control">View Attachments</a>
+                    <td>
                 </tr>
 
             }
 
         </table>
+
+
 
         @if (Model.StatusId == 1)
         {

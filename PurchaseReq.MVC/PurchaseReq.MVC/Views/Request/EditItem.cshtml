@@ -1,15 +1,15 @@
 ﻿@model RequestWithVendor
 
 @{
-    ViewData["Title"] = "Add Item";
+    ViewData["Title"] = "Edit Item";
 }
 
-<h2>Add Item</h2>
+<h2>Edit Item</h2>
 
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="AddItem" method="post">
+        <form asp-action="EditItem" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label class="control-label">Item Name</label>
@@ -30,10 +30,10 @@
             </div>
 
             @*<div class="form-group">
-            <label class="control-label">Vendor</label>
-            <input asp-for="VendorId" class="form-control" />
-            <span asp-validation-for="VendorId" class="text-danger"></span>
-        </div>*@
+                    <label class="control-label">Vendor</label>
+                    <input asp-for="VendorId" class="form-control" />
+                    <span asp-validation-for="VendorId" class="text-danger"></span>
+                </div>*@
 
             <div class="form-group">
                 <label class="control-label">Item Description</label>
@@ -44,7 +44,7 @@
             <div class="form-group">
                 <h5>Deselect chosen for unwanted competetive items</h5>
                 <label class="control-label">Chosen</label>
-                <input asp-for="Chosen" class="btn-info" checked/>
+                <input asp-for="Chosen" class="btn-info" checked />
                 <span asp-validation-for="Chosen" class="text-danger"></span>
             </div>
 

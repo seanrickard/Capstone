@@ -45,7 +45,13 @@ namespace PurchaseReq.MVC.Components
                 },
                 new SupervisorMenuItem()
                 {
-                    DisplayValue = "View Denied Orders",
+                    DisplayValue = "Denied Orders",
+                    ActionValue = "DeniedBySupervisor",
+                    ControllerValue = "Order"
+                },
+                new SupervisorMenuItem()
+                {
+                    DisplayValue = "Your Denied Orders",
                     ActionValue = "DeniedByEmployee",
                     ControllerValue = "Order"
                 }};

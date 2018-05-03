@@ -58,6 +58,8 @@ namespace PurchaseReq.MVC.WebServiceAccess.Base
         Task<IList<PRWithRequest>> GetPendingOrdersAsync(string id);
         Task<PRWithRequest> MoveToCFOStatus(int id);
         Task<PRWithRequest> CancelOrderAsync(int id);
+        Task<PRWithRequest> MoveToDeniedStatus(int id);
+        Task<IList<PRWithRequest>> GetDeniedBySupervisorAsync(string id);
 
 
         //Employee

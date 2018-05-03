@@ -89,9 +89,11 @@ namespace PurchaseReq.MVC.Controllers
                 DeniedJustification = approval.DeniedJustification
             };
 
-            var result = await _webApiCalls.CreateAsync(app);
-
+            var result = await _webApiCalls.UpdateAsync(app.Id, app);
+            PRWithRequest order = await _webApiCalls.MoveToDeniedStatus(id);
             return RedirectToAction("ViewSubmitted");
+
+           
         }
 
         [HttpGet("{id}")]
@@ -99,13 +101,33 @@ namespace PurchaseReq.MVC.Controllers
         {
             PRWithRequest req = await _webApiCalls.GetOrderAsync(id);
 
-            if(req.RequestsWithVendor.Any( x => x.EstimatedTotal > 3000) && req.StateContract == false && req.StatusName != "Waiting for CFO approval")
+            
+            Employee emp = await _userManager.GetUserAsync(User);
+            IList<string> roleId = await _userManager.GetRolesAsync(emp);
+
+            IdentityRole role = await _roleManager.FindByNameAsync(roleId[0]);
+            var approvals = await _webApiCalls.GetApprovals();
+             var ApprovalId = approvals.Where(x => x.ApprovalName == "Approved").FirstOrDefault().Id;
+
+            SupervisorApproval sa = new SupervisorApproval()
+            {
+                SupervisorId = req.SupervisorId,
+                OrderId = req.Id,
+                UserRoleId = role.Id,
+                ApprovalId = ApprovalId
+
+            };
+
+            var result = await _webApiCalls.CreateAsync(sa);
+
+
+            if (req.RequestsWithVendor.Any(x => x.EstimatedTotal > 3000) && req.StateContract == false && req.StatusName != "Waiting for CFO approval")
             {
                 PRWithRequest order = await _webApiCalls.MoveToCFOStatus(id);
                 return RedirectToAction("ViewSubmitted");
             }
             else
-            {
+            { 
                 PRWithRequest order = await _webApiCalls.IncrementStatus(id);
                 return RedirectToAction("ViewSubmitted");
             }

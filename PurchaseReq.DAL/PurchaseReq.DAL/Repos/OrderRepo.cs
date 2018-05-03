@@ -145,6 +145,13 @@ namespace PurchaseReq.DAL.Repos
                 .Select(item => GetRecord(item.Employee, item.Employee.Department.Division.Supervisor, item.Status, item.Category, item.BudgetCode, item));
         }
 
+        public IEnumerable<PRWithRequest> GetAllDeniedBySupervisor(string supervisorId)
+        {
+            return QueryAll()
+                .Where(x => x.Status.StatusName == "Denied" && x.Employee.Department.Division.Supervisor.Id == supervisorId)
+                .Select(item => GetRecord(item.Employee, item.Employee.Department.Division.Supervisor, item.Status, item.Category, item.BudgetCode, item));
+        }
+
         public IEnumerable<PRWithRequest> GetAllWaitingForSupervisorForUser(string EmployeeId)
         {
             return QueryAll()

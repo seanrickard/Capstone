@@ -204,6 +204,16 @@ namespace PurchaseReq.MVC.WebServiceAccess
             return await GetItemAsync<PRWithRequest>($"{CancelOrderUri}{id}");
         }
 
+        public async Task<PRWithRequest> MoveToDeniedStatus(int id)
+        {
+            return await GetItemAsync<PRWithRequest>($"{DenyOrderUri}{id}");
+        }
+
+        public async Task<IList<PRWithRequest>> GetDeniedBySupervisorAsync(string id)
+        {
+            return await GetItemListAsync<PRWithRequest>($"{GetDeniedBySupervisorUri}{id}");
+        }
+
 
         //Employee
         public async Task<IList<EmployeeWithDepartmentAndRoomAndRole>> GetEmployees()
@@ -371,11 +381,15 @@ namespace PurchaseReq.MVC.WebServiceAccess
 
             foreach (EmployeeBudgetCodeViewModel d in groups)
             {
-                ls.Add(new SelectListItem
+                if(d.Active == true)
                 {
-                    Value = d.BudgetCodeId.ToString(),
-                    Text = d.BudgetCodeName
-                });
+                    ls.Add(new SelectListItem
+                    {
+                        Value = d.BudgetCodeId.ToString(),
+                        Text = d.BudgetCodeName
+                    });
+                }
+               
             }
             return ls;
         }
