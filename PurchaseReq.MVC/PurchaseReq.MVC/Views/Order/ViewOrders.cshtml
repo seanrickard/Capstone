@@ -20,6 +20,7 @@ else
             <th>Budget Code</th>
             <th>State Contract</th>
             <th>Justification</th>
+           
         </tr>
         @foreach (PRWithRequest pr in Model)
         {
@@ -33,6 +34,7 @@ else
                 <td>@pr.BudgetCodeName</td>
                 <td>@pr.StateContract</td>
                 <td>@pr.BusinessJustification</td>
+                
 
                 <form asp-action="CancelOrder" asp-route-id="@pr.Id" method="post">
                     <td>
